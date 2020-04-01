@@ -2,10 +2,14 @@ body {
   background-image: url('img/foglio.jpeg');
   font-family: 'Permanent Marker', cursive;
 }
+.title {
+  color: red;
+}
 .inputText, .btn-info {
   padding: 10px;
 }
 li {
   text-transform: uppercase;
-  font-size: 40px;
+  font-size: 23px;
+  width: 200px;
 }
