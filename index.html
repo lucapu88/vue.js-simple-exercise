@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!-- jquery -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> <!-- bootstrap -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"> <!-- fontawesome -->
     <link rel="stylesheet" href="style.css"> <!-- css -->
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet"> <!-- google body font -->
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"> <!-- google other font -->
@@ -21,8 +22,9 @@
             <h1 class="title text-center">Lista Spesa</h1>
             <input class="inputText border border-primary rounded" type="text" v-model="newTodo" @keypress.13='visibleMessage' placeholder="Scrivi cosa comprare"> <button class="btn btn-info" type="button" @click='addTodo'> Aggiungi </button>
             <ul>
-              <li v-for='todo in todos'>
+              <li v-for='(todo, index) in todos'>
                 {{todo}}
+                <button class="ml-3 btn btn-primary" @click='removeTodo'><i class="fas fa-trash-alt"></i></button>
               </li>
             </ul>
           </div>

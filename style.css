@@ -5,6 +5,10 @@ body {
 .title, .inputText, .btn {
   font-family: 'Permanent Marker', cursive;
 }
-.inputText, .btn {
+.inputText, .btn-info {
   padding: 10px;
+}
+li {
+  text-transform: uppercase;
+  font-size: 25px;
 }
