@@ -1,5 +1,9 @@
 body {
   background-image: url('img/foglio.jpeg');
+  font-family: 'Lobster', cursive;
+}
+.title, .inputText, .btn {
+  font-family: 'Permanent Marker', cursive;
 }
 .inputText, .btn {
   padding: 10px;
