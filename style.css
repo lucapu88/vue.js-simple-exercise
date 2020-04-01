@@ -1,8 +1,5 @@
 body {
   background-image: url('img/foglio.jpeg');
-  font-family: 'Lobster', cursive;
-}
-.title, .inputText, .btn {
   font-family: 'Permanent Marker', cursive;
 }
 .inputText, .btn-info {
@@ -10,5 +7,5 @@ body {
 }
 li {
   text-transform: uppercase;
-  font-size: 25px;
+  font-size: 40px;
 }

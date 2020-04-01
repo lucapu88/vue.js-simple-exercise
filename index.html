@@ -20,9 +20,9 @@
         <div class="row">
           <div class="mt-3 mx-auto">
             <h1 class="title text-center">Lista Spesa</h1>
-            <input class="inputText border border-primary rounded" type="text" v-model="newTodo" @keypress.13='visibleMessage' placeholder="Scrivi cosa comprare"> <button class="btn btn-info" type="button" @click='addTodo'> Aggiungi </button>
+            <input class="inputText border border-primary rounded" type="text" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare"> <button class="btn btn-info" type="button" @click='addTodo'> Aggiungi </button>
             <ul>
-              <li v-for='(todo, index) in todos'>
+              <li class="mt-2" v-for='(todo, index) in todos'> <!-- ciclo il singolo oggetto dentro il todos (contenitore)-->
                 {{todo}}
                 <button class="ml-3 btn btn-primary" @click='removeTodo'><i class="fas fa-trash-alt"></i></button>
               </li>

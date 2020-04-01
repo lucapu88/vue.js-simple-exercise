@@ -11,7 +11,7 @@ var app = new Vue({
       this.newTodo = ''; //resetto l'input
     },
     removeTodo(index, todo) { //funzione applicata al click sull'icona della spazzatura
-      this.todos.splice(index, 1); //elimina l'elemento cliccato perchè gli abbiamo dato index 1 (splice elmina elementi dall'index in poi, index compreso, quindi in questo caso elimina se stesso)
+       this.todos.splice(index, 1); //elimina l'elemento cliccato perchè gli abbiamo dato index 1 (splice elmina elementi dall'index in poi, index compreso, quindi in questo caso elimina se stesso)
     }
   }
 });
