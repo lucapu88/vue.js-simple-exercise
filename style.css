@@ -1,6 +1,6 @@
 body {
   background-image: url('img/foglio.jpeg');
 }
-.inputText {
+.inputText, .btn {
   padding: 10px;
 }
