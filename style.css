@@ -6,13 +6,17 @@ body {
   color: red;
   font-family: 'Oleo Script', cursive;
 }
-.inputText, .btn-info {
+.inputText {
   font-family: 'Oleo Script', cursive;
   padding: 10px;
-  width: 100%;
+  width: 79%;
 }
-li {
+.btn-info {
+  padding: 10px;
+}
+.todo {
   text-transform: uppercase;
   font-size: 23px;
   width: 200px;
+  line-height: 1;
 }
