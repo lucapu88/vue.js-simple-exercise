@@ -3,31 +3,34 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.png" />
     <title>Lista Spesa</title>
     <link rel="stylesheet" href="style.css">
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!-- jquery -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> <!-- bootstrap -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"> <!-- fontawesome -->
     <link rel="stylesheet" href="style.css"> <!-- css -->
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet"> <!-- google body font -->
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"> <!-- google other font -->
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"> <!-- google body font -->
+    <link href="https://fonts.googleapis.com/css2?family=Oleo+Script:wght@700&display=swap" rel="stylesheet"> <!-- google other font -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script> -->
   </head>
   <body>
     <div class="container">
       <div id="app">
-        <div class="row">
-          <div class="mt-3 mx-auto">
-            <h1 class="title text-center">Lista Spesa</h1>
-            <input class="inputText border border-primary rounded" type="text" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare"> <button class="btn btn-info" type="button" @click='addTodo'> Aggiungi </button>
-            <ul class="col-12">
-              <li class="mt-2" v-for='(todo, index) in todos'> <!-- ciclo il todo (singolo elemento) dentro il todos (array contenitore)-->
-                {{todo}}
-                <button class="ml-3 btn btn-primary" @click='removeTodo(index, todo)'><i class="fas fa-trash-alt"></i></button> <!-- al click passa alla funzione removeTodo l'indice del todo e il todo stesso-->
-              </li>
-            </ul>
+        <div class="mt-3 mx-auto">
+          <h2 class="title">Lista Spesa</h2>
+          <div v-for="(todo, n) in todos">
+            <p>
+              <span class="todo">{{ todo }}</span>
+              <button @click="removeTodo(n)">Remove</button>
+            </p>
           </div>
+
+          <p>
+            <input v-model="newTodo">
+            <button @click="addTodo">Add todo</button>
+          </p>
         </div>
       </div>
     </div>
