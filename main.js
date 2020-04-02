@@ -16,7 +16,7 @@ const app = new Vue({
   },
   methods: {
     addTodo() { //funzione applicata al click del button
-      if (!this.newTodo) {
+      if (!this.newTodo) { //solo se scrivo qualcosa lo aggiunge
         return;
       }
 
@@ -31,6 +31,10 @@ const app = new Vue({
     saveTodos() {
       const parsed = JSON.stringify(this.todos);
       localStorage.setItem('todos', parsed);
-    }
+    },
+    removeAllTodo(x) {
+      this.todos.splice(x); //elimina tutta la lista
+      this.saveTodos(); //salvo il tutto
+    },
   }
 });
