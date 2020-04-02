@@ -9,7 +9,7 @@ body {
 .inputText, .btn-info {
   font-family: 'Oleo Script', cursive;
   padding: 10px;
-  width: 95%;
+  width: 100%;
 }
 li {
   text-transform: uppercase;
