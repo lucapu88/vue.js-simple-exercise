@@ -25,10 +25,13 @@
             <button class="btn btn-info" @click="addTodo"><i class="far fa-paper-plane"></i></button>
             <ul class="col-12">
               <div v-for="(todo, n) in todos">
-                <li class="mt-2 ml-1 todo">
+                <li class="mt-2 todo">
                   {{ todo }}
                   <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="removeTodo(n)"><i class="fas fa-trash-alt"></i></button>
+                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-on:click="isHidden = false"><i class="fas fa-pencil-alt"></i></button>
                 </li>
+                <input class="border border-primary rounded" v-if="!isHidden" v-model="todo">
+                <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="!isHidden" v-on:click="isHidden = true" @click="modifyTodo(todo)" ><i class="far fa-save"></i></button>
               </div>
             </ul>
             <button class="ml-3 btn btn-dark" @click="removeAllTodo()">Cancella tutto <i class="fas fa-skull-crossbones"></i></button>

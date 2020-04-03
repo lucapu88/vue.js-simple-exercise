@@ -3,7 +3,8 @@ const app = new Vue({
   el: '#app',
   data: {
     todos: [], //array vuoto che conterrà gli elementi che noi digitiamo
-    newTodo: null //elemento che scriviamo noi e andrà a riempire l'array
+    newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
+    isHidden: true
   },
   mounted() {
     if (localStorage.getItem('todos')) {
@@ -26,6 +27,10 @@ const app = new Vue({
     },
     removeTodo(x) {
       this.todos.splice(x, 1); //elimina l'elemento cliccato perchè gli abbiamo dato come index 1 (splice elmina elementi dall'index in poi, index compreso, quindi in questo caso elimina se stesso)
+      this.saveTodos(); //salvo il tutto
+    },
+    modifyTodo(x) {
+      this.todos.push(x);
       this.saveTodos(); //salvo il tutto
     },
     saveTodos() { //per salvare elementi
