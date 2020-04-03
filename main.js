@@ -33,7 +33,7 @@ const app = new Vue({
       localStorage.setItem('todos', parsed); //imposto il valore in locale passandogli l'array e l'array trasformato in stringa
     },
     removeAllTodo(x) {
-      this.todos.splice(x); //elimina tutta la lista
+      this.todos.splice(x); //elimina tutta la lista 
       this.saveTodos(); //salvo il tutto
     },
   }

@@ -27,11 +27,11 @@
               <div v-for="(todo, n) in todos">
                 <li class="mt-2 ml-1 todo">
                   {{ todo }}
-                  <button class="ml-3 btn btn-primary rounded-circle btn-sm" @click="removeTodo(n)"><i class="fas fa-trash-alt"></i></button>
+                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="removeTodo(n)"><i class="fas fa-trash-alt"></i></button>
                 </li>
               </div>
             </ul>
-            <button class="ml-3 btn btn-dark" @click="removeAllTodo(n)">Cancella tutto <i class="fas fa-skull-crossbones"></i></button>
+            <button class="ml-3 btn btn-dark" @click="removeAllTodo()">Cancella tutto <i class="fas fa-skull-crossbones"></i></button>
           </div>
         </div>
       </div>
