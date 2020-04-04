@@ -35,8 +35,8 @@
                   <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="isHidden" v-on:click="isHidden = false"><i
                       class="fas fa-pencil-alt"></i></button>
                   <input class="ml-4 border border-primary rounded" v-if="!isHidden" v-model="todo">
-                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="!isHidden" v-on:click="isHidden = true"
-                    @click="modifyTodo(todo)"><i class="far fa-save"></i></button>
+                  <button class="ml-1 btn btn-success rounded-circle btn-sm" v-if="!isHidden" v-on:click="isHidden = true"
+                    @click="modifyTodo(n, todo)"><i class="far fa-save"></i></button>
                 </li>
               </div>
             </ul>

@@ -29,8 +29,10 @@ const app = new Vue({
       this.todos.splice(x, 1); //elimina l'elemento cliccato perchè gli abbiamo dato come index 1 (splice elmina elementi dall'index in poi, index compreso, quindi in questo caso elimina se stesso)
       this.saveTodos(); //salvo il tutto
     },
-    modifyTodo(x) {
-      this.todos.push(x);
+    modifyTodo(x, y) { //prendo in pasto x=index e y=todo
+      // console.log(x, y);
+      this.todos.splice(x, 1); //elimino il todo preso in pasto
+      this.todos.splice(x, 0, y); //aggiungo un nuovo todo passandogli lo stesso index
       this.saveTodos(); //salvo il tutto
     },
     saveTodos() { //per salvare elementi
@@ -38,7 +40,7 @@ const app = new Vue({
       localStorage.setItem('todos', parsed); //imposto il valore in locale passandogli l'array e l'array trasformato in stringa
     },
     removeAllTodo(x) {
-      this.todos.splice(x); //elimina tutta la lista 
+      this.todos.splice(x); //elimina tutta la lista
       this.saveTodos(); //salvo il tutto
     },
   }
