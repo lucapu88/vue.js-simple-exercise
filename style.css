@@ -2,6 +2,9 @@ body {
   background-image: url('img/foglio.jpeg');
   font-family: 'Permanent Marker', cursive;
 }
+.header-container {
+  width: 365px;
+}
 .title {
   color: red;
   font-family: 'Oleo Script', cursive;
@@ -20,6 +23,7 @@ body {
   width: 200px;
   line-height: 1;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 .fa-minus {
   padding: 10px;
