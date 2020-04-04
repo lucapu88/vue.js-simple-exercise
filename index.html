@@ -21,20 +21,26 @@
         <div class="row">
           <div class="mt-3 mx-auto">
             <h2 class="title text-center">Lista Spesa</h2>
-            <input class="inputText border border-primary rounded" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare">
+            <input class="inputText mb-2 border border-primary rounded" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare">
             <button class="btn btn-info" @click="addTodo"><i class="far fa-paper-plane"></i></button>
             <ul class="col-12">
               <div v-for="(todo, n) in todos">
+                <i class="fas fa-minus ml-2"></i>
                 <li class="mt-2 todo">
                   {{ todo }}
-                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="removeTodo(n)"><i class="fas fa-trash-alt"></i></button>
-                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-on:click="isHidden = false"><i class="fas fa-pencil-alt"></i></button>
                 </li>
-                <input class="border border-primary rounded" v-if="!isHidden" v-model="todo">
-                <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="!isHidden" v-on:click="isHidden = true" @click="modifyTodo(todo)" ><i class="far fa-save"></i></button>
+                <li class="button-container">
+                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="isHidden" @click="removeTodo(n)"><i
+                      class="fas fa-trash-alt"></i></button>
+                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="isHidden" v-on:click="isHidden = false"><i
+                      class="fas fa-pencil-alt"></i></button>
+                  <input class="ml-4 border border-primary rounded" v-if="!isHidden" v-model="todo">
+                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="!isHidden" v-on:click="isHidden = true"
+                    @click="modifyTodo(todo)"><i class="far fa-save"></i></button>
+                </li>
               </div>
             </ul>
-            <button class="ml-3 btn btn-dark" @click="removeAllTodo()">Cancella tutto <i class="fas fa-skull-crossbones"></i></button>
+            <button class="delete-all btn btn-dark" @click="removeAllTodo()">Cancella tutto <i class="fas fa-skull-crossbones"></i></button>
           </div>
         </div>
       </div>

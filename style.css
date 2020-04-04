@@ -9,17 +9,30 @@ body {
 .inputText {
   font-family: 'Oleo Script', cursive;
   padding: 10px;
-  width: 79%;
+  margin-left: 20%;
 }
 .btn-info {
   padding: 10px;
 }
-.btn-dark {
-  margin-bottom: 10px;
-}
 .todo {
   text-transform: uppercase;
-  font-size: 23px;
+  font-size: 20px;
   width: 200px;
   line-height: 1;
+  overflow-x: auto;
+}
+.fa-minus {
+  padding: 10px;
+}
+.button-container {
+  border: 2px solid rgb(0, 172, 252);
+  border-radius: 5px;
+  padding: 2px;
+}
+.delete-all {
+  margin-left: 25%;
+  margin-bottom: 10px;
+}
+li {
+  display: inline-block;
 }
