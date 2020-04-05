@@ -2,9 +2,10 @@
 const app = new Vue({
   el: '#app',
   data: {
-    todos: [], //array vuoto che conterrà gli elementi che noi digitiamo
+    todos: [{
+      
+    }], //array vuoto che conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
-    isHidden: true
   },
   mounted() {
     if (localStorage.getItem('todos')) {
@@ -16,12 +17,15 @@ const app = new Vue({
     }
   },
   methods: {
+    toggleHidden(n){
+      this.todos[n].isHidden = !this.todos[n].isHidden;
+    },
     addTodo() { //funzione applicata al click del button
       if (!this.newTodo) { //solo se scrivo qualcosa lo aggiunge
         return;
       }
 
-      this.todos.push(this.newTodo); //dentro l'array (todos) va ad aggiungere quel singolo elemento che noi scriviamo (newTodo)
+      this.todos.push({ name: this.newTodo, isHidden: true }); //dentro l'array (todos) va ad aggiungere quel singolo elemento che noi scriviamo (newTodo)
       this.newTodo = ''; //resetto l'input
       this.saveTodos(); //salvo il tutto
     },
