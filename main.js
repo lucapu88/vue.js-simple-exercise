@@ -3,8 +3,8 @@ const app = new Vue({
   el: '#app',
   data: {
     todos: [{
-      
-    }], //array vuoto che conterrà gli elementi che noi digitiamo
+
+    }], //array di oggetti vuoto che conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
   },
   mounted() {
@@ -17,7 +17,7 @@ const app = new Vue({
     }
   },
   methods: {
-    toggleHidden(n){
+    toggleHidden(n){ //al click rende visibile o invisibile un elemento
       this.todos[n].isHidden = !this.todos[n].isHidden;
     },
     addTodo() { //funzione applicata al click del button
@@ -25,7 +25,7 @@ const app = new Vue({
         return;
       }
 
-      this.todos.push({ name: this.newTodo, isHidden: true }); //dentro l'array (todos) va ad aggiungere quel singolo elemento che noi scriviamo (newTodo)
+      this.todos.push({ name: this.newTodo, isHidden: true }); //dentro l'array (todos) va ad aggiungere quel singolo elemento che noi scriviamo (newTodo) e gli setta come proprietà isHidden true (che sarebbe visibile in realtà)
       this.newTodo = ''; //resetto l'input
       this.saveTodos(); //salvo il tutto
     },

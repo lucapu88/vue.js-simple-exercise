@@ -27,7 +27,7 @@
             </div>
             <ul class="col-12">
               <div v-for="(todo, n) in todos">
-                <i class="fas fa-minus ml-2"></i>
+                <!-- <i class="fas fa-minus ml-2"></i> --><i class="fas fa-cart-arrow-down mr-1 ml-3"></i>
                 <li class="mt-2 todo">
                   {{ todo.name }}
                 </li>
@@ -36,7 +36,8 @@
                       class="fas fa-trash-alt"></i></button>
                   <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="toggleHidden(n)" v-if="todo.isHidden == true"><i
                       class="fas fa-pencil-alt"></i></button>
-                  <input class="modify-input ml-5 border border-primary rounded" v-if="todo.isHidden == false" v-model="todo.name">
+                  <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
+                  <input class="modify-input ml-2 border border-primary rounded" v-if="todo.isHidden == false" v-model="todo.name">
                   <button class="ml-1 btn btn-success rounded-circle btn-sm" @click="toggleHidden(n)" v-if="todo.isHidden ==false" 
                     @click="modifyTodo(n, todo)"><i class="far fa-save"></i></button>
                 </li>

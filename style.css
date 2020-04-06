@@ -53,3 +53,9 @@ body {
 li {
   display: inline-block;
 }
+
+.fa-save,
+.fa-shopping-cart,
+.fa-cart-arrow-down {
+  font-size: 20px;
+}
