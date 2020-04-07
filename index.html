@@ -22,28 +22,33 @@
           <div class="mt-3 mx-auto">
             <div class="header-container">
             <h2 class="title text-center">Lista Spesa</h2>
-            <input class="inputText mb-2 border border-primary rounded" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare">
-            <button class="btn btn-info" @click="addTodo"><i class="far fa-paper-plane"></i></button>
+            <input class="inputText mb-2 border border-primary rounded" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare"> <!-- all'invio inserisce gli element(li) dentro la lista(ul) -->
+            <button class="btn btn-info" @click="addTodo"><i class="far fa-paper-plane"></i></button> <!-- al click inserisce gli elementi(li) dentro la lista(ul) -->
             </div>
             <ul class="col-12">
-              <div v-for="(todo, n) in todos">
+              <div v-for="(todo, n) in todos"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
                 <!-- <i class="fas fa-minus ml-2"></i> --><i class="fas fa-cart-arrow-down mr-1 ml-3"></i>
                 <li class="mt-2 todo">
-                  {{ todo.name }}
+                  {{ todo.name }} <!-- prendo il nome del singolo elemento(todo)-->
                 </li>
-                <li class="button-container">
+                <li class="button-container"> 
                   <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="todo.isHidden == true" @click="removeTodo(n)"><i
-                      class="fas fa-trash-alt"></i></button>
+                      class="fas fa-trash-alt"></i></button> <!--pulsante di eliminazione: al click elimina il singolo todo -->
                   <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="toggleHidden(n)" v-if="todo.isHidden == true"><i
-                      class="fas fa-pencil-alt"></i></button>
+                      class="fas fa-pencil-alt"></i></button> <!-- pulsante di modifica: al click fa apparire l'input di modifica, il pulsante di salvataggio modifiche, e nasconde se stesso più il pulsante di eliminazione-->
                   <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
-                  <input class="modify-input ml-2 border border-primary rounded" v-if="todo.isHidden == false" v-model="todo.name">
+                  <input class="modify-input ml-2 border border-primary rounded" v-if="todo.isHidden == false" v-model="todo.name"> <!-- input di modifica: prende e mostra il testo dell'elemento da modificare -->
                   <button class="ml-1 btn btn-success rounded-circle btn-sm" @click="toggleHidden(n)" v-if="todo.isHidden ==false" 
-                    @click="modifyTodo(n, todo)"><i class="far fa-save"></i></button>
+                    @click="modifyTodo(n, todo)"><i class="far fa-save"></i></button> <!-- pulsante di salvataggio modifiche: al click salva le modifiche e nasconde l'input di modifica, mostrando poi i pulsanti di eliminazione e modifica -->
                 </li>
               </div>
             </ul>
-            <button class="delete-all btn btn-dark" @click="removeAllTodo()">Cancella tutto <i class="fas fa-skull-crossbones"></i></button>
+            <div class="confirm col-9 mx-auto border border-primary rounded bg-white text-center mb-3" v-if="!visible"> <!--contenitore dell'alert di conferma eliminazione non visibile -->
+              <p>Sei sicuro di voler eliminare tutta la lista?</p>
+              <button class="btn btn-primary" v-on:click="visible = true" @click="removeAllTodo()">SI</button> <!--al click nasconde il contenitore dell'alert ed elimina tutti i todo-->
+              <button class="btn btn-secondary" v-on:click="visible = true">NO</button> <!--al click nasconde il contenitore e non elimina niente-->
+            </div>
+            <button class="delete-all btn btn-dark" v-on:click="visible = false">Cancella tutto <i class="fas fa-skull-crossbones"></i></button> <!--al click mostra il contenitore dell'alert di conferma eliminazione -->
           </div>
         </div>
       </div>

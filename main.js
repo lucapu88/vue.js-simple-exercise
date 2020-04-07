@@ -6,6 +6,7 @@ const app = new Vue({
 
     }], //array di oggetti vuoto che conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
+    visible: true //serve per la visibilità del contenitore dell'alert
   },
   mounted() {
     if (localStorage.getItem('todos')) {

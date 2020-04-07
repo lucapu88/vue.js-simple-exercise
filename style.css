@@ -50,6 +50,10 @@ body {
   margin-bottom: 10px;
 }
 
+.confirm {
+  padding: 0 5px 10px;
+}
+
 li {
   display: inline-block;
 }
