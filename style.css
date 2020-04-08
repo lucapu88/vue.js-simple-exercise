@@ -56,6 +56,10 @@ body {
   background-size: contain;
 }
 
+.confirm>p {
+  font-size: 18px;
+}
+
 li {
   display: inline-block;
 }
