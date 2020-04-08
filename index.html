@@ -27,7 +27,7 @@
             </div>
             <ul class="col-12">
               <div v-for="(todo, n) in todos"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
-                <!-- <i class="fas fa-minus ml-2"></i> --><i class="fas fa-cart-arrow-down mr-1 ml-3"></i>
+                <!-- <i class="fas fa-minus ml-2"></i> --><i class="fas fa-cart-arrow-down mr-1 ml-2"></i>
                 <li class="mt-2 todo">
                   {{ todo.name }} <!-- prendo il nome del singolo elemento(todo)-->
                 </li>
@@ -43,7 +43,7 @@
                 </li>
               </div>
             </ul>
-            <div class="confirm col-9 mx-auto border border-primary rounded bg-white text-center mb-3" v-if="!visible"> <!--contenitore dell'alert di conferma eliminazione non visibile -->   
+            <div class="confirm col-9 mx-auto border border-info rounded bg-white text-center mb-3" v-if="!visible"> <!--contenitore dell'alert di conferma eliminazione non visibile -->   
               <p><i class="fas fa-shopping-cart text-danger"></i> Sei sicuro di voler eliminare tutta la lista? </p> 
               <button class="btn btn-primary" v-on:click="visible = true" @click="removeAllTodo()">SI</button> <!--al click nasconde il contenitore dell'alert ed elimina tutti i todo-->
               <button class="btn btn-secondary" v-on:click="visible = true">NO</button> <!--al click nasconde il contenitore dell'alert e non elimina niente-->

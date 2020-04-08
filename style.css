@@ -1,5 +1,5 @@
 body {
-  background-image: url('img/foglio.jpeg');
+  background-image: url('img/foglio_righe.jpg');
   font-family: 'Permanent Marker', cursive;
 }
 
@@ -52,6 +52,8 @@ body {
 
 .confirm {
   padding: 10px 5px;
+  background-image: url('img/carta-stropicciata.jpg');
+  background-size: contain;
 }
 
 li {
