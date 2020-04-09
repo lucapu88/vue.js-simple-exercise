@@ -19,8 +19,9 @@ const app = new Vue({
     }
   },
   methods: {
-    myFilter(n) { //al click setta la proprietà del todo isActive
-      this.todos[n].isActive = !this.todos[n].isActive; //la proprietà è di default
+    myFilter(n) { //al click setta la proprietà del singolo todo isActive
+      this.todos[n].isActive = !this.todos[n].isActive; //la proprietà è di default false, quindi al click, il todo passa da isActive =false a =true e viceversa
+      this.saveTodos(); //salvo il tutto
     },
     toggleHidden(n){ //al click rende visibile o invisibile un elemento
       this.todos[n].isHidden = !this.todos[n].isHidden;
