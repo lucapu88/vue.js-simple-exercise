@@ -43,7 +43,7 @@
                 </li>
               </div>
             </ul>
-            <div class="confirm col-10 mx-auto border border-info rounded bg-white text-center mb-3" v-if="!visible"> <!--contenitore dell'alert di conferma eliminazione non visibile -->   
+            <div class="confirm col-10 mx-auto rounded bg-white text-center mb-3" v-if="!visible"> <!--contenitore dell'alert di conferma eliminazione non visibile -->   
               <p><i class="fas fa-shopping-cart text-danger"></i> Sei sicuro di voler eliminare tutta la lista? </p> 
               <button class="btn btn-primary" v-on:click="visible = true" @click="removeAllTodo()">SI</button> <!--al click nasconde il contenitore dell'alert ed elimina tutti i todo-->
               <button class="btn btn-secondary" v-on:click="visible = true">NO</button> <!--al click nasconde il contenitore dell'alert e non elimina niente-->

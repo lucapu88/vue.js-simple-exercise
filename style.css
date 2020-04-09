@@ -54,10 +54,13 @@ body {
   padding: 10px 5px;
   background-image: url('img/carta-stropicciata.jpg');
   background-size: contain;
+  border: 2px solid rgb(0, 172, 252);
 }
 
 .confirm>p {
   font-size: 18px;
+  color: red;
+  font-weight: bold;
 }
 
 li {
