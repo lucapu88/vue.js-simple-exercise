@@ -71,3 +71,8 @@ li {
 .fa-cart-arrow-down {
   font-size: 20px;
 }
+
+.active {
+ background: linear-gradient(90deg, rgba(91,0,0,1) 0%, rgba(255,0,0,1) 50%, rgba(91,0,0,1) 100%);
+ color: white;
+}

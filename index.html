@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="img/favicon.png" />
     <title>Lista Spesa</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!-- jquery -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--> <!-- jquery -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> <!-- bootstrap -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"> <!-- fontawesome -->
     <link rel="stylesheet" href="style.css"> <!-- css -->
@@ -27,11 +27,11 @@
             </div>
             <ul class="col-12">
               <div v-for="(todo, n) in todos"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
-                <!-- <i class="fas fa-minus ml-2"></i> --><i class="fas fa-cart-arrow-down mr-1 ml-2"></i>
-                <li class="mt-2 todo">
+                <i class="fas fa-cart-arrow-down mr-1 ml-2"></i>
+                <li class="mt-2 todo" @click="myFilter(n)" :class="todo.isActive ? 'active' : '' "> <!--se l'li che contiene il todo ha la proprietà isActive = true allora gli aggiungo la classe active, altrimenti non fa nulla -->
                   {{ todo.name }} <!-- prendo il nome del singolo elemento(todo)-->
                 </li>
-                <li class="button-container"> 
+                <li class="button-container bg-light"> 
                   <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="todo.isHidden == true" @click="removeTodo(n)"><i
                       class="fas fa-trash-alt"></i></button> <!--pulsante di eliminazione: al click elimina il singolo todo -->
                   <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="toggleHidden(n)" v-if="todo.isHidden == true"><i

@@ -6,7 +6,8 @@ const app = new Vue({
 
     }], //array di oggetti vuoto che conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
-    visible: true //serve per la visibilità del contenitore dell'alert
+    visible: true, //serve per la visibilità del contenitore dell'alert
+    
   },
   mounted() {
     if (localStorage.getItem('todos')) {
@@ -18,6 +19,9 @@ const app = new Vue({
     }
   },
   methods: {
+    myFilter(n) { //al click setta la proprietà del todo isActive
+      this.todos[n].isActive = !this.todos[n].isActive; //la proprietà è di default
+    },
     toggleHidden(n){ //al click rende visibile o invisibile un elemento
       this.todos[n].isHidden = !this.todos[n].isHidden;
     },
@@ -25,8 +29,7 @@ const app = new Vue({
       if (!this.newTodo) { //solo se scrivo qualcosa lo aggiunge
         return;
       }
-
-      this.todos.push({ name: this.newTodo, isHidden: true }); //dentro l'array (todos) va ad aggiungere quel singolo elemento che noi scriviamo (newTodo) e gli setta come proprietà isHidden true (che sarebbe visibile in realtà)
+      this.todos.push({ name: this.newTodo, isHidden: true, isActive: false }); //dentro l'array (todos) va ad aggiungere quel singolo elemento che noi scriviamo (newTodo) e gli setta come proprietà isHidden true (che sarebbe visibile in realtà), e isActive false (così inizialmente non ha classe active)
       this.newTodo = ''; //resetto l'input
       this.saveTodos(); //salvo il tutto
     },
