@@ -22,7 +22,7 @@ const app = new Vue({
     myFilter(n) { //al click setta la proprietà del singolo todo isActive
       this.todos[n].isActive = !this.todos[n].isActive; //la proprietà è di default false, quindi al click, il todo passa da isActive =false a =true e viceversa
       this.saveTodos(); //salvo il tutto
-    },
+    }, //PS.: questa funzione è ripetuta uguale qui sotto, potevo farne una che passasse le proprietà "isActive" e "isHidden" come parametri insieme ad "n", ma la differenza sta nel fatto che con "myFilter" voglio salvare il tutto così che al refresh della pagina non si azzera niente, mentre con "toggleHidden" non voglio salvare nulla, anzi deve azzerarsi al refresh.
     toggleHidden(n){ //al click rende visibile o invisibile un elemento
       this.todos[n].isHidden = !this.todos[n].isHidden;
     },
