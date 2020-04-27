@@ -39,7 +39,7 @@
                   <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
                   <input class="modify-input ml-2 border border-primary rounded" v-if="todo.isHidden == false" v-model="todo.name"> <!-- input di modifica: prende e mostra il testo dell'elemento da modificare -->
                   <button class="ml-1 btn btn-success rounded-circle btn-sm" @click="toggleHidden(n)" v-if="todo.isHidden ==false" 
-                    @click="modifyTodo(n, todo)"><i class="far fa-save"></i></button> <!-- pulsante di salvataggio modifiche: al click salva le modifiche e nasconde l'input di modifica, mostrando poi i pulsanti di eliminazione e modifica -->
+                    v-on:click="modifyTodo(n, todo)"><i class="far fa-save"></i></button> <!-- pulsante di salvataggio modifiche: al click salva le modifiche e nasconde l'input di modifica, mostrando poi i pulsanti di eliminazione e modifica -->
                 </li>
               </div>
             </ul>
