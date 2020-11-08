@@ -21,7 +21,13 @@ body {
 
 .inputText {
   padding: 10px;
-  margin-left: 20%;
+  margin-left: 8%;
+}
+
+.btn-danger {
+  font-size: 11px;
+  padding: 5px;
+  margin-left: 3%;
 }
 
 .btn-info {
