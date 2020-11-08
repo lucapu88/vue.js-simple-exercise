@@ -13,7 +13,7 @@ const app = new Vue({
     copyList: "Copia Lista", //testo del pulsante copia
   },
   mounted() {
-    if (localStorage.getItem('todos'), localStorage.getItem('list')) { //se si deve prendere un oggetto da salvare in locale
+    if (localStorage.getItem('todos') && localStorage.getItem('list')) { //se si deve prendere un oggetto da salvare in locale
       try {
         this.todos = JSON.parse(localStorage.getItem('todos')); //prova a trasformare l'array in un oggetto javascript
         this.list = JSON.parse(localStorage.getItem('list')); //prova a trasformare l'array in un oggetto javascript
@@ -58,9 +58,10 @@ const app = new Vue({
       this.saveTodos(); //salvo il tutto
     },
     saveTodos() { //per salvare elementi
-      const parsed = JSON.stringify(this.todos, this.list); //in una costante racchiudo il todo trasformato in stringa per poter inviare i dati
-      localStorage.setItem('todos', parsed); //imposto il valore in locale passandogli l'array e l'array trasformato in stringa
-      localStorage.setItem('list', parsed); //imposto il valore in locale passandogli l'array e l'array trasformato in stringa
+      const parsedTodos = JSON.stringify(this.todos); //in una costante racchiudo il todo trasformato in stringa per poter inviare i dati
+      const parsedList = JSON.stringify(this.list); //in una costante racchiudo il todo trasformato in stringa per poter inviare i dati
+      localStorage.setItem('todos', parsedTodos); //imposto il valore in locale passandogli l'array e l'array trasformato in stringa
+      localStorage.setItem('list', parsedList); //imposto il valore in locale passandogli l'array e l'array trasformato in stringa
     },
     removeAllTodo(x) {
       this.copyList = "Copia Lista"; //resetto il testo del pulsante copia
