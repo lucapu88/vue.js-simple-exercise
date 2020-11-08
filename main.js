@@ -58,10 +58,10 @@ const app = new Vue({
       this.saveTodos(); //salvo il tutto
     },
     saveTodos() { //per salvare elementi
-      const parsedTodos = JSON.stringify(this.todos); //in una costante racchiudo il todo trasformato in stringa per poter inviare i dati
-      const parsedList = JSON.stringify(this.list); //in una costante racchiudo il todo trasformato in stringa per poter inviare i dati
-      localStorage.setItem('todos', parsedTodos); //imposto il valore in locale passandogli l'array e l'array trasformato in stringa
-      localStorage.setItem('list', parsedList); //imposto il valore in locale passandogli l'array e l'array trasformato in stringa
+      const parsedTodos = JSON.stringify(this.todos); //TODOS: in una costante racchiudo il todo trasformato in stringa per poter inviare i dati
+      const parsedList = JSON.stringify(this.list); //LIST: in una costante racchiudo il todo trasformato in stringa per poter inviare i dati
+      localStorage.setItem('todos', parsedTodos); //TODOS: imposto il valore in locale passandogli l'array e l'array trasformato in stringa
+      localStorage.setItem('list', parsedList); //LIST: imposto il valore in locale passandogli l'array e l'array trasformato in stringa
     },
     removeAllTodo(x) {
       this.copyList = "Copia Lista"; //resetto il testo del pulsante copia
