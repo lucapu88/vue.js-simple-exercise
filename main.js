@@ -39,13 +39,13 @@ const app = new Vue({
       this.todos.push({ name: this.newTodo, isHidden: true, isActive: false }); //dentro l'array (todos) va ad aggiungere quel singolo elemento che noi scriviamo (newTodo) e gli setta come proprietà isHidden true (che sarebbe visibile in realtà), e isActive false (così inizialmente non ha classe active)
       this.list.push(this.newTodo + '\n'); //nell'array (list) vado a inserire il todo
       this.newTodo = ''; //resetto l'input
-      this.copyList = "Copia Lista", //resetto il testo del pulsante copia
+      this.copyList = "Copia Lista"; //resetto il testo del pulsante copia
       this.saveTodos(); //salvo il tutto
     },
     removeTodo(x) {
       this.todos.splice(x, 1); //elimina l'elemento cliccato perchè gli abbiamo dato come index 1 (splice elmina elementi dall'index in poi, index compreso, quindi in questo caso elimina se stesso)
       this.list.splice(x, 1); //faccio la stessa cosa della riga qui sopra, ma per la lista
-      this.copyList = "Copia Lista", //resetto il testo del pulsante copia
+      this.copyList = "Copia Lista"; //resetto il testo del pulsante copia
       this.saveTodos(); //salvo il tutto
     },
     modifyTodo(x, y, todo) { //prendo in pasto x=index e y=todo
@@ -54,7 +54,7 @@ const app = new Vue({
       this.todos.splice(x, 0, y); //aggiungo un nuovo todo passandogli lo stesso index
       this.list.splice(x, 1); //elimino da list il todo preso in pasto
       this.list.splice(0, 0, todo + '\n'); //aggiungo in list il nuovo todo
-      this.copyList = "Copia Lista", //resetto il testo del pulsante copia
+      this.copyList = "Copia Lista"; //resetto il testo del pulsante copia
       this.saveTodos(); //salvo il tutto
     },
     saveTodos() { //per salvare elementi
@@ -63,10 +63,10 @@ const app = new Vue({
       localStorage.setItem('list', parsed); //imposto il valore in locale passandogli l'array e l'array trasformato in stringa
     },
     removeAllTodo(x) {
+      this.copyList = "Copia Lista"; //resetto il testo del pulsante copia
       this.todos.splice(x); //elimina tutta la lista
       this.list.splice(x); //faccio la stessa cosa della riga qui sopra, ma per la lista
       this.saveTodos(); //salvo il tutto
-      this.copyList = "Copia Lista", //resetto il testo del pulsante copia
     },
     copy(list) {
       navigator.clipboard.writeText(list); //copio negli appunti una lista della spesa per poterla condividere
