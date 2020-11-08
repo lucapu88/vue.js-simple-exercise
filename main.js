@@ -53,7 +53,7 @@ const app = new Vue({
       this.todos.splice(x, 1); //elimino da todos il todo preso in pasto
       this.todos.splice(x, 0, y); //aggiungo un nuovo todo passandogli lo stesso index
       this.list.splice(x, 1); //elimino da list il todo preso in pasto
-      this.list.splice(0, 0, todo + '\n'); //aggiungo in list il nuovo todo
+      this.list.splice(x, 0, todo + '\n'); //aggiungo in list il nuovo todo
       this.copyList = "Copia Lista"; //resetto il testo del pulsante copia
       this.saveTodos(); //salvo il tutto
     },
