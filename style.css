@@ -10,6 +10,7 @@ body {
 .title {
   background: -webkit-radial-gradient(circle, #ff0000 0%, #3d0000 95%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
