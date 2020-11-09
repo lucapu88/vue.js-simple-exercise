@@ -22,15 +22,15 @@
           <div class="mt-3 mx-auto">
             <div class="header-container">
             <h2 class="title text-center">Lista Spesa</h2>
-            <button class="btn btn-danger" @click="copy(list)">
+            <button class="btn btn-outline-success" @click="copy(list)">
               <i class="far fa-copy"></i></br>
-              {{copyList}}
             </button> <!-- al click copia la lista -->
             <input class="inputText mb-2 border border-primary rounded" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare"> <!-- all'invio inserisce gli element(li) dentro la lista(ul) -->
             <button class="btn btn-info" @click="addTodo">
               <i class="far fa-paper-plane"></i>
             </button> <!-- al click inserisce gli elementi(li) dentro la lista(ul) -->
             </div>
+            <p class="list-copied">{{copyList}}</p>
             <ul class="col-12">
               <div v-for="(todo, n) in todos"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
                 <i class="fas fa-cart-arrow-down mr-1 ml-2"></i>

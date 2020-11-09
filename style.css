@@ -24,14 +24,20 @@ body {
   margin-left: 8%;
 }
 
-.btn-danger {
-  font-size: 11px;
-  padding: 5px;
+.btn-outline-success{
+  padding: 10px;
   margin-left: 3%;
+  background-color: white;
 }
 
 .btn-info {
   padding: 10px;
+}
+
+.list-copied {
+  font-size: 13px;
+  margin: 0 25%;
+  color: #4FA845;
 }
 
 .todo {
