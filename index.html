@@ -30,7 +30,7 @@
               <i class="far fa-paper-plane"></i>
             </button> <!-- al click inserisce gli elementi(li) dentro la lista(ul) -->
             </div>
-            <p class="list-copied">{{copyList}}</p>
+            <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
             <ul class="col-12">
               <div v-for="(todo, n) in todos"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
                 <i class="fas fa-cart-arrow-down mr-1 ml-2"></i>
