@@ -32,8 +32,19 @@ body {
 .category {
   background: greenyellow;
 }
+
 .category-list {
   font-family: 'Chango', cursive;
+}
+
+.selected {
+  background-color: #0169d9;
+  color: white;
+}
+
+.categoryActive {
+  padding-right: 43px !important;
+  margin-left: 3px !important;
 }
 
 .btn-outline-success {

@@ -39,19 +39,19 @@
             </div>
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
             <ul class="col-12">
-              <div v-for="(todo, n) in todos" draggable="true" @dragstart="dragStart(n, $event)" @dragover.prevent  @dragend="dragEnd" @drop="dragFinish(n, $event)"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
+              <div v-for="(todo, n) in todos"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
                 <span v-if="todo.class" class="mr-1 ml-2 category">{{todo.emojy}}</span>
                 <i v-else class="fas fa-cart-arrow-down mr-1 ml-2"></i>
-                <li class="mt-2 todo" @click="myFilter(n)" :class="{'active': todo.isActive, 'category': todo.class}"> <!--se l'li che contiene il todo ha la proprietà isActive = true allora gli aggiungo la classe active, altrimenti non fa nulla -->
+                <li class="mt-2 todo" @click="myFilter(n); selectCategoryToAddItem(n, todo)" :class="{'active': todo.isActive, 'category': todo.class, 'selected': todo.isSelected}"> <!--se l'li che contiene il todo ha la proprietà isActive = true allora gli aggiungo la classe active, altrimenti non fa nulla -->
                   {{ todo.name }} <!-- prendo il nome del singolo elemento(todo)-->
                 </li>
-                <li class="button-container bg-light"> 
+                <li class="button-container bg-light" :class="todo.class ? 'categoryActive' : ''"> 
+                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="toggleHidden(n)" v-if="todo.isHidden == true && !todo.class" :class="todo.isDisabled ? 'disabled' : '' " :disabled="!!todo.isDisabled">
+                    <i class="fas fa-pencil-alt"></i>
+                  </button> <!-- pulsante di modifica: al click fa apparire l'input di modifica, il pulsante di salvataggio modifiche, e nasconde se stesso più il pulsante di eliminazione-->
                   <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="todo.isHidden == true" @click="removeTodo(n)" :class="todo.isDisabled ? 'disabled' : '' " :disabled="!!todo.isDisabled"><!--tutto ciò che riguarda disabled serve per disabilitare i pulsanti al click sul todo singolo-->
                     <i class="fas fa-trash-alt"></i>
                   </button> <!--pulsante di eliminazione: al click elimina il singolo todo -->
-                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="toggleHidden(n)" v-if="todo.isHidden == true" :class="todo.isDisabled ? 'disabled' : '' " :disabled="!!todo.isDisabled">
-                    <i class="fas fa-pencil-alt"></i>
-                  </button> <!-- pulsante di modifica: al click fa apparire l'input di modifica, il pulsante di salvataggio modifiche, e nasconde se stesso più il pulsante di eliminazione-->
                   <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
                   <input class="modify-input ml-2 border border-primary rounded" v-if="todo.isHidden == false" v-model="todo.name"> <!-- input di modifica: prende e mostra il testo dell'elemento da modificare -->
                   <button class="ml-1 btn btn-success rounded-circle btn-sm" @click="toggleHidden(n)" v-if="todo.isHidden ==false" 

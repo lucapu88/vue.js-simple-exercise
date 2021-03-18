@@ -22,7 +22,7 @@ const app = new Vue({
       { name: 'igiene', emojy: String.fromCodePoint(0x1f9fb) },
       { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
     ],
-    dragging: -1,
+    addTodoInCategory: { condition: false, id: null },
   },
   mounted() {
     if (localStorage.getItem('todos') && localStorage.getItem('list')) {
@@ -55,20 +55,26 @@ const app = new Vue({
         //solo se scrivo qualcosa lo aggiunge
         return;
       }
+
       this.categories.forEach((category) => {
         if (this.newTodo.toLowerCase() == category.name) {
           this.categoryClass = true;
           this.categoryEmoji = category.emojy;
         }
       });
-
-      this.todos.push({
+      const todoObject = {
         name: this.newTodo,
         isHidden: true,
         isActive: false,
+        isSelected: false,
         class: this.categoryClass,
         emojy: this.categoryEmoji,
-      }); //dentro l'array (todos) va ad aggiungere quel singolo elemento che noi scriviamo (newTodo) e gli setta come proprietà isHidden true (che sarebbe visibile in realtà), e isActive false (così inizialmente non ha classe active)
+      };
+      if (!this.addTodoInCategory.condition) {
+        this.todos.push(todoObject);
+      } else {
+        this.todos.splice(this.addTodoInCategory.id + 1, 0, todoObject);
+      }
       this.list.push(this.newTodo + '\n'); //nell'array (list) vado a inserire il todo
       this.newTodo = ''; //resetto l'input
       this.categoryClass = false;
@@ -103,6 +109,13 @@ const app = new Vue({
       this.saveTodos(); //salvo il tutto
     },
     copy(list) {
+      // this.categories.forEach((category) => {
+      //   const listJoined = list.join('');
+      //   const uppercasedCategoryName = [listJoined].map(
+      //     (elm) => elm == category.name
+      //   );
+      //   console.log(uppercasedCategoryName);
+      // });
       const arrayNoCommas = ['', ...list].join('- ');
       navigator.clipboard.writeText(arrayNoCommas); //copio negli appunti una lista della spesa per poterla condividere
       this.copyList.visible = true;
@@ -111,30 +124,18 @@ const app = new Vue({
     showList() {
       this.categoryList = !this.categoryList;
     },
-    dragStart(which, ev) {
-      ev.dataTransfer.setData('Text', this.id);
-      ev.dataTransfer.dropEffect = 'move';
-      this.dragging = which;
-    },
-    dragEnd(ev) {
-      this.dragging = -1;
-    },
-    dragFinish(to, ev) {
-      this.moveItem(this.dragging, to);
-      ev.target.style.marginTop = '2px';
-      ev.target.style.marginBottom = '2px';
-    },
-    moveItem(from, to) {
-      if (to === -1) {
-        this.removeItemAt(from);
-      } else {
-        this.todos.splice(to, 0, this.todos.splice(from, 1)[0]);
-      }
-    },
-  },
-  computed: {
-    isDragging() {
-      return this.dragging > -1;
+    selectCategoryToAddItem(index, todo) {
+      this.todos.map((t) => (t.isSelected = false));
+      this.categories.forEach((category) => {
+        if (todo.name.toLowerCase() == category.name) {
+          this.addTodoInCategory.condition = !this.addTodoInCategory.condition;
+          this.addTodoInCategory.id = index;
+        }
+        this.addTodoInCategory.condition
+          ? (todo.isSelected = true)
+          : (todo.isSelected = false);
+      });
+      this.saveTodos();
     },
   },
 });
