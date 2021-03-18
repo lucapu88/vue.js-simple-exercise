@@ -22,6 +22,7 @@ const app = new Vue({
       { name: 'igiene', emojy: String.fromCodePoint(0x1f9fb) },
       { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
     ],
+    dragging: -1,
   },
   mounted() {
     if (localStorage.getItem('todos') && localStorage.getItem('list')) {
@@ -109,6 +110,31 @@ const app = new Vue({
     },
     showList() {
       this.categoryList = !this.categoryList;
+    },
+    dragStart(which, ev) {
+      ev.dataTransfer.setData('Text', this.id);
+      ev.dataTransfer.dropEffect = 'move';
+      this.dragging = which;
+    },
+    dragEnd(ev) {
+      this.dragging = -1;
+    },
+    dragFinish(to, ev) {
+      this.moveItem(this.dragging, to);
+      ev.target.style.marginTop = '2px';
+      ev.target.style.marginBottom = '2px';
+    },
+    moveItem(from, to) {
+      if (to === -1) {
+        this.removeItemAt(from);
+      } else {
+        this.todos.splice(to, 0, this.todos.splice(from, 1)[0]);
+      }
+    },
+  },
+  computed: {
+    isDragging() {
+      return this.dragging > -1;
     },
   },
 });
