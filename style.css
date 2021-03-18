@@ -25,7 +25,18 @@ body {
   margin-left: 8%;
 }
 
-.btn-outline-success{
+.category-list-container {
+  text-align: center;
+}
+
+.category {
+  background: greenyellow;
+}
+.category-list {
+  font-family: 'Chango', cursive;
+}
+
+.btn-outline-success {
   padding: 10px;
   margin-left: 3%;
   background-color: white;
@@ -36,10 +47,14 @@ body {
   padding: 10px;
 }
 
+.btn-light {
+  border: 1px solid black;
+}
+
 .list-copied {
   font-size: 13px;
   margin: 0 25%;
-  color:#0169D9;
+  color: #0169d9;
 }
 
 .todo {
@@ -75,7 +90,7 @@ body {
   border: 2px solid rgb(0, 172, 252);
 }
 
-.confirm>p {
+.confirm > p {
   font-size: 18px;
   font-weight: bold;
 }
@@ -91,7 +106,12 @@ li {
 }
 
 .active {
-  background: linear-gradient(90deg, rgba(91, 0, 0, 1) 0%, rgba(255, 0, 0, 1) 50%, rgba(91, 0, 0, 1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(91, 0, 0, 1) 0%,
+    rgba(255, 0, 0, 1) 50%,
+    rgba(91, 0, 0, 1) 100%
+  );
   color: white;
   border-radius: 5px;
   padding-left: 5px;

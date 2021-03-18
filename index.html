@@ -6,14 +6,13 @@
     <link rel="shortcut icon" href="img/favicon.png" />
     <title>Lista Spesa</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--> <!-- jquery -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> <!-- bootstrap -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"> <!-- fontawesome -->
     <link rel="stylesheet" href="style.css"> <!-- css -->
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"> <!-- google body font -->
     <link href="https://fonts.googleapis.com/css2?family=Oleo+Script:wght@700&display=swap" rel="stylesheet"> <!-- google other font -->
+    <link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script> -->
   </head>
   <body>
     <div class="container">
@@ -24,17 +23,26 @@
             <h2 class="title text-center">Lista Spesa</h2>
             <button class="btn btn-outline-success" @click="copy(list)">
               <i class="far fa-copy"></i></br>
-            </button> <!-- al click copia la lista -->
-            <input class="inputText mb-2 border border-primary rounded" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare"> <!-- all'invio inserisce gli element(li) dentro la lista(ul) -->
+            </button> 
+            <input class="inputText mb-2 border border-primary rounded" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare"> 
             <button class="btn btn-info" @click="addTodo">
               <i class="far fa-paper-plane"></i>
-            </button> <!-- al click inserisce gli elementi(li) dentro la lista(ul) -->
+            </button> 
+            <button class="btn btn-light" @click="showList()">
+              <span v-if="!categoryList">+</span>
+              <span v-else>-</span>
+            </button> 
+            </div>
+            <div v-if="categoryList" class="category-list-container">
+              <p class="m-0">Lista categorie:</p>
+              <span class="category-list" v-for="(category, i) in categories" :key="i">{{category.name}}, </span>
             </div>
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
             <ul class="col-12">
               <div v-for="(todo, n) in todos"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
-                <i class="fas fa-cart-arrow-down mr-1 ml-2"></i>
-                <li class="mt-2 todo" @click="myFilter(n)" :class="todo.isActive ? 'active' : '' "> <!--se l'li che contiene il todo ha la proprietà isActive = true allora gli aggiungo la classe active, altrimenti non fa nulla -->
+                <span v-if="todo.class" class="mr-1 ml-2">{{todo.emojy}}</span>
+                <i v-else class="fas fa-cart-arrow-down mr-1 ml-2"></i>
+                <li class="mt-2 todo" @click="myFilter(n)" :class="{'active': todo.isActive, 'category': todo.class}"> <!--se l'li che contiene il todo ha la proprietà isActive = true allora gli aggiungo la classe active, altrimenti non fa nulla -->
                   {{ todo.name }} <!-- prendo il nome del singolo elemento(todo)-->
                 </li>
                 <li class="button-container bg-light"> 

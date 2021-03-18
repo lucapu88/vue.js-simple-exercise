@@ -5,10 +5,23 @@ const app = new Vue({
     list: [{}], //lista da condividere che conterrà gli stessi elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     visible: true, //serve per la visibilità del contenitore dell'alert
+    categoryList: false,
     copyList: {
       text: 'Lista copiata negli appunti',
       visible: false,
     }, //testo del pulsante copia
+    categoryClass: false, //imposto la classe alla categoria
+    categoryEmoji: '',
+    categories: [
+      { name: 'verdura', emojy: String.fromCodePoint(0x1f966) },
+      { name: 'carne', emojy: String.fromCodePoint(0x1f969) },
+      { name: 'pesce', emojy: String.fromCodePoint(0x1f991) },
+      { name: 'frutta', emojy: String.fromCodePoint(0x1f353) },
+      { name: 'latticini', emojy: String.fromCodePoint(0x1f95b) },
+      { name: 'bevande', emojy: String.fromCodePoint(0x1f37a) },
+      { name: 'igiene', emojy: String.fromCodePoint(0x1f9fb) },
+      { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
+    ],
   },
   mounted() {
     if (localStorage.getItem('todos') && localStorage.getItem('list')) {
@@ -24,10 +37,12 @@ const app = new Vue({
   },
   methods: {
     myFilter(n) {
-      //al click setta la proprietà del singolo todo isActive (evidenzia rosso l'elemento cliccato)
-      this.todos[n].isActive = !this.todos[n].isActive; //la proprietà è di default false, quindi al click, il todo passa da isActive =false a =true e viceversa
-      this.todos[n].isDisabled = !this.todos[n].isDisabled; //disabilito i pulsanti
-      this.saveTodos(); //salvo il tutto
+      if (!this.todos[n].class) {
+        //al click setta la proprietà del singolo todo isActive (evidenzia rosso l'elemento cliccato)
+        this.todos[n].isActive = !this.todos[n].isActive; //la proprietà è di default false, quindi al click, il todo passa da isActive =false a =true e viceversa
+        this.todos[n].isDisabled = !this.todos[n].isDisabled; //disabilito i pulsanti
+        this.saveTodos(); //salvo il tutto
+      }
     }, //PS.: questa funzione è ripetuta uguale qui sotto, potevo farne una che passasse le proprietà "isActive" e "isHidden" come parametri insieme ad "n", ma la differenza sta nel fatto che con "myFilter" voglio salvare il tutto così che al refresh della pagina non si azzera niente, mentre con "toggleHidden" non voglio salvare nulla, anzi deve azzerarsi al refresh.
     toggleHidden(n) {
       //al click rende visibile o invisibile un elemento (il riquadro del cancella)
@@ -39,9 +54,24 @@ const app = new Vue({
         //solo se scrivo qualcosa lo aggiunge
         return;
       }
-      this.todos.push({ name: this.newTodo, isHidden: true, isActive: false }); //dentro l'array (todos) va ad aggiungere quel singolo elemento che noi scriviamo (newTodo) e gli setta come proprietà isHidden true (che sarebbe visibile in realtà), e isActive false (così inizialmente non ha classe active)
+      this.categories.forEach((category) => {
+        if (this.newTodo.toLowerCase() == category.name) {
+          this.categoryClass = true;
+          this.categoryEmoji = category.emojy;
+        }
+      });
+
+      this.todos.push({
+        name: this.newTodo,
+        isHidden: true,
+        isActive: false,
+        class: this.categoryClass,
+        emojy: this.categoryEmoji,
+      }); //dentro l'array (todos) va ad aggiungere quel singolo elemento che noi scriviamo (newTodo) e gli setta come proprietà isHidden true (che sarebbe visibile in realtà), e isActive false (così inizialmente non ha classe active)
       this.list.push(this.newTodo + '\n'); //nell'array (list) vado a inserire il todo
       this.newTodo = ''; //resetto l'input
+      this.categoryClass = false;
+      this.categoryEmoji = '';
       this.saveTodos(); //salvo il tutto
     },
     removeTodo(x) {
@@ -68,6 +98,7 @@ const app = new Vue({
     removeAllTodo(x) {
       this.todos.splice(x); //elimina tutta la lista
       this.list.splice(x); //faccio la stessa cosa della riga qui sopra, ma per la lista
+      this.categoryList = false;
       this.saveTodos(); //salvo il tutto
     },
     copy(list) {
@@ -75,6 +106,9 @@ const app = new Vue({
       navigator.clipboard.writeText(arrayNoCommas); //copio negli appunti una lista della spesa per poterla condividere
       this.copyList.visible = true;
       setTimeout(() => (this.copyList.visible = false), 4500); //cambio il testo del pulsante copia
+    },
+    showList() {
+      this.categoryList = !this.categoryList;
     },
   },
 });
