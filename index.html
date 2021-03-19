@@ -19,13 +19,14 @@
       <div id="app">
         <div class="row">
           <div class="mt-3 mx-auto">
+            <!-- HEADER -->
             <div class="header-container">
               <h2 class="title text-center">Lista Spesa</h2>
               <span class="helper" @click="showHelper()">?</span>
               <button class="btn btn-outline-success" @click="copy(list)">
                 <i class="far fa-copy"></i></br>
               </button> 
-              <input class="inputText mb-2 border border-primary rounded" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare"> 
+              <input class="inputText mb-2 border border-primary rounded" ref="myInput" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare"> 
               <button class="btn btn-info" @click="addTodo">
                 <i class="far fa-paper-plane"></i>
               </button> 
@@ -33,6 +34,7 @@
                 <span v-if="!categoryList">+</span>
                 <span v-else>-</span>
               </button> 
+              <!-- HELPER -->
               <div class="helper-description" v-if="helper">
                 <p>Serve aiuto?</p>
                 <span>- Il pulsante <i class="far fa-paper-plane"></i> serve per aggiungere roba da comprare.</span></br>
@@ -45,14 +47,14 @@
                 <span>- Se clicchi su <span class="delete-all-description">cancella tutto <i class="fas fa-skull-crossbones"></i></span> ti apparirà un riquadro di conferma per l'eliminazione di tutta la lista.</span>
               </div>
             </div>
-
+            <!-- CATEGORY -->
             <div v-if="categoryList" class="category-list-container">
               <p class="m-0">Categorie:</p>
               <span class="category-list" v-for="(category, i) in categories" :key="i">{{category.name}}, </span>
               <p class="category-list-description">Scrivi uno di questi nomi e ti verrà creata una categoria</p>
             </div>
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
-
+            <!-- LIST -->
             <ul class="col-12">
               <div v-for="(todo, n) in todos" :class="{'category': todo.class}"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
                 <span v-if="todo.class" class="category-emoji">{{todo.emojy}}</span>
@@ -76,7 +78,7 @@
                 </li>
               </div>
             </ul>
-
+            <!-- DELETE -->
             <div class="confirm col-10 mx-auto rounded bg-white text-center mb-3" v-if="!visible"> <!--contenitore dell'alert di conferma eliminazione non visibile -->   
               <p>
                 <i class="fas fa-shopping-cart text-danger"></i> 
@@ -94,6 +96,7 @@
               Cancella tutto 
               <i class="fas fa-skull-crossbones"></i>
             </button> <!--al click mostra il contenitore dell'alert di conferma eliminazione -->
+
             <small class="created-by-luca-caputo">Creata da Luca Caputo</small>
           </div>
         </div>

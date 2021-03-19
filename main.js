@@ -134,6 +134,10 @@ const app = new Vue({
     selectCategoryToAddItem(index, todo) {
       if (todo.class) {
         //solo se è nella lista categorie faccio tutto
+
+        this.$nextTick(function () {
+          this.$refs.myInput.focus();
+        });
         this.todos.map((t) => (t.isSelected = false)); //azzero tutto
         this.categories.forEach((category) => {
           if (todo.name.toLowerCase() == category.name) {
