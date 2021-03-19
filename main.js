@@ -57,25 +57,31 @@ const app = new Vue({
       }
 
       this.categories.forEach((category) => {
-        if (this.newTodo.toLowerCase() == category.name) {
+        if (this.newTodo.toLowerCase().trim() == category.name) {
           this.categoryClass = true;
           this.categoryEmoji = category.emojy;
         }
       });
+
+      let todoForList = this.categoryClass
+        ? this.newTodo.toUpperCase().trim() + ':'
+        : this.newTodo.trim(); //se è un nome di categoria, nella lista va inserito maiuscolo con i :
       const todoObject = {
-        name: this.newTodo,
+        name: this.newTodo.trim(),
         isHidden: true,
         isActive: false,
         isSelected: false,
         class: this.categoryClass,
         emojy: this.categoryEmoji,
       };
+
       if (!this.addTodoInCategory.condition) {
         this.todos.push(todoObject);
       } else {
         this.todos.splice(this.addTodoInCategory.id + 1, 0, todoObject);
       }
-      this.list.push(this.newTodo + '\n'); //nell'array (list) vado a inserire il todo
+
+      this.list.push(todoForList + '\n'); //nell'array (list) vado a inserire il todo
       this.newTodo = ''; //resetto l'input
       this.categoryClass = false;
       this.categoryEmoji = '';
@@ -109,13 +115,6 @@ const app = new Vue({
       this.saveTodos(); //salvo il tutto
     },
     copy(list) {
-      // this.categories.forEach((category) => {
-      //   const listJoined = list.join('');
-      //   const uppercasedCategoryName = [listJoined].map(
-      //     (elm) => elm == category.name
-      //   );
-      //   console.log(uppercasedCategoryName);
-      // });
       const arrayNoCommas = ['', ...list].join('- ');
       navigator.clipboard.writeText(arrayNoCommas); //copio negli appunti una lista della spesa per poterla condividere
       this.copyList.visible = true;

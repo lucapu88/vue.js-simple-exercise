@@ -28,7 +28,7 @@
             <button class="btn btn-info" @click="addTodo">
               <i class="far fa-paper-plane"></i>
             </button> 
-            <button class="btn btn-light" @click="showList()">
+            <button class="btn btn-outline-info" @click="showList()">
               <span v-if="!categoryList">+</span>
               <span v-else>-</span>
             </button> 
@@ -39,10 +39,10 @@
             </div>
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
             <ul class="col-12">
-              <div v-for="(todo, n) in todos"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
-                <span v-if="todo.class" class="mr-1 ml-2 category">{{todo.emojy}}</span>
+              <div v-for="(todo, n) in todos" :class="{'category': todo.class}"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
+                <span v-if="todo.class" class="category-emoji">{{todo.emojy}}</span>
                 <i v-else class="fas fa-cart-arrow-down mr-1 ml-2"></i>
-                <li class="mt-2 todo" @click="myFilter(n); selectCategoryToAddItem(n, todo)" :class="{'active': todo.isActive, 'category': todo.class, 'selected': todo.isSelected}"> <!--se l'li che contiene il todo ha la proprietà isActive = true allora gli aggiungo la classe active, altrimenti non fa nulla -->
+                <li class="mt-2 todo" @click="myFilter(n); selectCategoryToAddItem(n, todo)" :class="{'active': todo.isActive, 'selected': todo.isSelected}"> <!--se l'li che contiene il todo ha la proprietà isActive = true allora gli aggiungo la classe active, altrimenti non fa nulla -->
                   {{ todo.name }} <!-- prendo il nome del singolo elemento(todo)-->
                 </li>
                 <li class="button-container bg-light" :class="todo.class ? 'categoryActive' : ''"> 
