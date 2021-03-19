@@ -190,6 +190,12 @@ li {
   padding-left: 5px;
 }
 
+.created-by-luca-caputo {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 9px;
+}
+
 @media screen and (min-width: 500px) {
   body {
     background-image: url('img/foglio.jpeg');
@@ -197,3 +203,5 @@ li {
     background-size: cover;
   }
 }
+
+/*sarebbe stato meglio usare scss e tenere tutto più ordinato, lo so!*/
