@@ -35,6 +35,9 @@ const app = new Vue({
         localStorage.removeItem('list'); //se viene trovato un errore, rimuovi l'oggetto (o meglio, non salvare niente)
       }
     }
+    if (!this.addTodoInCategory.condition) {
+      this.todos.map((t) => (t.isSelected = false));
+    }
   },
   methods: {
     myFilter(n) {
@@ -77,11 +80,12 @@ const app = new Vue({
 
       if (!this.addTodoInCategory.condition) {
         this.todos.push(todoObject);
+        this.list.push(todoForList + '\n');
       } else {
         this.todos.splice(this.addTodoInCategory.id + 1, 0, todoObject);
+        this.list.splice(this.addTodoInCategory.id + 1, 0, todoForList + '\n');
       }
 
-      this.list.push(todoForList + '\n'); //nell'array (list) vado a inserire il todo
       this.newTodo = ''; //resetto l'input
       this.categoryClass = false;
       this.categoryEmoji = '';
@@ -124,17 +128,25 @@ const app = new Vue({
       this.categoryList = !this.categoryList;
     },
     selectCategoryToAddItem(index, todo) {
-      this.todos.map((t) => (t.isSelected = false));
-      this.categories.forEach((category) => {
-        if (todo.name.toLowerCase() == category.name) {
-          this.addTodoInCategory.condition = !this.addTodoInCategory.condition;
-          this.addTodoInCategory.id = index;
-        }
-        this.addTodoInCategory.condition
-          ? (todo.isSelected = true)
-          : (todo.isSelected = false);
-      });
-      this.saveTodos();
+      if (todo.class) {
+        //solo se è nella lista categorie faccio tutto
+        this.todos.map((t) => (t.isSelected = false)); //azzero tutto
+        this.categories.forEach((category) => {
+          if (todo.name.toLowerCase() == category.name) {
+            //se il nome è uguale alla categoria
+            //permetto il toggle per la classe e salvo l'index
+            this.addTodoInCategory.condition = !this.addTodoInCategory
+              .condition;
+            this.addTodoInCategory.id = index;
+          }
+
+          this.addTodoInCategory.condition
+            ? (todo.isSelected = true)
+            : (todo.isSelected = false);
+        });
+        this.saveTodos();
+      }
+      //tutto ciò si poteva fare molto meglio senza ripetere roba, scrivendo meno codice ecc....lo so!!! ma per il momento non ho tempo e mi serve codice funzionante
     },
   },
 });
