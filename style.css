@@ -5,6 +5,7 @@ body {
 
 .header-container {
   width: 365px;
+  position: relative;
 }
 
 .title {
@@ -12,11 +13,51 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.helper {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  color: red;
+  border: 2px solid red;
+  border-radius: 50%;
+  padding: 0 5px;
+}
+.helper:hover {
+  cursor: pointer;
+}
+.helper-description {
+  position: absolute;
+  top: 35%;
+  background-image: url('img/paper-helper.jpg');
+  width: 100%;
+  padding: 10px;
+  background-size: contain;
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+  z-index: 100;
+}
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.helper-description > span {
+  font-size: 12px;
 }
 
 .title,
 .inputText,
-.modify-input {
+.modify-input,
+.category-list-description {
   font-family: 'Oleo Script', cursive;
 }
 
@@ -56,6 +97,11 @@ body {
 }
 .categoryActive > button {
   margin-left: 23px !important;
+}
+
+.custom-show-listbtn {
+  background-color: rgba(192, 224, 133, 0.883);
+  border: 2px solid rgb(180, 230, 89);
 }
 
 .btn-outline-success {
@@ -103,6 +149,11 @@ body {
 .delete-all {
   margin-left: 25%;
   margin-bottom: 10px;
+}
+
+.delete-all-description {
+  background-color: black;
+  color: white;
 }
 
 .confirm {

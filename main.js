@@ -6,6 +6,7 @@ const app = new Vue({
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     visible: true, //serve per la visibilità del contenitore dell'alert
     categoryList: false,
+    helper: false,
     copyList: {
       text: 'Lista copiata negli appunti',
       visible: false,
@@ -126,6 +127,9 @@ const app = new Vue({
     },
     showList() {
       this.categoryList = !this.categoryList;
+    },
+    showHelper() {
+      this.helper = !this.helper;
     },
     selectCategoryToAddItem(index, todo) {
       if (todo.class) {

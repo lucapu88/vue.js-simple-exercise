@@ -20,24 +20,39 @@
         <div class="row">
           <div class="mt-3 mx-auto">
             <div class="header-container">
-            <h2 class="title text-center">Lista Spesa</h2>
-            <button class="btn btn-outline-success" @click="copy(list)">
-              <i class="far fa-copy"></i></br>
-            </button> 
-            <input class="inputText mb-2 border border-primary rounded" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare"> 
-            <button class="btn btn-info" @click="addTodo">
-              <i class="far fa-paper-plane"></i>
-            </button> 
-            <button class="btn btn-outline-info" @click="showList()">
-              <span v-if="!categoryList">+</span>
-              <span v-else>-</span>
-            </button> 
+              <h2 class="title text-center">Lista Spesa</h2>
+              <span class="helper" @click="showHelper()">?</span>
+              <button class="btn btn-outline-success" @click="copy(list)">
+                <i class="far fa-copy"></i></br>
+              </button> 
+              <input class="inputText mb-2 border border-primary rounded" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare"> 
+              <button class="btn btn-info" @click="addTodo">
+                <i class="far fa-paper-plane"></i>
+              </button> 
+              <button class="btn custom-show-listbtn" @click="showList()">
+                <span v-if="!categoryList">+</span>
+                <span v-else>-</span>
+              </button> 
+              <div class="helper-description" v-if="helper">
+                <p>Serve aiuto?</p>
+                <span>- Il pulsante <i class="far fa-paper-plane"></i> serve per aggiungere roba da comprare.</span></br>
+                <span>- Il pulsante <i class="far fa-copy"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
+                <span>- Cliccando sul pulsante <i class="fas fa-pencil-alt"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save"></i>.</span></br>
+                <span>- Cliccando sul pulsante <i class="fas fa-trash-alt"></i> eliminerai roba dalla lista.</span></br>
+                <span>- Puoi evidenziare roba aggiunta cliccando sopra il testo, Verrà evidenziato <span class="active">così </span>, e non potrà essere eliminato! potrebbe tornarti utile, ad esempio, quando non trovi roba al supermercato e non vuoi eliminarla dalla lista</span></br>
+                <span>- Il pulsante + serve per visualizzare le categorie selezionabili.</span></br>
+                <span>- Per scegliere una categoria basta scriverla e cliccare su <i class="far fa-paper-plane"></i>. Ti apparirà evidenziata nella lista, e sotto quella categoria puoi aggiungere roba inerente. </br>Per aggiungere roba in una determinata categoria, basta cliccare sul nome della categoria e verrà evidenziata di <span class="selected">blu</span>, li sotto verrà aggiunta roba che scriverai.</span></br>
+                <span>- Se clicchi su <span class="delete-all-description">cancella tutto <i class="fas fa-skull-crossbones"></i></span> ti apparirà un riquadro di conferma per l'eliminazione di tutta la lista.</span>
+              </div>
             </div>
+
             <div v-if="categoryList" class="category-list-container">
-              <p class="m-0">Lista categorie:</p>
+              <p class="m-0">Categorie:</p>
               <span class="category-list" v-for="(category, i) in categories" :key="i">{{category.name}}, </span>
+              <p class="category-list-description">Scrivi uno di questi nomi e ti verrà creata una categoria</p>
             </div>
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
+
             <ul class="col-12">
               <div v-for="(todo, n) in todos" :class="{'category': todo.class}"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
                 <span v-if="todo.class" class="category-emoji">{{todo.emojy}}</span>
@@ -61,6 +76,7 @@
                 </li>
               </div>
             </ul>
+
             <div class="confirm col-10 mx-auto rounded bg-white text-center mb-3" v-if="!visible"> <!--contenitore dell'alert di conferma eliminazione non visibile -->   
               <p>
                 <i class="fas fa-shopping-cart text-danger"></i> 
@@ -73,6 +89,7 @@
                 NO
               </button> <!--al click nasconde il contenitore dell'alert e non elimina niente-->
             </div>
+
             <button class="delete-all btn btn-dark" v-on:click="visible = false">
               Cancella tutto 
               <i class="fas fa-skull-crossbones"></i>
