@@ -26,7 +26,7 @@
               <button class="btn btn-outline-success" @click="copy(list)">
                 <i class="far fa-copy"></i></br>
               </button> 
-              <input class="inputText mb-2 border border-primary rounded" ref="myInput" v-model="newTodo" @keypress.13='addTodo' placeholder="Scrivi cosa comprare"> 
+              <input class="inputText mb-2 border border-primary rounded" ref="myInput" v-model="newTodo" @keypress.13='addTodo' :placeholder="this.placeholder"> 
               <button class="btn btn-info" @click="addTodo">
                 <i class="far fa-paper-plane"></i>
               </button> 

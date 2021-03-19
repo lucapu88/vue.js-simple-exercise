@@ -5,6 +5,7 @@ const app = new Vue({
     list: [{}], //lista da condividere che conterrà gli stessi elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     visible: true, //serve per la visibilità del contenitore dell'alert
+    placeholder: 'Scrivi cosa comprare',
     categoryList: false,
     helper: false,
     copyList: {
@@ -132,12 +133,8 @@ const app = new Vue({
       this.helper = !this.helper;
     },
     selectCategoryToAddItem(index, todo) {
+      //solo se è nella lista categorie faccio tutto
       if (todo.class) {
-        //solo se è nella lista categorie faccio tutto
-
-        this.$nextTick(function () {
-          this.$refs.myInput.focus();
-        });
         this.todos.map((t) => (t.isSelected = false)); //azzero tutto
         this.categories.forEach((category) => {
           if (todo.name.toLowerCase() == category.name) {
@@ -146,6 +143,17 @@ const app = new Vue({
             this.addTodoInCategory.condition = !this.addTodoInCategory
               .condition;
             this.addTodoInCategory.id = index;
+
+            if (this.addTodoInCategory.condition) {
+              //se clicco su una categoria ed è evidenziata il focus va sull'input
+              this.$nextTick(function () {
+                this.$refs.myInput.focus();
+              });
+              //do indicazioni nel placeholder
+              this.placeholder = 'Aggiungi roba in ' + todo.name;
+            } else {
+              this.placeholder = 'Scrivi cosa comprare';
+            }
           }
 
           this.addTodoInCategory.condition
@@ -154,7 +162,7 @@ const app = new Vue({
         });
         this.saveTodos();
       }
-      //tutto ciò si poteva fare molto meglio senza ripetere roba, scrivendo meno codice ecc....lo so!!! ma per il momento non ho tempo e mi serve codice funzionante
+      //tutto ciò si poteva fare molto meglio senza ripetere roba, facendo fare alla funzioni una cosa sola, scrivendo meno codice ecc....lo so!!! ma per il momento non ho tempo e mi serve codice funzionante
     },
   },
 });
