@@ -132,7 +132,7 @@ const app = new Vue({
       this.todos.splice(x); //elimina tutta la lista
       this.list.splice(x); //faccio la stessa cosa della riga qui sopra, ma per la lista
       this.categoryList = false;
-      this.saveTodos(); //salvo il tutto
+      this.saveTodos();
       this.helper = false;
       this.categoryList = false;
     },
@@ -166,7 +166,7 @@ const app = new Vue({
                 this.$refs.myInput.focus();
               });
               //do indicazioni nel placeholder
-              this.placeholder = 'Aggiungi roba in ' + todo.name;
+              this.placeholder = 'Aggiungi in ' + todo.name.toUpperCase();
             } else {
               this.placeholder = 'Scrivi cosa comprare';
             }

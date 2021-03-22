@@ -3,24 +3,22 @@ body {
   font-family: 'Permanent Marker', cursive;
 }
 
-.header-container {
-  width: 365px;
-  position: relative;
-}
-
+/* HEADER */
 .christmas-theme {
   width: 365px;
   position: absolute;
 }
-
 .christas-footer {
   width: 360px;
 }
-
 .christmas {
   margin-top: 30px;
 }
 
+.header-container {
+  width: 365px;
+  position: relative;
+}
 .title {
   background: -webkit-radial-gradient(circle, #ff0000 0%, #3d0000 95%);
   -webkit-background-clip: text;
@@ -28,7 +26,26 @@ body {
   -webkit-text-fill-color: transparent;
   position: relative;
 }
+.inputText {
+  padding: 10px;
+  margin-left: 8%;
+}
+.btn-outline-success {
+  padding: 10px;
+  margin-left: 3%;
+  background-color: white;
+  border: 2px solid;
+}
+.btn-info {
+  padding: 10px;
+}
+.list-copied {
+  font-size: 13px;
+  margin: 0 25%;
+  color: #0169d9;
+}
 
+/* HELPER */
 .helper {
   position: absolute;
   top: 0;
@@ -66,50 +83,47 @@ body {
 .helper-description > span {
   font-size: 12px;
 }
-
 .close-helper {
   float: right;
   margin-right: 10px;
 }
-
 .close-helper:hover {
   cursor: pointer;
 }
 
-.title,
-.inputText,
-.modify-input,
-.category-list-description {
-  font-family: 'Oleo Script', cursive;
-}
-
-.inputText {
-  padding: 10px;
-  margin-left: 8%;
-}
-
+/* CATEGORY */
 .category-list-container {
   text-align: center;
 }
-
 .category {
   background: rgba(192, 224, 133, 0.84);
   border-radius: 15px;
 }
-
 .category-emoji {
   font-size: 25px;
+  display: inline-block;
 }
-
+.category-emoji-selected {
+  animation: zoominoutsinglefeatured 1s infinite;
+}
+@keyframes zoominoutsinglefeatured {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.3, 1.3);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
 .category-list {
   font-family: 'Chango', cursive;
 }
-
 .selected {
   background-color: #0169d9;
   color: white;
 }
-
 .categoryActive {
   padding-right: 26px !important;
   margin-left: 5px !important;
@@ -120,35 +134,14 @@ body {
 .categoryActive > button {
   margin-left: 23px !important;
 }
-
 .custom-show-listbtn {
   background-color: rgba(192, 224, 133, 0.883);
   border: 2px solid rgb(180, 230, 89);
-  border-radius: 50%;
+  border-radius: 25%;
   padding: 0 5px;
 }
 
-.btn-outline-success {
-  padding: 10px;
-  margin-left: 3%;
-  background-color: white;
-  border: 2px solid;
-}
-
-.btn-info {
-  padding: 10px;
-}
-
-.btn-outline-info {
-  font-weight: bold;
-}
-
-.list-copied {
-  font-size: 13px;
-  margin: 0 25%;
-  color: #0169d9;
-}
-
+/* TODO LIST */
 .todo {
   text-transform: uppercase;
   font-size: 20px;
@@ -163,23 +156,19 @@ body {
 .fa-minus {
   padding: 10px;
 }
-
 .button-container {
   border: 2px solid rgb(0, 172, 252);
   border-radius: 5px;
   padding: 2px;
 }
-
 .delete-all {
   margin-left: 25%;
   margin-bottom: 10px;
 }
-
 .delete-all-description {
   background-color: black;
   color: white;
 }
-
 .confirm {
   padding: 10px 5px;
   background-image: url('img/carta-stropicciata.jpg');
@@ -192,7 +181,6 @@ body {
   animation-duration: 0.5s;
   z-index: 100;
 }
-
 @keyframes fadeInOpacity {
   0% {
     opacity: 0;
@@ -201,14 +189,20 @@ body {
     opacity: 1;
   }
 }
-
 .confirm > p {
   font-size: 18px;
   font-weight: bold;
 }
-
 li {
   display: inline-block;
+}
+
+/* VARIE */
+.title,
+.inputText,
+.modify-input,
+.category-list-description {
+  font-family: 'Oleo Script', cursive;
 }
 
 .fa-save,
