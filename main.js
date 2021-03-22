@@ -8,6 +8,7 @@ const app = new Vue({
     placeholder: 'Scrivi cosa comprare',
     categoryList: false,
     helper: false,
+    christmasTheme: false,
     copyList: {
       text: 'Lista copiata negli appunti',
       visible: false,
@@ -26,6 +27,9 @@ const app = new Vue({
     ],
     addTodoInCategory: { condition: false, id: null },
   },
+  created() {
+    this.merryChristmasTheme();
+  },
   mounted() {
     if (localStorage.getItem('todos') && localStorage.getItem('list')) {
       //se si deve prendere un oggetto da salvare in locale
@@ -42,6 +46,16 @@ const app = new Vue({
     }
   },
   methods: {
+    merryChristmasTheme() {
+      //il mese di natale ci saranno immagini natalizie
+      const today = new Date();
+      const currentMonth = today.getMonth() + 1;
+      const currentDay = today.getDate();
+      if (currentDay <= 31 && currentMonth === 12) {
+        this.christmasTheme = true;
+      }
+    },
+
     myFilter(n) {
       if (!this.todos[n].class) {
         //al click setta la proprietà del singolo todo isActive (evidenzia rosso l'elemento cliccato)
@@ -119,6 +133,8 @@ const app = new Vue({
       this.list.splice(x); //faccio la stessa cosa della riga qui sopra, ma per la lista
       this.categoryList = false;
       this.saveTodos(); //salvo il tutto
+      this.helper = false;
+      this.categoryList = false;
     },
     copy(list) {
       const arrayNoCommas = ['', ...list].join('- ');

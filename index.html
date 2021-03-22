@@ -20,13 +20,22 @@
         <div class="row">
           <div class="mt-3 mx-auto">
             <!-- HEADER -->
-            <div class="header-container">
+            <img v-if="christmasTheme" 
+              class="christmas-theme" 
+              src="./img/ghirlanda.png" 
+              alt="merry-christmas">
+            <div class="header-container" :class="{'christmas': christmasTheme}">
               <h2 class="title text-center">Lista Spesa</h2>
               <span class="helper" @click="showHelper()">?</span>
               <button class="btn btn-outline-success" @click="copy(list)">
                 <i class="far fa-copy"></i></br>
               </button> 
-              <input class="inputText mb-2 border border-primary rounded" ref="myInput" v-model="newTodo" @keypress.13='addTodo' :placeholder="this.placeholder"> 
+              <input 
+                class="inputText mb-2 border border-primary rounded" 
+                ref="myInput" 
+                v-model="newTodo" 
+                @keypress.13='addTodo' 
+                :placeholder="this.placeholder">  <!--INPUT AGGIUNGI-->
               <button class="btn btn-info" @click="addTodo">
                 <i class="far fa-paper-plane"></i>
               </button> 
@@ -36,6 +45,7 @@
               </button> 
               <!-- HELPER -->
               <div class="helper-description" v-if="helper">
+                <p class="close-helper" @click="helper = false">X</p>
                 <p>Serve aiuto?</p>
                 <span>- Il pulsante <i class="far fa-paper-plane"></i> serve per aggiungere roba da comprare.</span></br>
                 <span>- Il pulsante <i class="far fa-copy"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
@@ -43,7 +53,7 @@
                 <span>- Cliccando sul pulsante <i class="fas fa-trash-alt"></i> eliminerai roba dalla lista.</span></br>
                 <span>- Puoi evidenziare roba aggiunta cliccando sopra il testo, Verrà evidenziato <span class="active">così </span>, e non potrà essere eliminato! potrebbe tornarti utile, ad esempio, quando non trovi roba al supermercato e non vuoi eliminarla dalla lista</span></br>
                 <span>- Il pulsante + serve per visualizzare le categorie selezionabili.</span></br>
-                <span>- Per scegliere una categoria basta scriverla e cliccare su <i class="far fa-paper-plane"></i>. Ti apparirà evidenziata nella lista, e sotto quella categoria puoi aggiungere roba inerente. </br>Per aggiungere roba in una determinata categoria, basta cliccare sul nome della categoria e verrà evidenziata di <span class="selected">blu</span>, li sotto verrà aggiunta roba che scriverai.</span></br>
+                <span>- Per scegliere una categoria basta scriverla e cliccare su <i class="far fa-paper-plane"></i>. Ti apparirà evidenziata nella lista, e sotto quella categoria puoi aggiungere roba inerente. </br>Per aggiungere roba in una determinata categoria, basta cliccare sul nome della categoria e verrà evidenziata di <span class="selected">così </span>, li sotto verrà aggiunta roba che scriverai.</span></br>
                 <span>- Se clicchi su <span class="delete-all-description">cancella tutto <i class="fas fa-skull-crossbones"></i></span> ti apparirà un riquadro di conferma per l'eliminazione di tutta la lista.</span>
               </div>
             </div>
@@ -55,48 +65,71 @@
             </div>
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
             <!-- LIST -->
-            <ul class="col-12">
-              <div v-for="(todo, n) in todos" :class="{'category': todo.class}"> <!-- ciclo l'array di oggetti(todos) prendendo il singolo oggetto(todo) con il rispettivo indice(n)-->
+            <ul class="col-12" :class="{'christmas': christmasTheme}">
+              <div v-for="(todo, n) in todos" :class="{'category': todo.class}">
                 <span v-if="todo.class" class="category-emoji">{{todo.emojy}}</span>
                 <i v-else class="fas fa-cart-arrow-down mr-1 ml-2"></i>
-                <li class="mt-2 todo" @click="myFilter(n); selectCategoryToAddItem(n, todo)" :class="{'active': todo.isActive, 'selected': todo.isSelected}"> <!--se l'li che contiene il todo ha la proprietà isActive = true allora gli aggiungo la classe active, altrimenti non fa nulla -->
-                  {{ todo.name }} <!-- prendo il nome del singolo elemento(todo)-->
+                <li 
+                  class="mt-2 todo" 
+                  @click="myFilter(n); 
+                    selectCategoryToAddItem(n, todo)" 
+                  :class="{'active': todo.isActive, 
+                    'selected': todo.isSelected}"> 
+                  {{ todo.name }} 
                 </li>
                 <li class="button-container bg-light" :class="todo.class ? 'categoryActive' : ''"> 
-                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="toggleHidden(n)" v-if="todo.isHidden == true && !todo.class" :class="todo.isDisabled ? 'disabled' : '' " :disabled="!!todo.isDisabled">
+                  <button 
+                    class="ml-1 btn btn-primary rounded-circle btn-sm" 
+                    @click="toggleHidden(n)" v-if="todo.isHidden == true && !todo.class" 
+                    :class="todo.isDisabled ? 'disabled' : '' " 
+                    :disabled="!!todo.isDisabled">
                     <i class="fas fa-pencil-alt"></i>
-                  </button> <!-- pulsante di modifica: al click fa apparire l'input di modifica, il pulsante di salvataggio modifiche, e nasconde se stesso più il pulsante di eliminazione-->
-                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="todo.isHidden == true" @click="removeTodo(n)" :class="todo.isDisabled ? 'disabled' : '' " :disabled="!!todo.isDisabled"><!--tutto ciò che riguarda disabled serve per disabilitare i pulsanti al click sul todo singolo-->
+                  </button> <!-- MODIFICA-->
+                  <button 
+                    class="ml-1 btn btn-primary rounded-circle btn-sm" 
+                    v-if="todo.isHidden == true" @click="removeTodo(n)" 
+                    :class="todo.isDisabled ? 'disabled' : '' " 
+                    :disabled="!!todo.isDisabled">
                     <i class="fas fa-trash-alt"></i>
-                  </button> <!--pulsante di eliminazione: al click elimina il singolo todo -->
+                  </button> <!--ELIMINA -->
                   <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
-                  <input class="modify-input ml-2 border border-primary rounded" v-if="todo.isHidden == false" v-model="todo.name"> <!-- input di modifica: prende e mostra il testo dell'elemento da modificare -->
-                  <button class="ml-1 btn btn-success rounded-circle btn-sm" @click="toggleHidden(n)" v-if="todo.isHidden ==false" 
+                  <input 
+                    class="modify-input ml-2 border border-primary rounded" 
+                    v-if="todo.isHidden == false" 
+                    v-model="todo.name"> <!-- INPUT MODIFICA -->
+                  <button 
+                    class="ml-1 btn btn-success rounded-circle btn-sm" 
+                    @click="toggleHidden(n)" 
+                    v-if="todo.isHidden ==false" 
                     v-on:click="modifyTodo(n, todo, todo.name)">
                     <i class="far fa-save"></i>
-                  </button> <!-- pulsante di salvataggio modifiche: al click salva le modifiche e nasconde l'input di modifica, mostrando poi i pulsanti di eliminazione e modifica -->
+                  </button> <!-- SALVA -->
                 </li>
               </div>
             </ul>
-            <!-- DELETE -->
-            <div class="confirm col-10 mx-auto rounded bg-white text-center mb-3" v-if="!visible"> <!--contenitore dell'alert di conferma eliminazione non visibile -->   
+            <!-- DELETE ALL -->
+            <div 
+              class="confirm col-10 mx-auto rounded bg-white text-center mb-3" 
+              :class="{'christmas': christmasTheme}" 
+              v-if="!visible">  
               <p>
                 <i class="fas fa-shopping-cart text-danger"></i> 
                 Sei sicuro di voler eliminare tutta la lista?
               </p> 
               <button class="btn btn-primary" v-on:click="visible = true" @click="removeAllTodo()">
                 SI
-              </button> <!--al click nasconde il contenitore dell'alert ed elimina tutti i todo-->
+              </button> 
               <button class="btn btn-secondary" v-on:click="visible = true">
                 NO
-              </button> <!--al click nasconde il contenitore dell'alert e non elimina niente-->
+              </button> 
             </div>
 
-            <button class="delete-all btn btn-dark" v-on:click="visible = false">
+            <button class="delete-all btn btn-dark" :class="{'christmas': christmasTheme}" v-on:click="visible = false">
               Cancella tutto 
               <i class="fas fa-skull-crossbones"></i>
-            </button> <!--al click mostra il contenitore dell'alert di conferma eliminazione -->
-
+            </button> 
+            
+            <img v-if="christmasTheme" class="christas-footer" src="./img/christmas.png" alt="">
             <small class="created-by-luca-caputo">Creata da Luca Caputo</small>
           </div>
         </div>

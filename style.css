@@ -8,6 +8,19 @@ body {
   position: relative;
 }
 
+.christmas-theme {
+  width: 365px;
+  position: absolute;
+}
+
+.christas-footer {
+  width: 360px;
+}
+
+.christmas {
+  margin-top: 30px;
+}
+
 .title {
   background: -webkit-radial-gradient(circle, #ff0000 0%, #3d0000 95%);
   -webkit-background-clip: text;
@@ -40,7 +53,7 @@ body {
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
   animation-duration: 0.5s;
-  z-index: 100;
+  z-index: 150;
 }
 @keyframes fadeInOpacity {
   0% {
@@ -52,6 +65,15 @@ body {
 }
 .helper-description > span {
   font-size: 12px;
+}
+
+.close-helper {
+  float: right;
+  margin-right: 10px;
+}
+
+.close-helper:hover {
+  cursor: pointer;
 }
 
 .title,
@@ -210,7 +232,7 @@ li {
 .created-by-luca-caputo {
   display: flex;
   flex-direction: row-reverse;
-  font-size: 9px;
+  font-size: 7px;
 }
 
 @media screen and (min-width: 500px) {
