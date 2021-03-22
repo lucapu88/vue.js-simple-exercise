@@ -25,7 +25,32 @@ body {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
+  left: -300px;
+  -webkit-animation: slide 2s forwards;
+  animation: slide 2s forwards;
+  z-index: 1;
 }
+@-webkit-keyframes slide {
+  100% {
+    left: 0;
+  }
+}
+@keyframes slide {
+  100% {
+    left: 0;
+  }
+}
+
+.title2 {
+  background: -webkit-radial-gradient(circle, #333232 0%, #909090 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 30%;
+}
+
 .inputText {
   padding: 10px;
   margin-left: 8%;
@@ -232,7 +257,8 @@ li {
 .title,
 .inputText,
 .modify-input,
-.category-list-description {
+.category-list-description,
+.title2 {
   font-family: 'Oleo Script', cursive;
 }
 
