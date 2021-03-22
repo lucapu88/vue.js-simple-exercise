@@ -147,6 +147,12 @@ const app = new Vue({
     },
     showHelper() {
       this.helper = !this.helper;
+      if (this.helper) {
+        window.scrollTo(0, 0);
+        document.documentElement.style.overflow = 'hidden';
+      } else {
+        document.documentElement.style.overflow = 'auto';
+      }
     },
     selectCategoryToAddItem(index, todo) {
       //solo se è nella lista categorie faccio tutto

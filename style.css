@@ -60,9 +60,11 @@ body {
 }
 .helper-description {
   position: absolute;
-  top: 35%;
+  top: 55px;
+  left: 0;
   background-image: url('img/paper-helper.jpg');
   width: 100%;
+  height: 100%;
   padding: 10px;
   background-size: contain;
   opacity: 1;
@@ -83,12 +85,41 @@ body {
 .helper-description > span {
   font-size: 12px;
 }
+.helper-description > div {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 30%;
+}
+.helper-title {
+  margin-bottom: 0;
+  text-align: center;
+}
 .close-helper {
   float: right;
   margin-right: 10px;
 }
 .close-helper:hover {
   cursor: pointer;
+}
+.helper-icon {
+  width: 25px;
+  height: 25px;
+  padding: 3px;
+  text-align: center;
+  display: inline;
+}
+.left-christmas-info {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 50px;
+}
+.right-christmas-info {
+  position: absolute;
+  top: 5px;
+  right: 10%;
+  width: 50px;
 }
 
 /* CATEGORY */
@@ -227,6 +258,10 @@ li {
   display: flex;
   flex-direction: row-reverse;
   font-size: 7px;
+}
+
+.overflow-hide {
+  overflow-y: hidden;
 }
 
 @media screen and (min-width: 500px) {
