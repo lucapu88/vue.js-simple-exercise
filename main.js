@@ -7,7 +7,7 @@ const app = new Vue({
     visible: true, //serve per la visibilità del contenitore dell'alert
     placeholder: 'Scrivi cosa comprare',
     categoryList: false,
-    helper: false,
+    helper: null,
     christmasTheme: false,
     copyList: {
       text: 'Lista copiata negli appunti',

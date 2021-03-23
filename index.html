@@ -46,19 +46,23 @@
               </button> 
             </div>
             <!-- HELPER -->
-            <div class="helper-description" v-if="helper">
+            <div class="helper-description" 
+              :class="{
+                'slideUp' : helper === true, 
+                'slideDown': helper === false
+              }" >
               <p class="close-helper" @click="showHelper()">X</p>
               <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.png" alt="Buon Natale!">
               <p class="helper-title">Serve aiuto?</p>
               <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.png" alt="E felice anno nuovo!">
               <div>
-                <span>- Il pulsante <i class="far fa-paper-plane btn btn-info helper-icon"></i> serve per aggiungere roba da comprare.</span></br>
-                <span>- Il pulsante<i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
-                <span>- Cliccando sul pulsante <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span></br>
-                <span>- Cliccando sul pulsante <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
-                <span>- Puoi evidenziare roba aggiunta cliccando sopra il testo, Verrà evidenziato <span class="active">così </span>, e non potrà essere eliminato! potrebbe tornarti utile, ad esempio, quando non trovi roba al supermercato e non vuoi eliminarla dalla lista</span></br>
-                <span>- Il pulsante <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare le categorie selezionabili.</span></br>
-                <span>- Per scegliere una categoria basta scriverla e cliccare su <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category">evidenziata</span> nella lista, e sotto quella categoria puoi aggiungere roba inerente. </br>Per aggiungere roba in una determinata categoria, basta cliccare sul nome della categoria e verrà evidenziata <span class="selected">così </span>, li sotto verrà aggiunta roba che scriverai.</span></br>
+                <span>- <i class="far fa-paper-plane btn btn-info helper-icon"></i> serve per aggiungere roba da comprare.</span></br>
+                <span>-<i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
+                <span>- Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span></br>
+                <span>- Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
+                <span>- Puoi evidenziare roba aggiunta cliccando sopra il testo, Verrà evidenziato <span class="active">così </span>, e non potrà essere eliminato! potrebbe tornarti utile, ad esempio, quando non trovi roba al supermercato e non vuoi eliminarla dalla lista.</span></br>
+                <span>- <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare le categorie selezionabili.</span></br>
+                <span>- Per scegliere una categoria basta scriverla e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category">evidenziata</span> nella lista. </br>Per aggiungere roba in una determinata categoria, basta cliccare sul nome della categoria e verrà evidenziata <span class="selected">così </span>, li sotto verrà aggiunta roba che scriverai.</span></br>
                 <span>- Se clicchi su <span class="delete-all-description">cancella tutto <i class="fas fa-skull-crossbones"></i></span> ti apparirà un riquadro di conferma per l'eliminazione di tutta la lista.</span>
               </div>
             </div>
@@ -132,13 +136,13 @@
               </button> 
             </div>
 
-            <button class="delete-all btn btn-dark" :class="{'christmas': christmasTheme}" v-on:click="visible = false">
+            <button class="delete-all btn btn-dark" :class="{'christmas': christmasTheme}" v-on:click="visible = !visible">
               Cancella tutto 
               <i class="fas fa-skull-crossbones"></i>
             </button> 
             
             <img v-if="christmasTheme" class="christas-footer" src="./img/christmas.png" alt="">
-            <small class="created-by-luca-caputo">Creata da Luca Caputo</small>
+            <small class="created-by-luca-caputo">By Luca Caputo</small>
           </div>
         </div>
       </div>

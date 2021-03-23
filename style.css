@@ -48,7 +48,22 @@ body {
   -webkit-text-fill-color: transparent;
   position: absolute;
   top: 0;
-  right: 30%;
+  right: 31%;
+  animation-name: fadeOutOpacity;
+  animation-iteration-count: 1;
+  animation-delay: 2.5s;
+  animation-timing-function: ease-out;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeOutOpacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .inputText {
@@ -79,34 +94,55 @@ body {
   border: 2px solid red;
   border-radius: 50%;
   padding: 0 5px;
+  z-index: 5;
 }
 .helper:hover {
   cursor: pointer;
 }
 .helper-description {
   position: absolute;
-  top: 55px;
+  display: none;
   left: 0;
+  top: -100%;
   background-image: url('img/paper-helper.jpg');
   width: 100%;
   height: 100%;
   padding: 10px;
   background-size: contain;
-  opacity: 1;
-  animation-name: fadeInOpacity;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in;
-  animation-duration: 0.5s;
   z-index: 150;
 }
-@keyframes fadeInOpacity {
-  0% {
-    opacity: 0;
+.helper-description.slideUp {
+  display: block;
+  animation-name: slideUp;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes slideUp {
+  from {
+    top: 200%;
   }
-  100% {
-    opacity: 1;
+  to {
+    top: 55px;
   }
 }
+.helper-description.slideDown {
+  display: block;
+  animation-name: slideDown;
+  animation-duration: 0.8s;
+  animation-fill-mode: none;
+}
+@keyframes slideDown {
+  from {
+    top: 55px;
+  }
+  to {
+    top: 200%;
+  }
+}
+.helper-description.slideDown > div {
+  display: none;
+}
+
 .helper-description > span {
   font-size: 12px;
 }
