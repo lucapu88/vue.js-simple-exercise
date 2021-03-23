@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head> <!-- PS.: la vista è stata curata solo per la visualizzazione in versione mobile-->
+  <head> 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="img/favicon.png" />
@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue -->
   </head>
-  <body>
+  <body> <!-- PS.: la vista è stata curata solo per la visualizzazione in versione mobile-->
     <div class="container">
       <div id="app">
         <div class="row">
@@ -32,7 +32,8 @@
                 <i class="far fa-copy"></i></br>
               </button> 
               <input 
-                class="inputText mb-2 border border-primary rounded" 
+                class="inputText mb-2 border border-primary rounded"
+                :class="{'placeholder-selected': this.placeholder != defaultPlaceholderText}" 
                 ref="myInput" 
                 v-model="newTodo" 
                 @keypress.13='addTodo' 
@@ -55,22 +56,22 @@
               <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.png" alt="Buon Natale!">
               <p class="helper-title">Serve aiuto?</p>
               <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.png" alt="E felice anno nuovo!">
-              <div>
-                <span>- <i class="far fa-paper-plane btn btn-info helper-icon"></i> serve per aggiungere roba da comprare.</span></br>
-                <span>-<i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
+              <div id="helper-description">
+                <span>- <i class="far fa-paper-plane btn btn-info helper-icon"></i> serve per aggiungere alla lista roba da comprare.</span></br>
                 <span>- Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span></br>
                 <span>- Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
-                <span>- Puoi evidenziare roba aggiunta cliccando sopra il testo, Verrà evidenziato <span class="active">così </span>, e non potrà essere eliminato! potrebbe tornarti utile, ad esempio, quando non trovi roba al supermercato e non vuoi eliminarla dalla lista.</span></br>
                 <span>- <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare le categorie selezionabili.</span></br>
-                <span>- Per scegliere una categoria basta scriverla e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category">evidenziata</span> nella lista. </br>Per aggiungere roba in una determinata categoria, basta cliccare sul nome della categoria e verrà evidenziata <span class="selected">così </span>, li sotto verrà aggiunta roba che scriverai.</span></br>
+                <span>- Per scegliere una categoria basta scriverla e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category">evidenziata</span> nella lista. </br>Una volta scelta la categoria, basterà cliccare sul nome di essa e verrà evidenziata <span class="selected">così </span>, li sotto verrà aggiunta la roba che scriverai.</span></br>
+                 <span>-<i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
+                <span>- Puoi evidenziare un prodotto cliccandoci sopra, e ti verrà evidenziato <span class="active">così </span>. Non potrà essere eliminato. Potrebbe tornarti utile, ad esempio, quando non trovi roba al supermercato e non vuoi eliminarla dalla lista.</span></br>
                 <span>- Se clicchi su <span class="delete-all-description">cancella tutto <i class="fas fa-skull-crossbones"></i></span> ti apparirà un riquadro di conferma per l'eliminazione di tutta la lista.</span>
               </div>
             </div>
             <!-- CATEGORY -->
             <div v-if="categoryList" class="category-list-container">
               <p class="m-0">Categorie:</p>
+              <span class="category-list-description">Scrivi uno di questi nomi e ti verrà creata una categoria</span>  
               <span class="category-list" v-for="(category, i) in categories" :key="i">{{category.name}}, </span>
-              <p class="category-list-description">Scrivi uno di questi nomi e ti verrà creata una categoria</p>
             </div>
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
             <!-- TODO LIST -->
@@ -79,7 +80,8 @@
                 <div v-if="todo.class" 
                   class="category-emoji"
                   :class="{'category-emoji-selected': todo.isSelected}">
-                    {{todo.emojy}}</div>
+                    {{todo.emojy}}
+                </div>
                 <i v-else class="fas fa-cart-arrow-down mr-1 ml-2"></i>
                 <li 
                   class="mt-2 todo" 

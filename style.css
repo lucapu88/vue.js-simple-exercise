@@ -85,6 +85,10 @@ body {
   color: #0169d9;
 }
 
+.placeholder-selected {
+  background-color: #a6cef8;
+}
+
 /* HELPER */
 .helper {
   position: absolute;

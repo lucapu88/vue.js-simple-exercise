@@ -6,6 +6,7 @@ const app = new Vue({
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     visible: true, //serve per la visibilità del contenitore dell'alert
     placeholder: 'Scrivi cosa comprare',
+    defaultPlaceholderText: 'Scrivi cosa comprare', //per evitare di andarlo a cercare nel codice
     categoryList: false,
     helper: null,
     christmasTheme: false,
@@ -151,6 +152,7 @@ const app = new Vue({
         window.scrollTo(0, 0);
         document.documentElement.style.overflow = 'hidden';
       } else {
+        document.getElementById('helper-description').scrollTo(0, 0); //Sbagliatissimo farlo in vue! lo so volevo vedere se eravate attenti! :P
         document.documentElement.style.overflow = 'auto';
       }
     },
@@ -172,9 +174,10 @@ const app = new Vue({
                 this.$refs.myInput.focus();
               });
               //do indicazioni nel placeholder
-              this.placeholder = 'Aggiungi in ' + todo.name.toUpperCase();
+              this.placeholder =
+                'Aggiungi in ' + todo.emojy + todo.name.toUpperCase();
             } else {
-              this.placeholder = 'Scrivi cosa comprare';
+              this.placeholder = this.defaultPlaceholderText;
             }
           }
 
