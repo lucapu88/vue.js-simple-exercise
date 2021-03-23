@@ -70,7 +70,7 @@
             <!-- CATEGORY -->
             <div v-if="categoryList" class="category-list-container">
               <p class="m-0">Categorie:</p>
-              <span class="category-list-description">Scrivi uno di questi nomi e ti verrà creata una categoria</span>  
+              <span class="category-list-description">Scrivi uno di questi nomi e ti verrà creata una categoria</span></br>  
               <span class="category-list" v-for="(category, i) in categories" :key="i">{{category.name}}, </span>
             </div>
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>

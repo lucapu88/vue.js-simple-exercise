@@ -1,7 +1,7 @@
 const app = new Vue({
   el: '#app',
   data: {
-    todos: [{}], //array di oggetti vuoto che conterrà gli elementi che noi digitiamo
+    todos: [], //conterrà gli elementi che noi digitiamo
     list: [{}], //lista da condividere che conterrà gli stessi elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     visible: true, //serve per la visibilità del contenitore dell'alert
@@ -13,14 +13,15 @@ const app = new Vue({
     copyList: {
       text: 'Lista copiata negli appunti',
       visible: false,
-    }, //testo del pulsante copia
-    categoryClass: false, //imposto la classe alla categoria
+    },
+    categoryClass: false,
     categoryEmoji: '',
     categories: [
       { name: 'verdura', emojy: String.fromCodePoint(0x1f966) },
       { name: 'carne', emojy: String.fromCodePoint(0x1f969) },
-      { name: 'pesce', emojy: String.fromCodePoint(0x1f991) },
+      { name: 'pesce', emojy: String.fromCodePoint(0x1f99e) },
       { name: 'frutta', emojy: String.fromCodePoint(0x1f353) },
+      { name: 'dolci', emojy: String.fromCodePoint(0x1f382) },
       { name: 'latticini', emojy: String.fromCodePoint(0x1f95b) },
       { name: 'bevande', emojy: String.fromCodePoint(0x1f37a) },
       { name: 'igiene', emojy: String.fromCodePoint(0x1f9fb) },
@@ -48,7 +49,7 @@ const app = new Vue({
   },
   methods: {
     merryChristmasTheme() {
-      //il mese di natale ci saranno immagini natalizie
+      //solo per tutto il mese di natale ci saranno immagini natalizie
       const today = new Date();
       const currentMonth = today.getMonth() + 1;
       const currentDay = today.getDate();
@@ -62,7 +63,7 @@ const app = new Vue({
         //al click setta la proprietà del singolo todo isActive (evidenzia rosso l'elemento cliccato)
         this.todos[n].isActive = !this.todos[n].isActive; //la proprietà è di default false, quindi al click, il todo passa da isActive =false a =true e viceversa
         this.todos[n].isDisabled = !this.todos[n].isDisabled; //disabilito i pulsanti
-        this.saveTodos(); //salvo il tutto
+        this.saveTodos();
       }
     }, //PS.: questa funzione è ripetuta uguale qui sotto, potevo farne una che passasse le proprietà "isActive" e "isHidden" come parametri insieme ad "n", ma la differenza sta nel fatto che con "myFilter" voglio salvare il tutto così che al refresh della pagina non si azzera niente, mentre con "toggleHidden" non voglio salvare nulla, anzi deve azzerarsi al refresh.
     toggleHidden(n) {
@@ -70,13 +71,13 @@ const app = new Vue({
       this.todos[n].isHidden = !this.todos[n].isHidden;
     },
     addTodo() {
-      //funzione applicata al click del button
       if (!this.newTodo) {
         //solo se scrivo qualcosa lo aggiunge
         return;
       }
 
       this.categories.forEach((category) => {
+        //se scrivo un nome che è presente nella lista di categorie, creo una categoria evidenziata
         if (this.newTodo.toLowerCase().trim() == category.name) {
           this.categoryClass = true;
           this.categoryEmoji = category.emojy;
@@ -85,7 +86,7 @@ const app = new Vue({
 
       let todoForList = this.categoryClass
         ? this.newTodo.toUpperCase().trim() + ':'
-        : this.newTodo.trim(); //se è un nome di categoria, nella lista va inserito maiuscolo con i :
+        : this.newTodo.trim(); //se è un nome di categoria, nella lista va inserito maiuscolo con i 2 punti
       const todoObject = {
         name: this.newTodo.trim(),
         isHidden: true,
@@ -103,39 +104,37 @@ const app = new Vue({
         this.list.splice(this.addTodoInCategory.id + 1, 0, todoForList + '\n');
       }
 
-      this.newTodo = ''; //resetto l'input
+      this.newTodo = '';
       this.categoryClass = false;
       this.categoryEmoji = '';
-      this.saveTodos(); //salvo il tutto
+      this.saveTodos();
     },
     removeTodo(x) {
-      this.todos.splice(x, 1); //elimina l'elemento cliccato perchè gli abbiamo dato come index 1 (splice elmina elementi dall'index in poi, index compreso, quindi in questo caso elimina se stesso)
-      this.list.splice(x, 1); //faccio la stessa cosa della riga qui sopra, ma per la lista
-      this.saveTodos(); //salvo il tutto
+      this.todos.splice(x, 1);
+      this.list.splice(x, 1);
+      this.saveTodos();
     },
     modifyTodo(x, y, todo) {
-      //prendo in pasto x=index e y=todo
-      // console.log(x, y);
-      this.todos.splice(x, 1); //elimino da todos il todo preso in pasto
-      this.todos.splice(x, 0, y); //aggiungo un nuovo todo passandogli lo stesso index
-      this.list.splice(x, 1); //elimino da list il todo preso in pasto
-      this.list.splice(x, 0, todo + '\n'); //aggiungo in list il nuovo todo
-      this.saveTodos(); //salvo il tutto
+      this.todos.splice(x, 1);
+      this.todos.splice(x, 0, y);
+      this.list.splice(x, 1);
+      this.list.splice(x, 0, todo + '\n');
+      this.saveTodos();
     },
     saveTodos() {
-      //per salvare elementi
-      const parsedTodos = JSON.stringify(this.todos); //TODOS: in una costante racchiudo il todo trasformato in stringa per poter inviare i dati
-      const parsedList = JSON.stringify(this.list); //LIST: in una costante racchiudo il todo trasformato in stringa per poter inviare i dati
-      localStorage.setItem('todos', parsedTodos); //TODOS: imposto il valore in locale passandogli l'array e l'array trasformato in stringa
-      localStorage.setItem('list', parsedList); //LIST: imposto il valore in locale passandogli l'array e l'array trasformato in stringa
+      const parsedTodos = JSON.stringify(this.todos);
+      const parsedList = JSON.stringify(this.list);
+      localStorage.setItem('todos', parsedTodos);
+      localStorage.setItem('list', parsedList);
     },
     removeAllTodo(x) {
-      this.todos.splice(x); //elimina tutta la lista
-      this.list.splice(x); //faccio la stessa cosa della riga qui sopra, ma per la lista
+      this.todos.splice(x);
+      this.list.splice(x);
       this.categoryList = false;
       this.saveTodos();
-      this.helper = false;
+      // this.helper = false;
       this.categoryList = false;
+      this.placeholder = this.defaultPlaceholderText;
     },
     copy(list) {
       const arrayNoCommas = ['', ...list].join('- ');
@@ -187,7 +186,7 @@ const app = new Vue({
         });
         this.saveTodos();
       }
-      //tutto ciò si poteva fare molto meglio senza ripetere roba, facendo fare alla funzioni una cosa sola, scrivendo meno codice ecc....lo so!!! ma per il momento non ho tempo e mi serve codice funzionante
+      //tutto ciò si poteva fare molto meglio senza ripetere roba, facendo fare alle funzioni una cosa sola, scrivendo meno codice ecc....lo so!!! ma per il momento non ho tempo e mi serve codice funzionante
     },
   },
 });
