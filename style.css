@@ -189,6 +189,7 @@ body {
 
 /* CATEGORY */
 .category-list-container {
+  width: 365px;
   text-align: center;
 }
 .category {
