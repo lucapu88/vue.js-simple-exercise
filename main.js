@@ -23,6 +23,7 @@ const app = new Vue({
       { name: 'frutta', emojy: String.fromCodePoint(0x1f353) },
       { name: 'dolci', emojy: String.fromCodePoint(0x1f382) },
       { name: 'latticini', emojy: String.fromCodePoint(0x1f95b) },
+      { name: 'farinacei', emojy: String.fromCodePoint(0x1f35e) },
       { name: 'bevande', emojy: String.fromCodePoint(0x1f37a) },
       { name: 'igiene', emojy: String.fromCodePoint(0x1f9fb) },
       { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
@@ -69,6 +70,9 @@ const app = new Vue({
     toggleHidden(n) {
       //al click rende visibile o invisibile un elemento (il riquadro del cancella)
       this.todos[n].isHidden = !this.todos[n].isHidden;
+    },
+    selectCategoryName(categoryName) {
+      this.newTodo = categoryName;
     },
     addTodo() {
       if (!this.newTodo) {

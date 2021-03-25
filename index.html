@@ -61,7 +61,7 @@
                 <span>- Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span></br>
                 <span>- Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
                 <span>- <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare l'indice delle categorie selezionabili.</span></br>
-                <span>- Per scegliere una categoria basta scriverla e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category">evidenziata</span> nella lista. </br>Una volta creata la categoria, basterà cliccare sul nome di essa, e verrà evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che scriverai. Per annullare l'operazione basta cliccare su qualsiasi categoria nel <span class="category">riquadro verde</span> già esistente.</span></br>
+                <span>- Per scegliere una categoria basta scriverla (<small style="color:red">new</small> o cliccarci sopra) e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category">evidenziata</span> nella lista. </br>Una volta creata la categoria, basterà cliccare sul nome di essa, e verrà evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che scriverai. Per annullare l'operazione basta cliccare su qualsiasi categoria nel <span class="category">riquadro verde</span> già esistente.</span></br>
                  <span>-<i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
                 <span>- Puoi "bloccare" un prodotto cliccandoci sopra, e ti verrà evidenziato <span class="active">così </span>. Non potrà essere eliminato. Potrebbe tornarti utile, ad esempio, quando non lo trovi al supermercato e non vuoi eliminarlo dalla lista.</span></br>
                 <span>- Se clicchi su <span class="delete-all-description">cancella tutto <i class="fas fa-skull-crossbones"></i></span> ti apparirà un riquadro di conferma per l'eliminazione di <u>TUTTA</u> la lista.</span></br>
@@ -71,8 +71,12 @@
             <!-- CATEGORY -->
             <div v-if="categoryList" class="category-list-container">
               <p class="m-0">Indice categorie:</p>
-              <span class="category-list-description">Scrivi uno di questi nomi e ti verrà creata una categoria</span></br>  
-              <span class="category-list" v-for="(category, i) in categories" :key="i">{{category.name}}, </span>
+              <span class="category-list-description">Scegli uno di questi nomi e ti verrà creata una categoria</span></br>  
+              <p class="category-list" 
+                v-for="(category, i) in categories" 
+                :key="i">
+                  <span @click="selectCategoryName(category.name)">{{category.name}}, </span> 
+              </p>
             </div>
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
             <!-- TODO LIST -->

@@ -216,6 +216,14 @@ body {
 }
 .category-list {
   font-family: 'Chango', cursive;
+  display: inline-block;
+  margin: 0;
+}
+.category-list:hover {
+  cursor: pointer;
+}
+.category-list-description {
+  font-size: 15px;
 }
 .selected {
   background-color: #0169d9;
