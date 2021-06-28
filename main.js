@@ -26,6 +26,7 @@ const app = new Vue({
       { name: 'farinacei', emojy: String.fromCodePoint(0x1f35e) },
       { name: 'bevande', emojy: String.fromCodePoint(0x1f37a) },
       { name: 'igiene', emojy: String.fromCodePoint(0x1f9fb) },
+      { name: 'farmaci', emojy: String.fromCodePoint(0x1f48a) },
       { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
     ],
     addTodoInCategory: { condition: false, id: null },
@@ -167,8 +168,8 @@ const app = new Vue({
           if (todo.name.toLowerCase() == category.name) {
             //se il nome è uguale alla categoria
             //permetto il toggle per la classe e salvo l'index
-            this.addTodoInCategory.condition = !this.addTodoInCategory
-              .condition;
+            this.addTodoInCategory.condition =
+              !this.addTodoInCategory.condition;
             this.addTodoInCategory.id = index;
 
             if (this.addTodoInCategory.condition) {
