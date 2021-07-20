@@ -118,6 +118,7 @@ const app = new Vue({
       this.todos.splice(x, 1);
       this.list.splice(x, 1);
       this.saveTodos();
+      navigator.vibrate(220);
     },
     modifyTodo(x, y, todo) {
       this.todos.splice(x, 1);
@@ -140,12 +141,14 @@ const app = new Vue({
       // this.helper = false;
       this.categoryList = false;
       this.placeholder = this.defaultPlaceholderText;
+      navigator.vibrate(1000);
     },
     copy(list) {
       const arrayNoCommas = ['', ...list].join('- ');
       navigator.clipboard.writeText(arrayNoCommas); //copio negli appunti una lista della spesa per poterla condividere
       this.copyList.visible = true;
       setTimeout(() => (this.copyList.visible = false), 4500); //cambio il testo del pulsante copia
+      navigator.vibrate(400);
     },
     showList() {
       this.categoryList = !this.categoryList;
