@@ -180,6 +180,13 @@ body {
   text-align: center;
   display: inline;
 }
+.helper-footer {
+  text-align: center;
+  color: red;
+  border-top: 1.5px solid black;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
 .left-christmas-info {
   position: absolute;
   top: 5px;
