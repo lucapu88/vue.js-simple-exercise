@@ -157,7 +157,8 @@
             </button> 
             
             <img v-if="christmasTheme" class="christas-footer" src="./img/christmas.png" alt="">
-            <small class="created-by-luca-caputo">By Luca Caputo</small>
+            <small v-if="!christmasTheme" class="created-by-luca-caputo">By Luca Caputo</small>
+            <small v-if="christmasTheme" class="created-by-luca-caputo">Merry Christmas by Luca Caputo</small>
           </div>
         </div>
       </div>

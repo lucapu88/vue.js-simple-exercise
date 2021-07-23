@@ -9,11 +9,12 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: -3;
 }
 .christas-footer {
   width: 300px;
-  margin-left: auto;
-  margin-right: auto;
+  display: table;
+  margin: 0 auto;
 }
 .christmas {
   margin-top: 30px;

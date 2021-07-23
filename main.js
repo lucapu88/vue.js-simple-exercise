@@ -55,7 +55,7 @@ const app = new Vue({
       const today = new Date();
       const currentMonth = today.getMonth() + 1;
       const currentDay = today.getDate();
-      if (currentDay <= 31 && currentMonth === 7) {
+      if (currentDay <= 31 && currentMonth === 12) {
         this.christmasTheme = true;
       }
     },
