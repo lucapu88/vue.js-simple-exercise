@@ -5,11 +5,15 @@ body {
 
 /* HEADER */
 .christmas-theme {
-  width: 365px;
+  width: 100%;
   position: absolute;
+  top: 0;
+  left: 0;
 }
 .christas-footer {
-  width: 360px;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .christmas {
   margin-top: 30px;
@@ -94,11 +98,12 @@ body {
   position: absolute;
   top: 0;
   right: 10px;
-  color: red;
-  border: 2px solid red;
+  color: blue;
+  border: 2px solid blue;
   border-radius: 50%;
   padding: 0 5px;
   z-index: 5;
+  background-color: white;
 }
 .helper:hover {
   cursor: pointer;
