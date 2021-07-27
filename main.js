@@ -145,6 +145,7 @@ const app = new Vue({
     },
     copy(list) {
       const arrayNoCommas = ['', ...list].join('- ');
+      this.categoryList = false;
       navigator.clipboard.writeText(arrayNoCommas); //copio negli appunti una lista della spesa per poterla condividere
       this.copyList.visible = true;
       setTimeout(() => (this.copyList.visible = false), 4500); //cambio il testo del pulsante copia

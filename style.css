@@ -204,6 +204,20 @@ body {
 .category-list-container {
   width: 365px;
   text-align: center;
+  opacity: 1;
+  animation-name: fadeInOpacityCategory;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+  z-index: 100;
+}
+@keyframes fadeInOpacityCategory {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .category {
   background: rgba(192, 224, 133, 0.84);
