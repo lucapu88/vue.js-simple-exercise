@@ -88,7 +88,7 @@
               <p class="category-list" 
                 v-for="(category, i) in categories" 
                 :key="i">
-                  <span @click="selectCategoryName(category.name)">{{category.name}}, </span> 
+                  <span @click="selectCategoryName(category.name)">{{category.name}},&nbsp; </span> 
               </p>
             </div>
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
@@ -119,7 +119,7 @@
                   </button> <!-- MODIFICA-->
                   <button 
                     class="ml-1 btn btn-primary rounded-circle btn-sm" 
-                    v-if="todo.isHidden == true" @click="removeTodo(n)" 
+                    v-if="todo.isHidden == true" @click="removeTodo(n, todo)" 
                     :class="todo.isDisabled ? 'disabled' : '' " 
                     :disabled="!!todo.isDisabled">
                     <i class="fas fa-trash-alt"></i>

@@ -114,10 +114,13 @@ const app = new Vue({
       this.categoryEmoji = '';
       this.saveTodos();
     },
-    removeTodo(x) {
+    removeTodo(x, todo) {
       this.todos.splice(x, 1);
       this.list.splice(x, 1);
       this.saveTodos();
+      if (this.addTodoInCategory.condition) {
+        location.reload(); //DA SISTEMARE! È una soluzione brutta ma per il momento mi serve.
+      }
       navigator.vibrate(220);
     },
     modifyTodo(x, y, todo) {
@@ -148,7 +151,7 @@ const app = new Vue({
       this.categoryList = false;
       navigator.clipboard.writeText(arrayNoCommas); //copio negli appunti una lista della spesa per poterla condividere
       this.copyList.visible = true;
-      setTimeout(() => (this.copyList.visible = false), 4500); //cambio il testo del pulsante copia
+      setTimeout(() => (this.copyList.visible = false), 3500); //cambio il testo del pulsante copia
       navigator.vibrate(400);
     },
     showList() {
@@ -195,7 +198,7 @@ const app = new Vue({
         });
         this.saveTodos();
       }
-      //tutto ciò si poteva fare molto meglio senza ripetere roba, facendo fare alle funzioni una cosa sola, scrivendo meno codice ecc....lo so!!! ma per il momento non ho tempo e mi serve codice funzionante
     },
   },
 });
+//tutto ciò si poteva fare molto meglio senza ripetere roba, facendo fare alle funzioni una cosa sola, scrivendo meno codice ecc....lo so!!! ma per il momento non ho tempo e mi serve codice funzionante

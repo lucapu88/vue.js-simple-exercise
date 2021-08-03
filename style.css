@@ -255,6 +255,8 @@ body {
 .selected {
   background-color: #0169d9;
   color: white;
+  border-radius: 5px;
+  padding-left: 3px;
 }
 .categoryActive {
   padding-right: 26px !important;
