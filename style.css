@@ -181,6 +181,9 @@ body {
   display: inline;
 }
 .helper-footer {
+  font-size: smaller;
+}
+.helper-footer-title {
   text-align: center;
   color: red;
   border-top: 1.5px solid black;
