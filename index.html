@@ -62,7 +62,7 @@
               }" >
               <p class="close-helper" @click="showHelper()">X</p>
               <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.png" alt="Buon Natale!">
-              <p class="helper-title">Serve aiuto?</p>
+              <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Serve aiuto?</p>
               <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.png" alt="E felice anno nuovo!">
               <div id="helper-description">
                 <!-- i tag br sono brutti, lo so :P -->

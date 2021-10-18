@@ -19,7 +19,9 @@ body {
 .christmas {
   margin-top: 30px;
 }
-
+.christmas-red {
+  color: red;
+}
 .header-container {
   width: 365px;
   position: relative;
@@ -132,7 +134,7 @@ body {
     top: 200%;
   }
   to {
-    top: 55px;
+    top: 0;
   }
 }
 .helper-description.slideDown {
