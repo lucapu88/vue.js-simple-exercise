@@ -129,9 +129,10 @@
                   <input 
                     class="modify-input ml-2 border border-primary rounded" 
                     v-if="todo.isHidden == false" 
-                    v-model="todo.name"> <!-- INPUT MODIFICA -->
+                    v-model.trim="todo.name"> <!-- INPUT MODIFICA -->
                   <button 
-                    class="ml-1 btn btn-success rounded-circle btn-sm" 
+                    class="ml-1 btn btn-success rounded-circle btn-sm"
+                    :disabled="todo.name.length === 0"
                     @click="toggleHidden(n)" 
                     v-if="todo.isHidden ==false" 
                     v-on:click="modifyTodo(n, todo, todo.name)">

@@ -11,7 +11,8 @@ $$       |/ $$   |$$    $$/    $$ |  $$ |  $$ |      $$    $$/ $$ |      $$     
 $$$$$$$$/ $$$$$$/  $$$$$$/     $$/   $$/   $$/        $$$$$$/  $$/       $$$$$$$$/  $$$$$$/  $$/   $$/  -->
 
 Creo una lista per la spesa da visualizzare sul mio smartphone.<br>
-Sono consapevole di aver scritto codice che non rispetta svariate best practice :shit:. L'intento di questo esercizio era semplicemente fare pratica, che poi è andato avanti con il creare una cosa "funzionante". È da migliorare sicuramente...Appena avrò un po di tempo libero! :stuck_out_tongue_winking_eye: <br><br>
+Tutta la cacca che è stata fatta in questo progetto è solo a scopo esercitativo! </br>
+Sono consapevole di aver scritto codice ( :shit: ) che non rispetta svariate best practice. L'intento di questo esercizio era semplicemente fare pratica, che poi è andato avanti con il creare una cosa ""funzionante"". :stuck_out_tongue_winking_eye: <br><br>
 Nel frattempo.....PROVALO!--> <a href="https://lucapu88.github.io/vue.js-simple-exercise/" target="_blank">Clicca qui qui proprio qui.</a>
 <br><hr>
 Ps.: **Ho creato tutto insieme in una sola pagina solamente per poterlo utilizzare con github pages.** <br>
