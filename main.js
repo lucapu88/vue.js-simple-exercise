@@ -90,8 +90,8 @@ const app = new Vue({
       });
 
       let todoForList = this.categoryClass
-        ? this.newTodo.toUpperCase().trim() + ':'
-        : this.newTodo.trim(); //se è un nome di categoria, nella lista va inserito maiuscolo con i 2 punti
+        ? this.newTodo.toUpperCase().trim() + ':' //se è un nome di categoria, nella lista va inserito maiuscolo con i 2 punti
+        : '- ' + this.newTodo.trim().toLowerCase();
       const todoObject = {
         name: this.newTodo.trim(),
         isHidden: true,
@@ -147,7 +147,8 @@ const app = new Vue({
       navigator.vibrate(1000);
     },
     copy(list) {
-      const arrayNoCommas = ['', ...list].join('- ');
+      const arrayNoCommas = ['', ...list].join(' ');
+      console.log(arrayNoCommas);
       this.categoryList = false;
       navigator.clipboard.writeText(arrayNoCommas); //copio negli appunti una lista della spesa per poterla condividere
       this.copyList.visible = true;
