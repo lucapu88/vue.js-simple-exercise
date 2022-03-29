@@ -48,7 +48,8 @@ body {
   }
 }
 
-.title2 {
+.title2,
+.title2-eng {
   background: -webkit-radial-gradient(circle, #333232 0%, #909090 95%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -62,6 +63,10 @@ body {
   animation-timing-function: ease-out;
   animation-duration: 1.5s;
   animation-fill-mode: forwards;
+}
+
+.title2-eng {
+  right: 27%;
 }
 
 @keyframes fadeOutOpacity {
@@ -300,10 +305,7 @@ body {
   border-radius: 5px;
   padding: 2px;
 }
-.delete-all {
-  margin-left: 25%;
-  margin-bottom: 10px;
-}
+
 .delete-all-description {
   background-color: black;
   color: white;
@@ -334,6 +336,31 @@ body {
 }
 li {
   display: inline-block;
+}
+
+.btns-language-container {
+  display: flex;
+}
+.footer-btns-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.language-selected {
+  background-color: rgb(0, 172, 252);
+  color: rgb(255, 255, 255) !important;
+}
+.btn-lang-left {
+  padding: 0px 5px;
+  border-radius: 10px 0 0 10px;
+  color: rgb(0, 172, 252);
+  border-color: rgb(0, 172, 252);
+}
+.btn-lang-right {
+  padding: 0px 5px;
+  border-radius: 0 10px 10px 0;
+  color: rgb(0, 172, 252);
+  border-color: rgb(0, 172, 252);
 }
 
 /* VARIE */

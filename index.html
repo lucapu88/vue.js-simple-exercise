@@ -33,8 +33,11 @@
               src="./img/ghirlanda.png" 
               alt="merry-christmas">
             <div class="header-container" :class="{'christmas': christmasTheme}">
-              <h2 class="title text-center">Lista Spesa</h2>
-              <h2 class="title2 text-center">Lista Spesa</h2>
+              <h2 v-if="langIta" class="title text-center">Lista Spesa</h2>
+              <h2 v-else class="title text-center">Shopping List</h2>
+
+              <h2 v-if="langIta" class="title2 text-center">Lista Spesa</h2>
+              <h2 v-else class="title2 title2-eng text-center">Shopping List</h2>
               <span class="helper" @click="showHelper()">?</span>
               <button class="btn btn-outline-success" @click="copy(list)">
                 <i class="far fa-copy"></i></br>
@@ -62,30 +65,42 @@
               }" >
               <p class="close-helper" @click="showHelper()">X</p>
               <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.png" alt="Buon Natale!">
-              <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Serve aiuto?</p>
+              <p v-if="langIta" class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Serve aiuto?</p>
+              <p v-else class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Need help?</p>
               <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.png" alt="E felice anno nuovo!">
-              <div id="helper-description">
-                <!-- i tag br sono brutti, lo so :P -->
+              <!-- i tag br sono brutti, lo so :P -->
+              <div id="helper-description" v-if="langIta">
                 <span>- <i class="far fa-paper-plane btn btn-info helper-icon"></i> serve per aggiungere alla lista roba da comprare.</span></br>
                 <span>- Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span></br>
                 <span>- Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
                 <span>- <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare l'indice delle categorie selezionabili.</span></br>
-                <span>- Per scegliere una categoria basta scriverla (<small style="color:red">new</small> o cliccarci sopra) e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category">evidenziata</span> nella lista. </br>Una volta creata la categoria, basterà cliccare sul nome di essa, e verrà evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che scriverai. Per annullare l'operazione basta cliccare su qualsiasi categoria nel <span class="category">riquadro verde</span> già esistente.</span></br>
+                <span>- Per scegliere una categoria basta scriverla (o cliccarci sopra) e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category">evidenziata</span> nella lista. </br>Una volta creata la categoria, basterà cliccare sul nome di essa, e verrà evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che scriverai. Per annullare l'operazione basta cliccare su qualsiasi categoria nel <span class="category">riquadro verde</span> già esistente.</span></br>
                  <span>-<i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
                 <span>- Puoi "bloccare" un prodotto cliccandoci sopra, e ti verrà evidenziato <span class="active">così </span>. Non potrà essere eliminato. Potrebbe tornarti utile, ad esempio, quando non lo trovi al supermercato e non vuoi eliminarlo dalla lista.</span></br>
                 <span>- Se clicchi su <span class="delete-all-description">cancella tutto <i class="fas fa-skull-crossbones"></i></span> ti apparirà un riquadro di conferma per l'eliminazione di <u>TUTTA</u> la lista.</span></br>
-                <span>- Se non hai capito un &#x1f51e; di tutto ciò, non preoccuparti, c'è un video tutorial <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>. </span></br>
-                <div class="helper-footer">
-                  <p class="helper-footer-title">PER AVERE UN ICONA NELLA TUA HOME:</p>
-                  <span>- Se utilizzi Android, dal browser originario del dispositivo clicca sul pulsante "menu", poi su "Aggiungi pagina a", in fine su "Schermata Home".</span></br>
-                  <span>- Se utilizzi iOS, dal browser Safari clicca sul pulsante "condividi", scorri in basso e clicca su "Aggiungi alla schermata Home".</span></br>
-                </div>
+                <span>- Se non hai capito un &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; di tutto ciò, non preoccuparti, c'è un video tutorial <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>. </span></br></br>
+                <span>Per qualsiasi segnalazione puoi contattarmi: <a href="mailto:lucarhcp88@hotmail.it">lucarhcp88@hotmail.it</a></a></span>
+              </div>
+              
+              <div id="helper-description" v-else>
+                <span> - <i class="far fa-paper-plane btn btn-info helper-icon"> </i> is used to add stuff to buy list. </span> </br>
+                <span> - With <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> you can change a name and save the changes by clicking <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>. </span> </br>
+                <span> - With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"> </i> you will remove stuff from the list. </span> </br>
+                <span> - <span class="custom-show-listbtn helper-icon"> + </span> is used to display the index of selectable categories. </span> </br>
+                <span> - To choose a category just write it (or click on it) and click <i class="far fa-paper-plane btn btn-info helper-icon "> </i>. You will see <span class="category"> highlighted </span> in the list. </br> Once the category has been created, just click on its name, and <span class="selected"> will be highlighted as well </span>, underneath you will add stuff you write. To cancel the operation just click on any category in the existing <span class="category"> green box </span>. </span> </br>
+                <span> - <i class="far fa-copy btn btn-outline-success helper-icon"> </i> is used to copy the list and paste it wherever you want. </span> </br>
+                <span> - You can "block" a product by clicking on it, and <span class="active"> will be highlighted as well </span>. It cannot be eliminated. It might come in handy, for example, when you can't find it at the supermarket and don't want to remove it from the list. </span> </br>
+                <span> - If you click on <span class="delete-all-description"> delete all <i class="fas fa-skull-crossbones"> </i> </span> you will see a confirmation box for the 'delete <u> ALL </u> the list. </span> </br>
+                <span> - If you don't understand a  &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; of all this, don't worry, there is a video tutorial <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank"> by clicking here </a>. </span> </br> </br>
+                <span> For any report you can contact me: <a href="mailto:lucarhcp88@hotmail.it"> lucarhcp88@hotmail.it </a> </a> </span>
               </div>
             </div>
             <!-- CATEGORY -->
             <div v-if="categoryList" class="category-list-container">
-              <p class="m-0">Indice categorie:</p>
-              <span class="category-list-description">Scegli uno di questi nomi e ti verrà creata una categoria</span></br>  
+              <p class="m-0" v-if="langIta">Indice categorie:</p>
+              <p class="m-0" v-else>Category index:</p>
+              <span v-if="langIta" class="category-list-description">Scegli uno di questi nomi e ti verrà creata una categoria</span></br>  
+              <span v-if="!langIta" class="category-list-description" >Choose one of these names and a category will be created</span></br>  
               <p class="category-list" 
                 v-for="(category, i) in categories" 
                 :key="i">
@@ -146,25 +161,38 @@
               class="confirm col-10 mx-auto rounded bg-white text-center mb-3" 
               :class="{'christmas': christmasTheme}" 
               v-if="!visible">  
-              <p>
+              <p v-if="langIta">
                 <i class="fas fa-shopping-cart text-danger"></i> 
                 Sei sicuro di voler eliminare tutta la lista?
               </p> 
+              <p v-else>
+                <i class="fas fa-shopping-cart text-danger"></i> 
+               Are you sure you want to delete the whole list?
+              </p> 
               <button class="btn btn-primary" v-on:click="visible = true" @click="removeAllTodo()">
-                SI
+               <span v-if="langIta">SI</span> 
+               <span v-else>YES</span>
               </button> 
               <button class="btn btn-secondary" v-on:click="visible = true">
                 NO
               </button> 
             </div>
 
-            <button class="delete-all btn btn-dark" :class="{'christmas': christmasTheme}" v-on:click="visible = !visible">
-              Cancella tutto 
-              <i class="fas fa-skull-crossbones"></i>
-            </button> 
-            
+            <div class="footer-btns-container">
+              <button class="delete-all btn btn-dark" :class="{'christmas': christmasTheme}" v-on:click="visible = !visible">
+                <span  v-if="langIta">Cancella tutto </span> 
+                <span v-else>Delete ALL </span> 
+                <i class="fas fa-skull-crossbones"></i>
+              </button> 
+
+              <!-- CHANGE LANGUAGE -->
+              <div class="btns-language-container">
+                <button class="btn-lang-left" :class="{'language-selected': !langIta}" @click="setEnglish()">eng</button>
+                <button class="btn-lang-right" :class="{'language-selected': langIta}" @click="setItaliano()">ita</button>
+              </div>
+            </div>
             <img v-if="christmasTheme" class="christas-footer" src="./img/christmas.png" alt="">
-            <small v-if="!christmasTheme" class="created-by-luca-caputo">By Luca Caputo</small>
+            <!-- <small v-if="!christmasTheme" class="created-by-luca-caputo">By Luca Caputo</small> -->
             <small v-if="christmasTheme" class="created-by-luca-caputo">Merry Christmas by Luca Caputo</small>
           </div>
         </div>

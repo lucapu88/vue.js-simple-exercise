@@ -5,33 +5,61 @@ const app = new Vue({
     list: [{}], //lista da condividere che conterrà gli stessi elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     visible: true, //serve per la visibilità del contenitore dell'alert
-    placeholder: 'Scrivi cosa comprare',
-    defaultPlaceholderText: 'Scrivi cosa comprare', //per evitare di andarlo a cercare nel codice
+    placeholder: 'Write what to buy',
+    defaultPlaceholderText: 'Write what to buy', //per evitare di andarlo a cercare nel codice
     categoryList: false,
     helper: null,
     christmasTheme: false,
     copyList: {
-      text: 'Lista copiata negli appunti',
+      text: 'List copied to clipboard',
       visible: false,
     },
     categoryClass: false,
     categoryEmoji: '',
     categories: [
-      { name: 'verdura', emojy: String.fromCodePoint(0x1f966) },
-      { name: 'carne', emojy: String.fromCodePoint(0x1f969) },
-      { name: 'pesce', emojy: String.fromCodePoint(0x1f99e) },
-      { name: 'frutta', emojy: String.fromCodePoint(0x1f353) },
-      { name: 'dolci', emojy: String.fromCodePoint(0x1f382) },
-      { name: 'latticini', emojy: String.fromCodePoint(0x1f95b) },
-      { name: 'farinacei', emojy: String.fromCodePoint(0x1f35e) },
-      { name: 'bevande', emojy: String.fromCodePoint(0x1f37a) },
-      { name: 'igiene', emojy: String.fromCodePoint(0x1f9fb) },
-      { name: 'farmaci', emojy: String.fromCodePoint(0x1f48a) },
-      { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
+      { name: 'vegetables', emojy: String.fromCodePoint(0x1f966) },
+      { name: 'meat', emojy: String.fromCodePoint(0x1f969) },
+      { name: 'fish', emojy: String.fromCodePoint(0x1f99e) },
+      { name: 'fruit', emojy: String.fromCodePoint(0x1f353) },
+      { name: 'sweets', emojy: String.fromCodePoint(0x1f382) },
+      { name: 'dairy products', emojy: String.fromCodePoint(0x1f95b) },
+      { name: 'starchy', emojy: String.fromCodePoint(0x1f35e) },
+      { name: 'drinks', emojy: String.fromCodePoint(0x1f37a) },
+      { name: 'hygiene', emojy: String.fromCodePoint(0x1f9fb) },
+      { name: 'medications', emojy: String.fromCodePoint(0x1f48a) },
+      { name: 'other', emojy: String.fromCodePoint(0x1f4b8) },
     ],
     addTodoInCategory: { condition: false, id: null },
+    langIta: null, //se è false è impostato su inglese
   },
   created() {
+    //setto la lingua in base a quella settata dall'utente nel suo locale
+    const langIta = localStorage.getItem('langIta');
+    this.langIta = langIta === 'true';
+    if (this.langIta) {
+      this.placeholder = 'Scrivi cosa comprare';
+      this.defaultPlaceholderText = 'Scrivi cosa comprare';
+      this.categories = [
+        { name: 'verdura', emojy: String.fromCodePoint(0x1f966) },
+        { name: 'carne', emojy: String.fromCodePoint(0x1f969) },
+        { name: 'pesce', emojy: String.fromCodePoint(0x1f99e) },
+        { name: 'frutta', emojy: String.fromCodePoint(0x1f353) },
+        { name: 'dolci', emojy: String.fromCodePoint(0x1f382) },
+        { name: 'latticini', emojy: String.fromCodePoint(0x1f95b) },
+        { name: 'farinacei', emojy: String.fromCodePoint(0x1f35e) },
+        { name: 'bevande', emojy: String.fromCodePoint(0x1f37a) },
+        { name: 'igiene', emojy: String.fromCodePoint(0x1f9fb) },
+        { name: 'farmaci', emojy: String.fromCodePoint(0x1f48a) },
+        { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
+      ];
+      this.copyList.text = 'Lista copiata negli appunti';
+    } else {
+      this.defaultPlaceholderText;
+      this.categories;
+      this.copyList.text;
+    }
+
+    console.clear();
     this.merryChristmasTheme();
   },
   mounted() {
@@ -199,6 +227,46 @@ const app = new Vue({
         });
         this.saveTodos();
       }
+    },
+    setEnglish() {
+      this.langIta = false;
+      this.placeholder = 'Write what to buy';
+      this.defaultPlaceholderText = 'Write what to buy';
+      this.categories = [
+        { name: 'vegetables', emojy: String.fromCodePoint(0x1f966) },
+        { name: 'meat', emojy: String.fromCodePoint(0x1f969) },
+        { name: 'fish', emojy: String.fromCodePoint(0x1f99e) },
+        { name: 'fruit', emojy: String.fromCodePoint(0x1f353) },
+        { name: 'sweets', emojy: String.fromCodePoint(0x1f382) },
+        { name: 'dairy products', emojy: String.fromCodePoint(0x1f95b) },
+        { name: 'starchy', emojy: String.fromCodePoint(0x1f35e) },
+        { name: 'drinks', emojy: String.fromCodePoint(0x1f37a) },
+        { name: 'hygiene', emojy: String.fromCodePoint(0x1f9fb) },
+        { name: 'medications', emojy: String.fromCodePoint(0x1f48a) },
+        { name: 'other', emojy: String.fromCodePoint(0x1f4b8) },
+      ];
+      this.copyList.text = 'List copied to clipboard';
+      localStorage.setItem('langIta', false);
+    },
+    setItaliano() {
+      this.langIta = true;
+      this.placeholder = 'Scrivi cosa comprare';
+      this.defaultPlaceholderText = 'Scrivi cosa comprare';
+      this.categories = [
+        { name: 'verdura', emojy: String.fromCodePoint(0x1f966) },
+        { name: 'carne', emojy: String.fromCodePoint(0x1f969) },
+        { name: 'pesce', emojy: String.fromCodePoint(0x1f99e) },
+        { name: 'frutta', emojy: String.fromCodePoint(0x1f353) },
+        { name: 'dolci', emojy: String.fromCodePoint(0x1f382) },
+        { name: 'latticini', emojy: String.fromCodePoint(0x1f95b) },
+        { name: 'farinacei', emojy: String.fromCodePoint(0x1f35e) },
+        { name: 'bevande', emojy: String.fromCodePoint(0x1f37a) },
+        { name: 'igiene', emojy: String.fromCodePoint(0x1f9fb) },
+        { name: 'farmaci', emojy: String.fromCodePoint(0x1f48a) },
+        { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
+      ];
+      this.copyList.text = 'Lista copiata negli appunti';
+      localStorage.setItem('langIta', true);
     },
   },
 });
