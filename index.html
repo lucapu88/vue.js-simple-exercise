@@ -39,23 +39,25 @@
               <h2 v-if="langIta" class="title2 text-center">Lista Spesa</h2>
               <h2 v-else class="title2 title2-eng text-center">Shopping List</h2>
               <span class="helper" @click="showHelper()">?</span>
-              <button class="btn btn-outline-success" @click="copy(list)">
-                <i class="far fa-copy"></i></br>
-              </button> 
-              <input 
-                class="inputText mb-2 border border-primary rounded"
-                :class="{'placeholder-selected': this.placeholder != defaultPlaceholderText}" 
-                ref="myInput" 
-                v-model="newTodo" 
-                @keypress.13='addTodo' 
-                :placeholder="this.placeholder">  <!--INPUT AGGIUNGI-->
-              <button class="btn btn-info" @click="addTodo">
-                <i class="far fa-paper-plane"></i>
-              </button> 
-              <button class="btn custom-show-listbtn" @click="showList()">
-                <span v-if="!categoryList">+</span>
-                <span v-else>-</span>
-              </button> 
+              <div class="input-btns-container">
+                <button class="btn btn-outline-success" @click="copy(list)">
+                  <i class="far fa-copy"></i></br>
+                </button> 
+                <input 
+                  class="inputText mb-2 border border-primary rounded"
+                  :class="{'placeholder-selected': this.placeholder != defaultPlaceholderText}" 
+                  ref="myInput" 
+                  v-model="newTodo" 
+                  @keypress.13='addTodo' 
+                  :placeholder="this.placeholder">  <!--INPUT AGGIUNGI-->
+                <button class="btn btn-info" @click="addTodo">
+                  <i class="far fa-paper-plane"></i>
+                </button> 
+                <button class="btn custom-show-listbtn" @click="showList()">
+                  <span v-if="!categoryList">+</span>
+                  <span v-else>-</span>
+                </button> 
+              </div>
             </div>
             <!-- HELPER -->
             <div class="helper-description" 
