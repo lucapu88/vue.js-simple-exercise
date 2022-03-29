@@ -34,7 +34,7 @@ const app = new Vue({
   },
   created() {
     //setto la lingua in base a quella settata dall'utente nel suo locale
-    const langIta = localStorage.getItem('langIta');
+    const langIta = window.localStorage.getItem('langIta');
     this.langIta = langIta === 'true';
     if (this.langIta) {
       this.placeholder = 'Scrivi cosa comprare';
@@ -63,14 +63,17 @@ const app = new Vue({
     this.merryChristmasTheme();
   },
   mounted() {
-    if (localStorage.getItem('todos') && localStorage.getItem('list')) {
+    if (
+      window.localStorage.getItem('todos') &&
+      window.localStorage.getItem('list')
+    ) {
       //se si deve prendere un oggetto da salvare in locale
       try {
-        this.todos = JSON.parse(localStorage.getItem('todos')); //prova a trasformare l'array in un oggetto javascript
-        this.list = JSON.parse(localStorage.getItem('list')); //prova a trasformare l'array in un oggetto javascript
+        this.todos = JSON.parse(window.localStorage.getItem('todos')); //prova a trasformare l'array in un oggetto javascript
+        this.list = JSON.parse(window.localStorage.getItem('list')); //prova a trasformare l'array in un oggetto javascript
       } catch (e) {
-        localStorage.removeItem('todos'); //se viene trovato un errore, rimuovi l'oggetto (o meglio, non salvare niente)
-        localStorage.removeItem('list'); //se viene trovato un errore, rimuovi l'oggetto (o meglio, non salvare niente)
+        window.localStorage.removeItem('todos'); //se viene trovato un errore, rimuovi l'oggetto (o meglio, non salvare niente)
+        window.localStorage.removeItem('list'); //se viene trovato un errore, rimuovi l'oggetto (o meglio, non salvare niente)
       }
     }
     if (!this.addTodoInCategory.condition) {
@@ -161,8 +164,8 @@ const app = new Vue({
     saveTodos() {
       const parsedTodos = JSON.stringify(this.todos);
       const parsedList = JSON.stringify(this.list);
-      localStorage.setItem('todos', parsedTodos);
-      localStorage.setItem('list', parsedList);
+      window.localStorage.setItem('todos', parsedTodos);
+      window.localStorage.setItem('list', parsedList);
     },
     removeAllTodo(x) {
       this.todos.splice(x);
@@ -246,7 +249,7 @@ const app = new Vue({
         { name: 'other', emojy: String.fromCodePoint(0x1f4b8) },
       ];
       this.copyList.text = 'List copied to clipboard';
-      localStorage.setItem('langIta', false);
+      window.localStorage.setItem('langIta', false);
     },
     setItaliano() {
       this.langIta = true;
@@ -266,7 +269,7 @@ const app = new Vue({
         { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
       ];
       this.copyList.text = 'Lista copiata negli appunti';
-      localStorage.setItem('langIta', true);
+      window.localStorage.setItem('langIta', true);
     },
   },
 });
