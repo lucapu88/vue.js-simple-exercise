@@ -101,8 +101,8 @@
             <div v-if="categoryList" class="category-list-container">
               <p class="m-0" v-if="langIta">Indice categorie:</p>
               <p class="m-0" v-else>Category index:</p>
-              <span v-if="langIta" class="category-list-description">Scegli uno di questi nomi e ti verrà creata una categoria</span></br>  
-              <span v-if="!langIta" class="category-list-description" >Choose one of these names and a category will be created</span></br>  
+              <span v-if="langIta" class="category-list-description">Scegli uno di questi nomi e ti verrà creata una categoria</span> 
+              <span v-if="!langIta" class="category-list-description" >Choose one of these names and a category will be created</span>  
               <p class="category-list" 
                 v-for="(category, i) in categories" 
                 :key="i">
