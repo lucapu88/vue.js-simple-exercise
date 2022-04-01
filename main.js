@@ -58,11 +58,10 @@ const app = new Vue({
       this.categories;
       this.copyList.text;
     }
-
-    console.clear();
     this.merryChristmasTheme();
   },
   mounted() {
+    console.clear();
     if (
       window.localStorage.getItem('todos') &&
       window.localStorage.getItem('list')
@@ -250,6 +249,7 @@ const app = new Vue({
       ];
       this.copyList.text = 'List copied to clipboard';
       window.localStorage.setItem('langIta', false);
+      location.reload(); //lo faccio solo perchè mi obbligano ad inserire librerie del c---- per la privacy policy e mi buggano il codice.
     },
     setItaliano() {
       this.langIta = true;
@@ -270,6 +270,7 @@ const app = new Vue({
       ];
       this.copyList.text = 'Lista copiata negli appunti';
       window.localStorage.setItem('langIta', true);
+      location.reload(); //lo faccio solo perchè mi obbligano ad inserire librerie del c---- per la privacy policy e mi buggano il codice.
     },
   },
 });
