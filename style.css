@@ -3,6 +3,10 @@ body {
   font-family: 'Permanent Marker', cursive;
 }
 
+.padding-bottom-custom {
+  padding-bottom: 10%;
+}
+
 /* HEADER */
 .christmas-theme {
   width: 100%;
@@ -406,6 +410,12 @@ li {
     background-repeat: no-repeat;
     background-size: cover;
   }
+}
+
+.privacy-policy > a.iubenda-embed {
+  font-family: 'Permanent Marker', cursive !important;
+  background-color: transparent !important;
+  border: 1px solid transparent !important;
 }
 
 /*sarebbe stato meglio usare scss e tenere tutto più ordinato, lo so!*/
