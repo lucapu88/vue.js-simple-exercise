@@ -182,7 +182,7 @@
               </button> 
             </div>
 
-            <div class="footer-btns-container">
+            <div class="footer-btns-container pb-3">
               <button class="delete-all btn btn-dark" :class="{'christmas': christmasTheme}" v-on:click="visible = !visible">
                 <span  v-if="langIta">Cancella tutto </span> 
                 <span v-else>Delete ALL </span> 
@@ -190,7 +190,7 @@
               </button> 
 
               <!-- CHANGE LANGUAGE -->
-              <div class="btns-language-container">
+              <div class="btns-language-container" :class="{'christmas': christmasTheme}">
                 <button class="btn-lang-left" :class="{'language-selected': !langIta}" @click="setEnglish()">eng</button>
                 <button class="btn-lang-right" :class="{'language-selected': langIta}" @click="setItaliano()">ita</button>
               </div>
