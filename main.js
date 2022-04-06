@@ -1,4 +1,6 @@
 const app = new Vue({
+  /*Tutto quello che ho scritto qui sotto e nell'html andava fatto meglio, ovvero spezzettato in componenti vari e ordinati.
+    Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
   el: '#app',
   data: {
     todos: [], //conterrà gli elementi che noi digitiamo
@@ -31,9 +33,17 @@ const app = new Vue({
     ],
     addTodoInCategory: { condition: false, id: null },
     langIta: null, //se è false è impostato su inglese
+    canDeleteText: 'OFF',
+    canDelete: false,
+    confirmText: 'Are you sure you want to delete this product/catrgory?',
   },
   created() {
-    //setto la lingua in base a quella settata dall'utente nel suo locale
+    //setto le impostazioni scelte dall'utente sulla conferma di cancellazione
+    const canDelete = window.localStorage.getItem('canDelete');
+    this.canDelete = canDelete === 'true';
+    this.canDelete ? (this.canDeleteText = 'ON') : this.canDeleteText;
+
+    //setto la lingua in base a quella scelta dall'utente nel suo locale
     const langIta = window.localStorage.getItem('langIta');
     this.langIta = langIta === 'true';
     if (this.langIta) {
@@ -53,15 +63,19 @@ const app = new Vue({
         { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
       ];
       this.copyList.text = 'Lista copiata negli appunti';
+      this.confirmText =
+        'Sei sicuro di voler eliminare questo prodotto/categoria?';
     } else {
       this.defaultPlaceholderText;
       this.categories;
       this.copyList.text;
+      this.confirmText;
     }
     this.merryChristmasTheme();
   },
   mounted() {
     console.clear();
+    console.log('console cleared');
     if (
       window.localStorage.getItem('todos') &&
       window.localStorage.getItem('list')
@@ -145,11 +159,22 @@ const app = new Vue({
       this.saveTodos();
     },
     removeTodo(x, todo) {
+      //se ho impostato la conferma all'eliminazione apro un alert prima di eliminare altrimenti elimino direttamente
+      if (this.canDelete) {
+        const text = this.confirmText;
+        if (confirm(text) == true) {
+          this.confirmedRemoveTodo(x, todo);
+        }
+      } else {
+        this.confirmedRemoveTodo(x, todo);
+      }
+    },
+    confirmedRemoveTodo(x, todo) {
       this.todos.splice(x, 1);
       this.list.splice(x, 1);
       this.saveTodos();
       if (this.addTodoInCategory.condition) {
-        location.reload(); //DA SISTEMARE! È una soluzione brutta ma per il momento mi serve.
+        location.reload(); //DA SISTEMARE
       }
       navigator.vibrate(220);
     },
@@ -272,6 +297,15 @@ const app = new Vue({
       window.localStorage.setItem('langIta', true);
       location.reload(); //lo faccio solo perchè mi obbligano ad inserire librerie del c---- per la privacy policy e mi buggano il codice.
     },
+    toggleDeleteConfirm() {
+      this.canDelete = !this.canDelete;
+      if (this.canDelete) {
+        this.canDeleteText = 'ON';
+        window.localStorage.setItem('canDelete', true);
+      } else {
+        this.canDeleteText = 'OFF';
+        window.localStorage.setItem('canDelete', false);
+      }
+    },
   },
 });
-//tutto ciò si poteva fare molto meglio senza ripetere roba, facendo fare alle funzioni una cosa sola, scrivendo meno codice ecc....lo so!!! ma per il momento non ho tempo e mi serve codice funzionante
