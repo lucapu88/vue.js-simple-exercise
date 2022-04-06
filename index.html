@@ -60,7 +60,8 @@
               </div>
             </div>
             <!-- HELPER -->
-            <div class="helper-description" 
+            <div id="helper-description-container" 
+              class="helper-description" 
               :class="{
                 'slideUp' : helper === true, 
                 'slideDown': helper === false
@@ -75,9 +76,9 @@
                 <span>- <i class="far fa-paper-plane btn btn-info helper-icon"></i> serve per aggiungere alla lista roba da comprare.</span></br>
                 <span>- Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span></br>
                 <span>- Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
-                <span class="text-danger">NEW: </span><span>Puoi attivare la modalità <u>eliminazione sicura</u> che ti chiederà conferma per l'eliminazione di ogni singolo prodotto della lista.</span></br>
+                <span class="text-danger">NEW: </span><span>Puoi attivare la modalità <u>eliminazione sicura</u> che ti chiederà conferma di eliminazione per ogni singolo prodotto della lista.</span></br>
                 <span @click="toggleDeleteConfirm()">
-                  <u>Clicca per attivare/disattivare</u> &#x1F449;
+                  <u>Clicca per attivare/disattivare</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
                 </span></br>
                 <span>- <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare l'indice delle categorie selezionabili.</span></br>
@@ -94,9 +95,9 @@
                 <span> - <i class="far fa-paper-plane btn btn-info helper-icon"> </i> is used to add stuff to buy list. </span> </br>
                 <span> - With <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> you can change a name and save the changes by clicking <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>. </span> </br>
                 <span> - With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"> </i> you will remove stuff from the list. </span> </br>
-                <span class="text-danger">NEW: </span><span>You can activate the <u>safe delete</u> mode which will ask you to confirm the deletion of each single product on the list. </span></br>
+                <span class="text-danger">NEW: </span><span>You can activate the <u>safe delete</u> mode which will ask you to confirm the deletion for each single product on the list.</span></br>
                 <span @click="toggleDeleteConfirm()">
-                  <u>Click to activate/deactivate</u> &#x1F449;
+                  <u>Click to activate/deactivate</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
                 </span></br>
                 <span> - <span class="custom-show-listbtn helper-icon"> + </span> is used to display the index of selectable categories. </span> </br>

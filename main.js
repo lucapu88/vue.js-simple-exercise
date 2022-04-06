@@ -18,7 +18,8 @@ const app = new Vue({
     },
     categoryClass: false,
     categoryEmoji: '',
-    categories: [
+    categories: [],
+    engCategories: [
       { name: 'vegetables', emojy: String.fromCodePoint(0x1f966) },
       { name: 'meat', emojy: String.fromCodePoint(0x1f969) },
       { name: 'fish', emojy: String.fromCodePoint(0x1f99e) },
@@ -29,7 +30,22 @@ const app = new Vue({
       { name: 'drinks', emojy: String.fromCodePoint(0x1f37a) },
       { name: 'hygiene', emojy: String.fromCodePoint(0x1f9fb) },
       { name: 'medications', emojy: String.fromCodePoint(0x1f48a) },
+      { name: 'stationery', emojy: String.fromCodePoint(0x1f4da) },
       { name: 'other', emojy: String.fromCodePoint(0x1f4b8) },
+    ],
+    itaCategories: [
+      { name: 'verdura', emojy: String.fromCodePoint(0x1f966) },
+      { name: 'carne', emojy: String.fromCodePoint(0x1f969) },
+      { name: 'pesce', emojy: String.fromCodePoint(0x1f99e) },
+      { name: 'frutta', emojy: String.fromCodePoint(0x1f353) },
+      { name: 'dolci', emojy: String.fromCodePoint(0x1f382) },
+      { name: 'latticini', emojy: String.fromCodePoint(0x1f95b) },
+      { name: 'farinacei', emojy: String.fromCodePoint(0x1f35e) },
+      { name: 'bevande', emojy: String.fromCodePoint(0x1f37a) },
+      { name: 'igiene', emojy: String.fromCodePoint(0x1f9fb) },
+      { name: 'farmaci', emojy: String.fromCodePoint(0x1f48a) },
+      { name: 'cancelleria', emojy: String.fromCodePoint(0x1f4da) },
+      { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
     ],
     addTodoInCategory: { condition: false, id: null },
     langIta: null, //se è false è impostato su inglese
@@ -38,6 +54,7 @@ const app = new Vue({
     confirmText: 'Are you sure you want to delete this product/catrgory?',
   },
   created() {
+    this.categories = this.engCategories; //setto le categorie di default
     //setto le impostazioni scelte dall'utente sulla conferma di cancellazione
     const canDelete = window.localStorage.getItem('canDelete');
     this.canDelete = canDelete === 'true';
@@ -49,25 +66,13 @@ const app = new Vue({
     if (this.langIta) {
       this.placeholder = 'Scrivi cosa comprare';
       this.defaultPlaceholderText = 'Scrivi cosa comprare';
-      this.categories = [
-        { name: 'verdura', emojy: String.fromCodePoint(0x1f966) },
-        { name: 'carne', emojy: String.fromCodePoint(0x1f969) },
-        { name: 'pesce', emojy: String.fromCodePoint(0x1f99e) },
-        { name: 'frutta', emojy: String.fromCodePoint(0x1f353) },
-        { name: 'dolci', emojy: String.fromCodePoint(0x1f382) },
-        { name: 'latticini', emojy: String.fromCodePoint(0x1f95b) },
-        { name: 'farinacei', emojy: String.fromCodePoint(0x1f35e) },
-        { name: 'bevande', emojy: String.fromCodePoint(0x1f37a) },
-        { name: 'igiene', emojy: String.fromCodePoint(0x1f9fb) },
-        { name: 'farmaci', emojy: String.fromCodePoint(0x1f48a) },
-        { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
-      ];
+      this.categories = this.itaCategories;
       this.copyList.text = 'Lista copiata negli appunti';
       this.confirmText =
         'Sei sicuro di voler eliminare questo prodotto/categoria?';
     } else {
       this.defaultPlaceholderText;
-      this.categories;
+      this.categories = this.engCategories;
       this.copyList.text;
       this.confirmText;
     }
@@ -75,7 +80,7 @@ const app = new Vue({
   },
   mounted() {
     console.clear();
-    console.log('console cleared');
+
     if (
       window.localStorage.getItem('todos') &&
       window.localStorage.getItem('list')
@@ -242,7 +247,9 @@ const app = new Vue({
               });
               //do indicazioni nel placeholder
               this.placeholder =
-                'Aggiungi in ' + todo.emojy + todo.name.toUpperCase();
+                (this.langIta ? 'Aggiungi in ' : 'Add in ') +
+                todo.emojy +
+                todo.name.toUpperCase();
             } else {
               this.placeholder = this.defaultPlaceholderText;
             }
@@ -259,40 +266,16 @@ const app = new Vue({
       this.langIta = false;
       this.placeholder = 'Write what to buy';
       this.defaultPlaceholderText = 'Write what to buy';
-      this.categories = [
-        { name: 'vegetables', emojy: String.fromCodePoint(0x1f966) },
-        { name: 'meat', emojy: String.fromCodePoint(0x1f969) },
-        { name: 'fish', emojy: String.fromCodePoint(0x1f99e) },
-        { name: 'fruit', emojy: String.fromCodePoint(0x1f353) },
-        { name: 'sweets', emojy: String.fromCodePoint(0x1f382) },
-        { name: 'dairy products', emojy: String.fromCodePoint(0x1f95b) },
-        { name: 'starchy', emojy: String.fromCodePoint(0x1f35e) },
-        { name: 'drinks', emojy: String.fromCodePoint(0x1f37a) },
-        { name: 'hygiene', emojy: String.fromCodePoint(0x1f9fb) },
-        { name: 'medications', emojy: String.fromCodePoint(0x1f48a) },
-        { name: 'other', emojy: String.fromCodePoint(0x1f4b8) },
-      ];
+      this.categories = this.engCategories;
       this.copyList.text = 'List copied to clipboard';
       window.localStorage.setItem('langIta', false);
-      location.reload(); //lo faccio solo perchè mi obbligano ad inserire librerie del c---- per la privacy policy e mi buggano il codice.
+      location.reload(); //lo faccio solo perchè mi obbligano ad inserire librerie del c---- per la privacy policy che mi buggano il codice.
     },
     setItaliano() {
       this.langIta = true;
       this.placeholder = 'Scrivi cosa comprare';
       this.defaultPlaceholderText = 'Scrivi cosa comprare';
-      this.categories = [
-        { name: 'verdura', emojy: String.fromCodePoint(0x1f966) },
-        { name: 'carne', emojy: String.fromCodePoint(0x1f969) },
-        { name: 'pesce', emojy: String.fromCodePoint(0x1f99e) },
-        { name: 'frutta', emojy: String.fromCodePoint(0x1f353) },
-        { name: 'dolci', emojy: String.fromCodePoint(0x1f382) },
-        { name: 'latticini', emojy: String.fromCodePoint(0x1f95b) },
-        { name: 'farinacei', emojy: String.fromCodePoint(0x1f35e) },
-        { name: 'bevande', emojy: String.fromCodePoint(0x1f37a) },
-        { name: 'igiene', emojy: String.fromCodePoint(0x1f9fb) },
-        { name: 'farmaci', emojy: String.fromCodePoint(0x1f48a) },
-        { name: 'altro', emojy: String.fromCodePoint(0x1f4b8) },
-      ];
+      this.categories = this.itaCategories;
       this.copyList.text = 'Lista copiata negli appunti';
       window.localStorage.setItem('langIta', true);
       location.reload(); //lo faccio solo perchè mi obbligano ad inserire librerie del c---- per la privacy policy e mi buggano il codice.
