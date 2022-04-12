@@ -1,5 +1,7 @@
 # SHOPPING LIST
 
+<p align="center"><img src="img/README-IMG.png" alt="preview" /></p>
+
 <a href="https://play.google.com/store/apps/details?id=io.kodular.caputoluca88.Shopping_List" target="_blank">ANDROID.</a><br>
 <a href="https://lucapu88.github.io/vue.js-simple-exercise/" target="_blank">WEB.</a>
 <br><hr>
