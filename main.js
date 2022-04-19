@@ -52,6 +52,7 @@ const app = new Vue({
     canDeleteText: 'OFF',
     canDelete: false,
     confirmText: 'Are you sure you want to delete this product/catrgory?',
+    buttonBackToTop: false,
   },
   created() {
     this.categories = this.engCategories; //setto le categorie di default
@@ -97,6 +98,9 @@ const app = new Vue({
     if (!this.addTodoInCategory.condition) {
       this.todos.map((t) => (t.isSelected = false));
     }
+  },
+  updated() {
+    this.toggleButtonBackToTop();
   },
   methods: {
     merryChristmasTheme() {
@@ -162,6 +166,7 @@ const app = new Vue({
       this.categoryClass = false;
       this.categoryEmoji = '';
       this.saveTodos();
+      this.toggleButtonBackToTop();
     },
     removeTodo(x, todo) {
       //se ho impostato la conferma all'eliminazione apro un alert prima di eliminare altrimenti elimino direttamente
@@ -173,6 +178,8 @@ const app = new Vue({
       } else {
         this.confirmedRemoveTodo(x, todo);
       }
+
+      this.toggleButtonBackToTop();
     },
     confirmedRemoveTodo(x, todo) {
       this.todos.splice(x, 1);
@@ -182,6 +189,20 @@ const app = new Vue({
         location.reload(); //DA SISTEMARE
       }
       navigator.vibrate(220);
+    },
+    toggleButtonBackToTop() {
+      //mostro o nascondo, in base alla lunghezza del display, il pulsante che porta in cima alla lista
+      const list = document.getElementById('todo-list');
+      const container = document.getElementById('container-list');
+
+      if (list.offsetHeight > container.offsetHeight) {
+        this.buttonBackToTop = true;
+      } else {
+        this.buttonBackToTop = false;
+      }
+    },
+    scrollTop() {
+      window.scrollTo(0, 0);
     },
     modifyTodo(x, y, todo) {
       this.todos.splice(x, 1);
@@ -205,6 +226,7 @@ const app = new Vue({
       this.categoryList = false;
       this.placeholder = this.defaultPlaceholderText;
       navigator.vibrate(1000);
+      this.buttonBackToTop = false;
     },
     copy(list) {
       const arrayNoCommas = ['', ...list].join(' ');

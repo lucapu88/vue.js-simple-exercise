@@ -3,6 +3,10 @@ body {
   font-family: 'Permanent Marker', cursive;
 }
 
+.row {
+  height: 90vh;
+}
+
 .padding-bottom-custom {
   padding-bottom: 10%;
 }
@@ -382,6 +386,10 @@ li {
   border-radius: 0 10px 10px 0;
   color: rgb(0, 172, 252);
   border-color: rgb(0, 172, 252);
+}
+
+.back-up {
+  width: 20px;
 }
 
 /* VARIE */

@@ -25,7 +25,7 @@
   <body> <!-- PS.: la vista è stata curata solo per la visualizzazione in versione mobile.-->
     <div class="container">
       <div id="app">
-        <div class="row">
+        <div id="container-list" class="row">
           <div class="mt-3 mx-auto padding-bottom-custom">
             <!-- HEADER -->
             <img v-if="christmasTheme" 
@@ -124,7 +124,7 @@
             </div>
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
             <!-- TODO LIST -->
-            <ul class="col-12" :class="{'christmas': christmasTheme}">
+            <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme}">
               <div v-for="(todo, n) in todos" :class="{'category': todo.class}">
                 <div v-if="todo.class" 
                   class="category-emoji"
@@ -198,7 +198,11 @@
                 <span  v-if="langIta">Cancella tutto </span> 
                 <span v-else>Delete ALL </span> 
                 <i class="fas fa-skull-crossbones"></i>
-              </button> 
+              </button>
+              
+              <button v-if="buttonBackToTop" class="btn btn-outline-secondary p-1" @click="scrollTop()">
+               <img class="back-up" src="./img/chevron-up.png" alt="up">
+              </button>
 
               <!-- CHANGE LANGUAGE -->
               <div class="btns-language-container" :class="{'christmas': christmasTheme}">
