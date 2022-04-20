@@ -30,7 +30,7 @@
             <!-- HEADER -->
             <img v-if="christmasTheme" 
               class="christmas-theme" 
-              src="./img/ghirlanda.png" 
+              src="./img/ghirlanda.webp" 
               alt="merry-christmas">
             <div class="header-container" :class="{'christmas': christmasTheme}">
               <h2 v-if="langIta" class="title text-center">Lista Spesa</h2>
@@ -67,17 +67,17 @@
                 'slideDown': helper === false
               }" >
               <p class="close-helper" @click="showHelper()">X</p>
-              <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.png" alt="Buon Natale!">
+              <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.webp" alt="Buon Natale!">
               <p v-if="langIta" class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Serve aiuto?</p>
               <p v-else class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Need help?</p>
-              <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.png" alt="E felice anno nuovo!">
+              <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.webp" alt="E felice anno nuovo!">
               <!-- i tag br sono brutti, lo so :P -->
               <div id="helper-description" v-if="langIta">
                 <span>- <i class="far fa-paper-plane btn btn-info helper-icon"></i> serve per aggiungere alla lista roba da comprare.</span></br>
                 <span>- Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span></br>
                 <span>- Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
                 <span class="text-danger">NEW: </span><span>Puoi attivare la modalità <u>eliminazione sicura</u> che ti chiederà conferma di eliminazione per ogni singolo prodotto della lista.</span></br>
-                <span @click="toggleDeleteConfirm()">
+                <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
                   <u>Clicca per attivare/disattivare</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
                 </span></br>
@@ -96,7 +96,7 @@
                 <span> - With <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> you can change a name and save the changes by clicking <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>. </span> </br>
                 <span> - With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"> </i> you will remove stuff from the list. </span> </br>
                 <span class="text-danger">NEW: </span><span>You can activate the <u>safe delete</u> mode which will ask you to confirm the deletion for each single product on the list.</span></br>
-                <span @click="toggleDeleteConfirm()">
+                <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
                   <u>Click to activate/deactivate</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
                 </span></br>
@@ -200,8 +200,8 @@
                 <i class="fas fa-skull-crossbones"></i>
               </button>
               
-              <button v-if="buttonBackToTop" class="btn btn-outline-secondary p-1" @click="scrollTop()">
-               <img class="back-up" src="./img/chevron-up.png" alt="up">
+              <button v-if="buttonBackToTop" class="btn btn-outline-secondary p-1" :class="{'christmas': christmasTheme}" @click="scrollTop()">
+               <img class="back-up" src="./img/chevron-up.webp" alt="up">
               </button>
 
               <!-- CHANGE LANGUAGE -->
@@ -210,7 +210,7 @@
                 <button class="btn-lang-right" :class="{'language-selected': langIta}" @click="setItaliano()">ita</button>
               </div>
             </div>
-            <img v-if="christmasTheme" class="christas-footer" src="./img/christmas.png" alt="">
+            <img v-if="christmasTheme" class="christas-footer" src="./img/christmas.webp" alt="">
             <!-- <small v-if="!christmasTheme" class="created-by-luca-caputo">By Luca Caputo</small> -->
             <small v-if="christmasTheme" class="created-by-luca-caputo">Merry Christmas by Luca Caputo</small>
           </div>

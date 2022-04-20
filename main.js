@@ -51,7 +51,7 @@ const app = new Vue({
     langIta: null, //se è false è impostato su inglese
     canDeleteText: 'OFF',
     canDelete: false,
-    confirmText: 'Are you sure you want to delete this product/catrgory?',
+    confirmText: 'Are you sure you want to delete:',
     buttonBackToTop: false,
   },
   created() {
@@ -69,8 +69,7 @@ const app = new Vue({
       this.defaultPlaceholderText = 'Scrivi cosa comprare';
       this.categories = this.itaCategories;
       this.copyList.text = 'Lista copiata negli appunti';
-      this.confirmText =
-        'Sei sicuro di voler eliminare questo prodotto/categoria?';
+      this.confirmText = 'Sei sicuro di voler eliminare:';
     } else {
       this.defaultPlaceholderText;
       this.categories = this.engCategories;
@@ -171,7 +170,7 @@ const app = new Vue({
     removeTodo(x, todo) {
       //se ho impostato la conferma all'eliminazione apro un alert prima di eliminare altrimenti elimino direttamente
       if (this.canDelete) {
-        const text = this.confirmText;
+        const text = `${this.confirmText} ${todo.name.toUpperCase()}?`;
         if (confirm(text) == true) {
           this.confirmedRemoveTodo(x, todo);
         }
@@ -246,7 +245,7 @@ const app = new Vue({
         window.scrollTo(0, 0);
         document.documentElement.style.overflow = 'hidden';
       } else {
-        document.getElementById('helper-description').scrollTo(0, 0); //Sbagliatissimo farlo in vue! lo so volevo vedere se eravate attenti! :P
+        document.getElementById('helper-description').scrollTo(0, 0);
         document.documentElement.style.overflow = 'auto';
       }
     },

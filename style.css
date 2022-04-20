@@ -1,5 +1,5 @@
 body {
-  background-image: url('img/foglio_righe.jpg');
+  background-image: url('img/foglio_righe.webp');
   font-family: 'Permanent Marker', cursive;
 }
 
@@ -129,7 +129,7 @@ body {
   display: none;
   left: 0;
   top: -100%;
-  background-image: url('img/paper-helper.jpg');
+  background-image: url('img/paper-helper.webp');
   width: 100%;
   height: 100%;
   padding: 10px;
@@ -235,6 +235,10 @@ body {
   }
 }
 
+.toggle-delete-confirm-container:hover {
+  cursor: pointer;
+}
+
 /* CATEGORY */
 .category-list-container {
   width: 365px;
@@ -337,7 +341,7 @@ body {
 }
 .confirm {
   padding: 10px 5px;
-  background-image: url('img/carta-stropicciata.jpg');
+  background-image: url('img/carta-stropicciata.webp');
   background-size: contain;
   border: 2px solid rgb(0, 172, 252);
   opacity: 1;
@@ -431,7 +435,7 @@ li {
 
 @media screen and (min-width: 500px) {
   body {
-    background-image: url('img/foglio.jpeg');
+    background-image: url('img/foglio.webp');
     background-repeat: no-repeat;
     background-size: cover;
   }
