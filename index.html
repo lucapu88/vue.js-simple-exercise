@@ -38,7 +38,12 @@
 
               <h2 v-if="langIta" class="title2 text-center">Lista Spesa</h2>
               <h2 v-else class="title2 title2-eng text-center">Shopping List</h2>
-              <span class="helper" @click="showHelper()">?</span>
+              <span 
+                class="helper" 
+                :class="{'helper-selected': this.helper}"
+                @click="showHelper()">
+                <img src="./img/settings.webp" alt="settings">
+              </span>
               <div class="input-btns-container">
                 <button class="btn btn-outline-success" @click="copy(list)">
                   <i class="far fa-copy"></i></br>
@@ -59,7 +64,7 @@
                 </button> 
               </div>
             </div>
-            <!-- HELPER -->
+            <!-- ----------------------------------------------HELPER CONTAINER -->
             <div id="helper-description-container" 
               class="helper-description" 
               :class="{
@@ -68,19 +73,22 @@
               }" >
               <p class="close-helper" @click="showHelper()">X</p>
               <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.webp" alt="Buon Natale!">
-              <p v-if="langIta" class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Serve aiuto?</p>
-              <p v-else class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Need help?</p>
+              <p v-if="langIta" class="helper-settings-title" :class="christmasTheme ? 'christmas-red' : ''">Impostazioni:</p>
+              <p v-else class="helper-settings-title" :class="christmasTheme ? 'christmas-red' : ''">Settings:</p>
               <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.webp" alt="E felice anno nuovo!">
-              <!-- i tag br sono brutti, lo so :P -->
+              <!-- ----------------------------------------------HELPER ITA -->
               <div id="helper-description" v-if="langIta">
-                <span>- <i class="far fa-paper-plane btn btn-info helper-icon"></i> serve per aggiungere alla lista roba da comprare.</span></br>
-                <span>- Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span></br>
-                <span>- Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
-                <span class="text-danger">NEW: </span><span>Puoi attivare la modalità <u>eliminazione sicura</u> che ti chiederà conferma di eliminazione per ogni singolo prodotto della lista.</span></br>
+                Modalità eliminazione sicura 
+                <small>(ti chiederà conferma di eliminazione per ogni singolo prodotto della lista)</small>:</span></br>
                 <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
                   <u>Clicca per attivare/disattivare</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
                 </span></br>
+
+                <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Istruzioni:</p>
+                <span>- <i class="far fa-paper-plane btn btn-info helper-icon"></i> serve per aggiungere alla lista roba da comprare.</span></br>
+                <span>- Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span></br>
+                <span>- Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
                 <span>- <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare l'indice delle categorie selezionabili.</span></br>
                 <span>- Per scegliere una categoria basta scriverla (o cliccarci sopra) e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category">evidenziata</span> nella lista. </br>Una volta creata la categoria, basterà cliccare sul nome di essa, e verrà evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che scriverai. Per annullare l'operazione basta cliccare su qualsiasi categoria nel <span class="category">riquadro verde</span> già esistente.</span></br>
                  <span>-<i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
@@ -90,16 +98,19 @@
                 <span>Per qualsiasi segnalazione puoi contattarmi: <a href="mailto:lucarhcp88@hotmail.it">lucarhcp88@hotmail.it</a></a></span>
                 <p class="privacy-policy"><a href="https://www.iubenda.com/privacy-policy/69702250" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe " title="Privacy Policy ">Privacy Policy</a></p>
               </div>
-              
+              <!-- ----------------------------------------------HELPER ENG -->
               <div id="helper-description" v-else>
-                <span> - <i class="far fa-paper-plane btn btn-info helper-icon"> </i> is used to add stuff to buy list. </span> </br>
-                <span> - With <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> you can change a name and save the changes by clicking <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>. </span> </br>
-                <span> - With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"> </i> you will remove stuff from the list. </span> </br>
-                <span class="text-danger">NEW: </span><span>You can activate the <u>safe delete</u> mode which will ask you to confirm the deletion for each single product on the list.</span></br>
+                Safe delete mode
+                 <small> (it will ask you to confirm the deletion for each single product on the list) </small>: </span> </br>
                 <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
                   <u>Click to activate/deactivate</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
                 </span></br>
+
+                <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Instructions:</p>
+                <span> - <i class="far fa-paper-plane btn btn-info helper-icon"> </i> is used to add stuff to buy list. </span> </br>
+                <span> - With <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> you can change a name and save the changes by clicking <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>. </span> </br>
+                <span> - With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"> </i> you will remove stuff from the list. </span> </br>
                 <span> - <span class="custom-show-listbtn helper-icon"> + </span> is used to display the index of selectable categories. </span> </br>
                 <span> - To choose a category just write it (or click on it) and click <i class="far fa-paper-plane btn btn-info helper-icon "> </i>. You will see <span class="category"> highlighted </span> in the list. </br> Once the category has been created, just click on its name, and <span class="selected"> will be highlighted as well </span>, underneath you will add stuff you write. To cancel the operation just click on any category in the existing <span class="category"> green box </span>. </span> </br>
                 <span> - <i class="far fa-copy btn btn-outline-success helper-icon"> </i> is used to copy the list and paste it wherever you want. </span> </br>
@@ -200,7 +211,7 @@
                 <i class="fas fa-skull-crossbones"></i>
               </button>
               
-              <button v-if="buttonBackToTop" class="btn btn-outline-secondary p-1" :class="{'christmas': christmasTheme}" @click="scrollTop()">
+              <button v-if="buttonBackToTop" class="btn btn-outline-info p-1" :class="{'christmas': christmasTheme}" @click="scrollTop()">
                <img class="back-up" src="./img/chevron-up.webp" alt="up">
               </button>
 

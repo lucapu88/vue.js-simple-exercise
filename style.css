@@ -113,17 +113,40 @@ body {
 .helper {
   position: absolute;
   top: 0;
-  right: 10px;
-  color: blue;
-  border: 2px solid blue;
+  right: 0;
   border-radius: 50%;
   padding: 0 5px;
   z-index: 5;
-  background-color: white;
 }
 .helper:hover {
   cursor: pointer;
 }
+.helper > img {
+  width: 45px;
+}
+
+.helper-selected {
+  -webkit-animation: spin 2s linear infinite;
+  -moz-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
 .helper-description {
   position: absolute;
   display: none;
@@ -177,9 +200,15 @@ body {
   overflow: auto;
   padding-bottom: 30%;
 }
+.helper-settings-title {
+  margin-bottom: 0;
+  text-align: center;
+}
 .helper-title {
   margin-bottom: 0;
   text-align: center;
+  margin-top: 20px;
+  border-top: 1px solid;
 }
 .close-helper {
   float: right;
@@ -296,7 +325,17 @@ body {
   color: white;
   border-radius: 5px;
   padding-left: 3px;
+  animation: underline 0.5s ease-out;
 }
+@keyframes underline {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 200px;
+  }
+}
+
 .categoryActive {
   padding-right: 26px !important;
   margin-left: 5px !important;
