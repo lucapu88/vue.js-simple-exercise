@@ -33,8 +33,12 @@
               src="./img/ghirlanda.webp" 
               alt="merry-christmas">
             <div class="header-container" :class="{'christmas': christmasTheme}">
-              <h2 v-if="langIta" class="title text-center">Lista Spesa</h2>
-              <h2 v-else class="title text-center">Shopping List</h2>
+              <h2 v-if="langIta" 
+                class="title text-center"
+                :class="{'dark-theme-title': darkTheme}">Lista Spesa</h2>
+              <h2 v-else 
+                class="title text-center"
+                :class="{'dark-theme-title': darkTheme}">Shopping List</h2>
 
               <h2 v-if="langIta" class="title2 text-center">Lista Spesa</h2>
               <h2 v-else class="title2 title2-eng text-center">Shopping List</h2>
@@ -58,7 +62,7 @@
                 <button class="btn btn-info" @click="addTodo">
                   <i class="far fa-paper-plane"></i>
                 </button> 
-                <button class="btn custom-show-listbtn" @click="showList()">
+                <button class="btn custom-show-listbtn" @click="showCategoryList()">
                   <span v-if="!categoryList">+</span>
                   <span v-else>-</span>
                 </button> 
@@ -69,7 +73,8 @@
               class="helper-description" 
               :class="{
                 'slideUp' : helper === true, 
-                'slideDown': helper === false
+                'slideDown': helper === false,
+                'dark-theme-helper': darkTheme === true
               }" >
               <p class="close-helper" @click="showHelper()">X</p>
               <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.webp" alt="Buon Natale!">
@@ -84,6 +89,11 @@
                   <u>Clicca per attivare/disattivare</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
                 </span></br>
+                Tema impostato: <span class="text-primary">{{darkTheme ? 'Scuro': 'Chiaro'}}</span></br>
+                Cambia tema: <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                  <button type="button" class="btn btn-light p-1" @click="selectLightTheme()">Chiaro</button>
+                                  <button type="button" class="btn btn-dark p-1" @click="selectDarkTheme()">Scuro</button>
+                                </div>
 
                 <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Istruzioni:</p>
                 <span>- <i class="far fa-paper-plane btn btn-info helper-icon"></i> serve per aggiungere alla lista roba da comprare.</span></br>
@@ -106,6 +116,11 @@
                   <u>Click to activate/deactivate</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
                 </span></br>
+                Chosen theme: <span class="text-primary">{{darkTheme ? 'Dark': 'Light'}}</span></br>
+                Change theme: <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <button type="button" class="btn btn-light p-1" @click="selectLightTheme()">Light</button>
+                                    <button type="button" class="btn btn-dark p-1" @click="selectDarkTheme()">Dark</button>
+                                  </div>
 
                 <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Instructions:</p>
                 <span> - <i class="far fa-paper-plane btn btn-info helper-icon"> </i> is used to add stuff to buy list. </span> </br>
@@ -184,8 +199,11 @@
             </ul>
             <!-- DELETE ALL -->
             <div 
-              class="confirm col-10 mx-auto rounded bg-white text-center mb-3" 
-              :class="{'christmas': christmasTheme}" 
+              class="confirm col-10 mx-auto rounded text-center mb-3" 
+              :class="{
+                'christmas': christmasTheme,
+                'dark-theme-confirm': darkTheme
+              }" 
               v-if="!visible">  
               <p v-if="langIta">
                 <i class="fas fa-shopping-cart text-danger"></i> 
@@ -211,7 +229,13 @@
                 <i class="fas fa-skull-crossbones"></i>
               </button>
               
-              <button v-if="buttonBackToTop" class="btn btn-outline-info p-1" :class="{'christmas': christmasTheme}" @click="scrollTop()">
+              <button v-if="buttonBackToTop" 
+                class="btn btn-outline-info p-1" 
+                :class="{
+                  'christmas': christmasTheme,
+                  'dark-theme-back-top': darkTheme
+                }" 
+                @click="scrollTop()">
                <img class="back-up" src="./img/chevron-up.webp" alt="up">
               </button>
 

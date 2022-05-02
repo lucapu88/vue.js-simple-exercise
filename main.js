@@ -53,6 +53,8 @@ const app = new Vue({
     canDelete: false,
     confirmText: 'Are you sure you want to delete:',
     buttonBackToTop: false,
+    lightTheme: true,
+    darkTheme: false,
   },
   created() {
     this.categories = this.engCategories; //setto le categorie di default
@@ -76,6 +78,25 @@ const app = new Vue({
       this.copyList.text;
       this.confirmText;
     }
+
+    //imposto il tema chiaro/scuro in base a quello scelto dall'utente
+    const lightThemeSelected = window.localStorage.getItem('lightTheme');
+    this.lightTheme = lightThemeSelected === 'true';
+    if (this.lightTheme) {
+      document.body.style.backgroundImage = "url('img/foglio_righe.webp')";
+    }
+
+    const darkThemeSelected = window.localStorage.getItem('darkTheme');
+    this.darkTheme = darkThemeSelected === 'true';
+    if (this.darkTheme) {
+      document.body.style.backgroundImage = 'none';
+      document.body.style.backgroundColor = '#333333';
+      document.body.style.color = '#FFFFFF';
+      document.body.style.borderTop = '10px solid #d17e47';
+      document.body.style.borderLeft = '10px solid #d17e47';
+      document.body.style.borderRight = '10px solid #d17e47';
+    }
+
     this.merryChristmasTheme();
   },
   mounted() {
@@ -164,6 +185,7 @@ const app = new Vue({
       this.newTodo = '';
       this.categoryClass = false;
       this.categoryEmoji = '';
+      this.categoryList = false;
       this.saveTodos();
       this.toggleButtonBackToTop();
     },
@@ -236,7 +258,7 @@ const app = new Vue({
       setTimeout(() => (this.copyList.visible = false), 3500); //cambio il testo del pulsante copia
       navigator.vibrate(400);
     },
-    showList() {
+    showCategoryList() {
       this.categoryList = !this.categoryList;
     },
     showHelper() {
@@ -310,6 +332,24 @@ const app = new Vue({
         this.canDeleteText = 'OFF';
         window.localStorage.setItem('canDelete', false);
       }
+    },
+    selectLightTheme() {
+      this.darkTheme = false;
+      window.localStorage.setItem('darkTheme', false);
+
+      this.lightTheme = true;
+      window.localStorage.setItem('lightTheme', true);
+
+      location.reload();
+    },
+    selectDarkTheme() {
+      this.lightTheme = false;
+      window.localStorage.setItem('lightTheme', false);
+
+      this.darkTheme = true;
+      window.localStorage.setItem('darkTheme', true);
+
+      location.reload();
     },
   },
 });

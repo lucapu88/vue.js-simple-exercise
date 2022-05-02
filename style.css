@@ -118,6 +118,7 @@ body {
   padding: 0 5px;
   z-index: 5;
 }
+
 .helper:hover {
   cursor: pointer;
 }
@@ -484,4 +485,24 @@ li {
   font-family: 'Permanent Marker', cursive !important;
   background-color: transparent !important;
   border: 1px solid transparent !important;
+}
+
+.dark-theme-title {
+  background: -webkit-radial-gradient(circle, #ffffff 0%, #ffffff 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.dark-theme-helper {
+  background-image: none;
+  background-color: #385336;
+  border: 10px solid #d17e47;
+}
+.dark-theme-confirm {
+  background-color: #333333;
+  background-image: none;
+  border: 10px solid #d17e47;
+}
+.dark-theme-back-top {
+  background-color: #ffffff;
 }
