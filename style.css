@@ -2,6 +2,13 @@ body {
   background-image: url('img/foglio_righe.webp');
   font-family: 'Permanent Marker', cursive;
 }
+@media screen and (min-width: 500px) {
+  body {
+    background-image: url('img/foglio.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
 
 .row {
   height: 90vh;
@@ -471,14 +478,6 @@ li {
 
 .overflow-hide {
   overflow-y: hidden;
-}
-
-@media screen and (min-width: 500px) {
-  body {
-    background-image: url('img/foglio.webp');
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
 }
 
 .privacy-policy > a.iubenda-embed {

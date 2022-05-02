@@ -92,9 +92,8 @@ const app = new Vue({
       document.body.style.backgroundImage = 'none';
       document.body.style.backgroundColor = '#333333';
       document.body.style.color = '#FFFFFF';
-      document.body.style.borderTop = '10px solid #d17e47';
-      document.body.style.borderLeft = '10px solid #d17e47';
-      document.body.style.borderRight = '10px solid #d17e47';
+      document.body.style.height = '100vh';
+      document.body.style.border = '10px solid #d17e47';
     }
 
     this.merryChristmasTheme();
@@ -218,8 +217,11 @@ const app = new Vue({
 
       if (list.offsetHeight > container.offsetHeight) {
         this.buttonBackToTop = true;
+        if (this.darkTheme) document.body.style.borderBottom = 'none';
       } else {
         this.buttonBackToTop = false;
+        if (this.darkTheme)
+          document.body.style.borderBottom = '10px solid #d17e47';
       }
     },
     scrollTop() {
