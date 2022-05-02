@@ -134,9 +134,9 @@ body {
 }
 
 .helper-selected {
-  -webkit-animation: spin 2s linear infinite;
-  -moz-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
+  -webkit-animation: spin 2s linear;
+  -moz-animation: spin 2s linear;
+  animation: spin 2s linear;
 }
 @-moz-keyframes spin {
   100% {
@@ -152,6 +152,28 @@ body {
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
+  }
+}
+
+.helper-deselected {
+  -webkit-animation: reverseSpin 1.5s linear;
+  -moz-animation: reverseSpin 1.5s linear;
+  animation: reverseSpin 1.5s linear;
+}
+@-moz-keyframes reverseSpin {
+  100% {
+    -moz-transform: rotate(-360deg);
+  }
+}
+@-webkit-keyframes reverseSpin {
+  100% {
+    -webkit-transform: rotate(-360deg);
+  }
+}
+@keyframes reverseSpin {
+  100% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
   }
 }
 
@@ -333,7 +355,7 @@ body {
   color: white;
   border-radius: 5px;
   padding-left: 3px;
-  animation: underline 0.5s ease-out;
+  animation: underline 0.8s ease-out;
 }
 @keyframes underline {
   0% {
@@ -496,6 +518,7 @@ li {
   background-image: none;
   background-color: #385336;
   border: 10px solid #d17e47;
+  /* width: calc(100% - 10px); */
 }
 .dark-theme-confirm {
   background-color: #333333;

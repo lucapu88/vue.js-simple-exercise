@@ -94,6 +94,7 @@ const app = new Vue({
       document.body.style.color = '#FFFFFF';
       document.body.style.height = '100vh';
       document.body.style.border = '10px solid #d17e47';
+      // document.body.style.width = 'calc(100% - 10px)'; //DA VERIFICARE CON ALTRI SMARTPHONE
     }
 
     this.merryChristmasTheme();
@@ -155,7 +156,7 @@ const app = new Vue({
 
       this.categories.forEach((category) => {
         //se scrivo un nome che è presente nella lista di categorie, creo una categoria evidenziata
-        if (this.newTodo.toLowerCase().trim() == category.name) {
+        if (this.newTodo.toLowerCase().trim() === category.name) {
           this.categoryClass = true;
           this.categoryEmoji = category.emojy;
         }
@@ -192,7 +193,7 @@ const app = new Vue({
       //se ho impostato la conferma all'eliminazione apro un alert prima di eliminare altrimenti elimino direttamente
       if (this.canDelete) {
         const text = `${this.confirmText} ${todo.name.toUpperCase()}?`;
-        if (confirm(text) == true) {
+        if (confirm(text)) {
           this.confirmedRemoveTodo(x, todo);
         }
       } else {
@@ -217,11 +218,14 @@ const app = new Vue({
 
       if (list.offsetHeight > container.offsetHeight) {
         this.buttonBackToTop = true;
-        if (this.darkTheme) document.body.style.borderBottom = 'none';
+        if (this.darkTheme) {
+          document.body.style.borderBottom = 'none';
+        }
       } else {
         this.buttonBackToTop = false;
-        if (this.darkTheme)
+        if (this.darkTheme) {
           document.body.style.borderBottom = '10px solid #d17e47';
+        }
       }
     },
     scrollTop() {
@@ -278,9 +282,8 @@ const app = new Vue({
       if (todo.class) {
         this.todos.map((t) => (t.isSelected = false)); //azzero tutto
         this.categories.forEach((category) => {
-          if (todo.name.toLowerCase() == category.name) {
-            //se il nome è uguale alla categoria
-            //permetto il toggle per la classe e salvo l'index
+          if (todo.name.toLowerCase() === category.name) {
+            //se il nome è uguale alla categoria, permetto il toggle per la classe e salvo l'index
             this.addTodoInCategory.condition =
               !this.addTodoInCategory.condition;
             this.addTodoInCategory.id = index;

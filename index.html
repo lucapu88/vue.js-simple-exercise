@@ -44,7 +44,10 @@
               <h2 v-else class="title2 title2-eng text-center">Shopping List</h2>
               <span 
                 class="helper" 
-                :class="{'helper-selected': this.helper}"
+                :class="{
+                  'helper-selected': this.helper,
+                  'helper-deselected': !this.helper
+                }"
                 @click="showHelper()">
                 <img src="./img/settings.webp" alt="settings">
               </span>
@@ -83,15 +86,15 @@
               <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.webp" alt="E felice anno nuovo!">
               <!-- ----------------------------------------------HELPER ITA -->
               <div id="helper-description" v-if="langIta">
-                Modalità eliminazione sicura 
-                <small>(ti chiederà conferma di eliminazione per ogni singolo prodotto della lista)</small>:</span></br>
+                &#x2699; Modalità eliminazione sicura 
+                <small>(ti chiederà conferma di eliminazione per ogni singolo prodotto della lista)</small>:</br>
                 <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
                   <u>Clicca per attivare/disattivare</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
                 </span></br>
-                Tema impostato: <span class="text-primary">{{darkTheme ? 'Scuro': 'Chiaro'}}</span></br>
+                &#x2699; Tema impostato: <span class="text-primary">{{darkTheme ? 'Scuro': 'Chiaro'}}</span></br>
                 Cambia tema: <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                  <button type="button" class="btn btn-light p-1" @click="selectLightTheme()">Chiaro</button>
+                                  <button type="button" class="btn btn-light p-1 border border-dark" @click="selectLightTheme()">Chiaro</button>
                                   <button type="button" class="btn btn-dark p-1" @click="selectDarkTheme()">Scuro</button>
                                 </div>
 
@@ -110,15 +113,15 @@
               </div>
               <!-- ----------------------------------------------HELPER ENG -->
               <div id="helper-description" v-else>
-                Safe delete mode
-                 <small> (it will ask you to confirm the deletion for each single product on the list) </small>: </span> </br>
+                &#x2699; Safe delete mode
+                 <small> (it will ask you to confirm the deletion for each single product on the list) </small>:</br>
                 <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
                   <u>Click to activate/deactivate</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
                 </span></br>
-                Chosen theme: <span class="text-primary">{{darkTheme ? 'Dark': 'Light'}}</span></br>
+                &#x2699; Chosen theme: <span class="text-primary">{{darkTheme ? 'Dark': 'Light'}}</span></br>
                 Change theme: <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                    <button type="button" class="btn btn-light p-1" @click="selectLightTheme()">Light</button>
+                                    <button type="button" class="btn btn-light p-1 border border-dark" @click="selectLightTheme()">Light</button>
                                     <button type="button" class="btn btn-dark p-1" @click="selectDarkTheme()">Dark</button>
                                   </div>
 
@@ -169,7 +172,8 @@
                 <li class="button-container bg-light" :class="todo.class ? 'categoryActive' : ''"> 
                   <button 
                     class="ml-1 btn btn-primary rounded-circle btn-sm" 
-                    @click="toggleHidden(n)" v-if="todo.isHidden == true && !todo.class" 
+                    @click="toggleHidden(n)" 
+                    v-if="todo.isHidden == true && !todo.class" 
                     :class="todo.isDisabled ? 'disabled' : '' " 
                     :disabled="!!todo.isDisabled">
                     <i class="fas fa-pencil-alt"></i>
