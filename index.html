@@ -86,12 +86,12 @@
               <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.webp" alt="E felice anno nuovo!">
               <!-- ----------------------------------------------HELPER ITA -->
               <div id="helper-description" v-if="langIta">
-                &#x2699; Modalità eliminazione sicura 
+                &#x2699; Modalità eliminazione sicura <br>
                 <small>(ti chiederà conferma di eliminazione per ogni singolo prodotto della lista)</small>:</br>
                 <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
                   <u>Clicca per attivare/disattivare</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
-                </span></br>
+                </span></br><br>
                 &#x2699; Tema impostato: <span class="text-primary">{{darkTheme ? 'Scuro': 'Chiaro'}}</span></br>
                 Cambia tema: <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                   <button type="button" class="btn btn-light p-1 border border-dark" @click="selectLightTheme()">Chiaro</button>
@@ -113,12 +113,12 @@
               </div>
               <!-- ----------------------------------------------HELPER ENG -->
               <div id="helper-description" v-else>
-                &#x2699; Safe delete mode
+                &#x2699; Safe delete mode <br>
                  <small> (it will ask you to confirm the deletion for each single product on the list) </small>:</br>
                 <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
                   <u>Click to activate/deactivate</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
-                </span></br>
+                </span></br><br>
                 &#x2699; Chosen theme: <span class="text-primary">{{darkTheme ? 'Dark': 'Light'}}</span></br>
                 Change theme: <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <button type="button" class="btn btn-light p-1 border border-dark" @click="selectLightTheme()">Light</button>

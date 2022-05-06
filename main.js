@@ -144,6 +144,7 @@ const app = new Vue({
     toggleHidden(n) {
       //al click rende visibile o invisibile un elemento (il riquadro del cancella)
       this.todos[n].isHidden = !this.todos[n].isHidden;
+      this.removeSelectedCategoryToAddItem();
     },
     selectCategoryName(categoryName) {
       this.newTodo = categoryName;
@@ -190,6 +191,7 @@ const app = new Vue({
       this.toggleButtonBackToTop();
     },
     removeTodo(x, todo) {
+      this.removeSelectedCategoryToAddItem();
       //se ho impostato la conferma all'eliminazione apro un alert prima di eliminare altrimenti elimino direttamente
       if (this.canDelete) {
         const text = `${this.confirmText} ${todo.name.toUpperCase()}?`;
@@ -206,9 +208,7 @@ const app = new Vue({
       this.todos.splice(x, 1);
       this.list.splice(x, 1);
       this.saveTodos();
-      if (this.addTodoInCategory.condition) {
-        location.reload(); //DA SISTEMARE
-      }
+
       navigator.vibrate(220);
     },
     toggleButtonBackToTop() {
@@ -280,8 +280,10 @@ const app = new Vue({
     selectCategoryToAddItem(index, todo) {
       //solo se è nella lista categorie faccio tutto
       if (todo.class) {
+        const allCategories = [...this.engCategories, ...this.itaCategories];
+
         this.todos.map((t) => (t.isSelected = false)); //azzero tutto
-        this.categories.forEach((category) => {
+        allCategories.forEach((category) => {
           if (todo.name.toLowerCase() === category.name) {
             //se il nome è uguale alla categoria, permetto il toggle per la classe e salvo l'index
             this.addTodoInCategory.condition =
@@ -309,6 +311,12 @@ const app = new Vue({
         });
         this.saveTodos();
       }
+    },
+    removeSelectedCategoryToAddItem() {
+      //serve per togliere la selezione di una categoria aggiunta (quando clicchi su un nome evidenziato verde e diventa blu)
+      this.todos.map((t) => (t.isSelected = false));
+      this.placeholder = this.defaultPlaceholderText;
+      this.addTodoInCategory.condition = false;
     },
     setEnglish() {
       this.langIta = false;
