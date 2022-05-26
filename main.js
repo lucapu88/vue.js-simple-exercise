@@ -260,6 +260,12 @@ const app = new Vue({
       console.log(arrayNoCommas);
       this.categoryList = false;
       navigator.clipboard.writeText(arrayNoCommas); //copio negli appunti una lista della spesa per poterla condividere
+      document.addEventListener('copy', function (e) {
+        //copio negli appunti anche qui per sistemare su android (quello di sopra non funziona)
+        e.clipboardData.setData('text/plain', arrayNoCommas);
+        e.preventDefault();
+      });
+      document.execCommand('copy'); //riprovo/ricopio negli appunti anche qui per sistemare su android (per essere sicuri)
       this.copyList.visible = true;
       setTimeout(() => (this.copyList.visible = false), 3500); //cambio il testo del pulsante copia
       navigator.vibrate(400);
