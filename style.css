@@ -106,6 +106,7 @@ body {
 .btn-info {
   padding: 10px;
 }
+
 .list-copied {
   font-size: 13px;
   margin: 0 25%;
@@ -527,4 +528,36 @@ li {
 }
 .dark-theme-back-top {
   background-color: #ffffff;
+}
+
+.minimal-theme-title {
+  background: -webkit-radial-gradient(circle, #243a73 0%, #243a73 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Helvetica, sans-serif';
+  font-weight: bold;
+}
+.minimal-theme-title2 {
+  background: -webkit-radial-gradient(circle, #6493ae 0%, #7892a2 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Helvetica, sans-serif';
+  font-weight: bold;
+}
+.minimal-theme {
+  background-image: none;
+  background-color: #a5becc;
+  color: #7c3e66;
+}
+.minimal-theme-helper {
+  background-image: none;
+  background-color: #d3ebcd;
+  color: #645767;
+}
+.minimal-theme-confirm {
+  background-color: #243a73;
+  background-image: none;
+  color: #f2ebe9;
 }

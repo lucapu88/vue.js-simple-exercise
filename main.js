@@ -55,6 +55,8 @@ const app = new Vue({
     buttonBackToTop: false,
     lightTheme: true,
     darkTheme: false,
+    minimalTheme: false,
+    themeName: 'light',
   },
   created() {
     this.categories = this.engCategories; //setto le categorie di default
@@ -83,12 +85,14 @@ const app = new Vue({
     const lightThemeSelected = window.localStorage.getItem('lightTheme');
     this.lightTheme = lightThemeSelected === 'true';
     if (this.lightTheme) {
+      this.themeName = this.langIta ? 'Chiaro' : 'Light';
       document.body.style.backgroundImage = "url('img/foglio_righe.webp')";
     }
 
     const darkThemeSelected = window.localStorage.getItem('darkTheme');
     this.darkTheme = darkThemeSelected === 'true';
     if (this.darkTheme) {
+      this.themeName = this.langIta ? 'Scuro' : 'Dark';
       document.body.style.backgroundImage = 'none';
       document.body.style.backgroundColor = '#333333';
       document.body.style.color = '#FFFFFF';
@@ -97,10 +101,20 @@ const app = new Vue({
       // document.body.style.width = 'calc(100% - 10px)'; //DA VERIFICARE CON ALTRI SMARTPHONE
     }
 
+    const minimalThemeSelected = window.localStorage.getItem('minimalTheme');
+    this.minimalTheme = minimalThemeSelected === 'true';
+    if (this.minimalTheme) {
+      this.themeName = 'Minimal';
+      document.body.style.backgroundImage = 'none';
+      document.body.style.backgroundColor = '#A5BECC';
+      document.body.style.color = '#7C3E66';
+      document.body.style.fontFamily = 'Courier New, monospace';
+    }
+
     this.merryChristmasTheme();
   },
   mounted() {
-    console.clear();
+    //console.clear();
 
     if (
       window.localStorage.getItem('todos') &&
@@ -355,6 +369,8 @@ const app = new Vue({
     selectLightTheme() {
       this.darkTheme = false;
       window.localStorage.setItem('darkTheme', false);
+      this.minimalTheme = false;
+      window.localStorage.setItem('minimalTheme', false);
 
       this.lightTheme = true;
       window.localStorage.setItem('lightTheme', true);
@@ -364,9 +380,22 @@ const app = new Vue({
     selectDarkTheme() {
       this.lightTheme = false;
       window.localStorage.setItem('lightTheme', false);
+      this.minimalTheme = false;
+      window.localStorage.setItem('minimalTheme', false);
 
       this.darkTheme = true;
       window.localStorage.setItem('darkTheme', true);
+
+      location.reload();
+    },
+    selectMinimalTheme() {
+      this.lightTheme = false;
+      window.localStorage.setItem('lightTheme', false);
+      this.darkTheme = false;
+      window.localStorage.setItem('darkTheme', false);
+
+      this.minimalTheme = true;
+      window.localStorage.setItem('minimalTheme', true);
 
       location.reload();
     },

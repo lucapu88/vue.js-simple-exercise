@@ -35,13 +35,19 @@
             <div class="header-container" :class="{'christmas': christmasTheme}">
               <h2 v-if="langIta" 
                 class="title text-center"
-                :class="{'dark-theme-title': darkTheme}">Lista Spesa</h2>
+                :class="{'dark-theme-title': darkTheme, 'minimal-theme-title': minimalTheme}">Lista Spesa</h2>
               <h2 v-else 
                 class="title text-center"
-                :class="{'dark-theme-title': darkTheme}">Shopping List</h2>
+                :class="{'dark-theme-title': darkTheme, 'minimal-theme-title': minimalTheme}">Shopping List</h2>
 
-              <h2 v-if="langIta" class="title2 text-center">Lista Spesa</h2>
-              <h2 v-else class="title2 title2-eng text-center">Shopping List</h2>
+              <h2 v-if="langIta" class="title2 text-center" 
+                :class="{'minimal-theme-title2': minimalTheme}">
+                Lista Spesa
+              </h2>
+              <h2 v-else class="title2 title2-eng text-center" 
+                :class="{'minimal-theme-title2': minimalTheme}">
+                Shopping List
+              </h2>
               <span 
                 class="helper" 
                 :class="{
@@ -77,7 +83,8 @@
               :class="{
                 'slideUp' : helper === true, 
                 'slideDown': helper === false,
-                'dark-theme-helper': darkTheme === true
+                'dark-theme-helper': darkTheme === true,
+                'minimal-theme-helper': minimalTheme === true,
               }" >
               <p class="close-helper" @click="showHelper()">X</p>
               <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.webp" alt="Buon Natale!">
@@ -92,10 +99,11 @@
                   <u>Clicca per attivare/disattivare</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
                 </span></br><br>
-                &#x2699; Tema impostato: <span class="text-primary">{{darkTheme ? 'Scuro': 'Chiaro'}}</span></br>
-                Cambia tema: <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                &#x2699; Tema impostato: <span class="text-primary">{{themeName}}</span></br>
+                Cambia tema:</br> <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                   <button type="button" class="btn btn-light p-1 border border-dark" @click="selectLightTheme()">Chiaro</button>
                                   <button type="button" class="btn btn-dark p-1" @click="selectDarkTheme()">Scuro</button>
+                                  <button type="button" class="btn minimal-theme p-1" @click="selectMinimalTheme()">Minimal</button>
                                 </div>
 
                 <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Istruzioni:</p>
@@ -119,10 +127,11 @@
                   <u>Click to activate/deactivate</u> <div class="toggle-delete-confirm">&#x1F449;</div>
                   <span class="text-primary">{{canDeleteText}}</span>
                 </span></br><br>
-                &#x2699; Chosen theme: <span class="text-primary">{{darkTheme ? 'Dark': 'Light'}}</span></br>
-                Change theme: <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                &#x2699; Chosen theme: <span class="text-primary">{{themeName}}</span></br>
+                Change theme:</br> <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <button type="button" class="btn btn-light p-1 border border-dark" @click="selectLightTheme()">Light</button>
                                     <button type="button" class="btn btn-dark p-1" @click="selectDarkTheme()">Dark</button>
+                                    <button type="button" class="btn minimal-theme p-1" @click="selectMinimalTheme()">Minimal</button>
                                   </div>
 
                 <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Instructions:</p>
@@ -206,7 +215,8 @@
               class="confirm col-10 mx-auto rounded text-center mb-3" 
               :class="{
                 'christmas': christmasTheme,
-                'dark-theme-confirm': darkTheme
+                'dark-theme-confirm': darkTheme,
+                'minimal-theme-confirm': minimalTheme,
               }" 
               v-if="!visible">  
               <p v-if="langIta">
@@ -245,8 +255,8 @@
 
               <!-- CHANGE LANGUAGE -->
               <div class="btns-language-container" :class="{'christmas': christmasTheme}">
-                <button class="btn-lang-left" :class="{'language-selected': !langIta}" @click="setEnglish()">eng</button>
-                <button class="btn-lang-right" :class="{'language-selected': langIta}" @click="setItaliano()">ita</button>
+                <button class="btn-lang-left" :class="{'language-selected': !langIta}" @click="setEnglish()">Eng</button>
+                <button class="btn-lang-right" :class="{'language-selected': langIta}" @click="setItaliano()">Ita</button>
               </div>
             </div>
             <img v-if="christmasTheme" class="christas-footer" src="./img/christmas.webp" alt="">
