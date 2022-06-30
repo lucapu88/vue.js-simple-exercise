@@ -56,6 +56,7 @@ const app = new Vue({
     lightTheme: true,
     darkTheme: false,
     minimalTheme: false,
+    retroTheme: false,
     themeName: 'light',
   },
   created() {
@@ -108,7 +109,17 @@ const app = new Vue({
       document.body.style.backgroundImage = 'none';
       document.body.style.backgroundColor = '#A5BECC';
       document.body.style.color = '#7C3E66';
-      document.body.style.fontFamily = 'Courier New, monospace';
+      document.body.style.fontFamily = '"Cabin", sans-serif';
+    }
+
+    const retroThemeSelected = window.localStorage.getItem('retroTheme');
+    this.retroTheme = retroThemeSelected === 'true';
+    if (this.retroTheme) {
+      this.themeName = 'Retro';
+      document.body.style.backgroundImage = 'none';
+      document.body.style.backgroundColor = '#090A0C';
+      document.body.style.color = '#FFFFFF';
+      document.body.style.fontFamily = '"DotGothic16", sans-serif';
     }
 
     this.merryChristmasTheme();
@@ -371,6 +382,8 @@ const app = new Vue({
       window.localStorage.setItem('darkTheme', false);
       this.minimalTheme = false;
       window.localStorage.setItem('minimalTheme', false);
+      this.retroTheme = false;
+      window.localStorage.setItem('retroTheme', false);
 
       this.lightTheme = true;
       window.localStorage.setItem('lightTheme', true);
@@ -382,6 +395,8 @@ const app = new Vue({
       window.localStorage.setItem('lightTheme', false);
       this.minimalTheme = false;
       window.localStorage.setItem('minimalTheme', false);
+      this.retroTheme = false;
+      window.localStorage.setItem('retroTheme', false);
 
       this.darkTheme = true;
       window.localStorage.setItem('darkTheme', true);
@@ -393,9 +408,24 @@ const app = new Vue({
       window.localStorage.setItem('lightTheme', false);
       this.darkTheme = false;
       window.localStorage.setItem('darkTheme', false);
+      this.retroTheme = false;
+      window.localStorage.setItem('retroTheme', false);
 
       this.minimalTheme = true;
       window.localStorage.setItem('minimalTheme', true);
+
+      location.reload();
+    },
+    selectRetroTheme() {
+      this.lightTheme = false;
+      window.localStorage.setItem('lightTheme', false);
+      this.darkTheme = false;
+      window.localStorage.setItem('darkTheme', false);
+      this.minimalTheme = false;
+      window.localStorage.setItem('minimalTheme', false);
+
+      this.retroTheme = true;
+      window.localStorage.setItem('retroTheme', true);
 
       location.reload();
     },

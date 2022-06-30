@@ -561,3 +561,37 @@ li {
   background-image: none;
   color: #f2ebe9;
 }
+
+.retro-theme-title {
+  background: -webkit-radial-gradient(circle, #35c50d 0%, #35c50d 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'DotGothic16', sans-serif;
+  font-weight: bold;
+}
+.retro-theme-title2 {
+  display: none;
+}
+.retro-theme {
+  background-image: none;
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #35c50d;
+}
+.retro-theme-helper {
+  background-image: none;
+  background-color: #000000;
+  color: #35c50d;
+}
+.retro-theme-confirm {
+  background-color: #000000;
+  background-image: none;
+  color: #d70a0a;
+}
+.retro-theme-back-top {
+  background-color: #35c50d;
+}
+.retro-category {
+  color: #ffffff;
+}

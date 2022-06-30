@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="style.css"> <!-- css -->
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"> <!-- google body font -->
     <link href="https://fonts.googleapis.com/css2?family=Oleo+Script:wght@700&display=swap" rel="stylesheet"> <!-- google other font -->
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet"> <!--google font retro-->
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap" rel="stylesheet"> <!--google font minimal-->
     <link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue -->
   </head>
@@ -35,17 +37,23 @@
             <div class="header-container" :class="{'christmas': christmasTheme}">
               <h2 v-if="langIta" 
                 class="title text-center"
-                :class="{'dark-theme-title': darkTheme, 'minimal-theme-title': minimalTheme}">Lista Spesa</h2>
+                :class="{
+                  'dark-theme-title': darkTheme, 
+                  'minimal-theme-title': minimalTheme, 
+                  'retro-theme-title': retroTheme}">Lista Spesa</h2>
               <h2 v-else 
                 class="title text-center"
-                :class="{'dark-theme-title': darkTheme, 'minimal-theme-title': minimalTheme}">Shopping List</h2>
+                :class="{
+                  'dark-theme-title': darkTheme, 
+                  'minimal-theme-title': minimalTheme,
+                  'retro-theme-title': retroTheme}">Shopping List</h2>
 
               <h2 v-if="langIta" class="title2 text-center" 
-                :class="{'minimal-theme-title2': minimalTheme}">
+                :class="{'minimal-theme-title2': minimalTheme, 'retro-theme-title2': retroTheme}">
                 Lista Spesa
               </h2>
               <h2 v-else class="title2 title2-eng text-center" 
-                :class="{'minimal-theme-title2': minimalTheme}">
+                :class="{'minimal-theme-title2': minimalTheme, 'retro-theme-title2': retroTheme}">
                 Shopping List
               </h2>
               <span 
@@ -85,6 +93,7 @@
                 'slideDown': helper === false,
                 'dark-theme-helper': darkTheme === true,
                 'minimal-theme-helper': minimalTheme === true,
+                'retro-theme-helper': retroTheme === true,
               }" >
               <p class="close-helper" @click="showHelper()">X</p>
               <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.webp" alt="Buon Natale!">
@@ -104,6 +113,7 @@
                                   <button type="button" class="btn btn-light p-1 border border-dark" @click="selectLightTheme()">Chiaro</button>
                                   <button type="button" class="btn btn-dark p-1" @click="selectDarkTheme()">Scuro</button>
                                   <button type="button" class="btn minimal-theme p-1" @click="selectMinimalTheme()">Minimal</button>
+                                  <button type="button" class="btn retro-theme p-1" @click="selectRetroTheme()">Retro</button>
                                 </div>
 
                 <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Istruzioni:</p>
@@ -111,7 +121,7 @@
                 <span>- Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span></br>
                 <span>- Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
                 <span>- <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare l'indice delle categorie selezionabili.</span></br>
-                <span>- Per scegliere una categoria basta scriverla (o cliccarci sopra) e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category">evidenziata</span> nella lista. </br>Una volta creata la categoria, basterà cliccare sul nome di essa, e verrà evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che scriverai. Per annullare l'operazione basta cliccare su qualsiasi categoria nel <span class="category">riquadro verde</span> già esistente.</span></br>
+                <span>- Per scegliere una categoria basta scriverla (o cliccarci sopra) e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category" :class="{'retro-category' : retroTheme === true}">evidenziata</span> nella lista. </br>Una volta creata la categoria, basterà cliccare sul nome di essa, e verrà evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che scriverai. Per annullare l'operazione basta cliccare su qualsiasi categoria nel <span class="category" :class="{'retro-category' : retroTheme === true}">riquadro verde</span> già esistente.</span></br>
                  <span>-<i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
                 <span>- Puoi "bloccare" un prodotto cliccandoci sopra, e ti verrà evidenziato <span class="active">così </span>. Non potrà essere eliminato. Potrebbe tornarti utile, ad esempio, quando non lo trovi al supermercato e non vuoi eliminarlo dalla lista.</span></br>
                 <span>- Se clicchi su <span class="delete-all-description">cancella tutto <i class="fas fa-skull-crossbones"></i></span> ti apparirà un riquadro di conferma per l'eliminazione di <u>TUTTA</u> la lista.</span></br>
@@ -132,6 +142,7 @@
                                     <button type="button" class="btn btn-light p-1 border border-dark" @click="selectLightTheme()">Light</button>
                                     <button type="button" class="btn btn-dark p-1" @click="selectDarkTheme()">Dark</button>
                                     <button type="button" class="btn minimal-theme p-1" @click="selectMinimalTheme()">Minimal</button>
+                                    <button type="button" class="btn retro-theme p-1" @click="selectRetroTheme()">Retro</button>
                                   </div>
 
                 <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Instructions:</p>
@@ -139,7 +150,7 @@
                 <span> - With <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> you can change a name and save the changes by clicking <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>. </span> </br>
                 <span> - With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"> </i> you will remove stuff from the list. </span> </br>
                 <span> - <span class="custom-show-listbtn helper-icon"> + </span> is used to display the index of selectable categories. </span> </br>
-                <span> - To choose a category just write it (or click on it) and click <i class="far fa-paper-plane btn btn-info helper-icon "> </i>. You will see <span class="category"> highlighted </span> in the list. </br> Once the category has been created, just click on its name, and <span class="selected"> will be highlighted as well </span>, underneath you will add stuff you write. To cancel the operation just click on any category in the existing <span class="category"> green box </span>. </span> </br>
+                <span> - To choose a category just write it (or click on it) and click <i class="far fa-paper-plane btn btn-info helper-icon "> </i>. You will see <span class="category" :class="{'retro-category' : retroTheme === true}"> highlighted </span> in the list. </br> Once the category has been created, just click on its name, and <span class="selected"> will be highlighted as well </span>, underneath you will add stuff you write. To cancel the operation just click on any category in the existing <span class="category" :class="{'retro-category' : retroTheme === true}"> green box </span>. </span> </br>
                 <span> - <i class="far fa-copy btn btn-outline-success helper-icon"> </i> is used to copy the list and paste it wherever you want. </span> </br>
                 <span> - You can "block" a product by clicking on it, and <span class="active"> will be highlighted as well </span>. It cannot be eliminated. It might come in handy, for example, when you can't find it at the supermarket and don't want to remove it from the list. </span> </br>
                 <span> - If you click on <span class="delete-all-description"> delete all <i class="fas fa-skull-crossbones"> </i> </span> you will see a confirmation box for the 'delete <u> ALL </u> the list. </span> </br>
@@ -217,6 +228,7 @@
                 'christmas': christmasTheme,
                 'dark-theme-confirm': darkTheme,
                 'minimal-theme-confirm': minimalTheme,
+                'retro-theme-confirm': retroTheme,
               }" 
               v-if="!visible">  
               <p v-if="langIta">
@@ -247,7 +259,8 @@
                 class="btn btn-outline-info p-1" 
                 :class="{
                   'christmas': christmasTheme,
-                  'dark-theme-back-top': darkTheme
+                  'dark-theme-back-top': darkTheme,
+                  'retro-theme-back-top': retroTheme
                 }" 
                 @click="scrollTop()">
                <img class="back-up" src="./img/chevron-up.webp" alt="up">
