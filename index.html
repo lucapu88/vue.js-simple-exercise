@@ -29,11 +29,12 @@
       <div id="app">
         <div id="container-list" class="row">
           <div class="mt-3 mx-auto padding-bottom-custom">
-            <!-- HEADER -->
             <img v-if="christmasTheme" 
               class="christmas-theme" 
               src="./img/ghirlanda.webp" 
               alt="merry-christmas">
+
+            <!--TITOLO-->
             <div class="header-container" :class="{'christmas': christmasTheme}">
               <h2 v-if="langIta" 
                 class="title text-center"
@@ -48,6 +49,7 @@
                   'minimal-theme-title': minimalTheme,
                   'retro-theme-title': retroTheme}">Shopping List</h2>
 
+              <!--TITOLO2 DI SFONDO-->
               <h2 v-if="langIta" class="title2 text-center" 
                 :class="{'minimal-theme-title2': minimalTheme, 'retro-theme-title2': retroTheme}">
                 Lista Spesa
@@ -56,6 +58,8 @@
                 :class="{'minimal-theme-title2': minimalTheme, 'retro-theme-title2': retroTheme}">
                 Shopping List
               </h2>
+
+              <!--PULSANTE HELPER-->
               <span 
                 class="helper" 
                 :class="{
@@ -65,17 +69,20 @@
                 @click="showHelper()">
                 <img src="./img/settings.webp" alt="settings">
               </span>
+              <!--PULSANTE COPIA LISTA-->
               <div class="input-btns-container">
                 <button class="btn btn-outline-success" @click="copy(list)">
                   <i class="far fa-copy"></i></br>
                 </button> 
+                <!--INPUT AGGIUNGI-->
                 <input 
                   class="inputText mb-2 border border-primary rounded"
                   :class="{'placeholder-selected': this.placeholder != defaultPlaceholderText}" 
                   ref="myInput" 
                   v-model="newTodo" 
                   @keypress.13='addTodo' 
-                  :placeholder="this.placeholder">  <!--INPUT AGGIUNGI-->
+                  :placeholder="this.placeholder">
+                <!--PULSANTI AGGIUNGI E MOSTRA CATEGORIE-->  
                 <button class="btn btn-info" @click="addTodo">
                   <i class="far fa-paper-plane"></i>
                 </button> 
@@ -85,7 +92,7 @@
                 </button> 
               </div>
             </div>
-            <!-- ----------------------------------------------HELPER CONTAINER -->
+            <!-- HELPER CONTAINER (Questa parte fa più schifo delle altre, e non so perchè l'ho fatta così di merda, ignorala!!!) -->
             <div id="helper-description-container" 
               class="helper-description" 
               :class="{
@@ -159,6 +166,8 @@
                 <p class="privacy-policy"><a href="https://www.iubenda.com/privacy-policy/69702250" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe " title="Privacy Policy ">Privacy Policy</a></p>
               </div>
             </div>
+
+
             <!-- CATEGORY -->
             <div v-if="categoryList" class="category-list-container">
               <p class="m-0" v-if="langIta">Indice categorie:</p>
@@ -172,6 +181,7 @@
               </p>
             </div>
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
+
             <!-- TODO LIST -->
             <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme}">
               <div v-for="(todo, n) in todos" :class="{'category': todo.class, 'category-retro': todo.class && retroTheme}">
@@ -180,7 +190,8 @@
                   :class="{'category-emoji-selected': todo.isSelected}">
                     {{todo.emojy}}
                 </div>
-                <i v-else class="fas fa-cart-arrow-down mr-1 ml-2"></i>
+                <i v-else class="fas fa-cart-arrow-down mr-1 ml-2" :class="{'hide-minimal-icon': minimalTheme}"></i>
+                <span v-if="minimalTheme && !todo.class"> - </span> 
                 <li 
                   class="mt-2 todo" 
                   @click="myFilter(n); 
@@ -189,12 +200,14 @@
                     'selected': todo.isSelected}"> 
                   {{ todo.name }} 
                 </li>
+                <!--CONTENITORE PULSANTI (edit, delete, modify)-->
                 <li class="button-container bg-light" 
                   :class="{
                     'minimal-btn': minimalTheme,
                     'retro-btn': retroTheme, 
                     'categoryActive' : todo.class
                   }"> 
+                  <!-- MODIFICA-->
                   <button 
                     class="ml-1 btn btn-primary rounded-circle btn-sm" 
                     @click="toggleHidden(n)" 
@@ -202,19 +215,22 @@
                     :class="todo.isDisabled ? 'disabled' : '' " 
                     :disabled="!!todo.isDisabled">
                     <i class="fas fa-pencil-alt"></i>
-                  </button> <!-- MODIFICA-->
+                  </button>
+                  <!--ELIMINA --> 
                   <button 
                     class="ml-1 btn btn-primary rounded-circle btn-sm" 
                     v-if="todo.isHidden == true" @click="removeTodo(n, todo)" 
                     :class="todo.isDisabled ? 'disabled' : '' " 
                     :disabled="!!todo.isDisabled">
                     <i class="fas fa-trash-alt"></i>
-                  </button> <!--ELIMINA -->
+                  </button> 
+                  <!-- INPUT MODIFICA -->
                   <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
                   <input 
                     class="modify-input ml-2 border border-primary rounded" 
                     v-if="todo.isHidden == false" 
-                    v-model.trim="todo.name"> <!-- INPUT MODIFICA -->
+                    v-model.trim="todo.name"> 
+                  <!-- SALVA MODIFICHE -->
                   <button 
                     class="ml-1 btn btn-success rounded-circle btn-sm"
                     :disabled="todo.name.length === 0"
@@ -222,11 +238,12 @@
                     v-if="todo.isHidden ==false" 
                     v-on:click="modifyTodo(n, todo, todo.name)">
                     <i class="far fa-save"></i>
-                  </button> <!-- SALVA -->
+                  </button> 
                 </li>
               </div>
             </ul>
-            <!-- DELETE ALL -->
+
+            <!-- RIQUADRO ELIMINA TUTTO -->
             <div 
               class="confirm col-10 mx-auto rounded text-center mb-3" 
               :class="{
@@ -252,14 +269,14 @@
                 NO
               </button> 
             </div>
-
+            <!-- PULSANTE ELIMINA TUTTO-->
             <div class="footer-btns-container pb-3">
               <button class="delete-all btn btn-dark" :class="{'christmas': christmasTheme}" v-on:click="visible = !visible">
                 <span  v-if="langIta">Cancella tutto </span> 
                 <span v-else>Delete ALL </span> 
                 <i class="fas fa-skull-crossbones"></i>
               </button>
-              
+              <!-- PULSANTE TORNA IN CIMA -->
               <button v-if="buttonBackToTop" 
                 class="btn btn-outline-info p-1" 
                 :class="{
@@ -271,7 +288,7 @@
                <img class="back-up" src="./img/chevron-up.webp" alt="up">
               </button>
 
-              <!-- CHANGE LANGUAGE -->
+              <!-- CAMBIO LINGUA -->
               <div class="btns-language-container" 
               :class="{
                 'christmas': christmasTheme, 

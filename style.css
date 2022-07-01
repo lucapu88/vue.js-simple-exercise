@@ -572,6 +572,9 @@ li {
   border-color: #7c3e66;
   color: #7c3e66;
 }
+.hide-minimal-icon {
+  display: none;
+}
 
 .retro-theme-title {
   background: -webkit-radial-gradient(circle, #35c50d 0%, #35c50d 95%);
