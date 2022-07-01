@@ -509,6 +509,7 @@ li {
   border: 1px solid transparent !important;
 }
 
+/* TEMI */
 .dark-theme-title {
   background: -webkit-radial-gradient(circle, #ffffff 0%, #ffffff 95%);
   -webkit-background-clip: text;
@@ -561,6 +562,16 @@ li {
   background-image: none;
   color: #f2ebe9;
 }
+.minimal-btn {
+  background-color: transparent !important;
+  border-color: #7c3e66;
+  color: #7c3e66;
+}
+.minimal-btn > button {
+  background-color: #8aa5b4 !important;
+  border-color: #7c3e66;
+  color: #7c3e66;
+}
 
 .retro-theme-title {
   background: -webkit-radial-gradient(circle, #35c50d 0%, #35c50d 95%);
@@ -594,4 +605,19 @@ li {
 }
 .retro-category {
   color: #ffffff;
+}
+.retro-btn {
+  background-color: transparent !important;
+  border-color: #35c50d;
+  color: #35c50d;
+}
+.retro-btn > button {
+  background-color: #000000 !important;
+  border-color: #35c50d;
+  color: #35c50d;
+}
+.category-retro {
+  background-color: #000000 !important;
+  border: 1px solid #35c50d;
+  color: #35c50d;
 }

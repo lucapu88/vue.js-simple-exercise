@@ -174,7 +174,7 @@
             <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
             <!-- TODO LIST -->
             <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme}">
-              <div v-for="(todo, n) in todos" :class="{'category': todo.class}">
+              <div v-for="(todo, n) in todos" :class="{'category': todo.class, 'category-retro': todo.class && retroTheme}">
                 <div v-if="todo.class" 
                   class="category-emoji"
                   :class="{'category-emoji-selected': todo.isSelected}">
@@ -189,7 +189,12 @@
                     'selected': todo.isSelected}"> 
                   {{ todo.name }} 
                 </li>
-                <li class="button-container bg-light" :class="todo.class ? 'categoryActive' : ''"> 
+                <li class="button-container bg-light" 
+                  :class="{
+                    'minimal-btn': minimalTheme,
+                    'retro-btn': retroTheme, 
+                    'categoryActive' : todo.class
+                  }"> 
                   <button 
                     class="ml-1 btn btn-primary rounded-circle btn-sm" 
                     @click="toggleHidden(n)" 
@@ -267,7 +272,12 @@
               </button>
 
               <!-- CHANGE LANGUAGE -->
-              <div class="btns-language-container" :class="{'christmas': christmasTheme}">
+              <div class="btns-language-container" 
+              :class="{
+                'christmas': christmasTheme, 
+                'minimal-btn': minimalTheme, 
+                'retro-btn': retroTheme
+              }">
                 <button class="btn-lang-left" :class="{'language-selected': !langIta}" @click="setEnglish()">Eng</button>
                 <button class="btn-lang-right" :class="{'language-selected': langIta}" @click="setItaliano()">Ita</button>
               </div>
