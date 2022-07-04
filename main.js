@@ -57,6 +57,8 @@ const app = new Vue({
     darkTheme: false,
     minimalTheme: false,
     retroTheme: false,
+    summerTheme: false,
+    winterTheme: false,
     themeName: 'light',
   },
   created() {
@@ -82,7 +84,8 @@ const app = new Vue({
       this.confirmText;
     }
 
-    //imposto il tema chiaro/scuro in base a quello scelto dall'utente
+    //imposto il tema in base a quello scelto dall'utente
+
     const lightThemeSelected = window.localStorage.getItem('lightTheme');
     this.lightTheme = lightThemeSelected === 'true';
     if (this.lightTheme) {
@@ -99,7 +102,6 @@ const app = new Vue({
       document.body.style.color = '#FFFFFF';
       document.body.style.height = '100vh';
       document.body.style.border = '10px solid #d17e47';
-      // document.body.style.width = 'calc(100% - 10px)'; //DA VERIFICARE CON ALTRI SMARTPHONE
     }
 
     const minimalThemeSelected = window.localStorage.getItem('minimalTheme');
@@ -120,6 +122,42 @@ const app = new Vue({
       document.body.style.backgroundColor = '#090A0C';
       document.body.style.color = '#FFFFFF';
       document.body.style.fontFamily = '"DotGothic16", sans-serif';
+    }
+
+    const summerThemeSelected = window.localStorage.getItem('summerTheme');
+    this.summerTheme = summerThemeSelected === 'true';
+    if (this.summerTheme) {
+      this.themeName = this.langIta ? 'Estate' : 'Summer';
+      document.body.style.backgroundImage = "url('img/mare.webp')";
+      document.body.style.backgroundRepeat = 'no-repeat';
+      document.body.style.backgroundColor = '#EFCB8F';
+      document.getElementById(
+        'helper-description-container'
+      ).style.backgroundImage = "url('img/spiaggia.webp')";
+      document.getElementById('helper-description').style.filter =
+        'drop-shadow(2px 4px 6px black)';
+      document.querySelector('.confirm').style.backgroundImage = 'none';
+    }
+
+    const winterThemeSelected = window.localStorage.getItem('winterTheme');
+    this.winterTheme = winterThemeSelected === 'true';
+    if (this.winterTheme) {
+      this.themeName = this.langIta ? 'Inverno' : 'Winter';
+      document.body.style.backgroundImage = "url('img/inverno.webp')";
+      document.body.style.backgroundRepeat = 'no-repeat';
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundColor = '#232F34';
+      document.body.style.color = '#FFFFFF';
+      document.getElementById(
+        'helper-description-container'
+      ).style.backgroundImage = "url('img/montagne.webp')";
+      document.getElementById('todo').style.filter =
+        'drop-shadow(2px 4px 6px black)';
+      document.getElementById('helper-description').style.filter =
+        'drop-shadow(2px 4px 6px black)';
+      document.querySelector('.confirm').style.backgroundImage = 'none';
+      document.querySelector('.confirm').style.filter =
+        'drop-shadow(2px 4px 6px black)';
     }
 
     this.merryChristmasTheme();
@@ -241,20 +279,12 @@ const app = new Vue({
       const list = document.getElementById('todo-list');
       const container = document.getElementById('container-list');
 
-      if (list.offsetHeight > container.offsetHeight) {
-        this.buttonBackToTop = true;
-        if (this.darkTheme) {
-          document.body.style.borderBottom = 'none';
-        }
-      } else {
-        this.buttonBackToTop = false;
-        if (this.darkTheme) {
-          document.body.style.borderBottom = '10px solid #d17e47';
-        }
-      }
+      list.offsetHeight > container.offsetHeight
+        ? (this.buttonBackToTop = true)
+        : (this.buttonBackToTop = false);
     },
     scrollTop() {
-      window.scrollTo(0, 0);
+      document.getElementById('container-list').scrollTo(0, 0);
     },
     modifyTodo(x, y, todo) {
       this.todos.splice(x, 1);
@@ -384,6 +414,10 @@ const app = new Vue({
       window.localStorage.setItem('minimalTheme', false);
       this.retroTheme = false;
       window.localStorage.setItem('retroTheme', false);
+      this.summerTheme = false;
+      window.localStorage.setItem('summerTheme', false);
+      this.winterTheme = false;
+      window.localStorage.setItem('winterTheme', false);
 
       this.lightTheme = true;
       window.localStorage.setItem('lightTheme', true);
@@ -397,6 +431,10 @@ const app = new Vue({
       window.localStorage.setItem('minimalTheme', false);
       this.retroTheme = false;
       window.localStorage.setItem('retroTheme', false);
+      this.summerTheme = false;
+      window.localStorage.setItem('summerTheme', false);
+      this.winterTheme = false;
+      window.localStorage.setItem('winterTheme', false);
 
       this.darkTheme = true;
       window.localStorage.setItem('darkTheme', true);
@@ -410,6 +448,10 @@ const app = new Vue({
       window.localStorage.setItem('darkTheme', false);
       this.retroTheme = false;
       window.localStorage.setItem('retroTheme', false);
+      this.summerTheme = false;
+      window.localStorage.setItem('summerTheme', false);
+      this.winterTheme = false;
+      window.localStorage.setItem('winterTheme', false);
 
       this.minimalTheme = true;
       window.localStorage.setItem('minimalTheme', true);
@@ -423,9 +465,47 @@ const app = new Vue({
       window.localStorage.setItem('darkTheme', false);
       this.minimalTheme = false;
       window.localStorage.setItem('minimalTheme', false);
+      this.summerTheme = false;
+      window.localStorage.setItem('summerTheme', false);
+      this.winterTheme = false;
+      window.localStorage.setItem('winterTheme', false);
 
       this.retroTheme = true;
       window.localStorage.setItem('retroTheme', true);
+
+      location.reload();
+    },
+    selectSummerTheme() {
+      this.lightTheme = false;
+      window.localStorage.setItem('lightTheme', false);
+      this.darkTheme = false;
+      window.localStorage.setItem('darkTheme', false);
+      this.minimalTheme = false;
+      window.localStorage.setItem('minimalTheme', false);
+      this.retroTheme = false;
+      window.localStorage.setItem('retroTheme', false);
+      this.winterTheme = false;
+      window.localStorage.setItem('winterTheme', false);
+
+      this.summerTheme = true;
+      window.localStorage.setItem('summerTheme', true);
+
+      location.reload();
+    },
+    selectWinterTheme() {
+      this.lightTheme = false;
+      window.localStorage.setItem('lightTheme', false);
+      this.darkTheme = false;
+      window.localStorage.setItem('darkTheme', false);
+      this.minimalTheme = false;
+      window.localStorage.setItem('minimalTheme', false);
+      this.retroTheme = false;
+      window.localStorage.setItem('retroTheme', false);
+      this.summerTheme = false;
+      window.localStorage.setItem('summerTheme', false);
+
+      this.winterTheme = true;
+      window.localStorage.setItem('winterTheme', true);
 
       location.reload();
     },

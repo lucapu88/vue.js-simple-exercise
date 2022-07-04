@@ -119,8 +119,10 @@
                 Cambia tema:</br> <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                   <button type="button" class="btn btn-light p-1 border border-dark" @click="selectLightTheme()">Chiaro</button>
                                   <button type="button" class="btn btn-dark p-1" @click="selectDarkTheme()">Scuro</button>
-                                  <button type="button" class="btn minimal-theme p-1" @click="selectMinimalTheme()">Minimal</button>
+                                  <button type="button" class="btn minimal-theme p-0" @click="selectMinimalTheme()">Minimal</button>
                                   <button type="button" class="btn retro-theme p-1" @click="selectRetroTheme()"> Dos </button>
+                                  <button type="button" class="btn summer-theme p-1" @click="selectSummerTheme()">Estate</button>
+                                  <button type="button" class="btn winter-theme p-0" @click="selectWinterTheme()">Inverno</button>
                                 </div>
 
                 <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Istruzioni:</p>
@@ -148,8 +150,10 @@
                 Change theme:</br> <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <button type="button" class="btn btn-light p-1 border border-dark" @click="selectLightTheme()">Light</button>
                                     <button type="button" class="btn btn-dark p-1" @click="selectDarkTheme()">Dark</button>
-                                    <button type="button" class="btn minimal-theme p-1" @click="selectMinimalTheme()">Minimal</button>
+                                    <button type="button" class="btn minimal-theme p-0" @click="selectMinimalTheme()">Minimal</button>
                                     <button type="button" class="btn retro-theme p-1" @click="selectRetroTheme()"> Dos </button>
+                                    <button type="button" class="btn summer-theme p-1" @click="selectSummerTheme()">Summer</button>
+                                    <button type="button" class="btn winter-theme p-0" @click="selectWinterTheme()">Winter</button>
                                   </div>
 
                 <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Instructions:</p>
@@ -193,7 +197,8 @@
                 <i v-else class="fas fa-cart-arrow-down mr-1 ml-2" :class="{'hide-minimal-icon': minimalTheme}"></i>
                 <span v-if="minimalTheme && !todo.class"> - </span> 
                 <li 
-                  class="mt-2 todo" 
+                  class="mt-2 todo"
+                  id="todo" 
                   @click="myFilter(n); 
                     selectCategoryToAddItem(n, todo)" 
                   :class="{'active': todo.isActive, 
@@ -282,7 +287,8 @@
                 :class="{
                   'christmas': christmasTheme,
                   'dark-theme-back-top': darkTheme,
-                  'retro-theme-back-top': retroTheme
+                  'retro-theme-back-top': retroTheme,
+                  'winter-theme-back-top': winterTheme,
                 }" 
                 @click="scrollTop()">
                <img class="back-up" src="./img/chevron-up.webp" alt="up">

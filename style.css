@@ -11,7 +11,8 @@ body {
 }
 
 .row {
-  height: 90vh;
+  height: 97vh;
+  overflow: auto;
 }
 
 .padding-bottom-custom {
@@ -624,4 +625,17 @@ li {
   background-color: #000000 !important;
   border: 1px solid #35c50d;
   color: #35c50d;
+}
+
+.summer-theme {
+  background-color: #12a1df !important;
+  color: #efcb8f;
+}
+
+.winter-theme {
+  background-color: #d5effa !important;
+  color: #6d3001;
+}
+.winter-theme-back-top {
+  background-color: #ffffff;
 }
