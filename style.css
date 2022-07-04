@@ -590,8 +590,9 @@ li {
 .retro-theme {
   background-image: none;
   background-color: #000000;
-  color: #ffffff;
+  color: #35c50d;
   border: 1px solid #35c50d;
+  min-width: 45px;
 }
 .retro-theme-helper {
   background-image: none;

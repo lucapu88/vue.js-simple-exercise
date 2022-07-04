@@ -115,7 +115,7 @@ const app = new Vue({
     const retroThemeSelected = window.localStorage.getItem('retroTheme');
     this.retroTheme = retroThemeSelected === 'true';
     if (this.retroTheme) {
-      this.themeName = 'Retro';
+      this.themeName = 'Dos';
       document.body.style.backgroundImage = 'none';
       document.body.style.backgroundColor = '#090A0C';
       document.body.style.color = '#FFFFFF';
