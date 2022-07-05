@@ -131,9 +131,10 @@ const app = new Vue({
       document.body.style.backgroundImage = "url('img/mare.webp')";
       document.body.style.backgroundRepeat = 'no-repeat';
       document.body.style.backgroundColor = '#EFCB8F';
-      document.getElementById(
-        'helper-description-container'
-      ).style.backgroundImage = "url('img/spiaggia.webp')";
+      document.getElementById('helper-description-container').style.background =
+        'rgb(188,242,221)';
+      document.getElementById('helper-description-container').style.background =
+        'linear-gradient(168deg, rgba(188,242,221,1) 0%, rgba(129,215,235,1) 47%, rgba(46,152,242,1) 100%)';
       document.getElementById('helper-description').style.filter =
         'drop-shadow(2px 4px 6px black)';
       document.querySelector('.confirm').style.backgroundImage = 'none';
@@ -143,14 +144,17 @@ const app = new Vue({
     this.winterTheme = winterThemeSelected === 'true';
     if (this.winterTheme) {
       this.themeName = this.langIta ? 'Inverno' : 'Winter';
-      document.body.style.backgroundImage = "url('img/inverno.webp')";
+      document.body.style.backgroundImage = "url('img/montagne.webp')";
       document.body.style.backgroundRepeat = 'no-repeat';
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundColor = '#232F34';
       document.body.style.color = '#FFFFFF';
       document.getElementById(
         'helper-description-container'
-      ).style.backgroundImage = "url('img/montagne.webp')";
+      ).style.backgroundImage = "url('img/inverno.webp')";
+      document.getElementById(
+        'helper-description-container'
+      ).style.backgroundSize = 'cover';
       document.getElementById('todo').style.filter =
         'drop-shadow(2px 4px 6px black)';
       document.getElementById('helper-description').style.filter =
