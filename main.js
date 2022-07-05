@@ -84,6 +84,8 @@ const app = new Vue({
       this.confirmText;
     }
 
+    this.merryChristmasTheme(); //se è natale metto gli addobbi e buon natale!
+
     //imposto il tema in base a quello scelto dall'utente
 
     const lightThemeSelected = window.localStorage.getItem('lightTheme');
@@ -131,6 +133,8 @@ const app = new Vue({
       document.body.style.backgroundImage = "url('img/mare.webp')";
       document.body.style.backgroundRepeat = 'no-repeat';
       document.body.style.backgroundColor = '#EFCB8F';
+      document.getElementById('helper-description').style.backgroundImage =
+        'none';
       document.getElementById('helper-description-container').style.background =
         'rgb(188,242,221)';
       document.getElementById('helper-description-container').style.background =
@@ -163,8 +167,6 @@ const app = new Vue({
       document.querySelector('.confirm').style.filter =
         'drop-shadow(2px 4px 6px black)';
     }
-
-    this.merryChristmasTheme();
   },
   mounted() {
     //console.clear();
@@ -412,6 +414,8 @@ const app = new Vue({
       }
     },
     selectLightTheme() {
+      this.helper = false;
+
       this.darkTheme = false;
       window.localStorage.setItem('darkTheme', false);
       this.minimalTheme = false;
@@ -426,9 +430,15 @@ const app = new Vue({
       this.lightTheme = true;
       window.localStorage.setItem('lightTheme', true);
 
-      location.reload();
+      if (!this.helper) {
+        setTimeout(() => {
+          location.reload();
+        }, 500);
+      }
     },
     selectDarkTheme() {
+      this.helper = false;
+
       this.lightTheme = false;
       window.localStorage.setItem('lightTheme', false);
       this.minimalTheme = false;
@@ -443,9 +453,15 @@ const app = new Vue({
       this.darkTheme = true;
       window.localStorage.setItem('darkTheme', true);
 
-      location.reload();
+      if (!this.helper) {
+        setTimeout(() => {
+          location.reload();
+        }, 500);
+      }
     },
     selectMinimalTheme() {
+      this.helper = false;
+
       this.lightTheme = false;
       window.localStorage.setItem('lightTheme', false);
       this.darkTheme = false;
@@ -460,9 +476,15 @@ const app = new Vue({
       this.minimalTheme = true;
       window.localStorage.setItem('minimalTheme', true);
 
-      location.reload();
+      if (!this.helper) {
+        setTimeout(() => {
+          location.reload();
+        }, 500);
+      }
     },
     selectRetroTheme() {
+      this.helper = false;
+
       this.lightTheme = false;
       window.localStorage.setItem('lightTheme', false);
       this.darkTheme = false;
@@ -477,9 +499,15 @@ const app = new Vue({
       this.retroTheme = true;
       window.localStorage.setItem('retroTheme', true);
 
-      location.reload();
+      if (!this.helper) {
+        setTimeout(() => {
+          location.reload();
+        }, 500);
+      }
     },
     selectSummerTheme() {
+      this.helper = false;
+
       this.lightTheme = false;
       window.localStorage.setItem('lightTheme', false);
       this.darkTheme = false;
@@ -494,9 +522,15 @@ const app = new Vue({
       this.summerTheme = true;
       window.localStorage.setItem('summerTheme', true);
 
-      location.reload();
+      if (!this.helper) {
+        setTimeout(() => {
+          location.reload();
+        }, 500);
+      }
     },
     selectWinterTheme() {
+      this.helper = false;
+
       this.lightTheme = false;
       window.localStorage.setItem('lightTheme', false);
       this.darkTheme = false;
@@ -511,7 +545,11 @@ const app = new Vue({
       this.winterTheme = true;
       window.localStorage.setItem('winterTheme', true);
 
-      location.reload();
+      if (!this.helper) {
+        setTimeout(() => {
+          location.reload();
+        }, 500);
+      }
     },
   },
 });

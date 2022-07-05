@@ -64,10 +64,11 @@
                 class="helper" 
                 :class="{
                   'helper-selected': this.helper,
-                  'helper-deselected': !this.helper
+                  'helper-deselected': !this.helper,
+                  'helper-btn-dark': this.darkTheme
                 }"
                 @click="showHelper()">
-                <img src="./img/settings.webp" alt="settings">
+                <span class="settings">&#x2699;</span>
               </span>
               <!--PULSANTE COPIA LISTA-->
               <div class="input-btns-container">
@@ -124,7 +125,8 @@
                                   <button type="button" class="btn summer-theme p-1" @click="selectSummerTheme()">Estate</button>
                                   <button type="button" class="btn winter-theme p-0" @click="selectWinterTheme()">Inverno</button>
                                 </div>
-
+                <p class="helper-title">Risoluzione Problemi:</p>
+                <small>Nel caso riscontrassi lentezza o blocchi nel caricamento di immagini, riavvia l'app. Di solito accade dopo modifiche/aggiornamenti interni, ma riavviando problema è risolto! in caso contrario segnalalo all'email qui in fondo.</small>
                 <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Istruzioni:</p>
                 <span>- <i class="far fa-paper-plane btn btn-info helper-icon"></i> serve per aggiungere alla lista roba da comprare.</span></br>
                 <span>- Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span></br>
@@ -155,7 +157,8 @@
                                     <button type="button" class="btn summer-theme p-1" @click="selectSummerTheme()">Summer</button>
                                     <button type="button" class="btn winter-theme p-0" @click="selectWinterTheme()">Winter</button>
                                   </div>
-
+                <p class="helper-title"> Troubleshooting: </p>
+                <small> In case you experience slowness or freezes in loading images, restart the app. Usually happens after internal changes/updates, but restarting problem is solved! otherwise report it to the email at the bottom. </small>
                 <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Instructions:</p>
                 <span> - <i class="far fa-paper-plane btn btn-info helper-icon"> </i> is used to add stuff to buy list. </span> </br>
                 <span> - With <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> you can change a name and save the changes by clicking <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>. </span> </br>
@@ -167,7 +170,7 @@
                 <span> - If you click on <span class="delete-all-description"> delete all <i class="fas fa-skull-crossbones"> </i> </span> you will see a confirmation box for the 'delete <u> ALL </u> the list. </span> </br>
                 <span> - If you don't understand a  &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; of all this, don't worry, there is a video tutorial <a href="https://www.youtube.com/watch?v=H1E9ynY9f9w" target="_blank"> by clicking here </a>. </span> </br> </br>
                 <span> For any report you can contact me: <a href="mailto:lucarhcp88@hotmail.it"> lucarhcp88@hotmail.it </a> </a> </span>
-                <p class="privacy-policy"><a href="https://www.iubenda.com/privacy-policy/69702250" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe " title="Privacy Policy ">Privacy Policy</a></p>
+                <p class="privacy-policy"><a href="https://www.iubenda.com/privacy-policy/69702250" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe " title="Privacy Policy">Privacy Policy</a></p>
               </div>
             </div>
 
