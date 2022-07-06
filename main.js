@@ -413,22 +413,40 @@ const app = new Vue({
         window.localStorage.setItem('canDelete', false);
       }
     },
-    selectLightTheme() {
-      this.helper = false;
+    changeTheme(theme) {
+      this.resetAllThemes();
 
-      this.darkTheme = false;
-      window.localStorage.setItem('darkTheme', false);
-      this.minimalTheme = false;
-      window.localStorage.setItem('minimalTheme', false);
-      this.retroTheme = false;
-      window.localStorage.setItem('retroTheme', false);
-      this.summerTheme = false;
-      window.localStorage.setItem('summerTheme', false);
-      this.winterTheme = false;
-      window.localStorage.setItem('winterTheme', false);
+      switch (theme) {
+        case 'light':
+          this.lightTheme = true;
+          window.localStorage.setItem('lightTheme', true);
+          break;
+        case 'dark':
+          this.darkTheme = true;
+          window.localStorage.setItem('darkTheme', true);
+          break;
+        case 'minimal':
+          this.minimalTheme = true;
+          window.localStorage.setItem('minimalTheme', true);
+          break;
+        case 'retro':
+          this.retroTheme = true;
+          window.localStorage.setItem('retroTheme', true);
+          break;
+        case 'summer':
+          this.summerTheme = true;
+          window.localStorage.setItem('summerTheme', true);
+          break;
+        case 'winter':
+          this.winterTheme = true;
+          window.localStorage.setItem('winterTheme', true);
+          break;
 
-      this.lightTheme = true;
-      window.localStorage.setItem('lightTheme', true);
+        default:
+          this.lightTheme = true;
+          window.localStorage.setItem('lightTheme', true);
+          break;
+      }
 
       if (!this.helper) {
         setTimeout(() => {
@@ -436,99 +454,7 @@ const app = new Vue({
         }, 500);
       }
     },
-    selectDarkTheme() {
-      this.helper = false;
-
-      this.lightTheme = false;
-      window.localStorage.setItem('lightTheme', false);
-      this.minimalTheme = false;
-      window.localStorage.setItem('minimalTheme', false);
-      this.retroTheme = false;
-      window.localStorage.setItem('retroTheme', false);
-      this.summerTheme = false;
-      window.localStorage.setItem('summerTheme', false);
-      this.winterTheme = false;
-      window.localStorage.setItem('winterTheme', false);
-
-      this.darkTheme = true;
-      window.localStorage.setItem('darkTheme', true);
-
-      if (!this.helper) {
-        setTimeout(() => {
-          location.reload();
-        }, 500);
-      }
-    },
-    selectMinimalTheme() {
-      this.helper = false;
-
-      this.lightTheme = false;
-      window.localStorage.setItem('lightTheme', false);
-      this.darkTheme = false;
-      window.localStorage.setItem('darkTheme', false);
-      this.retroTheme = false;
-      window.localStorage.setItem('retroTheme', false);
-      this.summerTheme = false;
-      window.localStorage.setItem('summerTheme', false);
-      this.winterTheme = false;
-      window.localStorage.setItem('winterTheme', false);
-
-      this.minimalTheme = true;
-      window.localStorage.setItem('minimalTheme', true);
-
-      if (!this.helper) {
-        setTimeout(() => {
-          location.reload();
-        }, 500);
-      }
-    },
-    selectRetroTheme() {
-      this.helper = false;
-
-      this.lightTheme = false;
-      window.localStorage.setItem('lightTheme', false);
-      this.darkTheme = false;
-      window.localStorage.setItem('darkTheme', false);
-      this.minimalTheme = false;
-      window.localStorage.setItem('minimalTheme', false);
-      this.summerTheme = false;
-      window.localStorage.setItem('summerTheme', false);
-      this.winterTheme = false;
-      window.localStorage.setItem('winterTheme', false);
-
-      this.retroTheme = true;
-      window.localStorage.setItem('retroTheme', true);
-
-      if (!this.helper) {
-        setTimeout(() => {
-          location.reload();
-        }, 500);
-      }
-    },
-    selectSummerTheme() {
-      this.helper = false;
-
-      this.lightTheme = false;
-      window.localStorage.setItem('lightTheme', false);
-      this.darkTheme = false;
-      window.localStorage.setItem('darkTheme', false);
-      this.minimalTheme = false;
-      window.localStorage.setItem('minimalTheme', false);
-      this.retroTheme = false;
-      window.localStorage.setItem('retroTheme', false);
-      this.winterTheme = false;
-      window.localStorage.setItem('winterTheme', false);
-
-      this.summerTheme = true;
-      window.localStorage.setItem('summerTheme', true);
-
-      if (!this.helper) {
-        setTimeout(() => {
-          location.reload();
-        }, 500);
-      }
-    },
-    selectWinterTheme() {
+    resetAllThemes() {
       this.helper = false;
 
       this.lightTheme = false;
@@ -541,15 +467,8 @@ const app = new Vue({
       window.localStorage.setItem('retroTheme', false);
       this.summerTheme = false;
       window.localStorage.setItem('summerTheme', false);
-
-      this.winterTheme = true;
-      window.localStorage.setItem('winterTheme', true);
-
-      if (!this.helper) {
-        setTimeout(() => {
-          location.reload();
-        }, 500);
-      }
+      this.winterTheme = false;
+      window.localStorage.setItem('winterTheme', false);
     },
   },
 });
