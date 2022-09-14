@@ -16,6 +16,10 @@ const app = new Vue({
       text: 'List copied to clipboard',
       visible: false,
     },
+    share: {
+      text: 'Link copied to clipboard, paste it with whoever you want.',
+      visible: false,
+    },
     categoryClass: false,
     categoryEmoji: '',
     categories: [],
@@ -76,6 +80,7 @@ const app = new Vue({
       this.defaultPlaceholderText = 'Scrivi cosa comprare';
       this.categories = this.itaCategories;
       this.copyList.text = 'Lista copiata negli appunti';
+      this.share.text = 'Link copiato negli appunti, incollalo con chi vuoi.';
       this.confirmText = 'Sei sicuro di voler eliminare:';
     } else {
       this.defaultPlaceholderText;
@@ -331,6 +336,19 @@ const app = new Vue({
       setTimeout(() => (this.copyList.visible = false), 3500); //cambio il testo del pulsante copia
       navigator.vibrate(400);
     },
+    shareLink() {
+      const playStoreUrl =
+        'https://play.google.com/store/apps/details?id=io.kodular.caputoluca88.Shopping_List';
+      navigator.clipboard.writeText(playStoreUrl);
+      document.addEventListener('copy', function (e) {
+        //copio negli appunti anche qui per sistemare su android (quello di sopra non funziona)
+        e.clipboardData.setData('text/plain', playStoreUrl);
+        e.preventDefault();
+      });
+      document.execCommand('copy');
+      this.share.visible = true;
+      setTimeout(() => (this.share.visible = false), 5000);
+    },
     showCategoryList() {
       this.categoryList = !this.categoryList;
     },
@@ -391,6 +409,8 @@ const app = new Vue({
       this.defaultPlaceholderText = 'Write what to buy';
       this.categories = this.engCategories;
       this.copyList.text = 'List copied to clipboard';
+      this.share.text =
+        'Link copied to clipboard, paste it with whoever you want.';
       window.localStorage.setItem('langIta', false);
       location.reload(); //lo faccio solo perchè mi obbligano ad inserire librerie del c---- per la privacy policy che mi buggano il codice.
     },
@@ -400,6 +420,7 @@ const app = new Vue({
       this.defaultPlaceholderText = 'Scrivi cosa comprare';
       this.categories = this.itaCategories;
       this.copyList.text = 'Lista copiata negli appunti';
+      this.share.text = 'Link copiato negli appunti, incollalo con chi vuoi.';
       window.localStorage.setItem('langIta', true);
       location.reload(); //lo faccio solo perchè mi obbligano ad inserire librerie del c---- per la privacy policy e mi buggano il codice.
     },

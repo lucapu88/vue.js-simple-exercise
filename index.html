@@ -124,7 +124,13 @@
                                   <button type="button" class="btn retro-theme p-1" @click="changeTheme('retro')"> Dos </button>
                                   <button type="button" class="btn summer-theme p-1" @click="changeTheme('summer')">Estate</button>
                                   <button type="button" class="btn winter-theme p-0" @click="changeTheme('winter')">Inverno</button>
-                                </div>
+                                </div></br> 
+                <div class="share">
+                  &#x2699; Condividi:  <button class="btn btn-light border-dark share-btn" @click="shareLink()">
+                                <img src="img/share.webp" alt="share">  
+                              </button> 
+                  <p class="link-copied" v-if="share.visible === true">{{share.text}}</p>
+                </div>
                 <p class="helper-title">Risoluzione Problemi:</p>
                 <small>Nel caso riscontrassi lentezza o blocchi nel caricamento di immagini, riavvia l'app. Di solito accade dopo modifiche/aggiornamenti interni, ma riavviando problema è risolto! in caso contrario segnalalo all'email qui in fondo.</small>
                 <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Istruzioni:</p>
@@ -156,7 +162,13 @@
                                     <button type="button" class="btn retro-theme p-1" @click="changeTheme('retro')"> Dos </button>
                                     <button type="button" class="btn summer-theme p-1" @click="changeTheme('summer')">Summer</button>
                                     <button type="button" class="btn winter-theme p-0" @click="changeTheme('winter')">Winter</button>
-                                  </div>
+                                  </div></br> 
+                <div class="share">
+                 &#x2699; Share:  <button class="btn btn-light border-dark share-btn" @click="shareLink()">
+                                <img src="img/share.webp" alt="share">  
+                              </button> 
+                  <p class="link-copied" v-if="share.visible === true">{{share.text}}</p>
+                </div>
                 <p class="helper-title"> Troubleshooting: </p>
                 <small> In case you experience slowness or freezes in loading images, restart the app. Usually happens after internal changes/updates, but restarting problem is solved! otherwise report it to the email at the bottom. </small>
                 <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Instructions:</p>

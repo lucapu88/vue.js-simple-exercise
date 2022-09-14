@@ -248,6 +248,20 @@ body {
   margin-top: 20px;
   border-top: 1px solid;
 }
+
+.share {
+  margin-top: 15px;
+}
+.share-btn {
+  padding: 0 10px 3px;
+}
+.share-btn > img {
+  width: 20px;
+}
+.link-copied {
+  font-size: 13px;
+  margin-left: 5px;
+}
 .close-helper {
   float: right;
   width: 25px;
