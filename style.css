@@ -340,7 +340,7 @@ body {
   }
 }
 .category {
-  background: rgba(192, 224, 133, 0.84);
+  background: rgba(192, 224, 133, 0.75);
   border-radius: 15px;
 }
 .category-emoji {
@@ -424,6 +424,21 @@ body {
   border: 2px solid rgb(0, 172, 252);
   border-radius: 5px;
   padding: 2px;
+}
+
+.selected-for-delete {
+  color: #d70a0a;
+}
+.line-through {
+  text-decoration: line-through 4px;
+  -webkit-text-decoration-line: line-through 4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.7539390756302521) 0%,
+    rgba(241, 241, 241, 0.8295693277310925) 53%,
+    rgba(191, 191, 191, 0.835171568627451) 100%
+  );
+  border-radius: 5px;
 }
 
 .delete-all-description {

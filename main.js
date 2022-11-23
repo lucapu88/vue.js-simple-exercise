@@ -56,6 +56,8 @@ const app = new Vue({
     canDeleteText: 'OFF',
     canDelete: false,
     confirmText: 'Are you sure you want to delete:',
+    selectedTodosConfirmText:
+      'Are you sure you want to delete the selected items',
     buttonBackToTop: false,
     lightTheme: true,
     darkTheme: false,
@@ -64,6 +66,7 @@ const app = new Vue({
     summerTheme: false,
     winterTheme: false,
     themeName: 'light',
+    canDeleteMultipleTodo: false,
   },
   created() {
     this.categories = this.engCategories; //setto le categorie di default
@@ -82,11 +85,14 @@ const app = new Vue({
       this.copyList.text = 'Lista copiata negli appunti';
       this.share.text = 'Link copiato negli appunti, incollalo con chi vuoi.';
       this.confirmText = 'Sei sicuro di voler eliminare:';
+      this.selectedTodosConfirmText =
+        'Sei sicuro di voler eliminare gli elementi selezionati';
     } else {
       this.defaultPlaceholderText;
       this.categories = this.engCategories;
       this.copyList.text;
       this.confirmText;
+      this.selectedTodosConfirmText;
     }
 
     this.merryChristmasTheme(); //se è natale metto gli addobbi e buon natale!
@@ -195,6 +201,7 @@ const app = new Vue({
   },
   updated() {
     this.toggleButtonBackToTop();
+    this.toggleButtonDeleteSelectedTodo();
   },
   methods: {
     merryChristmasTheme() {
@@ -210,8 +217,10 @@ const app = new Vue({
     myFilter(n) {
       if (!this.todos[n].class) {
         //al click setta la proprietà del singolo todo isActive (evidenzia rosso l'elemento cliccato)
-        this.todos[n].isActive = !this.todos[n].isActive; //la proprietà è di default false, quindi al click, il todo passa da isActive =false a =true e viceversa
-        this.todos[n].isDisabled = !this.todos[n].isDisabled; //disabilito i pulsanti
+        if (!this.todos[n].multipleDelete) {
+          this.todos[n].isActive = !this.todos[n].isActive; //la proprietà è di default false, quindi al click, il todo passa da isActive =false a =true e viceversa
+          this.todos[n].isDisabled = !this.todos[n].isDisabled; //disabilito i pulsanti
+        }
         this.saveTodos();
       }
     }, //PS.: questa funzione è ripetuta uguale qui sotto, potevo farne una che passasse le proprietà "isActive" e "isHidden" come parametri insieme ad "n", ma la differenza sta nel fatto che con "myFilter" voglio salvare il tutto così che al refresh della pagina non si azzera niente, mentre con "toggleHidden" non voglio salvare nulla, anzi deve azzerarsi al refresh.
@@ -247,6 +256,7 @@ const app = new Vue({
         isSelected: false,
         class: this.categoryClass,
         emojy: this.categoryEmoji,
+        multipleDelete: false,
       };
 
       if (!this.addTodoInCategory.condition) {
@@ -263,6 +273,7 @@ const app = new Vue({
       this.categoryList = false;
       this.saveTodos();
       this.toggleButtonBackToTop();
+      this.toggleButtonDeleteSelectedTodo();
     },
     removeTodo(x, todo) {
       this.removeSelectedCategoryToAddItem();
@@ -277,6 +288,7 @@ const app = new Vue({
       }
 
       this.toggleButtonBackToTop();
+      this.toggleButtonDeleteSelectedTodo();
     },
     confirmedRemoveTodo(x, todo) {
       this.todos.splice(x, 1);
@@ -360,6 +372,30 @@ const app = new Vue({
       } else {
         document.getElementById('helper-description').scrollTo(0, 0);
         document.documentElement.style.overflow = 'auto';
+      }
+    },
+    selectTodoForDelete(index) {
+      if (!this.todos[index].isActive) {
+        this.todos[index].multipleDelete = !this.todos[index].multipleDelete;
+        this.toggleButtonDeleteSelectedTodo();
+        this.saveTodos();
+      }
+    },
+    toggleButtonDeleteSelectedTodo() {
+      this.todos.some((el) => el.multipleDelete)
+        ? (this.canDeleteMultipleTodo = true)
+        : (this.canDeleteMultipleTodo = false);
+    },
+    deleteSelectedTodos() {
+      const confirmText = `${this.selectedTodosConfirmText}?`;
+      if (confirm(confirmText)) {
+        this.todos = this.todos.filter((todo) => !todo.multipleDelete);
+        this.list = this.todos.map((t) => {
+          return t.class
+            ? `${t.name.toUpperCase().trim()}:\n`
+            : `- ${t.name.trim().toLowerCase()} \n`;
+        });
+        this.saveTodos();
       }
     },
     selectCategoryToAddItem(index, todo) {
