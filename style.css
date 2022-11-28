@@ -620,6 +620,17 @@ li {
 .hide-minimal-icon {
   display: none;
 }
+.category-minimal {
+  font-weight: bold;
+  border: 1px solid #7c3e66;
+  background-color: transparent;
+}
+.category-emoji-minimal {
+  font-size: 30px;
+  margin: 0 10px;
+  display: inline-block;
+  font-weight: bold;
+}
 
 .retro-theme-title {
   background: -webkit-radial-gradient(circle, #35c50d 0%, #35c50d 95%);

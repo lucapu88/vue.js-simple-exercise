@@ -212,8 +212,14 @@
 
             <!-- TODO LIST -->
             <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme}">
-              <div v-for="(todo, n) in todos" :class="{'category': todo.class, 'category-retro': todo.class && retroTheme}">
-                <div v-if="todo.class" 
+              <div v-for="(todo, n) in todos" 
+                :class="{
+                  'category': todo.class, 
+                  'category-retro': todo.class && retroTheme,
+                  'category-minimal': todo.class && minimalTheme,
+                }">
+                <div v-if="todo.class && minimalTheme" class="category-emoji-minimal"> &#x2022; </div>
+                <div v-if="todo.class && !minimalTheme" 
                   class="category-emoji"
                   :class="{'category-emoji-selected': todo.isSelected}">
                     {{todo.emojy}}
