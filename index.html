@@ -106,10 +106,17 @@
                 'minimal-theme-helper': minimalTheme === true,
                 'retro-theme-helper': retroTheme === true,
               }" >
-              <p class="close-helper" @click="showHelper()">X</p>
+              <p class="close-helper" :class="{'close-retro-theme-helper': retroTheme === true}" @click="showHelper()">X</p>
               <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.webp" alt="Buon Natale!">
-              <p v-if="langIta" class="helper-settings-title" :class="christmasTheme ? 'christmas-red' : ''">Impostazioni:</p>
-              <p v-else class="helper-settings-title" :class="christmasTheme ? 'christmas-red' : ''">Settings:</p>
+              <p v-if="langIta" class="helper-settings-title" 
+                :class="{
+                  'christmas-red': christmasTheme,
+                  'retro-helper-settings-title': retroTheme === true,
+                }">Impostazioni:</p>
+              <p v-else class="helper-settings-title" :class="{
+                  'christmas-red': christmasTheme,
+                  'retro-helper-settings-title': retroTheme === true,
+                }">Settings:</p>
               <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.webp" alt="E felice anno nuovo!">
               <!-- ----------------------------------------------HELPER ITA -->
               <div id="helper-description" v-if="langIta">

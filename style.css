@@ -652,13 +652,43 @@ li {
 }
 .retro-theme-helper {
   background-image: none;
-  background-color: #000000;
-  color: #35c50d;
+  background-color: #c0c0c0;
+  background-image: none;
+  color: #000000;
+  border: 3px #ffffff outset;
+  border-radius: 0 !important;
+}
+.retro-helper-settings-title {
+  color: #ffffff;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 2, 129, 1) 0%,
+    rgba(15, 129, 206, 1) 90%
+  );
+  padding: 10px;
+  font-weight: bold;
 }
 .retro-theme-confirm {
-  background-color: #000000;
+  background-color: #c0c0c0;
   background-image: none;
-  color: #d70a0a;
+  color: #000000;
+  border: 3px #ffffff outset;
+  border-radius: 0 !important;
+}
+.close-retro-theme-helper {
+  background-color: #c0c0c0;
+  background-image: none;
+  color: #000000;
+  border: 3px #ffffff outset;
+  border-radius: 0 !important;
+  margin: 5px 5px;
+}
+.retro-theme-confirm > button {
+  background-color: #c0c0c0;
+  background-image: none;
+  color: #000000;
+  border: 3px #ffffff outset;
+  border-radius: 0 !important;
 }
 .retro-theme-back-top {
   background-color: #35c50d;
@@ -674,11 +704,13 @@ li {
 .retro-btn > button {
   background-color: #000000 !important;
   border-color: #35c50d;
+  border-radius: 0 !important;
   color: #35c50d;
 }
 .category-retro {
   background-color: #000000 !important;
   border: 1px solid #35c50d;
+  border-radius: 0;
   color: #35c50d;
 }
 
