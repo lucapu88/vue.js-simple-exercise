@@ -43,7 +43,7 @@ body {
   position: relative;
 }
 .title {
-  background: -webkit-radial-gradient(circle, #ff0000 0%, #3d0000 95%);
+  background: -webkit-radial-gradient(circle, #ff0000 0%, #3d0000 80%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -72,7 +72,7 @@ body {
   -webkit-text-fill-color: transparent;
   position: absolute;
   top: 0;
-  right: 31%;
+  right: 29%;
   animation-name: fadeOutOpacity;
   animation-iteration-count: 1;
   animation-delay: 2.5s;
@@ -82,7 +82,7 @@ body {
 }
 
 .title2-eng {
-  right: 27%;
+  right: 23%;
 }
 
 @keyframes fadeOutOpacity {
@@ -94,9 +94,15 @@ body {
   }
 }
 
+.input-btns-container {
+  display: flex;
+  align-items: baseline;
+  /* gap: 10px; */
+  justify-content: space-around;
+}
 .inputText {
   padding: 10px;
-  margin-left: 10px;
+  max-width: 200px;
 }
 .btn-outline-success {
   padding: 10px;
@@ -192,6 +198,9 @@ body {
   background-size: contain;
   z-index: 150;
   background-color: #ffffff;
+}
+
+.helper-light {
   background-image: repeating-linear-gradient(#ccc 0 1px, transparent 1px 100%),
     repeating-linear-gradient(90deg, #ccc 0 1px, transparent 1px 100%);
   background-size: 30px 30px;
@@ -362,9 +371,10 @@ body {
   }
 }
 .category-list {
-  font-family: 'Chango', cursive;
   display: inline-block;
   margin: 0;
+  font-weight: bold;
+  text-transform: capitalize;
 }
 .category-list:hover {
   cursor: pointer;
@@ -503,18 +513,17 @@ li {
 }
 
 /* VARIE */
-.title,
-.inputText,
-.modify-input,
-.category-list-description,
-.title2 {
-  font-family: 'Oleo Script', cursive;
-}
-
 .fa-save,
 .fa-shopping-cart,
 .fa-cart-arrow-down {
   font-size: 20px;
+}
+
+.blue-text {
+  color: #007bff;
+}
+.green-text {
+  color: #35c50d;
 }
 
 .active {

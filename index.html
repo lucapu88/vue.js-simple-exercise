@@ -21,10 +21,8 @@
     <!-- google body font -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"> 
-    <link href="https://fonts.googleapis.com/css2?family=Oleo+Script:wght@700&display=swap" rel="stylesheet"> <!-- google other font -->
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet"> <!--google font retro-->
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap" rel="stylesheet"> <!--google font minimal-->
-    <link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue -->
   </head>
   <body> <!-- PS.: la vista è stata curata solo per la visualizzazione in versione mobile.-->
@@ -105,6 +103,7 @@
                 'dark-theme-helper': darkTheme === true,
                 'minimal-theme-helper': minimalTheme === true,
                 'retro-theme-helper': retroTheme === true,
+                'helper-light': lightTheme === true,
               }" >
               <p class="close-helper" :class="{'close-retro-theme-helper': retroTheme === true}" @click="showHelper()">X</p>
               <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.webp" alt="Buon Natale!">
@@ -205,10 +204,22 @@
 
             <!-- CATEGORY -->
             <div v-if="categoryList" class="category-list-container">
-              <p class="m-0" v-if="langIta">Indice categorie:</p>
-              <p class="m-0" v-else>Category index:</p>
-              <span v-if="langIta" class="category-list-description">Scegli uno di questi nomi e ti verrà creata una categoria</span> 
-              <span v-if="!langIta" class="category-list-description" >Choose one of these names and a category will be created</span>  
+              <p class="m-0" v-if="langIta" :class="{'green-text': retroTheme}">Indice categorie</p>
+              <p class="m-0" v-else :class="{'green-text': retroTheme}">Category index</p>
+              <span v-if="langIta" class="category-list-description" 
+                :class="{
+                  'blue-text': !retroTheme && !minimalTheme,
+                  'green-text': retroTheme
+                }">
+                Scegli uno di questi nomi e ti verrà creata una categoria:
+              </span> 
+              <span v-if="!langIta" class="category-list-description" 
+                :class="{
+                  'blue-text': !retroTheme && !minimalTheme,
+                  'green-text': retroTheme
+                }">
+                Choose one of these names and a category will be created:
+              </span>  
               <p class="category-list" 
                 v-for="(category, i) in categories" 
                 :key="i">
@@ -307,11 +318,11 @@
               }" 
               v-if="!visible">  
               <p v-if="langIta">
-                <i class="fas fa-shopping-cart text-danger"></i> 
+                <i class="fas fa-trash-alt text-danger"></i> 
                 Sei sicuro di voler eliminare tutta la lista?
               </p> 
               <p v-else>
-                <i class="fas fa-shopping-cart text-danger"></i> 
+                <i class="fas fa-trash-alt text-danger"></i> 
                Are you sure you want to delete the whole list?
               </p> 
               <button class="btn btn-primary" v-on:click="visible = true" @click="removeAllTodo()">
@@ -326,6 +337,7 @@
               <!-- PULSANTE ELIMINA SOLO I SELEZIONATI -->
               <button v-if="canDeleteMultipleTodo" 
                 class="text-danger border-danger rounded"
+                :class="{'christmas': christmasTheme}"
                 @click="deleteSelectedTodos()">
                 <i class="fas fa-trash-alt"> </i>
               </button>
@@ -361,7 +373,7 @@
             </div>
             <img v-if="christmasTheme" class="christas-footer" src="./img/christmas.webp" alt="">
             <!-- <small v-if="!christmasTheme" class="created-by-luca-caputo">By Luca Caputo</small> -->
-            <small v-if="christmasTheme" class="created-by-luca-caputo">Merry Christmas by Luca Caputo</small>
+            <small v-if="christmasTheme" class="created-by-luca-caputo">By Luca Caputo</small>
           </div>
         </div>
       </div>
