@@ -105,7 +105,9 @@
                 'retro-theme-helper': retroTheme === true,
                 'helper-light': lightTheme === true,
               }" >
-              <p class="close-helper" :class="{'close-retro-theme-helper': retroTheme === true}" @click="showHelper()">X</p>
+              <div class="close-helper-container" @click="showHelper()">
+                <p class="close-helper" :class="{'close-retro-theme-helper': retroTheme === true}">X</p>
+              </div>
               <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.webp" alt="Buon Natale!">
               <p v-if="langIta" class="helper-settings-title" 
                 :class="{

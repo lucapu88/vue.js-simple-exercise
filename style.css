@@ -124,6 +124,11 @@ body {
   background-color: #a6cef8;
 }
 
+.modify-input {
+  min-width: 220px;
+  max-width: 250px;
+}
+
 /* HELPER */
 .helper {
   position: absolute;
@@ -234,21 +239,21 @@ body {
     top: 200%;
   }
 }
-.helper-description.slideDown > div {
+.helper-description.slideDown > div:not(:first-child) {
   display: none;
 }
 
 .helper-description > span {
   font-size: 12px;
 }
-.helper-description > div {
+.helper-description > div:not(:first-child) {
   width: 100%;
   height: 100%;
   overflow: auto;
   padding-bottom: 30%;
 }
 .helper-settings-title {
-  margin-bottom: 0;
+  margin-bottom: 15px;
   text-align: center;
 }
 .helper-title {
@@ -270,6 +275,14 @@ body {
 .link-copied {
   font-size: 13px;
   margin-left: 5px;
+}
+.close-helper-container {
+  width: 65px;
+  height: 60px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
 }
 .close-helper {
   float: right;
@@ -676,6 +689,7 @@ li {
   );
   padding: 10px;
   font-weight: bold;
+  margin-bottom: 5px;
 }
 .retro-theme-confirm {
   background-color: #c0c0c0;
