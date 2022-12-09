@@ -24,6 +24,12 @@
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet"> <!--google font retro-->
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap" rel="stylesheet"> <!--google font minimal-->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.min.js"></script>
+    <!-- CDNJS :: Sortable (https://cdnjs.com/) -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+    <!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
   </head>
   <body> <!-- PS.: la vista è stata curata solo per la visualizzazione in versione mobile.-->
     <div class="container">
@@ -232,81 +238,83 @@
 
             <!-- TODO LIST -->
             <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme}">
-              <div v-for="(todo, n) in todos" 
-                :class="{
-                  'category': todo.class, 
-                  'category-retro': todo.class && retroTheme,
-                  'category-minimal': todo.class && minimalTheme,
-                }">
-                <div v-if="todo.class && minimalTheme" class="category-emoji-minimal"> &#x2022; </div>
-                <div v-if="todo.class && !minimalTheme" 
-                  class="category-emoji"
-                  :class="{'category-emoji-selected': todo.isSelected}">
-                    {{todo.emojy}}
+              <draggable v-model="todos" @start="drag=true" @end="drag=false; saveTodos()">
+                <div v-for="(todo, n) in todos" 
+                  :class="{
+                    'category': todo.class, 
+                    'category-retro': todo.class && retroTheme,
+                    'category-minimal': todo.class && minimalTheme,
+                  }">
+                  <div v-if="todo.class && minimalTheme" class="category-emoji-minimal"> &#x2022; </div>
+                  <div v-if="todo.class && !minimalTheme" 
+                    class="category-emoji"
+                    :class="{'category-emoji-selected': todo.isSelected}">
+                      {{todo.emojy}}
+                  </div>
+                  <i v-else 
+                    class="fas fa-cart-arrow-down mr-3 ml-1" 
+                    :class="{
+                      'hide-minimal-icon': minimalTheme,
+                      'selected-for-delete': todo.multipleDelete
+                    }"
+                    @click="selectTodoForDelete(n)"></i>
+                  <span v-if="minimalTheme && !todo.class"
+                    class="mr-3 ml-1"
+                    @click="selectTodoForDelete(n)"> - </span> 
+                  <li 
+                    class="mt-2 todo"
+                    id="todo" 
+                    @click="myFilter(n); 
+                      selectCategoryToAddItem(n, todo)" 
+                    :class="{
+                      'active': todo.isActive, 
+                      'selected': todo.isSelected,
+                      'line-through': todo.multipleDelete && !retroTheme
+                    }"> 
+                    {{ todo.name }} 
+                  </li>
+                  <!--CONTENITORE PULSANTI (edit, delete, modify)-->
+                  <li class="button-container bg-light" 
+                    :class="{
+                      'minimal-btn': minimalTheme,
+                      'retro-btn': retroTheme, 
+                      'categoryActive' : todo.class
+                    }"> 
+                    <!-- MODIFICA-->
+                    <button 
+                      class="ml-1 btn btn-primary rounded-circle btn-sm" 
+                      @click="toggleHidden(n)" 
+                      v-if="todo.isHidden == true && !todo.class" 
+                      :class="todo.isDisabled ? 'disabled' : '' " 
+                      :disabled="!!todo.isDisabled">
+                      <i class="fas fa-pencil-alt"></i>
+                    </button>
+                    <!--ELIMINA --> 
+                    <button 
+                      class="ml-1 btn btn-primary rounded-circle btn-sm" 
+                      v-if="todo.isHidden == true" @click="removeTodo(n, todo)" 
+                      :class="todo.isDisabled ? 'disabled' : '' " 
+                      :disabled="!!todo.isDisabled">
+                      <i class="fas fa-trash-alt"></i>
+                    </button> 
+                    <!-- INPUT MODIFICA -->
+                    <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
+                    <input 
+                      class="modify-input ml-2 border border-primary rounded" 
+                      v-if="todo.isHidden == false" 
+                      v-model.trim="todo.name"> 
+                    <!-- SALVA MODIFICHE -->
+                    <button 
+                      class="ml-1 btn btn-success rounded-circle btn-sm"
+                      :disabled="todo.name.length === 0"
+                      @click="toggleHidden(n)" 
+                      v-if="todo.isHidden ==false" 
+                      v-on:click="modifyTodo(n, todo, todo.name)">
+                      <i class="far fa-save"></i>
+                    </button> 
+                  </li>
                 </div>
-                <i v-else 
-                  class="fas fa-cart-arrow-down mr-3 ml-1" 
-                  :class="{
-                    'hide-minimal-icon': minimalTheme,
-                    'selected-for-delete': todo.multipleDelete
-                  }"
-                  @click="selectTodoForDelete(n)"></i>
-                <span v-if="minimalTheme && !todo.class"
-                  class="mr-3 ml-1"
-                  @click="selectTodoForDelete(n)"> - </span> 
-                <li 
-                  class="mt-2 todo"
-                  id="todo" 
-                  @click="myFilter(n); 
-                    selectCategoryToAddItem(n, todo)" 
-                  :class="{
-                    'active': todo.isActive, 
-                    'selected': todo.isSelected,
-                    'line-through': todo.multipleDelete && !retroTheme
-                  }"> 
-                  {{ todo.name }} 
-                </li>
-                <!--CONTENITORE PULSANTI (edit, delete, modify)-->
-                <li class="button-container bg-light" 
-                  :class="{
-                    'minimal-btn': minimalTheme,
-                    'retro-btn': retroTheme, 
-                    'categoryActive' : todo.class
-                  }"> 
-                  <!-- MODIFICA-->
-                  <button 
-                    class="ml-1 btn btn-primary rounded-circle btn-sm" 
-                    @click="toggleHidden(n)" 
-                    v-if="todo.isHidden == true && !todo.class" 
-                    :class="todo.isDisabled ? 'disabled' : '' " 
-                    :disabled="!!todo.isDisabled">
-                    <i class="fas fa-pencil-alt"></i>
-                  </button>
-                  <!--ELIMINA --> 
-                  <button 
-                    class="ml-1 btn btn-primary rounded-circle btn-sm" 
-                    v-if="todo.isHidden == true" @click="removeTodo(n, todo)" 
-                    :class="todo.isDisabled ? 'disabled' : '' " 
-                    :disabled="!!todo.isDisabled">
-                    <i class="fas fa-trash-alt"></i>
-                  </button> 
-                  <!-- INPUT MODIFICA -->
-                  <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
-                  <input 
-                    class="modify-input ml-2 border border-primary rounded" 
-                    v-if="todo.isHidden == false" 
-                    v-model.trim="todo.name"> 
-                  <!-- SALVA MODIFICHE -->
-                  <button 
-                    class="ml-1 btn btn-success rounded-circle btn-sm"
-                    :disabled="todo.name.length === 0"
-                    @click="toggleHidden(n)" 
-                    v-if="todo.isHidden ==false" 
-                    v-on:click="modifyTodo(n, todo, todo.name)">
-                    <i class="far fa-save"></i>
-                  </button> 
-                </li>
-              </div>
+              </draggable>
             </ul>
 
             <!-- RIQUADRO ELIMINA TUTTO -->
