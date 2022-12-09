@@ -79,7 +79,7 @@
               </span>
               <!--PULSANTE COPIA LISTA-->
               <div class="input-btns-container">
-                <button class="btn btn-outline-success" @click="copy(list)">
+                <button class="btn btn-outline-success" @click="copy()">
                   <i class="far fa-copy"></i></br>
                 </button> 
                 <!--INPUT AGGIUNGI-->
@@ -238,7 +238,7 @@
 
             <!-- TODO LIST -->
             <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme}">
-              <draggable v-model="todos" @start="drag=true" @end="drag=false; saveTodos()">
+              <draggable v-model="todos" @start="drag=true; removeSelectedCategoryToAddItem()" @end="drag=false; saveTodos()">
                 <div v-for="(todo, n) in todos" 
                   :class="{
                     'category': todo.class, 

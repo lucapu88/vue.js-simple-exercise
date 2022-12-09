@@ -4,7 +4,6 @@ const app = new Vue({
   el: '#app',
   data: {
     todos: [], //conterrà gli elementi che noi digitiamo
-    list: [{}], //lista da condividere che conterrà gli stessi elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     visible: true, //serve per la visibilità del contenitore dell'alert
     placeholder: 'Write what to buy',
@@ -182,17 +181,12 @@ const app = new Vue({
   mounted() {
     //console.clear();
 
-    if (
-      window.localStorage.getItem('todos') &&
-      window.localStorage.getItem('list')
-    ) {
+    if (window.localStorage.getItem('todos')) {
       //se si deve prendere un oggetto da salvare in locale
       try {
         this.todos = JSON.parse(window.localStorage.getItem('todos')); //prova a trasformare l'array in un oggetto javascript
-        this.list = JSON.parse(window.localStorage.getItem('list')); //prova a trasformare l'array in un oggetto javascript
       } catch (e) {
         window.localStorage.removeItem('todos'); //se viene trovato un errore, rimuovi l'oggetto (o meglio, non salvare niente)
-        window.localStorage.removeItem('list'); //se viene trovato un errore, rimuovi l'oggetto (o meglio, non salvare niente)
       }
     }
     if (!this.addTodoInCategory.condition) {
@@ -259,13 +253,9 @@ const app = new Vue({
         multipleDelete: false,
       };
 
-      if (!this.addTodoInCategory.condition) {
-        this.todos.push(todoObject);
-        this.list.push(todoForList + '\n');
-      } else {
-        this.todos.splice(this.addTodoInCategory.id + 1, 0, todoObject);
-        this.list.splice(this.addTodoInCategory.id + 1, 0, todoForList + '\n');
-      }
+      !this.addTodoInCategory.condition
+        ? this.todos.push(todoObject)
+        : this.todos.splice(this.addTodoInCategory.id + 1, 0, todoObject);
 
       this.newTodo = '';
       this.categoryClass = false;
@@ -292,7 +282,6 @@ const app = new Vue({
     },
     confirmedRemoveTodo(x, todo) {
       this.todos.splice(x, 1);
-      this.list.splice(x, 1);
       this.saveTodos();
 
       navigator.vibrate(220);
@@ -312,19 +301,14 @@ const app = new Vue({
     modifyTodo(x, y, todo) {
       this.todos.splice(x, 1);
       this.todos.splice(x, 0, y);
-      this.list.splice(x, 1);
-      this.list.splice(x, 0, todo + '\n');
       this.saveTodos();
     },
     saveTodos() {
       const parsedTodos = JSON.stringify(this.todos);
-      const parsedList = JSON.stringify(this.list);
       window.localStorage.setItem('todos', parsedTodos);
-      window.localStorage.setItem('list', parsedList);
     },
     removeAllTodo(x) {
       this.todos.splice(x);
-      this.list.splice(x);
       this.categoryList = false;
       this.saveTodos();
       // this.helper = false;
@@ -333,9 +317,12 @@ const app = new Vue({
       navigator.vibrate(1000);
       this.buttonBackToTop = false;
     },
-    copy(list) {
-      const arrayNoCommas = ['', ...list].join(' ');
-      console.log(arrayNoCommas);
+    copy() {
+      const myList = this.todos.map((todo) =>
+        todo.class ? `${todo.name.toUpperCase()}:\n` : `-${todo.name}\n`
+      );
+      const arrayNoCommas = myList.join(' ');
+
       this.categoryList = false;
       navigator.clipboard.writeText(arrayNoCommas); //copio negli appunti una lista della spesa per poterla condividere
       document.addEventListener('copy', function (e) {
@@ -390,11 +377,6 @@ const app = new Vue({
       const confirmText = `${this.selectedTodosConfirmText}?`;
       if (confirm(confirmText)) {
         this.todos = this.todos.filter((todo) => !todo.multipleDelete);
-        this.list = this.todos.map((t) => {
-          return t.class
-            ? `${t.name.toUpperCase().trim()}:\n`
-            : `- ${t.name.trim().toLowerCase()} \n`;
-        });
         this.saveTodos();
       }
     },
