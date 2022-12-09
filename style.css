@@ -427,12 +427,15 @@ body {
   border-radius: 25%;
   padding: 0 5px;
 }
+.custom-show-listbtn > img {
+  width: 20px;
+}
 
 /* TODO LIST */
 .todo {
   text-transform: uppercase;
   font-size: 20px;
-  width: 200px;
+  width: 190px;
   line-height: 1;
   overflow-x: auto;
   overflow-y: hidden;
@@ -519,6 +522,14 @@ li {
 }
 
 /* VARIE */
+.drag-n-drop-btn-container {
+  display: flex;
+  gap: 10px;
+  height: 30px;
+  align-items: center;
+  margin: 0 0 10px 5px;
+}
+
 .fa-save,
 .fa-shopping-cart,
 .fa-cart-arrow-down {

@@ -66,8 +66,12 @@ const app = new Vue({
     winterTheme: false,
     themeName: 'light',
     canDeleteMultipleTodo: false,
+    isDraggable: false,
+    needDragNDropBtn: false,
   },
   created() {
+    this.getAndroidVersion();
+
     this.categories = this.engCategories; //setto le categorie di default
     //setto le impostazioni scelte dall'utente sulla conferma di cancellazione
     const canDelete = window.localStorage.getItem('canDelete');
@@ -240,9 +244,6 @@ const app = new Vue({
         }
       });
 
-      let todoForList = this.categoryClass
-        ? this.newTodo.toUpperCase().trim() + ':' //se è un nome di categoria, nella lista va inserito maiuscolo con i 2 punti
-        : '- ' + this.newTodo.trim().toLowerCase();
       const todoObject = {
         name: this.newTodo.trim(),
         isHidden: true,
@@ -508,6 +509,17 @@ const app = new Vue({
       window.localStorage.setItem('summerTheme', false);
       this.winterTheme = false;
       window.localStorage.setItem('winterTheme', false);
+    },
+    toggleDragDrop() {
+      this.isDraggable = !this.isDraggable;
+    },
+    getAndroidVersion(ua) {
+      ua = (ua || navigator.userAgent).toLowerCase();
+      var match = ua.match(/android\s([0-9\.]*)/i);
+      const intVersion = match ? parseInt(match[1]) : 12;
+      intVersion <= 11
+        ? (this.needDragNDropBtn = true)
+        : (this.isDraggable = true);
     },
   },
 });

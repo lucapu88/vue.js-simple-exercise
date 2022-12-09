@@ -99,8 +99,17 @@
                   <span v-else>-</span>
                 </button> 
               </div>
+              <div v-if="needDragNDropBtn" class="drag-n-drop-btn-container">
+                <button class="btn custom-show-listbtn" @click="toggleDragDrop()">
+                  <img src="./img/drag-and-drop.webp" alt="move">
+                </button>
+                <small v-if="!isDraggable" style="font-weight: bold;">OFF</small>
+                <small v-if="isDraggable" style="font-weight: bold;">ON</small>
+                <small v-if="langIta && isDraggable">Tieni premuto su un elemento della lista e trascinalo dove vuoi</small>
+                <small v-if="!langIta && isDraggable">Press and hold an item in the list and drag it where you want</small> 
+              </div>
             </div>
-            <!-- ----------HELPER CONTAINER (Questa parte fa più schifo delle altre, e non so perchè l'ho fatta così di merda, ignorala!!!)------ -->
+            <!-- ----------HELPER CONTAINER (Questa parte fa più schifo delle altre, e non so perchè l'ho fatta così di merda, ignorala!!!)---->
             <div id="helper-description-container" 
               class="helper-description" 
               :class="{
@@ -156,6 +165,12 @@
                 <span>- Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
                 <span>- <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare l'indice delle categorie selezionabili.</span></br>
                 <span>- Per scegliere una categoria basta scriverla (o cliccarci sopra) e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category" :class="{'retro-category' : retroTheme === true}">evidenziata</span> nella lista. </br>Una volta creata la categoria, basterà cliccare sul nome di essa, e verrà evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che scriverai. Per annullare l'operazione basta cliccare su qualsiasi categoria nel <span class="category" :class="{'retro-category' : retroTheme === true}">riquadro verde</span> già esistente.</span></br>
+                <span v-if="needDragNDropBtn"><span style="color: red">NEW: </span> - Puoi trascinare gli elementi e spostarli dove vuoi, basta cliccare su 
+                  <button class="btn custom-show-listbtn">
+                    <img src="./img/drag-and-drop.webp" alt="move">
+                  </button>
+                  per attivare questa modalità.</br>
+                </span>
                 <span style="color: red">NEW: </span> - *Cliccando sull'icona del carrello (<i class="fas fa-cart-arrow-down"></i>) puoi selezionare più elementi da eliminare, nel caso volessi eliminarne più di uno ma non tutti. Ti apparirà in basso a sinistra questo cestino => <button class="text-danger border-danger rounded"><i class="fas fa-trash-alt"></i></button> ed eliminerai solamente gli elementi selezionati che avranno il carrello rosso (<i class="fas fa-cart-arrow-down selected-for-delete"></i>).
                 <small>*Riavvia l'app nel caso questa funzione non va correttamente.</small></br>
                 <span>-<i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
@@ -197,6 +212,12 @@
                 <span> - With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"> </i> you will remove stuff from the list. </span> </br>
                 <span> - <span class="custom-show-listbtn helper-icon"> + </span> is used to display the index of selectable categories. </span> </br>
                 <span> - To choose a category just write it (or click on it) and click <i class="far fa-paper-plane btn btn-info helper-icon "> </i>. You will see <span class="category" :class="{'retro-category' : retroTheme === true}"> highlighted </span> in the list. </br> Once the category has been created, just click on its name, and <span class="selected"> will be highlighted as well </span>, underneath you will add stuff you write. To cancel the operation just click on any category in the existing <span class="category" :class="{'retro-category' : retroTheme === true}"> green box </span>. </span> </br>
+                <span v-if="needDragNDropBtn"><span style="color: red">NEW: </span> - You can drag the elements and move them where you want, just click on
+                   <button class="btn custom-show-listbtn">
+                     <img src="./img/drag-and-drop.webp" alt="move">
+                   </button>
+                   to activate this mode.</br>
+                </span>
                 <span style="color: red">NEW: </span> - *By clicking on the cart icon (<i class="fas fa-cart-arrow-down"></i>) you can select multiple items to delete, in case you want to delete more than one but not all. This trash can will appear at the bottom left => <button class="text-danger border-danger rounded"><i class="fas fa-trash-alt"></i></button> and you will only delete the elements selected that will have the red cart (<i class="fas fa-cart-arrow-down selected-for-delete"></i>).
                 <small>*Restart the app in case this feature doesn't work properly.</small></br>
                 <span> - <i class="far fa-copy btn btn-outline-success helper-icon"> </i> is used to copy the list and paste it wherever you want. </span> </br>
@@ -238,8 +259,15 @@
 
             <!-- TODO LIST -->
             <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme}">
-              <draggable v-model="todos" @start="drag=true; removeSelectedCategoryToAddItem()" @end="drag=false; saveTodos()">
-                <div v-for="(todo, n) in todos" 
+              <draggable v-if="isDraggable"
+                class="drag-n-drop" 
+                id="draggable"
+                v-model="todos" 
+                @start="drag=true; removeSelectedCategoryToAddItem()" 
+                @end="drag=false; saveTodos()">
+                <div v-for="(todo, n) in todos"
+                  id="draggable-children" 
+                  class="todo-n"
                   :class="{
                     'category': todo.class, 
                     'category-retro': todo.class && retroTheme,
@@ -315,6 +343,85 @@
                   </li>
                 </div>
               </draggable>
+
+              <div v-if="!isDraggable"
+                v-for="(todo, n) in todos"
+                id="draggable-children" 
+                class="todo-n"
+                :class="{
+                  'category': todo.class, 
+                  'category-retro': todo.class && retroTheme,
+                  'category-minimal': todo.class && minimalTheme,
+                }">
+                <div v-if="todo.class && minimalTheme" class="category-emoji-minimal"> &#x2022; </div>
+                <div v-if="todo.class && !minimalTheme" 
+                  class="category-emoji"
+                  :class="{'category-emoji-selected': todo.isSelected}">
+                    {{todo.emojy}}
+                </div>
+                <i v-else 
+                  class="fas fa-cart-arrow-down mr-3 ml-1" 
+                  :class="{
+                    'hide-minimal-icon': minimalTheme,
+                    'selected-for-delete': todo.multipleDelete
+                  }"
+                  @click="selectTodoForDelete(n)"></i>
+                <span v-if="minimalTheme && !todo.class"
+                  class="mr-3 ml-1"
+                  @click="selectTodoForDelete(n)"> - </span> 
+                <li 
+                  class="mt-2 todo"
+                  id="todo" 
+                  @click="myFilter(n); 
+                    selectCategoryToAddItem(n, todo)" 
+                  :class="{
+                    'active': todo.isActive, 
+                    'selected': todo.isSelected,
+                    'line-through': todo.multipleDelete && !retroTheme
+                  }"> 
+                  {{ todo.name }} 
+                </li>
+                <!--CONTENITORE PULSANTI (edit, delete, modify)-->
+                <li class="button-container bg-light" 
+                  :class="{
+                    'minimal-btn': minimalTheme,
+                    'retro-btn': retroTheme, 
+                    'categoryActive' : todo.class
+                  }"> 
+                  <!-- MODIFICA-->
+                  <button 
+                    class="ml-1 btn btn-primary rounded-circle btn-sm" 
+                    @click="toggleHidden(n)" 
+                    v-if="todo.isHidden == true && !todo.class" 
+                    :class="todo.isDisabled ? 'disabled' : '' " 
+                    :disabled="!!todo.isDisabled">
+                    <i class="fas fa-pencil-alt"></i>
+                  </button>
+                  <!--ELIMINA --> 
+                  <button 
+                    class="ml-1 btn btn-primary rounded-circle btn-sm" 
+                    v-if="todo.isHidden == true" @click="removeTodo(n, todo)" 
+                    :class="todo.isDisabled ? 'disabled' : '' " 
+                    :disabled="!!todo.isDisabled">
+                    <i class="fas fa-trash-alt"></i>
+                  </button> 
+                  <!-- INPUT MODIFICA -->
+                  <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
+                  <input 
+                    class="modify-input ml-2 border border-primary rounded" 
+                    v-if="todo.isHidden == false" 
+                    v-model.trim="todo.name"> 
+                  <!-- SALVA MODIFICHE -->
+                  <button 
+                    class="ml-1 btn btn-success rounded-circle btn-sm"
+                    :disabled="todo.name.length === 0"
+                    @click="toggleHidden(n)" 
+                    v-if="todo.isHidden ==false" 
+                    v-on:click="modifyTodo(n, todo, todo.name)">
+                    <i class="far fa-save"></i>
+                  </button> 
+                </li>
+              </div>
             </ul>
 
             <!-- RIQUADRO ELIMINA TUTTO -->
