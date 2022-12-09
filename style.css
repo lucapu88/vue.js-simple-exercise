@@ -393,7 +393,7 @@ body {
   cursor: pointer;
 }
 .category-list-description {
-  font-size: 15px;
+  font-size: small;
 }
 .selected {
   background-color: #0169d9;
