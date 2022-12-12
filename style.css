@@ -527,7 +527,8 @@ li {
   gap: 10px;
   height: 30px;
   align-items: center;
-  margin: 0 0 10px 5px;
+  margin-top: 10px;
+  margin-left: 5%;
 }
 
 .fa-save,

@@ -24,11 +24,9 @@
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet"> <!--google font retro-->
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap" rel="stylesheet"> <!--google font minimal-->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue -->
-    
+    <!-- https://github.com/SortableJS/Vue.Draggable -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.min.js"></script>
-    <!-- CDNJS :: Sortable (https://cdnjs.com/) -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
-    <!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
   </head>
   <body> <!-- PS.: la vista è stata curata solo per la visualizzazione in versione mobile.-->
@@ -99,14 +97,15 @@
                   <span v-else>-</span>
                 </button> 
               </div>
-              <div v-if="needDragNDropBtn" class="drag-n-drop-btn-container">
+              <!-- DRAG N DROP -->
+              <div class="drag-n-drop-btn-container">
                 <button class="btn custom-show-listbtn" @click="toggleDragDrop()">
                   <img src="./img/drag-and-drop.webp" alt="move">
                 </button>
                 <small v-if="!isDraggable" style="font-weight: bold;">OFF</small>
                 <small v-if="isDraggable" style="font-weight: bold;">ON</small>
-                <small v-if="langIta && isDraggable">Tieni premuto su un elemento della lista e trascinalo dove vuoi</small>
-                <small v-if="!langIta && isDraggable">Press and hold an item in the list and drag it where you want</small> 
+                <small v-if="langIta && isDraggable" style="margin-right: 10px;">Tieni premuto su un elemento della lista e trascinalo dove vuoi</small>
+                <small v-if="!langIta && isDraggable" style="margin-right: 10px;">Press and hold an item in the list and drag it where you want</small> 
               </div>
             </div>
             <!-- ----------HELPER CONTAINER (Questa parte fa più schifo delle altre, e non so perchè l'ho fatta così di merda, ignorala!!!)---->
@@ -165,7 +164,7 @@
                 <span>- Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
                 <span>- <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare l'indice delle categorie selezionabili.</span></br>
                 <span>- Per scegliere una categoria basta scriverla (o cliccarci sopra) e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category" :class="{'retro-category' : retroTheme === true}">evidenziata</span> nella lista. </br>Una volta creata la categoria, basterà cliccare sul nome di essa, e verrà evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che scriverai. Per annullare l'operazione basta cliccare su qualsiasi categoria nel <span class="category" :class="{'retro-category' : retroTheme === true}">riquadro verde</span> già esistente.</span></br>
-                <span v-if="needDragNDropBtn"><span style="color: red">NEW: </span> - Puoi trascinare gli elementi e spostarli dove vuoi, basta cliccare su 
+                <span><span style="color: red">NEW: </span> - Puoi trascinare gli elementi e spostarli dove vuoi, basta cliccare su 
                   <button class="btn custom-show-listbtn">
                     <img src="./img/drag-and-drop.webp" alt="move">
                   </button>
@@ -212,7 +211,7 @@
                 <span> - With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"> </i> you will remove stuff from the list. </span> </br>
                 <span> - <span class="custom-show-listbtn helper-icon"> + </span> is used to display the index of selectable categories. </span> </br>
                 <span> - To choose a category just write it (or click on it) and click <i class="far fa-paper-plane btn btn-info helper-icon "> </i>. You will see <span class="category" :class="{'retro-category' : retroTheme === true}"> highlighted </span> in the list. </br> Once the category has been created, just click on its name, and <span class="selected"> will be highlighted as well </span>, underneath you will add stuff you write. To cancel the operation just click on any category in the existing <span class="category" :class="{'retro-category' : retroTheme === true}"> green box </span>. </span> </br>
-                <span v-if="needDragNDropBtn"><span style="color: red">NEW: </span> - You can drag the elements and move them where you want, just click on
+                <span><span style="color: red">NEW: </span> - You can drag the elements and move them where you want, just click on
                    <button class="btn custom-show-listbtn">
                      <img src="./img/drag-and-drop.webp" alt="move">
                    </button>

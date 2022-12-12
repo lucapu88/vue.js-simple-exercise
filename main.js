@@ -70,8 +70,6 @@ const app = new Vue({
     needDragNDropBtn: false,
   },
   created() {
-    this.getAndroidVersion();
-
     this.categories = this.engCategories; //setto le categorie di default
     //setto le impostazioni scelte dall'utente sulla conferma di cancellazione
     const canDelete = window.localStorage.getItem('canDelete');
@@ -262,6 +260,7 @@ const app = new Vue({
       this.categoryClass = false;
       this.categoryEmoji = '';
       this.categoryList = false;
+      this.isDraggable = false;
       this.saveTodos();
       this.toggleButtonBackToTop();
       this.toggleButtonDeleteSelectedTodo();
@@ -514,6 +513,8 @@ const app = new Vue({
       this.isDraggable = !this.isDraggable;
     },
     getAndroidVersion(ua) {
+      //questa funzione è inutilizzata ma la tengo poichè potrebbe servirmi in futuro se risolvono il problema con la libreria "draggabble".
+      //Ho aperto una segnalazione qui: https://github.com/SortableJS/Vue.Draggable/issues/1178
       ua = (ua || navigator.userAgent).toLowerCase();
       var match = ua.match(/android\s([0-9\.]*)/i);
       const intVersion = match ? parseInt(match[1]) : 12;
