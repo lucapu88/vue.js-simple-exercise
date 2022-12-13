@@ -513,7 +513,7 @@ const app = new Vue({
       this.isDraggable = !this.isDraggable;
     },
     getAndroidVersion(ua) {
-      //questa funzione è inutilizzata ma la tengo poichè potrebbe servirmi in futuro se risolvono il problema con la libreria "draggabble".
+      //questo metodo è inutilizzato ma lo tengo poichè potrebbe servirmi in futuro se risolvono il problema con la libreria "draggabble".
       //Ho aperto una segnalazione qui: https://github.com/SortableJS/Vue.Draggable/issues/1178
       ua = (ua || navigator.userAgent).toLowerCase();
       var match = ua.match(/android\s([0-9\.]*)/i);

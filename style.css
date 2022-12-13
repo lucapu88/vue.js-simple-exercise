@@ -413,13 +413,12 @@ body {
 
 .categoryActive {
   padding-right: 26px !important;
-  margin-left: 5px !important;
-  margin-top: 10px !important;
+  margin: 5px !important;
   background-color: transparent !important;
   border: none !important;
 }
 .categoryActive > button {
-  margin-left: 23px !important;
+  margin-left: 100% !important;
 }
 .custom-show-listbtn {
   background-color: rgba(192, 224, 133, 0.883);

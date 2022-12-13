@@ -103,7 +103,7 @@
                   <img src="./img/drag-and-drop.webp" alt="move">
                 </button>
                 <small v-if="!isDraggable" style="font-weight: bold;">OFF</small>
-                <small v-if="isDraggable" style="font-weight: bold;">ON</small>
+                <small v-if="isDraggable" style="font-weight: bold; color: #d70a0a;">ON</small>
                 <small v-if="langIta && isDraggable" style="margin-right: 10px;">Tieni premuto su un elemento della lista e trascinalo dove vuoi</small>
                 <small v-if="!langIta && isDraggable" style="margin-right: 10px;">Press and hold an item in the list and drag it where you want</small> 
               </div>
@@ -286,7 +286,7 @@
                     }"
                     @click="selectTodoForDelete(n)"></i>
                   <span v-if="minimalTheme && !todo.class"
-                    class="mr-3 ml-1"
+                    class="mr-4 ml-1"
                     @click="selectTodoForDelete(n)"> - </span> 
                   <li 
                     class="mt-2 todo"
@@ -366,7 +366,7 @@
                   }"
                   @click="selectTodoForDelete(n)"></i>
                 <span v-if="minimalTheme && !todo.class"
-                  class="mr-3 ml-1"
+                  class="mr-4 ml-1"
                   @click="selectTodoForDelete(n)"> - </span> 
                 <li 
                   class="mt-2 todo"
