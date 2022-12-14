@@ -299,6 +299,33 @@ body {
   text-align: center;
   display: inline;
 }
+
+.show-video {
+  font-weight: bold;
+  color: #0169d9;
+}
+.hide-video {
+  font-weight: bold;
+  color: #d70a0a;
+  margin-left: 30%;
+}
+.video {
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+  z-index: 100;
+  border-radius: 15px;
+}
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .helper-footer {
   font-size: smaller;
 }

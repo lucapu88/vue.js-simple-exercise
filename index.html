@@ -14,7 +14,6 @@
     <link rel="preload" as="image" href="img/montagne.webp">
     <link rel="preload" as="image" href="img/paper-helper.webp">
 
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> <!-- bootstrap -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"> <!-- fontawesome -->
     <link rel="stylesheet" href="style.css"> <!-- css -->
@@ -26,8 +25,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue -->
     <!-- https://github.com/SortableJS/Vue.Draggable -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js" async></script>
   </head>
   <body> <!-- PS.: la vista è stata curata solo per la visualizzazione in versione mobile.-->
     <div class="container">
@@ -175,8 +174,44 @@
                 <span>-<i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
                 <span>- Puoi "bloccare" un prodotto cliccandoci sopra, e ti verrà evidenziato <span class="active">così </span>. Non potrà essere eliminato. Potrebbe tornarti utile, ad esempio, quando non lo trovi al supermercato e non vuoi eliminarlo dalla lista.</span></br>
                 <span>- Se clicchi su <span class="delete-all-description">cancella tutto <i class="fas fa-skull-crossbones"></i></span> ti apparirà un riquadro di conferma per l'eliminazione di <u>TUTTA</u> la lista.</span> </br>
-                <span>- Se non hai capito un &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; di tutto ciò, non preoccuparti, c'è un video tutorial <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>. </span></br>
-                <span>- Qui c'è un altro video tutorial per le nuove funzionalità => <a href="https://youtu.be/m43t7shzngg" target="_blank">clicca qui per vederle</a>. </span></br></br>
+                <!-- <span>- Se non hai capito un &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; di tutto ciò, non preoccuparti, c'è un video tutorial <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>. </span></br> -->
+                <span v-if="!openVideoTutorial">
+                  - Se non hai capito un &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; di tutto ciò, non preoccuparti, c'è un video tutorial 
+                  <span class="show-video"  @click="openVideoTutorial = true">cliccando qui.</span> 
+                </span>
+                <span class="hide-video" v-if="openVideoTutorial" @click="openVideoTutorial = false">Nascondi video.</span> </span>
+                <!-- <iframe 
+                  v-if="openVideoTutorial"
+                  width="98%" height="500" 
+                  src="https://www.youtube.com/embed/VSO1k1CUrBY?rel=0&autoplay=1"
+                  frameborder="0" allowfullscreen>prova</iframe></br> -->
+                  <video v-if="openVideoTutorial"
+                    :class="{'video': !retroTheme}"
+                    width="98%" height="500"
+                    poster="./img/favicon.png" 
+                    controls>
+                    <source src="./video/tutorial-ITA.mp4" type="video/mp4">
+                    Il tuo device non supporta i video tag. Guardalo su youtube <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>
+                  </video></br>
+                <!-- <span>- Qui c'è un altro video tutorial per le nuove funzionalità => <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">clicca qui per vederle</a>. </span> -->
+                <span v-if="!openNewFeaturesVideo">
+                  - Qui c'è un altro video tutorial per le nuove funzionalità => 
+                  <span class="show-video" @click="openNewFeaturesVideo = true">clicca qui per vederle.</span> 
+                </span>
+                <span class="hide-video" v-if="openNewFeaturesVideo" @click="openNewFeaturesVideo = false">Nascondi video.</span> </span>
+                <!-- <iframe v-if="openNewFeaturesVideo"
+                  width="98%" height="500" 
+                  src="https://www.youtube.com/embed/sv-cseryIMk?rel=0&autoplay=1"
+                  frameborder="0" allowfullscreen></iframe> -->
+                <video v-if="openNewFeaturesVideo"
+                  :class="{'video': !retroTheme}"
+                  width="98%" height="500" 
+                  poster="./img/favicon.png" 
+                  controls>
+                  <source src="./video/new-features.mp4" type="video/mp4">
+                  Il tuo device non supporta i video tag. Guardalo su youtube <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">cliccando qui</a>
+                </video>
+                </br></br>
                 <span>Per qualsiasi segnalazione puoi contattarmi: <a href="mailto:lucarhcp88@hotmail.it">lucarhcp88@hotmail.it</a></a></span>
                 <p class="privacy-policy"><a href="https://www.iubenda.com/privacy-policy/69702250" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe " title="Privacy Policy ">Privacy Policy</a></p>
               </div>
@@ -222,8 +257,43 @@
                 <span> - <i class="far fa-copy btn btn-outline-success helper-icon"> </i> is used to copy the list and paste it wherever you want. </span> </br>
                 <span> - You can "block" a product by clicking on it, and <span class="active"> will be highlighted as well </span>. It cannot be eliminated. It might come in handy, for example, when you can't find it at the supermarket and don't want to remove it from the list. </span> </br>
                 <span> - If you click on <span class="delete-all-description"> delete all <i class="fas fa-skull-crossbones"> </i> </span> you will see a confirmation box for the 'delete <u> ALL </u> the list. </span> </br>
-                <span> - If you don't understand a  &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; of all this, don't worry, there is a video tutorial <a href="https://www.youtube.com/watch?v=H1E9ynY9f9w" target="_blank"> by clicking here </a>. </span> </br>
-                <span>- Here is another video tutorial for the new features => <a href="https://youtu.be/m43t7shzngg" target="_blank">click here to see it</a>. </span></br></br>
+                <!-- <span> - If you don't understand a  &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; of all this, don't worry, there is a video tutorial <a href="https://www.youtube.com/watch?v=H1E9ynY9f9w" target="_blank"> by clicking here </a>. </span>  -->
+                <span v-if="!openVideoTutorial">
+                  - If you don't understand a  &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; of all this, don't worry, there is a video tutorial 
+                  <span class="show-video"  @click="openVideoTutorial = true">by clicking here.</span> 
+                </span>
+                <span class="hide-video" v-if="openVideoTutorial" @click="openVideoTutorial = false">Hide video.</span> </span>
+                <!-- <iframe v-if="openVideoTutorial"
+                  width="98%" height="500" 
+                  src="https://www.youtube.com/embed/VSO1k1CUrBY?rel=0&autoplay=1"
+                  frameborder="0" allowfullscreen></iframe></br> -->
+                  <video v-if="openVideoTutorial"
+                    :class="{'video': !retroTheme}"
+                    width="98%" height="500" 
+                    poster="./img/favicon.png" 
+                    controls>
+                    <source src="./video/tutorial-ENG.mp4" type="video/mp4">
+                      Your device does not support the video tag. Watch on youtube <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">by clicking here</a>
+                  </video></br>
+                <!-- <span>- Here is another video tutorial for the new features => <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">click here to see it</a>. </span></br></br> -->
+                <span v-if="!openNewFeaturesVideo">
+                  - Here is another video tutorial for the new features => 
+                  <span class="show-video" @click="openNewFeaturesVideo = true">click here to see it.</span> 
+                </span>
+                <span class="hide-video" v-if="openNewFeaturesVideo" @click="openNewFeaturesVideo = false">Hide video.</span> </span>
+                <!-- <iframe v-if="openNewFeaturesVideo"
+                  width="98%" height="500" 
+                  src="https://www.youtube.com/embed/sv-cseryIMk?rel=0&autoplay=1"
+                  frameborder="0" allowfullscreen></iframe> -->
+                <video v-if="openNewFeaturesVideo"
+                  :class="{'video': !retroTheme}"
+                  width="98%" height="500" 
+                  poster="./img/favicon.png" 
+                  controls>
+                  <source src="./video/new-features.mp4" type="video/mp4">
+                  Your device does not support the video tag. Watch on youtube <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">by clicking here</a>
+                </video>
+                </br></br>
                 <span> For any report you can contact me: <a href="mailto:lucarhcp88@hotmail.it"> lucarhcp88@hotmail.it </a> </a> </span>
                 <p class="privacy-policy"><a href="https://www.iubenda.com/privacy-policy/69702250" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe " title="Privacy Policy">Privacy Policy</a></p>
               </div>

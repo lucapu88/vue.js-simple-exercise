@@ -68,6 +68,8 @@ const app = new Vue({
     canDeleteMultipleTodo: false,
     isDraggable: false,
     needDragNDropBtn: false,
+    openVideoTutorial: false,
+    openNewFeaturesVideo: false,
   },
   created() {
     this.categories = this.engCategories; //setto le categorie di default
@@ -359,6 +361,8 @@ const app = new Vue({
       } else {
         document.getElementById('helper-description').scrollTo(0, 0);
         document.documentElement.style.overflow = 'auto';
+        this.openVideoTutorial = false;
+        this.openNewFeaturesVideo = false;
       }
     },
     selectTodoForDelete(index) {
