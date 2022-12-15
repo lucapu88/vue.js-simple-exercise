@@ -1,570 +1,642 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head> 
-    <!-- NON PRENDETE ESEMPIO DA TUTTA QUESTA MERDA! IL CODICE È TOTALMENTE DA RIFARE, INIZIALMENTE ERA SOLO UN ESERCIZIO MA APPENA HO UN PÒ DI TEMPO FACCIO UN BEL REFACTORING COME SI DEVE, PER IL MOMENTO GODETEVI QUESTO SCHIFO.-->                                        
-  <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="img/favicon.png" />
-    <title>Lista Spesa</title>
-    <!-- preload immagini -->
-    <link rel="preload" as="image" href="img/foglio.webp">
-    <link rel="preload" as="image" href="img/foglio_righe.webp">
-    <link rel="preload" as="image" href="img/inverno.webp">
-    <link rel="preload" as="image" href="img/mare.webp">
-    <link rel="preload" as="image" href="img/montagne.webp">
-    <link rel="preload" as="image" href="img/paper-helper.webp">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> <!-- bootstrap -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"> <!-- fontawesome -->
-    <link rel="stylesheet" href="style.css"> <!-- css -->
-    <!-- google body font -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"> 
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"> 
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet"> <!--google font retro-->
-    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap" rel="stylesheet"> <!--google font minimal-->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue -->
-    <!-- https://github.com/SortableJS/Vue.Draggable -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js" async></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js" async></script>
-  </head>
-  <body> <!-- PS.: la vista è stata curata solo per la visualizzazione in versione mobile.-->
-    <div class="container">
-      <div id="app">
-        <div id="container-list" class="row">
-          <div class="mt-3 mx-auto padding-bottom-custom">
-            <img v-if="christmasTheme" 
-              class="christmas-theme" 
-              src="./img/ghirlanda.webp" 
-              alt="merry-christmas">
+<head>
+  <!-- NON PRENDETE ESEMPIO DA TUTTA QUESTA MERDA! IL CODICE È TOTALMENTE DA RIFARE, INIZIALMENTE ERA SOLO UN ESERCIZIO MA APPENA HO UN PÒ DI TEMPO FACCIO UN BEL REFACTORING COME SI DEVE, PER IL MOMENTO GODETEVI QUESTO SCHIFO.-->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="img/favicon.png" />
+  <title>Lista Spesa</title>
+  <!-- preload immagini -->
+  <link rel="preload" as="image" href="img/foglio.webp" />
+  <link rel="preload" as="image" href="img/foglio_righe.webp" />
+  <link rel="preload" as="image" href="img/inverno.webp" />
+  <link rel="preload" as="image" href="img/mare.webp" />
+  <link rel="preload" as="image" href="img/montagne.webp" />
+  <link rel="preload" as="image" href="img/paper-helper.webp" />
 
-            <!--TITOLO-->
-            <div class="header-container" :class="{'christmas': christmasTheme}">
-              <h2 v-if="langIta" 
-                class="title text-center"
-                :class="{
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" />
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- css -->
+  <!-- google body font -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
+  <!--google font retro-->
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap" rel="stylesheet" />
+  <!--google font minimal-->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- vue -->
+  <!-- https://github.com/SortableJS/Vue.Draggable -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js" async></script>
+</head>
+
+<body>
+  <!-- PS.: la vista è stata curata solo per la visualizzazione in versione mobile.-->
+  <div class="container">
+    <div id="app">
+      <div id="container-list" class="row">
+        <div class="mt-3 mx-auto padding-bottom-custom">
+          <img v-if="christmasTheme" class="christmas-theme" src="./img/ghirlanda.webp" alt="merry-christmas" />
+
+          <!--TITOLO-->
+          <div class="header-container" :class="{'christmas': christmasTheme}">
+            <h2 v-if="langIta" class="title text-center" :class="{
                   'dark-theme-title': darkTheme, 
                   'minimal-theme-title': minimalTheme, 
-                  'retro-theme-title': retroTheme}">Lista Spesa</h2>
-              <h2 v-else 
-                class="title text-center"
-                :class="{
+                  'retro-theme-title': retroTheme}">
+              Lista Spesa
+            </h2>
+            <h2 v-else class="title text-center" :class="{
                   'dark-theme-title': darkTheme, 
                   'minimal-theme-title': minimalTheme,
-                  'retro-theme-title': retroTheme}">Shopping List</h2>
+                  'retro-theme-title': retroTheme}">
+              Shopping List
+            </h2>
 
-              <!--TITOLO2 DI SFONDO-->
-              <h2 v-if="langIta" class="title2 text-center" 
-                :class="{'minimal-theme-title2': minimalTheme, 'retro-theme-title2': retroTheme}">
-                Lista Spesa
-              </h2>
-              <h2 v-else class="title2 title2-eng text-center" 
-                :class="{'minimal-theme-title2': minimalTheme, 'retro-theme-title2': retroTheme}">
-                Shopping List
-              </h2>
+            <!--TITOLO2 DI SFONDO-->
+            <h2 v-if="langIta" class="title2 text-center"
+              :class="{'minimal-theme-title2': minimalTheme, 'retro-theme-title2': retroTheme}">
+              Lista Spesa
+            </h2>
+            <h2 v-else class="title2 title2-eng text-center"
+              :class="{'minimal-theme-title2': minimalTheme, 'retro-theme-title2': retroTheme}">
+              Shopping List
+            </h2>
 
-              <!--PULSANTE HELPER-->
-              <span 
-                class="helper" 
-                :class="{
+            <!--PULSANTE HELPER-->
+            <span class="helper" :class="{
                   'helper-selected': this.helper,
                   'helper-deselected': !this.helper,
                   'helper-btn-dark': this.darkTheme
-                }"
-                @click="showHelper()">
-                <span class="settings">&#x2699;</span>
-              </span>
-              <!--PULSANTE COPIA LISTA-->
-              <div class="input-btns-container">
-                <button class="btn btn-outline-success" @click="copy()">
-                  <i class="far fa-copy"></i></br>
-                </button> 
-                <!--INPUT AGGIUNGI-->
-                <input 
-                  class="inputText mb-2 border border-primary rounded"
-                  :class="{'placeholder-selected': this.placeholder != defaultPlaceholderText}" 
-                  ref="myInput" 
-                  v-model="newTodo" 
-                  @keypress.13='addTodo' 
-                  :placeholder="this.placeholder">
-                <!--PULSANTI AGGIUNGI E MOSTRA CATEGORIE-->  
-                <button class="btn btn-info" @click="addTodo">
-                  <i class="far fa-paper-plane"></i>
-                </button> 
-                <button class="btn custom-show-listbtn" @click="showCategoryList()">
-                  <span v-if="!categoryList">+</span>
-                  <span v-else>-</span>
-                </button> 
-              </div>
-              <!-- DRAG N DROP -->
-              <div class="drag-n-drop-btn-container">
-                <button class="btn custom-show-listbtn" @click="toggleDragDrop()">
-                  <img src="./img/drag-and-drop.webp" alt="move">
-                </button>
-                <small v-if="!isDraggable" style="font-weight: bold;">OFF</small>
-                <small v-if="isDraggable" style="font-weight: bold; color: #d70a0a;">ON</small>
-                <small v-if="langIta && isDraggable" style="margin-right: 10px;">Tieni premuto su un elemento della lista e trascinalo dove vuoi</small>
-                <small v-if="!langIta && isDraggable" style="margin-right: 10px;">Press and hold an item in the list and drag it where you want</small> 
-              </div>
+                }" @click="showHelper()">
+              <span class="settings">&#x2699;</span>
+            </span>
+            <!--PULSANTE COPIA LISTA-->
+            <div class="input-btns-container">
+              <button class="btn btn-outline-success" @click="copy()"><i class="far fa-copy"></i><br /></button>
+              <!--INPUT AGGIUNGI-->
+              <input class="inputText mb-2 border border-primary rounded"
+                :class="{'placeholder-selected': this.placeholder != defaultPlaceholderText}" ref="myInput"
+                v-model="newTodo" @keypress.13="addTodo" :placeholder="this.placeholder" />
+              <!--PULSANTI AGGIUNGI E MOSTRA CATEGORIE-->
+              <button class="btn btn-info" @click="addTodo">
+                <i class="far fa-paper-plane"></i>
+              </button>
+              <button class="btn custom-show-listbtn" @click="showCategoryList()">
+                <span v-if="!categoryList">+</span>
+                <span v-else>-</span>
+              </button>
             </div>
-            <!-- ----------HELPER CONTAINER (Questa parte fa più schifo delle altre, e non so perchè l'ho fatta così di merda, ignorala!!!)---->
-            <div id="helper-description-container" 
-              class="helper-description" 
-              :class="{
+            <!-- DRAG N DROP -->
+            <div class="drag-n-drop-btn-container">
+              <button class="btn custom-show-listbtn" @click="toggleDragDrop()">
+                <img src="./img/drag-and-drop.webp" alt="move" />
+              </button>
+              <small v-if="!isDraggable" style="font-weight: bold">OFF</small>
+              <small v-if="isDraggable" style="font-weight: bold; color: #d70a0a">ON </small>
+              <small v-if="langIta && isDraggable" style="margin-right: 10px">Tieni premuto su un elemento della lista e
+                trascinalo dove vuoi
+              </small>
+              <small v-if="!langIta && isDraggable" style="margin-right: 10px">Press and hold an item in the list and
+                drag it where you want
+              </small>
+            </div>
+          </div>
+          <!-- ----------HELPER CONTAINER (Questa parte fa più schifo delle altre, e non so perchè l'ho fatta così di merda, ignorala!!!)---->
+          <div id="helper-description-container" class="helper-description" :class="{
                 'slideUp' : helper === true, 
                 'slideDown': helper === false,
                 'dark-theme-helper': darkTheme === true,
                 'minimal-theme-helper': minimalTheme === true,
                 'retro-theme-helper': retroTheme === true,
                 'helper-light': lightTheme === true,
-              }" >
-              <div class="close-helper-container" @click="showHelper()">
-                <p class="close-helper" :class="{'close-retro-theme-helper': retroTheme === true}">X</p>
+              }">
+            <div class="close-helper-container" @click="showHelper()">
+              <p class="close-helper" :class="{'close-retro-theme-helper': retroTheme === true}">X</p>
+            </div>
+            <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.webp" alt="Buon Natale!" />
+            <p v-if="langIta" class="helper-settings-title" :class="{
+                  'christmas-red': christmasTheme,
+                  'retro-helper-settings-title': retroTheme === true,
+                }">
+              Impostazioni:
+            </p>
+            <p v-else class="helper-settings-title" :class="{
+                  'christmas-red': christmasTheme,
+                  'retro-helper-settings-title': retroTheme === true,
+                }">
+              Settings:
+            </p>
+            <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.webp"
+              alt="E felice anno nuovo!" />
+            <!-- ----------------------------------------------HELPER ITA -->
+            <div id="helper-description" v-if="langIta">
+              &#x2699; Modalità eliminazione sicura <br />
+              <small>(ti chiederà conferma di eliminazione per ogni singolo prodotto della lista)</small>:<br />
+              <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
+                <u>Clicca per attivare/disattivare</u>
+                <div class="toggle-delete-confirm">&#x1F449;</div>
+                <span class="text-primary">{{canDeleteText}}</span>
+              </span>
+              <br /><br />
+              &#x2699; Tema impostato:
+              <span class="text-primary">{{themeName}}</span><br />
+              Cambia tema:<br />
+              <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <button type="button" class="btn btn-light p-1 border border-dark"
+                  @click="changeTheme('light')">Chiaro</button>
+                <button type="button" class="btn btn-dark p-1" @click="changeTheme('dark')">Scuro</button>
+                <button type="button" class="btn minimal-theme p-0" @click="changeTheme('minimal')">Minimal</button>
+                <button type="button" class="btn retro-theme p-1" @click="changeTheme('retro')">Dos</button>
+                <button type="button" class="btn summer-theme p-1" @click="changeTheme('summer')">Estate</button>
+                <button type="button" class="btn winter-theme p-0" @click="changeTheme('winter')">Inverno</button>
               </div>
-              <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.webp" alt="Buon Natale!">
-              <p v-if="langIta" class="helper-settings-title" 
-                :class="{
-                  'christmas-red': christmasTheme,
-                  'retro-helper-settings-title': retroTheme === true,
-                }">Impostazioni:</p>
-              <p v-else class="helper-settings-title" :class="{
-                  'christmas-red': christmasTheme,
-                  'retro-helper-settings-title': retroTheme === true,
-                }">Settings:</p>
-              <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.webp" alt="E felice anno nuovo!">
-              <!-- ----------------------------------------------HELPER ITA -->
-              <div id="helper-description" v-if="langIta">
-                &#x2699; Modalità eliminazione sicura <br>
-                <small>(ti chiederà conferma di eliminazione per ogni singolo prodotto della lista)</small>:</br>
-                <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
-                  <u>Clicca per attivare/disattivare</u> <div class="toggle-delete-confirm">&#x1F449;</div>
-                  <span class="text-primary">{{canDeleteText}}</span>
-                </span></br><br>
-                &#x2699; Tema impostato: <span class="text-primary">{{themeName}}</span></br>
-                Cambia tema:</br> <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                  <button type="button" class="btn btn-light p-1 border border-dark" @click="changeTheme('light')">Chiaro</button>
-                                  <button type="button" class="btn btn-dark p-1" @click="changeTheme('dark')">Scuro</button>
-                                  <button type="button" class="btn minimal-theme p-0" @click="changeTheme('minimal')">Minimal</button>
-                                  <button type="button" class="btn retro-theme p-1" @click="changeTheme('retro')"> Dos </button>
-                                  <button type="button" class="btn summer-theme p-1" @click="changeTheme('summer')">Estate</button>
-                                  <button type="button" class="btn winter-theme p-0" @click="changeTheme('winter')">Inverno</button>
-                                </div></br> 
-                <div class="share">
-                  &#x2699; Condividi:  <button class="btn btn-light border-dark share-btn" @click="shareLink()">
-                                <img src="img/share.webp" alt="share">  
-                              </button> 
-                  <p class="link-copied" v-if="share.visible === true">{{share.text}}</p>
-                </div>
-                <p class="helper-title">Risoluzione Problemi:</p>
-                <small>Nel caso riscontrassi lentezza o blocchi nel caricamento di immagini, riavvia l'app. Di solito accade dopo modifiche/aggiornamenti interni, ma riavviando problema è risolto! in caso contrario segnalalo all'email qui in fondo.</small>
-                <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Istruzioni:</p>
-                <span>- <i class="far fa-paper-plane btn btn-info helper-icon"></i> serve per aggiungere alla lista roba da comprare.</span></br>
-                <span>- Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> potrai modificare un nome e salvare le modifiche cliccando <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span></br>
-                <span>- Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i> eliminerai roba dalla lista.</span></br>
-                <span>- <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare l'indice delle categorie selezionabili.</span></br>
-                <span>- Per scegliere una categoria basta scriverla (o cliccarci sopra) e cliccare <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà <span class="category" :class="{'retro-category' : retroTheme === true}">evidenziata</span> nella lista. </br>Una volta creata la categoria, basterà cliccare sul nome di essa, e verrà evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che scriverai. Per annullare l'operazione basta cliccare su qualsiasi categoria nel <span class="category" :class="{'retro-category' : retroTheme === true}">riquadro verde</span> già esistente.</span></br>
-                <span><span style="color: red">NEW: </span> - Puoi trascinare gli elementi e spostarli dove vuoi, basta cliccare su 
-                  <button class="btn custom-show-listbtn">
-                    <img src="./img/drag-and-drop.webp" alt="move">
-                  </button>
-                  per attivare questa modalità.</br>
-                </span>
-                <span style="color: red">NEW: </span> - *Cliccando sull'icona del carrello (<i class="fas fa-cart-arrow-down"></i>) puoi selezionare più elementi da eliminare, nel caso volessi eliminarne più di uno ma non tutti. Ti apparirà in basso a sinistra questo cestino => <button class="text-danger border-danger rounded"><i class="fas fa-trash-alt"></i></button> ed eliminerai solamente gli elementi selezionati che avranno il carrello rosso (<i class="fas fa-cart-arrow-down selected-for-delete"></i>).
-                <small>*Riavvia l'app nel caso questa funzione non va correttamente.</small></br>
-                <span>-<i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e incollarla dove vuoi.</span></br>
-                <span>- Puoi "bloccare" un prodotto cliccandoci sopra, e ti verrà evidenziato <span class="active">così </span>. Non potrà essere eliminato. Potrebbe tornarti utile, ad esempio, quando non lo trovi al supermercato e non vuoi eliminarlo dalla lista.</span></br>
-                <span>- Se clicchi su <span class="delete-all-description">cancella tutto <i class="fas fa-skull-crossbones"></i></span> ti apparirà un riquadro di conferma per l'eliminazione di <u>TUTTA</u> la lista.</span> </br>
-                <!-- <span>- Se non hai capito un &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; di tutto ciò, non preoccuparti, c'è un video tutorial <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>. </span></br> -->
-                <span v-if="!openVideoTutorial">
-                  - Se non hai capito un &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; di tutto ciò, non preoccuparti, c'è un video tutorial 
-                  <span class="show-video"  @click="openVideoTutorial = true">cliccando qui.</span> 
-                </span>
-                <span class="hide-video" v-if="openVideoTutorial" @click="openVideoTutorial = false">Nascondi video.</span> </span>
-                <!-- <iframe 
+              <br />
+              <div class="share">
+                &#x2699; Condividi:
+                <button class="btn btn-light border-dark share-btn" @click="shareLink()">
+                  <img src="img/share.webp" alt="share" />
+                </button>
+                <p class="link-copied" v-if="share.visible === true">{{share.text}}</p>
+              </div>
+              <p class="helper-title">Risoluzione Problemi:</p>
+              <small>
+                Nel caso riscontrassi lentezza o blocchi nel caricamento di immagini, controlla la tua connessione, se è
+                ok prova a riavviare l'app.
+                Se il problema persiste segnalalo
+                <a href="mailto:lucarhcp88@hotmail.it">all'email</a> in fondo a questa pagina.
+              </small>
+              <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Istruzioni:</p>
+              <span>
+                -
+                <i class="far fa-paper-plane btn btn-info helper-icon"></i>
+                serve per aggiungere alla lista roba da comprare.
+              </span>
+              <br />
+              <span>
+                - Con
+                <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i>
+                potrai modificare un nome e salvare le modifiche cliccando
+                <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.</span><br />
+              <span>- Con
+                <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i>
+                eliminerai roba dalla lista.</span><br />
+              <span>- <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare l'indice delle
+                categorie selezionabili.</span><br />
+              <span>- Per scegliere una categoria basta scriverla (o cliccarci sopra) e cliccare
+                <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà
+                <span class="category" :class="{'retro-category' : retroTheme === true}">evidenziata</span>
+                nella lista. <br />Una volta creata la categoria, basterà cliccare sul nome di essa, e verrà evidenziata
+                <span class="selected">così </span>, li sotto aggiungerai roba che scriverai. Per annullare l'operazione
+                basta cliccare su qualsiasi
+                categoria nel
+                <span class="category" :class="{'retro-category' : retroTheme === true}">riquadro verde</span>
+                già esistente.</span><br />
+              <span><span style="color: red">NEW: </span> - Puoi trascinare gli elementi e spostarli dove vuoi, basta
+                cliccare su
+                <button class="btn custom-show-listbtn">
+                  <img src="./img/drag-and-drop.webp" alt="move" />
+                </button>
+                per attivare questa modalità.<br />
+              </span>
+              <span style="color: red">NEW: </span> - *Cliccando sull'icona del carrello (<i
+                class="fas fa-cart-arrow-down"></i>) puoi selezionare
+              più elementi da eliminare, nel caso volessi eliminarne più di uno ma non tutti. Ti apparirà in basso a
+              sinistra questo cestino =>
+              <button class="text-danger border-danger rounded">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+              ed eliminerai solamente gli elementi selezionati che avranno il carrello rosso (<i
+                class="fas fa-cart-arrow-down selected-for-delete"></i>). <small>*Riavvia l'app nel caso questa funzione
+                non va correttamente.</small><br />
+              <span>-<i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e
+                incollarla dove vuoi.</span><br />
+              <span>- Puoi "bloccare" un prodotto cliccandoci sopra, e ti verrà evidenziato <span class="active">così
+                </span>. Non potrà essere
+                eliminato. Potrebbe tornarti utile, ad esempio, quando non lo trovi al supermercato e non vuoi
+                eliminarlo dalla lista.</span><br />
+              <span>- Se clicchi su
+                <span class="delete-all-description">cancella tutto <i class="fas fa-skull-crossbones"></i></span>
+                ti apparirà un riquadro di conferma per l'eliminazione di
+                <u>TUTTA</u> la lista.</span>
+              <br />
+              <!-- <span>- Se non hai capito un &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; di tutto ciò, non preoccuparti, c'è un video tutorial <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>. </span><br> -->
+              <span v-if="!openVideoTutorial">
+                - Se non hai capito un &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; di tutto ciò, non preoccuparti, c'è
+                un video tutorial
+                <span class="show-video" @click="openVideoTutorial = true">cliccando qui.</span>
+              </span>
+              <span class="hide-video" v-if="openVideoTutorial" @click="openVideoTutorial = false">Nascondi
+                video.</span>
+              <!-- <iframe 
                   v-if="openVideoTutorial"
                   width="98%" height="500" 
                   src="https://www.youtube.com/embed/VSO1k1CUrBY?rel=0&autoplay=1"
-                  frameborder="0" allowfullscreen>prova</iframe></br> -->
-                  <video v-if="openVideoTutorial"
-                    :class="{'video': !retroTheme}"
-                    width="98%" height="500"
-                    poster="./img/favicon.png" 
-                    controls>
-                    <source src="./video/tutorial-ITA.mp4" type="video/mp4">
-                    Il tuo device non supporta i video tag. Guardalo su youtube <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>
-                  </video></br>
-                <!-- <span>- Qui c'è un altro video tutorial per le nuove funzionalità => <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">clicca qui per vederle</a>. </span> -->
-                <span v-if="!openNewFeaturesVideo">
-                  - Qui c'è un altro video tutorial per le nuove funzionalità => 
-                  <span class="show-video" @click="openNewFeaturesVideo = true">clicca qui per vederle.</span> 
-                </span>
-                <span class="hide-video" v-if="openNewFeaturesVideo" @click="openNewFeaturesVideo = false">Nascondi video.</span> </span>
-                <!-- <iframe v-if="openNewFeaturesVideo"
+                  frameborder="0" allowfullscreen>prova</iframe><br> -->
+              <video v-if="openVideoTutorial" :class="{'video': !retroTheme}" width="98%" height="500"
+                poster="./img/favicon.png" controls>
+                <source src="./video/tutorial-ITA.mp4" type="video/mp4" />
+                Il tuo device non supporta i video tag. Guardalo su youtube
+                <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a></video><br />
+              <!-- <span>- Qui c'è un altro video tutorial per le nuove funzionalità => <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">clicca qui per vederle</a>. </span> -->
+              <span v-if="!openNewFeaturesVideo">
+                - Qui c'è un altro video tutorial per le nuove funzionalità =>
+                <span class="show-video" @click="openNewFeaturesVideo = true">clicca qui per vederle.</span>
+              </span>
+              <span class="hide-video" v-if="openNewFeaturesVideo" @click="openNewFeaturesVideo = false">Nascondi
+                video.</span>
+              <!-- <iframe v-if="openNewFeaturesVideo"
                   width="98%" height="500" 
                   src="https://www.youtube.com/embed/sv-cseryIMk?rel=0&autoplay=1"
                   frameborder="0" allowfullscreen></iframe> -->
-                <video v-if="openNewFeaturesVideo"
-                  :class="{'video': !retroTheme}"
-                  width="98%" height="500" 
-                  poster="./img/favicon.png" 
-                  controls>
-                  <source src="./video/new-features.mp4" type="video/mp4">
-                  Il tuo device non supporta i video tag. Guardalo su youtube <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">cliccando qui</a>
-                </video>
-                </br></br>
-                <span>Per qualsiasi segnalazione puoi contattarmi: <a href="mailto:lucarhcp88@hotmail.it">lucarhcp88@hotmail.it</a></a></span>
-                <p class="privacy-policy"><a href="https://www.iubenda.com/privacy-policy/69702250" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe " title="Privacy Policy ">Privacy Policy</a></p>
-              </div>
-              <!-- ----------------------------------------------HELPER ENG -->
-              <div id="helper-description" v-else>
-                &#x2699; Safe delete mode <br>
-                 <small> (it will ask you to confirm the deletion for each single product on the list) </small>:</br>
-                <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
-                  <u>Click to activate/deactivate</u> <div class="toggle-delete-confirm">&#x1F449;</div>
-                  <span class="text-primary">{{canDeleteText}}</span>
-                </span></br><br>
-                &#x2699; Chosen theme: <span class="text-primary">{{themeName}}</span></br>
-                Change theme:</br> <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                    <button type="button" class="btn btn-light p-1 border border-dark" @click="changeTheme('light')">Light</button>
-                                    <button type="button" class="btn btn-dark p-1" @click="changeTheme('dark')">Dark</button>
-                                    <button type="button" class="btn minimal-theme p-0" @click="changeTheme('minimal')">Minimal</button>
-                                    <button type="button" class="btn retro-theme p-1" @click="changeTheme('retro')"> Dos </button>
-                                    <button type="button" class="btn summer-theme p-1" @click="changeTheme('summer')">Summer</button>
-                                    <button type="button" class="btn winter-theme p-0" @click="changeTheme('winter')">Winter</button>
-                                  </div></br> 
-                <div class="share">
-                 &#x2699; Share:  <button class="btn btn-light border-dark share-btn" @click="shareLink()">
-                                <img src="img/share.webp" alt="share">  
-                              </button> 
-                  <p class="link-copied" v-if="share.visible === true">{{share.text}}</p>
-                </div>
-                <p class="helper-title"> Troubleshooting: </p>
-                <small> In case you experience slowness or freezes in loading images, restart the app. Usually happens after internal changes/updates, but restarting problem is solved! otherwise report it to the email at the bottom. </small>
-                <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Instructions:</p>
-                <span> - <i class="far fa-paper-plane btn btn-info helper-icon"> </i> is used to add stuff to buy list. </span> </br>
-                <span> - With <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i> you can change a name and save the changes by clicking <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>. </span> </br>
-                <span> - With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"> </i> you will remove stuff from the list. </span> </br>
-                <span> - <span class="custom-show-listbtn helper-icon"> + </span> is used to display the index of selectable categories. </span> </br>
-                <span> - To choose a category just write it (or click on it) and click <i class="far fa-paper-plane btn btn-info helper-icon "> </i>. You will see <span class="category" :class="{'retro-category' : retroTheme === true}"> highlighted </span> in the list. </br> Once the category has been created, just click on its name, and <span class="selected"> will be highlighted as well </span>, underneath you will add stuff you write. To cancel the operation just click on any category in the existing <span class="category" :class="{'retro-category' : retroTheme === true}"> green box </span>. </span> </br>
-                <span><span style="color: red">NEW: </span> - You can drag the elements and move them where you want, just click on
-                   <button class="btn custom-show-listbtn">
-                     <img src="./img/drag-and-drop.webp" alt="move">
-                   </button>
-                   to activate this mode.</br>
-                </span>
-                <span style="color: red">NEW: </span> - *By clicking on the cart icon (<i class="fas fa-cart-arrow-down"></i>) you can select multiple items to delete, in case you want to delete more than one but not all. This trash can will appear at the bottom left => <button class="text-danger border-danger rounded"><i class="fas fa-trash-alt"></i></button> and you will only delete the elements selected that will have the red cart (<i class="fas fa-cart-arrow-down selected-for-delete"></i>).
-                <small>*Restart the app in case this feature doesn't work properly.</small></br>
-                <span> - <i class="far fa-copy btn btn-outline-success helper-icon"> </i> is used to copy the list and paste it wherever you want. </span> </br>
-                <span> - You can "block" a product by clicking on it, and <span class="active"> will be highlighted as well </span>. It cannot be eliminated. It might come in handy, for example, when you can't find it at the supermarket and don't want to remove it from the list. </span> </br>
-                <span> - If you click on <span class="delete-all-description"> delete all <i class="fas fa-skull-crossbones"> </i> </span> you will see a confirmation box for the 'delete <u> ALL </u> the list. </span> </br>
-                <!-- <span> - If you don't understand a  &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; of all this, don't worry, there is a video tutorial <a href="https://www.youtube.com/watch?v=H1E9ynY9f9w" target="_blank"> by clicking here </a>. </span>  -->
-                <span v-if="!openVideoTutorial">
-                  - If you don't understand a  &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; of all this, don't worry, there is a video tutorial 
-                  <span class="show-video"  @click="openVideoTutorial = true">by clicking here.</span> 
-                </span>
-                <span class="hide-video" v-if="openVideoTutorial" @click="openVideoTutorial = false">Hide video.</span> </span>
-                <!-- <iframe v-if="openVideoTutorial"
-                  width="98%" height="500" 
-                  src="https://www.youtube.com/embed/VSO1k1CUrBY?rel=0&autoplay=1"
-                  frameborder="0" allowfullscreen></iframe></br> -->
-                  <video v-if="openVideoTutorial"
-                    :class="{'video': !retroTheme}"
-                    width="98%" height="500" 
-                    poster="./img/favicon.png" 
-                    controls>
-                    <source src="./video/tutorial-ENG.mp4" type="video/mp4">
-                      Your device does not support the video tag. Watch on youtube <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">by clicking here</a>
-                  </video></br>
-                <!-- <span>- Here is another video tutorial for the new features => <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">click here to see it</a>. </span></br></br> -->
-                <span v-if="!openNewFeaturesVideo">
-                  - Here is another video tutorial for the new features => 
-                  <span class="show-video" @click="openNewFeaturesVideo = true">click here to see it.</span> 
-                </span>
-                <span class="hide-video" v-if="openNewFeaturesVideo" @click="openNewFeaturesVideo = false">Hide video.</span> </span>
-                <!-- <iframe v-if="openNewFeaturesVideo"
-                  width="98%" height="500" 
-                  src="https://www.youtube.com/embed/sv-cseryIMk?rel=0&autoplay=1"
-                  frameborder="0" allowfullscreen></iframe> -->
-                <video v-if="openNewFeaturesVideo"
-                  :class="{'video': !retroTheme}"
-                  width="98%" height="500" 
-                  poster="./img/favicon.png" 
-                  controls>
-                  <source src="./video/new-features.mp4" type="video/mp4">
-                  Your device does not support the video tag. Watch on youtube <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">by clicking here</a>
-                </video>
-                </br></br>
-                <span> For any report you can contact me: <a href="mailto:lucarhcp88@hotmail.it"> lucarhcp88@hotmail.it </a> </a> </span>
-                <p class="privacy-policy"><a href="https://www.iubenda.com/privacy-policy/69702250" class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe " title="Privacy Policy">Privacy Policy</a></p>
-              </div>
-            </div>
-
-
-            <!-- CATEGORY -->
-            <div v-if="categoryList" class="category-list-container">
-              <p class="m-0" v-if="langIta" :class="{'green-text': retroTheme}">Indice categorie</p>
-              <p class="m-0" v-else :class="{'green-text': retroTheme}">Category index</p>
-              <span v-if="langIta" class="category-list-description" 
-                :class="{
-                  'blue-text': !retroTheme && !minimalTheme,
-                  'green-text': retroTheme
-                }">
-                Scegli uno di questi nomi e ti verrà creata una categoria:
-              </span> 
-              <span v-if="!langIta" class="category-list-description" 
-                :class="{
-                  'blue-text': !retroTheme && !minimalTheme,
-                  'green-text': retroTheme
-                }">
-                Choose one of these names and a category will be created:
-              </span>  
-              <p class="category-list" 
-                v-for="(category, i) in categories" 
-                :key="i">
-                  <span @click="selectCategoryName(category.name)">{{category.name}},&nbsp; </span> 
+              <video v-if="openNewFeaturesVideo" :class="{'video': !retroTheme}" width="98%" height="500"
+                poster="./img/favicon.png" controls>
+                <source src="./video/new-features.mp4" type="video/mp4" />
+                Il tuo device non supporta i video tag. Guardalo su youtube
+                <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">cliccando qui</a>
+              </video>
+              <br /><br />
+              <span>Per qualsiasi segnalazione puoi contattarmi: <a
+                  href="mailto:lucarhcp88@hotmail.it">lucarhcp88@hotmail.it</a></span>
+              <p class="privacy-policy">
+                <a href="https://www.iubenda.com/privacy-policy/69702250"
+                  class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy ">Privacy
+                  Policy</a>
               </p>
             </div>
-            <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
+            <!-- ----------------------------------------------HELPER ENG -->
+            <div id="helper-description" v-else>
+              &#x2699; Safe delete mode <br />
+              <small> (it will ask you to confirm the deletion for each single product on the list) </small>:<br />
+              <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
+                <u>Click to activate/deactivate</u>
+                <div class="toggle-delete-confirm">&#x1F449;</div>
+                <span class="text-primary">{{canDeleteText}}</span>
+              </span><br /><br />
+              &#x2699; Chosen theme:
+              <span class="text-primary">{{themeName}}</span><br />
+              Change theme:<br />
+              <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <button type="button" class="btn btn-light p-1 border border-dark"
+                  @click="changeTheme('light')">Light</button>
+                <button type="button" class="btn btn-dark p-1" @click="changeTheme('dark')">Dark</button>
+                <button type="button" class="btn minimal-theme p-0" @click="changeTheme('minimal')">Minimal</button>
+                <button type="button" class="btn retro-theme p-1" @click="changeTheme('retro')">Dos</button>
+                <button type="button" class="btn summer-theme p-1" @click="changeTheme('summer')">Summer</button>
+                <button type="button" class="btn winter-theme p-0" @click="changeTheme('winter')">Winter</button>
+              </div>
+              <br />
+              <div class="share">
+                &#x2699; Share:
+                <button class="btn btn-light border-dark share-btn" @click="shareLink()">
+                  <img src="img/share.webp" alt="share" />
+                </button>
+                <p class="link-copied" v-if="share.visible === true">{{share.text}}</p>
+              </div>
+              <p class="helper-title">Troubleshooting:</p>
+              <small>
+                If you experience slowness or blocks in loading images, check your connection, if it's ok try restarting
+                the app. If the problem
+                persists, report it <a href="mailto:lucarhcp88@hotmail.it">to the email</a> at the bottom of this
+                page.</small>
+              <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Instructions:</p>
+              <span>
+                -
+                <i class="far fa-paper-plane btn btn-info helper-icon"> </i>
+                is used to add stuff to buy list.
+              </span>
+              <br />
+              <span>
+                - With
+                <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i>
+                you can change a name and save the changes by clicking
+                <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.
+              </span>
+              <br />
+              <span>
+                - With
+                <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"> </i>
+                you will remove stuff from the list.
+              </span>
+              <br />
+              <span> - <span class="custom-show-listbtn helper-icon"> + </span> is used to display the index of
+                selectable categories. </span>
+              <br />
+              <span>
+                - To choose a category just write it (or click on it) and click
+                <i class="far fa-paper-plane btn btn-info helper-icon"> </i>. You will see
+                <span class="category" :class="{'retro-category' : retroTheme === true}"> highlighted </span>
+                in the list. <br />
+                Once the category has been created, just click on its name, and
+                <span class="selected"> will be highlighted as well </span>, underneath you will add stuff you write. To
+                cancel the operation just
+                click on any category in the existing <span class="category"
+                  :class="{'retro-category' : retroTheme === true}"> green box </span>.
+              </span>
+              <br />
+              <span><span style="color: red">NEW: </span> - You can drag the elements and move them where you want, just
+                click on
+                <button class="btn custom-show-listbtn">
+                  <img src="./img/drag-and-drop.webp" alt="move" />
+                </button>
+                to activate this mode.<br />
+              </span>
+              <span style="color: red">NEW: </span> - *By clicking on the cart icon (<i
+                class="fas fa-cart-arrow-down"></i>) you can select multiple
+              items to delete, in case you want to delete more than one but not all. This trash can will appear at the
+              bottom left =>
+              <button class="text-danger border-danger rounded">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+              and you will only delete the elements selected that will have the red cart (<i
+                class="fas fa-cart-arrow-down selected-for-delete"></i>). <small>*Restart the app in case this feature
+                doesn't work properly.</small><br />
+              <span>
+                -
+                <i class="far fa-copy btn btn-outline-success helper-icon"> </i>
+                is used to copy the list and paste it wherever you want.
+              </span>
+              <br />
+              <span>
+                - You can "block" a product by clicking on it, and
+                <span class="active"> will be highlighted as well </span>. It cannot be eliminated. It might come in
+                handy, for example, when you
+                can't find it at the supermarket and don't want to remove it from the list.
+              </span>
+              <br />
+              <span>
+                - If you click on
+                <span class="delete-all-description"> delete all <i class="fas fa-skull-crossbones"> </i> </span>
+                you will see a confirmation box for the 'delete
+                <u> ALL </u> the list.
+              </span>
+              <br />
+              <!-- <span> - If you don't understand a  &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; of all this, don't worry, there is a video tutorial <a href="https://www.youtube.com/watch?v=H1E9ynY9f9w" target="_blank"> by clicking here </a>. </span>  -->
+              <span v-if="!openVideoTutorial">
+                - If you don't understand a &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; of all this, don't worry,
+                there is a video tutorial
+                <span class="show-video" @click="openVideoTutorial = true">by clicking here.</span>
+              </span>
+              <span class="hide-video" v-if="openVideoTutorial" @click="openVideoTutorial = false">Hide video.</span>
+              <!-- <iframe v-if="openVideoTutorial"
+                  width="98%" height="500" 
+                  src="https://www.youtube.com/embed/VSO1k1CUrBY?rel=0&autoplay=1"
+                  frameborder="0" allowfullscreen></iframe><br> -->
+              <video v-if="openVideoTutorial" :class="{'video': !retroTheme}" width="98%" height="500"
+                poster="./img/favicon.png" controls>
+                <source src="./video/tutorial-ENG.mp4" type="video/mp4" />
+                Your device does not support the video tag. Watch on youtube
+                <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">by clicking here</a></video><br />
+              <!-- <span>- Here is another video tutorial for the new features => <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">click here to see it</a>. </span><br><br> -->
+              <span v-if="!openNewFeaturesVideo">
+                - Here is another video tutorial for the new features =>
+                <span class="show-video" @click="openNewFeaturesVideo = true">click here to see it.</span>
+              </span>
+              <span class="hide-video" v-if="openNewFeaturesVideo" @click="openNewFeaturesVideo = false">Hide
+                video.</span>
+              <!-- <iframe v-if="openNewFeaturesVideo"
+                  width="98%" height="500" 
+                  src="https://www.youtube.com/embed/sv-cseryIMk?rel=0&autoplay=1"
+                  frameborder="0" allowfullscreen></iframe> -->
+              <video v-if="openNewFeaturesVideo" :class="{'video': !retroTheme}" width="98%" height="500"
+                poster="./img/favicon.png" controls>
+                <source src="./video/new-features.mp4" type="video/mp4" />
+                Your device does not support the video tag. Watch on youtube
+                <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">by clicking here</a>
+              </video>
+              <br /><br />
+              <span>
+                For any report you can contact me:
+                <a href="mailto:lucarhcp88@hotmail.it"> lucarhcp88@hotmail.it </a></span>
+              <p class="privacy-policy">
+                <a href="https://www.iubenda.com/privacy-policy/69702250"
+                  class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy">Privacy
+                  Policy</a>
+              </p>
+            </div>
+          </div>
 
-            <!-- TODO LIST -->
-            <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme}">
-              <draggable v-if="isDraggable"
-                class="drag-n-drop" 
-                id="draggable"
-                v-model="todos" 
-                @start="drag=true; removeSelectedCategoryToAddItem()" 
-                @end="drag=false; saveTodos()">
-                <div v-for="(todo, n) in todos"
-                  id="draggable-children" 
-                  class="todo-n"
-                  :class="{
+          <!-- CATEGORY -->
+          <div v-if="categoryList" class="category-list-container">
+            <p class="m-0" v-if="langIta" :class="{'green-text': retroTheme}">Indice categorie</p>
+            <p class="m-0" v-else :class="{'green-text': retroTheme}">Category index</p>
+            <span v-if="langIta" class="category-list-description" :class="{
+                  'blue-text': !retroTheme && !minimalTheme,
+                  'green-text': retroTheme
+                }">
+              Scegli uno di questi nomi e ti verrà creata una categoria:
+            </span>
+            <span v-if="!langIta" class="category-list-description" :class="{
+                  'blue-text': !retroTheme && !minimalTheme,
+                  'green-text': retroTheme
+                }">
+              Choose one of these names and a category will be created:
+            </span>
+            <p class="category-list" v-for="(category, i) in categories" :key="i">
+              <span @click="selectCategoryName(category.name)">{{category.name}},&nbsp; </span>
+            </p>
+          </div>
+          <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
+
+          <!-- TODO LIST -->
+          <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme}">
+            <draggable v-if="isDraggable" class="drag-n-drop" id="draggable" v-model="todos"
+              @start="drag=true; removeSelectedCategoryToAddItem()" @end="drag=false; saveTodos()">
+              <div v-for="(todo, n) in todos" id="draggable-children" class="todo-n" :class="{
                     'category': todo.class, 
                     'category-retro': todo.class && retroTheme,
                     'category-minimal': todo.class && minimalTheme,
                   }">
-                  <div v-if="todo.class && minimalTheme" class="category-emoji-minimal"> &#x2022; </div>
-                  <div v-if="todo.class && !minimalTheme" 
-                    class="category-emoji"
-                    :class="{'category-emoji-selected': todo.isSelected}">
-                      {{todo.emojy}}
-                  </div>
-                  <i v-else 
-                    class="fas fa-cart-arrow-down mr-3 ml-1" 
-                    :class="{
+                <div v-if="todo.class && minimalTheme" class="category-emoji-minimal">&#x2022;</div>
+                <div v-if="todo.class && !minimalTheme" class="category-emoji"
+                  :class="{'category-emoji-selected': todo.isSelected}">
+                  {{todo.emojy}}
+                </div>
+                <i v-else class="fas fa-cart-arrow-down mr-3 ml-1" :class="{
                       'hide-minimal-icon': minimalTheme,
                       'selected-for-delete': todo.multipleDelete
-                    }"
-                    @click="selectTodoForDelete(n)"></i>
-                  <span v-if="minimalTheme && !todo.class"
-                    class="mr-4 ml-1"
-                    @click="selectTodoForDelete(n)"> - </span> 
-                  <li 
-                    class="mt-2 todo"
-                    id="todo" 
-                    @click="myFilter(n); 
-                      selectCategoryToAddItem(n, todo)" 
-                    :class="{
+                    }" @click="selectTodoForDelete(n)"></i>
+                <span v-if="minimalTheme && !todo.class" class="mr-4 ml-1" @click="selectTodoForDelete(n)"> - </span>
+                <li class="mt-2 todo" id="todo" @click="myFilter(n); 
+                      selectCategoryToAddItem(n, todo)" :class="{
                       'active': todo.isActive, 
                       'selected': todo.isSelected,
                       'line-through': todo.multipleDelete && !retroTheme
-                    }"> 
-                    {{ todo.name }} 
-                  </li>
-                  <!--CONTENITORE PULSANTI (edit, delete, modify)-->
-                  <li class="button-container bg-light" 
-                    :class="{
+                    }">
+                  {{ todo.name }}
+                </li>
+                <!--CONTENITORE PULSANTI (edit, delete, modify)-->
+                <li class="button-container bg-light" :class="{
                       'minimal-btn': minimalTheme,
                       'retro-btn': retroTheme, 
                       'categoryActive' : todo.class
-                    }"> 
-                    <!-- MODIFICA-->
-                    <button 
-                      class="ml-1 btn btn-primary rounded-circle btn-sm" 
-                      @click="toggleHidden(n)" 
-                      v-if="todo.isHidden == true && !todo.class" 
-                      :class="todo.isDisabled ? 'disabled' : '' " 
-                      :disabled="!!todo.isDisabled">
-                      <i class="fas fa-pencil-alt"></i>
-                    </button>
-                    <!--ELIMINA --> 
-                    <button 
-                      class="ml-1 btn btn-primary rounded-circle btn-sm" 
-                      v-if="todo.isHidden == true" @click="removeTodo(n, todo)" 
-                      :class="todo.isDisabled ? 'disabled' : '' " 
-                      :disabled="!!todo.isDisabled">
-                      <i class="fas fa-trash-alt"></i>
-                    </button> 
-                    <!-- INPUT MODIFICA -->
-                    <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
-                    <input 
-                      class="modify-input ml-2 border border-primary rounded" 
-                      v-if="todo.isHidden == false" 
-                      v-model.trim="todo.name"> 
-                    <!-- SALVA MODIFICHE -->
-                    <button 
-                      class="ml-1 btn btn-success rounded-circle btn-sm"
-                      :disabled="todo.name.length === 0"
-                      @click="toggleHidden(n)" 
-                      v-if="todo.isHidden ==false" 
-                      v-on:click="modifyTodo(n, todo, todo.name)">
-                      <i class="far fa-save"></i>
-                    </button> 
-                  </li>
-                </div>
-              </draggable>
+                    }">
+                  <!-- MODIFICA-->
+                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="toggleHidden(n)"
+                    v-if="todo.isHidden == true && !todo.class" :class="todo.isDisabled ? 'disabled' : '' "
+                    :disabled="!!todo.isDisabled">
+                    <i class="fas fa-pencil-alt"></i>
+                  </button>
+                  <!--ELIMINA -->
+                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="todo.isHidden == true"
+                    @click="removeTodo(n, todo)" :class="todo.isDisabled ? 'disabled' : '' "
+                    :disabled="!!todo.isDisabled">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                  <!-- INPUT MODIFICA -->
+                  <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
+                  <input class="modify-input ml-2 border border-primary rounded" v-if="todo.isHidden == false"
+                    v-model.trim="todo.name" />
+                  <!-- SALVA MODIFICHE -->
+                  <button class="ml-1 btn btn-success rounded-circle btn-sm" :disabled="todo.name.length === 0"
+                    @click="toggleHidden(n)" v-if="todo.isHidden ==false" v-on:click="modifyTodo(n, todo, todo.name)">
+                    <i class="far fa-save"></i>
+                  </button>
+                </li>
+              </div>
+            </draggable>
 
-              <div v-if="!isDraggable"
-                v-for="(todo, n) in todos"
-                id="draggable-children" 
-                class="todo-n"
-                :class="{
+            <div v-if="!isDraggable" v-for="(todo, n) in todos" id="draggable-children" class="todo-n" :class="{
                   'category': todo.class, 
                   'category-retro': todo.class && retroTheme,
                   'category-minimal': todo.class && minimalTheme,
                 }">
-                <div v-if="todo.class && minimalTheme" class="category-emoji-minimal"> &#x2022; </div>
-                <div v-if="todo.class && !minimalTheme" 
-                  class="category-emoji"
-                  :class="{'category-emoji-selected': todo.isSelected}">
-                    {{todo.emojy}}
-                </div>
-                <i v-else 
-                  class="fas fa-cart-arrow-down mr-3 ml-1" 
-                  :class="{
+              <div v-if="todo.class && minimalTheme" class="category-emoji-minimal">&#x2022;</div>
+              <div v-if="todo.class && !minimalTheme" class="category-emoji"
+                :class="{'category-emoji-selected': todo.isSelected}">
+                {{todo.emojy}}
+              </div>
+              <i v-else class="fas fa-cart-arrow-down mr-3 ml-1" :class="{
                     'hide-minimal-icon': minimalTheme,
                     'selected-for-delete': todo.multipleDelete
-                  }"
-                  @click="selectTodoForDelete(n)"></i>
-                <span v-if="minimalTheme && !todo.class"
-                  class="mr-4 ml-1"
-                  @click="selectTodoForDelete(n)"> - </span> 
-                <li 
-                  class="mt-2 todo"
-                  id="todo" 
-                  @click="myFilter(n); 
-                    selectCategoryToAddItem(n, todo)" 
-                  :class="{
+                  }" @click="selectTodoForDelete(n)"></i>
+              <span v-if="minimalTheme && !todo.class" class="mr-4 ml-1" @click="selectTodoForDelete(n)"> - </span>
+              <li class="mt-2 todo" id="todo" @click="myFilter(n); 
+                    selectCategoryToAddItem(n, todo)" :class="{
                     'active': todo.isActive, 
                     'selected': todo.isSelected,
                     'line-through': todo.multipleDelete && !retroTheme
-                  }"> 
-                  {{ todo.name }} 
-                </li>
-                <!--CONTENITORE PULSANTI (edit, delete, modify)-->
-                <li class="button-container bg-light" 
-                  :class="{
+                  }">
+                {{ todo.name }}
+              </li>
+              <!--CONTENITORE PULSANTI (edit, delete, modify)-->
+              <li class="button-container bg-light" :class="{
                     'minimal-btn': minimalTheme,
                     'retro-btn': retroTheme, 
                     'categoryActive' : todo.class
-                  }"> 
-                  <!-- MODIFICA-->
-                  <button 
-                    class="ml-1 btn btn-primary rounded-circle btn-sm" 
-                    @click="toggleHidden(n)" 
-                    v-if="todo.isHidden == true && !todo.class" 
-                    :class="todo.isDisabled ? 'disabled' : '' " 
-                    :disabled="!!todo.isDisabled">
-                    <i class="fas fa-pencil-alt"></i>
-                  </button>
-                  <!--ELIMINA --> 
-                  <button 
-                    class="ml-1 btn btn-primary rounded-circle btn-sm" 
-                    v-if="todo.isHidden == true" @click="removeTodo(n, todo)" 
-                    :class="todo.isDisabled ? 'disabled' : '' " 
-                    :disabled="!!todo.isDisabled">
-                    <i class="fas fa-trash-alt"></i>
-                  </button> 
-                  <!-- INPUT MODIFICA -->
-                  <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
-                  <input 
-                    class="modify-input ml-2 border border-primary rounded" 
-                    v-if="todo.isHidden == false" 
-                    v-model.trim="todo.name"> 
-                  <!-- SALVA MODIFICHE -->
-                  <button 
-                    class="ml-1 btn btn-success rounded-circle btn-sm"
-                    :disabled="todo.name.length === 0"
-                    @click="toggleHidden(n)" 
-                    v-if="todo.isHidden ==false" 
-                    v-on:click="modifyTodo(n, todo, todo.name)">
-                    <i class="far fa-save"></i>
-                  </button> 
-                </li>
-              </div>
-            </ul>
+                  }">
+                <!-- MODIFICA-->
+                <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="toggleHidden(n)"
+                  v-if="todo.isHidden == true && !todo.class" :class="todo.isDisabled ? 'disabled' : '' "
+                  :disabled="!!todo.isDisabled">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+                <!--ELIMINA -->
+                <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="todo.isHidden == true"
+                  @click="removeTodo(n, todo)" :class="todo.isDisabled ? 'disabled' : '' "
+                  :disabled="!!todo.isDisabled">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+                <!-- INPUT MODIFICA -->
+                <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
+                <input class="modify-input ml-2 border border-primary rounded" v-if="todo.isHidden == false"
+                  v-model.trim="todo.name" />
+                <!-- SALVA MODIFICHE -->
+                <button class="ml-1 btn btn-success rounded-circle btn-sm" :disabled="todo.name.length === 0"
+                  @click="toggleHidden(n)" v-if="todo.isHidden ==false" v-on:click="modifyTodo(n, todo, todo.name)">
+                  <i class="far fa-save"></i>
+                </button>
+              </li>
+            </div>
+          </ul>
 
-            <!-- RIQUADRO ELIMINA TUTTO -->
-            <div 
-              class="confirm col-10 mx-auto rounded text-center mb-3" 
-              :class="{
+          <!-- RIQUADRO ELIMINA TUTTO -->
+          <div class="confirm col-10 mx-auto rounded text-center mb-3" :class="{
                 'christmas': christmasTheme,
                 'dark-theme-confirm': darkTheme,
                 'minimal-theme-confirm': minimalTheme,
                 'retro-theme-confirm': retroTheme,
-              }" 
-              v-if="!visible">  
-              <p v-if="langIta">
-                <i class="fas fa-trash-alt text-danger"></i> 
-                Sei sicuro di voler eliminare tutta la lista?
-              </p> 
-              <p v-else>
-                <i class="fas fa-trash-alt text-danger"></i> 
-               Are you sure you want to delete the whole list?
-              </p> 
-              <button class="btn btn-primary" v-on:click="visible = true" @click="removeAllTodo()">
-               <span v-if="langIta">SI</span> 
-               <span v-else>YES</span>
-              </button> 
-              <button class="btn btn-secondary" v-on:click="visible = true">
-                NO
-              </button> 
-            </div>
-            <div class="footer-btns-container pb-3">
-              <!-- PULSANTE ELIMINA SOLO I SELEZIONATI -->
-              <button v-if="canDeleteMultipleTodo" 
-                class="text-danger border-danger rounded"
-                :class="{'christmas': christmasTheme}"
-                @click="deleteSelectedTodos()">
-                <i class="fas fa-trash-alt"> </i>
-              </button>
-              <!-- PULSANTE ELIMINA TUTTO-->
-              <button class="delete-all btn btn-dark" :class="{'christmas': christmasTheme}" v-on:click="visible = !visible">
-                <span  v-if="langIta">Cancella tutto </span> 
-                <span v-else>Delete ALL </span> 
-                <i class="fas fa-skull-crossbones"></i>
-              </button>
-              <!-- PULSANTE TORNA IN CIMA -->
-              <button v-if="buttonBackToTop" 
-                class="btn btn-outline-info p-1" 
-                :class="{
+              }" v-if="!visible">
+            <p v-if="langIta">
+              <i class="fas fa-trash-alt text-danger"></i>
+              Sei sicuro di voler eliminare tutta la lista?
+            </p>
+            <p v-else>
+              <i class="fas fa-trash-alt text-danger"></i>
+              Are you sure you want to delete the whole list?
+            </p>
+            <button class="btn btn-primary" v-on:click="visible = true" @click="removeAllTodo()">
+              <span v-if="langIta">SI</span>
+              <span v-else>YES</span>
+            </button>
+            <button class="btn btn-secondary" v-on:click="visible = true">NO</button>
+          </div>
+          <div class="footer-btns-container pb-3">
+            <!-- PULSANTE ELIMINA SOLO I SELEZIONATI -->
+            <button v-if="canDeleteMultipleTodo" class="text-danger border-danger rounded"
+              :class="{'christmas': christmasTheme}" @click="deleteSelectedTodos()">
+              <i class="fas fa-trash-alt"> </i>
+            </button>
+            <!-- PULSANTE ELIMINA TUTTO-->
+            <button class="delete-all btn btn-dark" :class="{'christmas': christmasTheme}"
+              v-on:click="visible = !visible">
+              <span v-if="langIta">Cancella tutto </span>
+              <span v-else>Delete ALL </span>
+              <i class="fas fa-skull-crossbones"></i>
+            </button>
+            <!-- PULSANTE TORNA IN CIMA -->
+            <button v-if="buttonBackToTop" class="btn btn-outline-info p-1" :class="{
                   'christmas': christmasTheme,
                   'dark-theme-back-top': darkTheme,
                   'retro-theme-back-top': retroTheme,
                   'winter-theme-back-top': winterTheme,
-                }" 
-                @click="scrollTop()">
-               <img class="back-up" src="./img/chevron-up.webp" alt="up">
-              </button>
+                }" @click="scrollTop()">
+              <img class="back-up" src="./img/chevron-up.webp" alt="up" />
+            </button>
 
-              <!-- CAMBIO LINGUA -->
-              <div class="btns-language-container" 
-              :class="{
+            <!-- CAMBIO LINGUA -->
+            <div class="btns-language-container" :class="{
                 'christmas': christmasTheme, 
                 'minimal-btn': minimalTheme, 
                 'retro-btn': retroTheme
               }">
-                <button class="btn-lang-left" :class="{'language-selected': !langIta}" @click="setEnglish()">Eng</button>
-                <button class="btn-lang-right" :class="{'language-selected': langIta}" @click="setItaliano()">Ita</button>
-              </div>
+              <button class="btn-lang-left" :class="{'language-selected': !langIta}" @click="setEnglish()">Eng</button>
+              <button class="btn-lang-right" :class="{'language-selected': langIta}" @click="setItaliano()">Ita</button>
             </div>
-            <img v-if="christmasTheme" class="christas-footer" src="./img/christmas.webp" alt="">
-            <!-- <small v-if="!christmasTheme" class="created-by-luca-caputo">By Luca Caputo</small> -->
-            <small v-if="christmasTheme" class="created-by-luca-caputo">By Luca Caputo</small>
           </div>
+          <img v-if="christmasTheme" class="christas-footer" src="./img/christmas.webp" alt="" />
+          <!-- <small v-if="!christmasTheme" class="created-by-luca-caputo">By Luca Caputo</small> -->
+          <small v-if="christmasTheme" class="created-by-luca-caputo">By Luca Caputo</small>
         </div>
       </div>
     </div>
-    <script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
-    <script src="main.js" charset="utf-8"></script>
-  </body>
+  </div>
+  <script type="text/javascript">
+    (function (w, d) {
+      var loader = function () {
+        var s = d.createElement("script"),
+          tag = d.getElementsByTagName("script")[0];
+        s.src = "https://cdn.iubenda.com/iubenda.js";
+        tag.parentNode.insertBefore(s, tag);
+      };
+      if (w.addEventListener) {
+        w.addEventListener("load", loader, false);
+      } else if (w.attachEvent) {
+        w.attachEvent("onload", loader);
+      } else {
+        w.onload = loader;
+      }
+    })(window, document);
+  </script>
+  <script src="main.js" charset="utf-8"></script>
+</body>
+
 </html>
