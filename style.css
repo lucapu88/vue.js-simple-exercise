@@ -148,6 +148,13 @@ body {
   line-height: 0.5;
 }
 
+.helper-list {
+  padding-inline-start: 25px;
+}
+.helper-list > li {
+  display: list-item;
+}
+
 .helper-selected {
   -webkit-animation: spin 2s linear;
   -moz-animation: spin 2s linear;
@@ -298,6 +305,7 @@ body {
   padding: 3px;
   text-align: center;
   display: inline;
+  margin-left: 0;
 }
 
 .show-video {
@@ -514,9 +522,6 @@ body {
   font-size: 18px;
   font-weight: bold;
 }
-li {
-  display: inline-block;
-}
 
 .btns-language-container {
   display: flex;
@@ -548,6 +553,11 @@ li {
 }
 
 /* VARIE */
+
+li {
+  display: inline-block;
+}
+
 .drag-n-drop-btn-container {
   display: flex;
   gap: 10px;
