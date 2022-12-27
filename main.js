@@ -463,26 +463,32 @@ const app = new Vue({
 				case "light":
 					this.lightTheme = true;
 					window.localStorage.setItem("lightTheme", true);
+					this.loadingTheme("light");
 					break;
 				case "dark":
 					this.darkTheme = true;
 					window.localStorage.setItem("darkTheme", true);
+					this.loadingTheme("dark");
 					break;
 				case "minimal":
 					this.minimalTheme = true;
 					window.localStorage.setItem("minimalTheme", true);
+					this.loadingTheme("minimal");
 					break;
 				case "retro":
 					this.retroTheme = true;
 					window.localStorage.setItem("retroTheme", true);
+					this.loadingTheme("retro");
 					break;
 				case "summer":
 					this.summerTheme = true;
 					window.localStorage.setItem("summerTheme", true);
+					this.loadingTheme("summer");
 					break;
 				case "winter":
 					this.winterTheme = true;
 					window.localStorage.setItem("winterTheme", true);
+					this.loadingTheme("winter");
 					break;
 
 				default:
@@ -490,16 +496,50 @@ const app = new Vue({
 					window.localStorage.setItem("lightTheme", true);
 					break;
 			}
-
-			if (!this.helper) {
-				setTimeout(() => {
-					location.reload();
-				}, 500);
+		},
+		loadingTheme(theme) {
+			document.getElementById("helper-description-container").style.display =
+				"none";
+			document.getElementById("loading-themes-container").style.display =
+				"block";
+			switch (theme) {
+				case "light":
+					document.getElementById(
+						"loading-themes-container",
+					).style.backgroundColor = "white";
+					break;
+				case "dark":
+					document.getElementById(
+						"loading-themes-container",
+					).style.backgroundColor = "#333333";
+					break;
+				case "minimal":
+					document.getElementById(
+						"loading-themes-container",
+					).style.backgroundColor = "#a5becc";
+					break;
+				case "retro":
+					document.getElementById(
+						"loading-themes-container",
+					).style.backgroundColor = "black";
+					break;
+				case "summer":
+					document.getElementById(
+						"loading-themes-container",
+					).style.backgroundColor = "#12a1df";
+					break;
+				case "winter":
+					document.getElementById(
+						"loading-themes-container",
+					).style.backgroundColor = "#1A3159";
+					break;
 			}
+
+			setTimeout(() => {
+				location.reload();
+			}, 700);
 		},
 		resetAllThemes() {
-			this.helper = false;
-
 			this.lightTheme = false;
 			window.localStorage.setItem("lightTheme", false);
 			this.darkTheme = false;
