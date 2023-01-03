@@ -110,7 +110,7 @@
             </div>
           </div>
           <div id="loading-themes-container">
-            <h1>...Loading...</h1>
+            <img src="./img/Loading.webp" alt="loading">
             <img src="./img/favicon.png" alt="loading">
           </div>
           <!-- ----------HELPER CONTAINER (Questa parte fa più schifo delle altre, e non so perchè l'ho fatta così di merda, ignorala!!!)---->
@@ -482,7 +482,7 @@
                       'selected-for-delete': todo.multipleDelete
                     }" @click="selectTodoForDelete(n)"></i>
                 <span v-if="minimalTheme && !todo.class" class="mr-4 ml-1" @click="selectTodoForDelete(n)"> - </span>
-                <li class="mt-2 todo" id="todo" @click="myFilter(n); 
+                <li class="todo" id="todo" @click="myFilter(n); 
                       selectCategoryToAddItem(n, todo)" :class="{
                       'active': todo.isActive, 
                       'selected': todo.isSelected,
@@ -537,7 +537,7 @@
                     'selected-for-delete': todo.multipleDelete
                   }" @click="selectTodoForDelete(n)"></i>
               <span v-if="minimalTheme && !todo.class" class="mr-4 ml-1" @click="selectTodoForDelete(n)"> - </span>
-              <li class="mt-2 todo" id="todo" @click="myFilter(n); 
+              <li class="todo" id="todo" @click="myFilter(n); 
                     selectCategoryToAddItem(n, todo)" :class="{
                     'active': todo.isActive, 
                     'selected': todo.isSelected,

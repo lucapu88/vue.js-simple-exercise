@@ -555,6 +555,8 @@ const app = new Vue({
 		},
 		toggleDragDrop() {
 			this.isDraggable = !this.isDraggable;
+			this.categoryList = false;
+			this.removeSelectedCategoryToAddItem();
 		},
 		getAndroidVersion(ua) {
 			//questo metodo è inutilizzato ma lo tengo poichè potrebbe servirmi in futuro se risolvono il problema con la libreria "draggabble".
