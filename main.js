@@ -312,6 +312,7 @@ const app = new Vue({
 		removeAllTodo(x) {
 			this.todos.splice(x);
 			this.categoryList = false;
+			this.isDraggable = false;
 			this.saveTodos();
 			// this.helper = false;
 			this.categoryList = false;
@@ -352,6 +353,7 @@ const app = new Vue({
 		},
 		showCategoryList() {
 			this.categoryList = !this.categoryList;
+			this.isDraggable = false;
 		},
 		showHelper() {
 			this.helper = !this.helper;
@@ -381,6 +383,7 @@ const app = new Vue({
 			const confirmText = `${this.selectedTodosConfirmText}?`;
 			if (confirm(confirmText)) {
 				this.todos = this.todos.filter((todo) => !todo.multipleDelete);
+				this.isDraggable = false;
 				this.saveTodos();
 			}
 		},

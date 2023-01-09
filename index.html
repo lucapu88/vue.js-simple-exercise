@@ -22,8 +22,8 @@
 
   <link rel="stylesheet" href="style.css" />
   <!-- google body font -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"
-    rel="stylesheet" />
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
   <!--google font retro-->
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
@@ -78,41 +78,56 @@
                 }" @click="showHelper()">
               <span class="settings">&#x2699;</span>
             </span>
-            <!--PULSANTE COPIA LISTA-->
             <div class="input-btns-container">
-              <button class="btn btn-outline-success" @click="copy()"><i class="far fa-copy"></i><br /></button>
               <!--INPUT AGGIUNGI-->
               <input class="inputText mb-2 border border-primary rounded"
                 :class="{'placeholder-selected': this.placeholder != defaultPlaceholderText}" ref="myInput"
                 v-model="newTodo" @keypress.13="addTodo" :placeholder="this.placeholder" />
-              <!--PULSANTI AGGIUNGI E MOSTRA CATEGORIE-->
+              <!--PULSANTE AGGIUNGI-->
               <button class="btn btn-info" @click="addTodo">
                 <i class="far fa-paper-plane"></i>
               </button>
-              <button class="btn custom-show-listbtn" @click="showCategoryList()">
+            </div>
+            <!-- -----------------------------------PULSANTIERA------------------------------------ -->
+            <div class="pushbutton-container">
+              <!-- DRAG N DROP -->
+              <button class="btn custom-show-listbtn" :class="{
+                'btn-selected': isDraggable, 
+                'minimal-btn': minimalTheme, 
+                'minimal-selected-btn': minimalTheme && isDraggable,
+              }" @click="toggleDragDrop()">
+                <img src="./img/drag-and-drop.webp" alt="move" />
+              </button>
+              <!--PULSANTE COPIA LISTA-->
+              <button class="btn btn-outline-success" :class="{'minimal-btn': minimalTheme, 'retro-btn': retroTheme}"
+                @click="copy()"><i class="far fa-copy"></i><br /></button>
+              <!--PULSANTE MOSTRA CATEGORIE -->
+              <button class="btn custom-show-listbtn" :class="{
+                'btn-selected': categoryList, 
+                'minimal-btn': minimalTheme, 
+                'minimal-selected-btn': minimalTheme && categoryList,}" @click="showCategoryList()">
                 <span v-if="!categoryList">+</span>
                 <span v-else>-</span>
               </button>
             </div>
-            <!-- DRAG N DROP -->
-            <div class="drag-n-drop-btn-container">
-              <button class="btn custom-show-listbtn" @click="toggleDragDrop()">
-                <img src="./img/drag-and-drop.webp" alt="move" />
-              </button>
-              <small v-if="!isDraggable" style="font-weight: bold">OFF</small>
-              <small v-if="isDraggable" style="font-weight: bold; color: #d70a0a">ON </small>
-              <small v-if="langIta && isDraggable" style="margin-right: 10px">Tieni premuto su un elemento della lista e
+            <div class="drag-n-drop-text">
+              <small v-if="langIta && isDraggable">Tieni premuto su un elemento
+                della lista e
                 trascinalo dove vuoi
               </small>
-              <small v-if="!langIta && isDraggable" style="margin-right: 10px">Press and hold an item in the list and
+              <small v-if="!langIta && isDraggable">Press and hold an item in
+                the list and
                 drag it where you want
               </small>
             </div>
+
           </div>
           <div id="loading-themes-container">
             <img src="./img/Loading.webp" alt="loading">
             <img src="./img/favicon.png" alt="loading">
           </div>
+
+
           <!-- ----------HELPER CONTAINER (Questa parte fa più schifo delle altre, e non so perchè l'ho fatta così di merda, ignorala!!!)---->
           <div id="helper-description-container" class="helper-description" :class="{
                 'slideUp' : helper === true, 
@@ -193,7 +208,8 @@
                   eliminerai roba dalla lista.
                 </li>
                 <li>
-                  <span class="custom-show-listbtn helper-icon">+</span> serve per visualizzare l'indice delle
+                  <span style="border: none;" class="custom-show-listbtn helper-icon">+</span> serve per visualizzare
+                  l'indice delle
                   categorie selezionabili.
                 </li>
                 <li>
@@ -215,7 +231,7 @@
                   per attivare questa modalità.
                 </li>
                 <li>
-                  <span style="color: red">NEW: </span> - *Cliccando sull'icona del carrello
+                  <span style="color: red">NEW: </span> - Cliccando sull'icona del carrello
                   (<i class="fas fa-cart-arrow-down"></i>) puoi selezionare più elementi da eliminare, nel caso volessi
                   eliminarne più di uno ma non tutti. Ti apparirà in basso a sinistra questo cestino =>
                   <button class="text-danger border-danger rounded">
@@ -223,7 +239,6 @@
                   </button>
                   ed eliminerai solamente gli elementi selezionati che avranno il carrello rosso
                   (<i class="fas fa-cart-arrow-down selected-for-delete"></i>).
-                  <small>*Riavvia l'app nel caso questa funzione non va correttamente.</small>
                 </li>
                 <li>
                   <i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e
@@ -340,7 +355,8 @@
                   you will remove stuff from the list.
                 </li>
                 <li>
-                  <span class="custom-show-listbtn helper-icon"> + </span> is used to display the index of
+                  <span style="border: none;" class="custom-show-listbtn helper-icon"> + </span> is used to display the
+                  index of
                   selectable categories.
                 </li>
                 <li>
@@ -362,7 +378,7 @@
                   to activate this mode.
                 </li>
                 <li>
-                  <span style="color: red">NEW: </span> - *By clicking on the cart icon
+                  <span style="color: red">NEW: </span> - By clicking on the cart icon
                   (<i class="fas fa-cart-arrow-down"></i>) you can select multiple
                   items to delete, in case you want to delete more than one but not all. This trash can will appear at
                   the bottom left =>
@@ -370,8 +386,7 @@
                     <i class="fas fa-trash-alt"></i>
                   </button>
                   and you will only delete the elements selected that will have the red cart
-                  (<i class="fas fa-cart-arrow-down selected-for-delete"></i>). <small>*Restart the app in case this
-                    feature doesn't work properly.</small>
+                  (<i class="fas fa-cart-arrow-down selected-for-delete"></i>).
                 </li>
                 <li>
                   <i class="far fa-copy btn btn-outline-success helper-icon"> </i>
@@ -442,21 +457,22 @@
           </div>
 
           <!-- CATEGORY -->
-          <div v-if="categoryList" class="category-list-container">
-            <p class="m-0" v-if="langIta" :class="{'green-text': retroTheme}">Indice categorie</p>
-            <p class="m-0" v-else :class="{'green-text': retroTheme}">Category index</p>
-            <span v-if="langIta" class="category-list-description" :class="{
+          <div v-if="categoryList" class="category-list-container" :class="{
+            'retro-theme-confirm': retroTheme,
+            'light-theme-confirm': lightTheme,
+          }">
+            <p v-if="langIta" class="category-list-description" :class="{
                   'blue-text': !retroTheme && !minimalTheme,
-                  'green-text': retroTheme
+                  'retro-helper-settings-title': retroTheme
                 }">
-              Scegli uno di questi nomi e ti verrà creata una categoria:
-            </span>
-            <span v-if="!langIta" class="category-list-description" :class="{
+              Scegli una categoria tra queste:
+            </p>
+            <p v-if="!langIta" class="category-list-description" :class="{
                   'blue-text': !retroTheme && !minimalTheme,
-                  'green-text': retroTheme
+                  'retro-helper-settings-title': retroTheme
                 }">
-              Choose one of these names and a category will be created:
-            </span>
+              Choose a category among these:
+            </p>
             <p class="category-list" v-for="(category, i) in categories" :key="i">
               <span @click="selectCategoryName(category.name)">{{category.name}},&nbsp; </span>
             </p>

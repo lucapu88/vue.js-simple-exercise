@@ -97,16 +97,16 @@ body {
 .input-btns-container {
   display: flex;
   align-items: baseline;
-  /* gap: 10px; */
-  justify-content: space-around;
+  gap: 10px;
+  justify-content: center;
 }
 .inputText {
   padding: 10px;
-  max-width: 200px;
+  width: 70%;
+  text-align: center;
 }
 .btn-outline-success {
-  padding: 10px;
-  margin-left: 3%;
+  padding: 7px;
   background-color: white;
   border: 2px solid;
 }
@@ -412,6 +412,9 @@ body {
   animation-timing-function: ease-in;
   animation-duration: 0.5s;
   z-index: 100;
+  border: 1px solid;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 @keyframes fadeInOpacityCategory {
   0% {
@@ -420,6 +423,9 @@ body {
   100% {
     opacity: 1;
   }
+}
+.light-theme-confirm {
+  background-color:#ffffff;
 }
 .category {
   background: rgba(192, 224, 133, 0.75);
@@ -454,6 +460,7 @@ body {
 }
 .category-list-description {
   font-size: small;
+  margin: 0;
 }
 .selected {
   background-color: #0169d9;
@@ -485,6 +492,7 @@ body {
   border: 2px solid rgb(180, 230, 89);
   border-radius: 25%;
   padding: 5px;
+  min-width: 30px;
 }
 .custom-show-listbtn > img {
   width: 20px;
@@ -504,6 +512,7 @@ body {
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  margin-bottom: 5px;
 }
 .todo:hover {
   cursor: pointer;
@@ -552,6 +561,7 @@ body {
 .confirm > p {
   font-size: 18px;
   font-weight: bold;
+  max-width: 25ch;
 }
 
 .btns-language-container {
@@ -584,17 +594,25 @@ body {
 }
 
 /* VARIE */
-
 li {
   display: inline-block;
 }
 
-.drag-n-drop-btn-container {
+.btn-selected {
+  background-color: rgba(109, 165, 5, 0.883);
+}
+
+.drag-n-drop-text {
+  text-align: center;
+}
+
+.pushbutton-container {
   display: flex;
   gap: 10px;
   height: 30px;
   align-items: center;
-  margin: 10px 5% 15px;
+  margin: 10px;
+  justify-content: center;
 }
 
 .fa-save,
@@ -699,6 +717,9 @@ li {
   background-color: #243a73;
   background-image: none;
   color: #f2ebe9;
+}
+.pushbutton-container > .minimal-selected-btn {
+  background-color:#645767 !important;
 }
 .minimal-btn {
   background-color: transparent !important;
