@@ -307,6 +307,7 @@ body {
 .link-copied {
   font-size: 13px;
   margin-left: 5px;
+  color:rgb(197, 0, 0);
 }
 .close-helper-container {
   width: 65px;
@@ -410,7 +411,7 @@ body {
   animation-name: fadeInOpacityCategory;
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
-  animation-duration: 0.5s;
+  animation-duration: 0.7s;
   z-index: 100;
   border: 1px solid;
   border-radius: 5px;
@@ -424,6 +425,26 @@ body {
     opacity: 1;
   }
 }
+.blue-text, .animation-no-retro {
+  animation-name: zoom;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-delay: 0.8s;
+  animation-duration: 1s;
+}
+@keyframes zoom {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.1, 1.1);
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.55);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
 .light-theme-confirm {
   background-color:#ffffff;
 }
