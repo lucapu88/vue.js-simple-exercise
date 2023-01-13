@@ -158,17 +158,18 @@
             <!-- ----------------------------------------------HELPER ITA -->
             <div id="helper-description" v-if="langIta">
               &#x2699; Modalità eliminazione sicura <br />
-              <small>(ti chiederà conferma di eliminazione per ogni singolo prodotto della lista)</small>:<br />
-              <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
+              <li class="ml-4">(ti chiederà conferma di eliminazione per ogni singolo prodotto della
+                lista):</li><br />
+              <li class="toggle-delete-confirm-container ml-4" @click="toggleDeleteConfirm()">
                 <u>Clicca per attivare/disattivare</u>
                 <div class="toggle-delete-confirm">&#x1F449;</div>
                 <span class="text-primary">{{canDeleteText}}</span>
-              </span>
+              </li>
               <br /><br />
               &#x2699; Tema impostato:
               <span class="text-primary">{{themeName}}</span><br />
-              Cambia tema:<br />
-              <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+              <li class="ml-4">Cambia tema:</li><br />
+              <div class="btn-group ml-4" role="group" aria-label="Basic mixed styles example">
                 <button type="button" class="btn btn-light p-1 border border-dark"
                   @click="changeTheme('light')">Chiaro</button>
                 <button type="button" class="btn btn-dark p-1" @click="changeTheme('dark')">Scuro</button>
@@ -308,16 +309,17 @@
             <!-- ----------------------------------------------HELPER ENG -->
             <div id="helper-description" v-else>
               &#x2699; Safe delete mode <br />
-              <small> (it will ask you to confirm the deletion for each single product on the list) </small>:<br />
-              <span class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
+              <li class="ml-4"> (it will ask you to confirm the deletion for each single product on the list):</li>
+              <br />
+              <li class="toggle-delete-confirm-container ml-4" @click="toggleDeleteConfirm()">
                 <u>Click to activate/deactivate</u>
                 <div class="toggle-delete-confirm">&#x1F449;</div>
                 <span class="text-primary">{{canDeleteText}}</span>
-              </span><br /><br />
+              </li><br /><br />
               &#x2699; Chosen theme:
               <span class="text-primary">{{themeName}}</span><br />
-              Change theme:<br />
-              <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+              <li class="ml-4">Change theme:</li><br />
+              <div class="btn-group ml-4" role="group" aria-label="Basic mixed styles example">
                 <button type="button" class="btn btn-light p-1 border border-dark"
                   @click="changeTheme('light')">Light</button>
                 <button type="button" class="btn btn-dark p-1" @click="changeTheme('dark')">Dark</button>
@@ -473,8 +475,8 @@
                 }">
               Choose a category among these:
             </p>
-            <p class="category-list" :class="{'animation-no-retro': !retroTheme}"
-            v-for="(category, i) in categories" :key="i">
+            <p class="category-list" :class="{'animation-no-retro': !retroTheme}" v-for="(category, i) in categories"
+              :key="i">
               <span @click="selectCategoryName(category.name)">{{category.name}},&nbsp; </span>
             </p>
           </div>

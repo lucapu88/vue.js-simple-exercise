@@ -484,6 +484,7 @@ body {
   margin: 0;
 }
 .selected {
+  text-align: center;
   background-color: #0169d9;
   color: white;
   border-radius: 5px;
