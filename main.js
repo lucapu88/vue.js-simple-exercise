@@ -1,16 +1,16 @@
 const app = new Vue({
-	/*Tutto quello che ho scritto qui sotto e nell'html andava fatto meglio, ovvero spezzettato in componenti vari e ordinati.
+	/*Tutto quello che ho scritto qui sotto e nell'html andava fatto meglio, ovvero diviso in componenti vari e ordinati.
     Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
 	el: "#app",
 	data: {
 		todos: [], //conterrà gli elementi che noi digitiamo
 		newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
 		visible: true, //serve per la visibilità del contenitore dell'alert
-		placeholder: "Write what to buy",
-		defaultPlaceholderText: "Write what to buy", //per evitare di andarlo a cercare nel codice
 		categoryList: false,
 		helper: null,
 		christmasTheme: false,
+		placeholder: "Write what to buy",
+		defaultPlaceholderText: "Write what to buy", //per evitare di andarlo a cercare nel codice
 		copyList: {
 			text: "List copied to clipboard",
 			visible: false,
@@ -19,6 +19,22 @@ const app = new Vue({
 			text: "Link copied to clipboard, paste it with whoever you want.",
 			visible: false,
 		},
+		confirmText: "Are you sure you want to delete:",
+		selectedTodosConfirmText:
+			"Are you sure you want to delete the selected items",
+		canDeleteText: "OFF",
+		themeName: "light",
+		settingsTextTitle: "Settings",
+		safeModeText: {
+			title: "Safe delete mode",
+			description:
+				"it will ask you to confirm the deletion for each single product on the list",
+			function: "Click to activate/deactivate",
+		},
+		chosenThemeText: "Chosen theme",
+		changeThemeText: "Change theme",
+		emailReportText: "For any report you can contact me",
+		shareText: "Share",
 		categoryClass: false,
 		categoryEmoji: "",
 		categories: [],
@@ -52,11 +68,7 @@ const app = new Vue({
 		],
 		addTodoInCategory: { condition: false, id: null },
 		langIta: null, //se è false è impostato su inglese
-		canDeleteText: "OFF",
 		canDelete: false,
-		confirmText: "Are you sure you want to delete:",
-		selectedTodosConfirmText:
-			"Are you sure you want to delete the selected items",
 		buttonBackToTop: false,
 		lightTheme: true,
 		darkTheme: false,
@@ -64,7 +76,6 @@ const app = new Vue({
 		retroTheme: false,
 		summerTheme: false,
 		winterTheme: false,
-		themeName: "light",
 		canDeleteMultipleTodo: false,
 		isDraggable: false,
 		needDragNDropBtn: false,
@@ -90,32 +101,36 @@ const app = new Vue({
 			this.confirmText = "Sei sicuro di voler eliminare:";
 			this.selectedTodosConfirmText =
 				"Sei sicuro di voler eliminare gli elementi selezionati";
+			this.settingsTextTitle = "Impostazioni";
+			this.safeModeText.title = "Modalità eliminazione sicura";
+			this.safeModeText.description =
+				"ti chiederà conferma di eliminazione per ogni singolo prodotto della lista";
+			this.safeModeText.function = "Clicca per attivare/disattivare";
+			this.chosenThemeText = "Tema impostato";
+			this.changeThemeText = "Cambia tema";
+			this.shareText = "Condividi";
+			document.getElementById("helper-istructions").innerHTML =
+				window.helperIstructionsITA; //questa è cacca, vue scrive direttamente il dom quindi normalmente ci sarebbe stato un componente apposito ma io devo usare github pages e schiantare tutto in un file. Normalmente su vue, lo so, non si fa!
+			this.emailReportText = "Per qualsiasi segnalazione puoi contattarmi";
 		} else {
-			this.defaultPlaceholderText;
 			this.categories = this.engCategories;
-			this.copyList.text;
-			this.confirmText;
-			this.selectedTodosConfirmText;
+			document.getElementById("helper-istructions").innerHTML =
+				window.helperIstructionsENG;
 		}
 
 		this.merryChristmasTheme(); //se è natale metto gli addobbi e buon natale!
 
 		//imposto il tema in base a quello scelto dall'utente
-
 		const lightThemeSelected = window.localStorage.getItem("lightTheme");
 		this.lightTheme = lightThemeSelected === "true";
 		if (this.lightTheme) {
-			this.themeName = this.langIta ? "Chiaro" : "Light";
-			document.body.style.backgroundImage = "url('img/foglio_righe.webp')";
+			this.changeThemeStyle("Light", "url('img/foglio_righe.webp')");
 		}
 
 		const darkThemeSelected = window.localStorage.getItem("darkTheme");
 		this.darkTheme = darkThemeSelected === "true";
 		if (this.darkTheme) {
-			this.themeName = this.langIta ? "Scuro" : "Dark";
-			document.body.style.backgroundImage = "none";
-			document.body.style.backgroundColor = "#333333";
-			document.body.style.color = "#FFFFFF";
+			this.changeThemeStyle("Dark", "none", "#333333", "#FFFFFF");
 			document.body.style.height = "100vh";
 			document.body.style.border = "10px solid #d17e47";
 		}
@@ -123,30 +138,32 @@ const app = new Vue({
 		const minimalThemeSelected = window.localStorage.getItem("minimalTheme");
 		this.minimalTheme = minimalThemeSelected === "true";
 		if (this.minimalTheme) {
-			this.themeName = "Minimal";
-			document.body.style.backgroundImage = "none";
-			document.body.style.backgroundColor = "#A5BECC";
-			document.body.style.color = "#7C3E66";
-			document.body.style.fontFamily = '"Cabin", sans-serif';
+			this.changeThemeStyle(
+				"Minimal",
+				"none",
+				"#A5BECC",
+				"#7C3E66",
+				'"Cabin", sans-serif',
+			);
 		}
 
 		const retroThemeSelected = window.localStorage.getItem("retroTheme");
 		this.retroTheme = retroThemeSelected === "true";
 		if (this.retroTheme) {
-			this.themeName = "Dos";
-			document.body.style.backgroundImage = "none";
-			document.body.style.backgroundColor = "#090A0C";
-			document.body.style.color = "#FFFFFF";
-			document.body.style.fontFamily = '"DotGothic16", sans-serif';
+			this.changeThemeStyle(
+				"Dos",
+				"none",
+				"#090A0C",
+				"#FFFFFF",
+				'"DotGothic16", sans-serif',
+			);
 		}
 
 		const summerThemeSelected = window.localStorage.getItem("summerTheme");
 		this.summerTheme = summerThemeSelected === "true";
 		if (this.summerTheme) {
-			this.themeName = this.langIta ? "Estate" : "Summer";
-			document.body.style.backgroundImage = "url('img/mare.webp')";
+			this.changeThemeStyle("Summer", "url('img/mare.webp')", "#EFCB8F");
 			document.body.style.backgroundRepeat = "no-repeat";
-			document.body.style.backgroundColor = "#EFCB8F";
 			document.getElementById("helper-description").style.backgroundImage =
 				"none";
 			document.getElementById("helper-description-container").style.background =
@@ -161,12 +178,14 @@ const app = new Vue({
 		const winterThemeSelected = window.localStorage.getItem("winterTheme");
 		this.winterTheme = winterThemeSelected === "true";
 		if (this.winterTheme) {
-			this.themeName = this.langIta ? "Inverno" : "Winter";
-			document.body.style.backgroundImage = "url('img/montagne.webp')";
 			document.body.style.backgroundRepeat = "no-repeat";
 			document.body.style.backgroundSize = "cover";
-			document.body.style.backgroundColor = "#232F34";
-			document.body.style.color = "#FFFFFF";
+			this.changeThemeStyle(
+				"Winter",
+				"url('img/montagne.webp')",
+				"#232F34",
+				"#FFFFFF",
+			);
 			document.getElementById(
 				"helper-description-container",
 			).style.backgroundImage = "url('img/inverno.webp')";
@@ -183,8 +202,6 @@ const app = new Vue({
 		}
 	},
 	mounted() {
-		//console.clear();
-
 		if (window.localStorage.getItem("todos")) {
 			//se si deve prendere un oggetto da salvare in locale
 			try {
@@ -555,6 +572,23 @@ const app = new Vue({
 			window.localStorage.setItem("summerTheme", false);
 			this.winterTheme = false;
 			window.localStorage.setItem("winterTheme", false);
+		},
+		changeThemeStyle(
+			themeName,
+			backgroundImage,
+			backgroundColor,
+			color,
+			fontFamily,
+		) {
+			this.themeName = themeName;
+			document.body.style.backgroundImage = backgroundImage;
+			document.body.style.backgroundColor = backgroundColor;
+			if (color) {
+				document.body.style.color = color;
+			}
+			if (fontFamily) {
+				document.body.style.fontFamily = fontFamily;
+			}
 		},
 		toggleDragDrop() {
 			this.isDraggable = !this.isDraggable;

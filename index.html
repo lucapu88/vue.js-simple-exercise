@@ -19,7 +19,7 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
   <!-- fontawesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" />
-
+  <!-- style -->
   <link rel="stylesheet" href="style.css" />
   <!-- google body font -->
   <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
@@ -127,7 +127,6 @@
             <img src="./img/favicon.png" alt="loading">
           </div>
 
-
           <!-- ----------HELPER CONTAINER (Questa parte fa più schifo delle altre, e non so perchè l'ho fatta così di merda, ignorala!!!)---->
           <div id="helper-description-container" class="helper-description" :class="{
                 'slideUp' : helper === true, 
@@ -141,184 +140,27 @@
               <p class="close-helper" :class="{'close-retro-theme-helper': retroTheme === true}">X</p>
             </div>
             <img v-if="christmasTheme" class="left-christmas-info" src="./img/Gingerman-icon.webp" alt="Buon Natale!" />
-            <p v-if="langIta" class="helper-settings-title" :class="{
+            <p class="helper-settings-title" :class="{
                   'christmas-red': christmasTheme,
                   'retro-helper-settings-title': retroTheme === true,
                 }">
-              Impostazioni:
-            </p>
-            <p v-else class="helper-settings-title" :class="{
-                  'christmas-red': christmasTheme,
-                  'retro-helper-settings-title': retroTheme === true,
-                }">
-              Settings:
+              {{settingsTextTitle}}:
             </p>
             <img v-if="christmasTheme" class="right-christmas-info" src="./img/Decorations-icon.webp"
               alt="E felice anno nuovo!" />
-            <!-- ----------------------------------------------HELPER ITA -->
-            <div id="helper-description" v-if="langIta">
-              &#x2699; Modalità eliminazione sicura <br />
-              <li class="ml-4">(ti chiederà conferma di eliminazione per ogni singolo prodotto della
-                lista):</li><br />
+
+            <div id="helper-description">
+              &#x2699; {{safeModeText.title}} <br />
+              <li class="ml-4">({{safeModeText.description}}):</li><br />
               <li class="toggle-delete-confirm-container ml-4" @click="toggleDeleteConfirm()">
-                <u>Clicca per attivare/disattivare</u>
+                <u>{{safeModeText.function}}</u>
                 <div class="toggle-delete-confirm">&#x1F449;</div>
                 <span class="text-primary">{{canDeleteText}}</span>
               </li>
               <br /><br />
-              &#x2699; Tema impostato:
+              &#x2699; {{chosenThemeText}}:
               <span class="text-primary">{{themeName}}</span><br />
-              <li class="ml-4">Cambia tema:</li><br />
-              <div class="btn-group ml-4" role="group" aria-label="Basic mixed styles example">
-                <button type="button" class="btn btn-light p-1 border border-dark"
-                  @click="changeTheme('light')">Chiaro</button>
-                <button type="button" class="btn btn-dark p-1" @click="changeTheme('dark')">Scuro</button>
-                <button type="button" class="btn minimal-theme p-0" @click="changeTheme('minimal')">Minimal</button>
-                <button type="button" class="btn retro-theme p-1" @click="changeTheme('retro')">Dos</button>
-                <button type="button" class="btn summer-theme p-1" @click="changeTheme('summer')">Estate</button>
-                <button type="button" class="btn winter-theme p-0" @click="changeTheme('winter')">Inverno</button>
-              </div>
-              <br />
-              <div class="share">
-                &#x2699; Condividi:
-                <button class="btn btn-light border-dark share-btn" @click="shareLink()">
-                  <img src="img/share.webp" alt="share" />
-                </button>
-                <p class="link-copied" v-if="share.visible === true">{{share.text}}</p>
-              </div>
-              <p class="helper-title">Risoluzione Problemi:</p>
-              <small>
-                Nel caso riscontrassi lentezza o blocchi nel caricamento di immagini, controlla la tua connessione, se è
-                ok prova a riavviare l'app.
-                Se il problema persiste segnalalo
-                <a href="mailto:lucarhcp88@hotmail.it">all'email</a> in fondo a questa pagina.
-              </small>
-              <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Istruzioni:</p>
-              <ul class="helper-list">
-                <li>
-                  <i class="far fa-paper-plane btn btn-info helper-icon"></i>
-                  serve per aggiungere alla lista roba da comprare.
-                </li>
-                <li>
-                  Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i>
-                  potrai modificare un nome e salvare le modifiche cliccando
-                  <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.
-                </li>
-                <li>
-                  Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i>
-                  eliminerai roba dalla lista.
-                </li>
-                <li>
-                  <span style="border: none;" class="custom-show-listbtn helper-icon">+</span> serve per visualizzare
-                  l'indice delle
-                  categorie selezionabili.
-                </li>
-                <li>
-                  Per scegliere una categoria basta scriverla (o cliccarci sopra) e cliccare
-                  <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà
-                  <span class="category" :class="{'retro-category' : retroTheme === true}">evidenziata</span>
-                  nella lista. <br />Una volta creata la categoria, basterà cliccare sul nome di essa, e verrà
-                  evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che scriverai. Per
-                  annullare l'operazione basta cliccare su qualsiasi categoria nel
-                  <span class="category" :class="{'retro-category' : retroTheme === true}">riquadro verde</span> già
-                  esistente.
-                </li>
-                <li>
-                  <span style="color: red">NEW: </span> Puoi trascinare gli elementi e spostarli dove vuoi, basta
-                  cliccare su
-                  <button class="btn custom-show-listbtn">
-                    <img src="./img/drag-and-drop.webp" alt="move" />
-                  </button>
-                  per attivare questa modalità.
-                </li>
-                <li>
-                  <span style="color: red">NEW: </span> - Cliccando sull'icona del carrello
-                  (<i class="fas fa-cart-arrow-down"></i>) puoi selezionare più elementi da eliminare, nel caso volessi
-                  eliminarne più di uno ma non tutti. Ti apparirà in basso a sinistra questo cestino =>
-                  <button class="text-danger border-danger rounded">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                  ed eliminerai solamente gli elementi selezionati che avranno il carrello rosso
-                  (<i class="fas fa-cart-arrow-down selected-for-delete"></i>).
-                </li>
-                <li>
-                  <i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la lista e
-                  incollarla dove vuoi.
-                </li>
-                <li>
-                  Puoi "bloccare" un prodotto cliccandoci sopra, e ti verrà evidenziato
-                  <span class="active">così</span>.
-                  Non potrà essere eliminato. Potrebbe tornarti utile, ad esempio, quando non lo trovi al supermercato e
-                  non vuoi eliminarlo dalla lista.
-                </li>
-                <li>
-                  Se clicchi su <span class="delete-all-description">
-                    cancella tutto <i class="fas fa-skull-crossbones"></i></span>
-                  ti apparirà un riquadro di conferma per l'eliminazione di
-                  <u>TUTTA</u> la lista.
-                </li>
-                <!-- <span>- Se non hai capito un &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; di tutto ciò, non preoccuparti, c'è un video tutorial <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>. </span><br> -->
-                <li v-if="!openVideoTutorial">
-                  Se non hai capito un &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; di tutto ciò, non preoccuparti,
-                  c'è un video tutorial
-                  <span class="show-video" @click="openVideoTutorial = true">cliccando qui.</span>
-                </li>
-                <li class="hide-video" v-if="openVideoTutorial" @click="openVideoTutorial = false">
-                  Nascondi video.
-                </li>
-                <!-- <iframe 
-                  v-if="openVideoTutorial"
-                  width="98%" height="500" 
-                  src="https://www.youtube.com/embed/VSO1k1CUrBY?rel=0&autoplay=1"
-                  frameborder="0" allowfullscreen>prova</iframe><br> -->
-                <video v-if="openVideoTutorial" :class="{'video': !retroTheme}" width="98%" height="500"
-                  poster="./img/favicon.png" controls>
-                  <source src="./video/tutorial-ITA.mp4" type="video/mp4" />
-                  Il tuo device non supporta i video tag. Guardalo su youtube
-                  <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>
-                </video>
-                <!-- <span>- Qui c'è un altro video tutorial per le nuove funzionalità => <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">clicca qui per vederle</a>. </span> -->
-                <li v-if="!openNewFeaturesVideo">
-                  Qui c'è un altro video tutorial per le nuove funzionalità =>
-                  <span class="show-video" @click="openNewFeaturesVideo = true">clicca qui per vederle.</span>
-                </li>
-                <li class="hide-video" v-if="openNewFeaturesVideo" @click="openNewFeaturesVideo = false">
-                  Nascondi video.
-                </li>
-                <!-- <iframe v-if="openNewFeaturesVideo"
-                  width="98%" height="500" 
-                  src="https://www.youtube.com/embed/sv-cseryIMk?rel=0&autoplay=1"
-                  frameborder="0" allowfullscreen></iframe> -->
-                <video v-if="openNewFeaturesVideo" :class="{'video': !retroTheme}" width="98%" height="500"
-                  poster="./img/favicon.png" controls>
-                  <source src="./video/new-features.mp4" type="video/mp4" />
-                  Il tuo device non supporta i video tag. Guardalo su youtube
-                  <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">cliccando qui</a>
-                </video>
-              </ul>
-              <br />
-              <span>Per qualsiasi segnalazione puoi contattarmi: <a
-                  href="mailto:lucarhcp88@hotmail.it">lucarhcp88@hotmail.it</a></span>
-              <p class="privacy-policy">
-                <a href="https://www.iubenda.com/privacy-policy/69702250"
-                  class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy ">
-                  Privacy Policy
-                </a>
-              </p>
-            </div>
-            <!-- ----------------------------------------------HELPER ENG -->
-            <div id="helper-description" v-else>
-              &#x2699; Safe delete mode <br />
-              <li class="ml-4"> (it will ask you to confirm the deletion for each single product on the list):</li>
-              <br />
-              <li class="toggle-delete-confirm-container ml-4" @click="toggleDeleteConfirm()">
-                <u>Click to activate/deactivate</u>
-                <div class="toggle-delete-confirm">&#x1F449;</div>
-                <span class="text-primary">{{canDeleteText}}</span>
-              </li><br /><br />
-              &#x2699; Chosen theme:
-              <span class="text-primary">{{themeName}}</span><br />
-              <li class="ml-4">Change theme:</li><br />
+              <li class="ml-4">{{changeThemeText}}:</li><br />
               <div class="btn-group ml-4" role="group" aria-label="Basic mixed styles example">
                 <button type="button" class="btn btn-light p-1 border border-dark"
                   @click="changeTheme('light')">Light</button>
@@ -330,83 +172,45 @@
               </div>
               <br />
               <div class="share">
-                &#x2699; Share:
+                &#x2699; {{shareText}}:
                 <button class="btn btn-light border-dark share-btn" @click="shareLink()">
                   <img src="img/share.webp" alt="share" />
                 </button>
                 <p class="link-copied" v-if="share.visible === true">{{share.text}}</p>
               </div>
-              <p class="helper-title">Troubleshooting:</p>
-              <small>
-                If you experience slowness or blocks in loading images, check your connection, if it's ok try restarting
-                the app. If the problem
-                persists, report it <a href="mailto:lucarhcp88@hotmail.it">to the email</a> at the bottom of this
-                page.</small>
-              <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Instructions:</p>
-              <ul class="helper-list">
-                <li>
-                  <i class="far fa-paper-plane btn btn-info helper-icon"> </i> is used to add stuff to buy list.
+              <div id="helper-istructions">
+                <!-- QUI C'È TUTTA LA DESCRIZIONE IN BASE ALLA LINGUA. È NEL FILE "helper-istructions.js" -->
+              </div>
+              <ul class="helper-list" v-if="langIta">
+                <li v-if="!openVideoTutorial">
+                  Se non hai capito un &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; di tutto ciò, non preoccuparti,
+                  c'è un video tutorial
+                  <span class="show-video" @click="openVideoTutorial = true">cliccando qui.</span>
                 </li>
-                <li>
-                  With <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i>
-                  you can change a name and save the changes by clicking
-                  <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.
+                <li class="hide-video" v-if="openVideoTutorial" @click="openVideoTutorial = false">
+                  Nascondi video.
                 </li>
-                <li>
-                  With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"> </i>
-                  you will remove stuff from the list.
+                <video v-if="openVideoTutorial" :class="{'video': !retroTheme}" width="98%" height="500"
+                  poster="./img/favicon.png" controls>
+                  <source src="./video/tutorial-ITA.mp4" type="video/mp4" />
+                  Il tuo device non supporta i video tag. Guardalo su youtube
+                  <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>
+                </video>
+                <li v-if="!openNewFeaturesVideo">
+                  Qui c'è un altro video tutorial per le nuove funzionalità =>
+                  <span class="show-video" @click="openNewFeaturesVideo = true">clicca qui per vederle.</span>
                 </li>
-                <li>
-                  <span style="border: none;" class="custom-show-listbtn helper-icon"> + </span> is used to display the
-                  index of
-                  selectable categories.
+                <li class="hide-video" v-if="openNewFeaturesVideo" @click="openNewFeaturesVideo = false">
+                  Nascondi video.
                 </li>
-                <li>
-                  To choose a category just write it (or click on it) and click
-                  <i class="far fa-paper-plane btn btn-info helper-icon"> </i>. You will see
-                  <span class="category" :class="{'retro-category' : retroTheme === true}"> highlighted </span>
-                  in the list. <br />
-                  Once the category has been created, just click on its name, and
-                  <span class="selected"> will be highlighted as well </span>, underneath you will add stuff you write.
-                  To cancel the operation just click on any category in the existing
-                  <span class="category" :class="{'retro-category' : retroTheme === true}"> green box </span>.
-                </li>
-                <li>
-                  <span style="color: red">NEW: </span> You can drag the elements and move them where you want,
-                  just click on
-                  <button class="btn custom-show-listbtn">
-                    <img src="./img/drag-and-drop.webp" alt="move" />
-                  </button>
-                  to activate this mode.
-                </li>
-                <li>
-                  <span style="color: red">NEW: </span> - By clicking on the cart icon
-                  (<i class="fas fa-cart-arrow-down"></i>) you can select multiple
-                  items to delete, in case you want to delete more than one but not all. This trash can will appear at
-                  the bottom left =>
-                  <button class="text-danger border-danger rounded">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                  and you will only delete the elements selected that will have the red cart
-                  (<i class="fas fa-cart-arrow-down selected-for-delete"></i>).
-                </li>
-                <li>
-                  <i class="far fa-copy btn btn-outline-success helper-icon"> </i>
-                  is used to copy the list and paste it wherever you want.
-                </li>
-                <li>
-                  You can "block" a product by clicking on it, and
-                  <span class="active"> will be highlighted as well </span>. It cannot be eliminated.
-                  It might come in handy, for example,
-                  when you can't find it at the supermarket and don't want to remove it from the list.
-                </li>
-                <li>
-                  If you click on
-                  <span class="delete-all-description"> delete all <i class="fas fa-skull-crossbones"> </i> </span>
-                  you will see a confirmation box for the 'delete
-                  <u> ALL </u> the list.
-                </li>
-                <!-- <span> - If you don't understand a  &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; of all this, don't worry, there is a video tutorial <a href="https://www.youtube.com/watch?v=H1E9ynY9f9w" target="_blank"> by clicking here </a>. </span>  -->
+                <video v-if="openNewFeaturesVideo" :class="{'video': !retroTheme}" width="98%" height="500"
+                  poster="./img/favicon.png" controls>
+                  <source src="./video/new-features.mp4" type="video/mp4" />
+                  Il tuo device non supporta i video tag. Guardalo su youtube
+                  <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">cliccando qui</a>
+                </video>
+              </ul>
+              <ul class="helper-list" v-else>
                 <li v-if="!openVideoTutorial">
                   If you don't understand a &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; of all this, don't worry,
                   there is a video tutorial
@@ -415,10 +219,6 @@
                 <li class="hide-video" v-if="openVideoTutorial" @click="openVideoTutorial = false">
                   Hide video.
                 </li>
-                <!-- <iframe v-if="openVideoTutorial"
-                  width="98%" height="500" 
-                  src="https://www.youtube.com/embed/VSO1k1CUrBY?rel=0&autoplay=1"
-                  frameborder="0" allowfullscreen></iframe><br> -->
                 <video v-if="openVideoTutorial" :class="{'video': !retroTheme}" width="98%" height="500"
                   poster="./img/favicon.png" controls>
                   <source src="./video/tutorial-ENG.mp4" type="video/mp4" />
@@ -426,7 +226,6 @@
                   <a href="https://www.youtube.com/watch?v=H1E9ynY9f9w" target="_blank">by clicking
                     here</a>
                 </video>
-                <!-- <span>- Here is another video tutorial for the new features => <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">click here to see it</a>. </span><br><br> -->
                 <li v-if="!openNewFeaturesVideo">
                   Here is another video tutorial for the new features =>
                   <span class="show-video" @click="openNewFeaturesVideo = true">click here to see it.</span>
@@ -434,10 +233,6 @@
                 <li class="hide-video" v-if="openNewFeaturesVideo" @click="openNewFeaturesVideo = false">
                   Hide video.
                 </li>
-                <!-- <iframe v-if="openNewFeaturesVideo"
-                  width="98%" height="500" 
-                  src="https://www.youtube.com/embed/sv-cseryIMk?rel=0&autoplay=1"
-                  frameborder="0" allowfullscreen></iframe> -->
                 <video v-if="openNewFeaturesVideo" :class="{'video': !retroTheme}" width="98%" height="500"
                   poster="./img/favicon.png" controls>
                   <source src="./video/new-features.mp4" type="video/mp4" />
@@ -446,12 +241,10 @@
                 </video>
               </ul>
               <br />
-              <span>
-                For any report you can contact me:
-                <a href="mailto:lucarhcp88@hotmail.it"> lucarhcp88@hotmail.it </a></span>
+              <span>{{emailReportText}}: <a href="mailto:lucarhcp88@hotmail.it">lucarhcp88@hotmail.it</a></span>
               <p class="privacy-policy">
                 <a href="https://www.iubenda.com/privacy-policy/69702250"
-                  class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy">
+                  class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy ">
                   Privacy Policy
                 </a>
               </p>
@@ -658,6 +451,7 @@
       </div>
     </div>
   </div>
+  <script src="helper-istructions.js" charset="utf-8"></script>
   <script type="text/javascript">
     (function (w, d) {
       var loader = function () {
