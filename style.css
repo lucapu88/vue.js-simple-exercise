@@ -630,7 +630,7 @@ li {
 
 .pushbutton-container {
   display: flex;
-  gap: 10px;
+  gap: 25px;
   height: 30px;
   align-items: center;
   margin: 10px;

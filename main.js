@@ -9,8 +9,8 @@ const app = new Vue({
 		categoryList: false,
 		helper: null,
 		christmasTheme: false,
-		placeholder: "Write what to buy",
-		defaultPlaceholderText: "Write what to buy", //per evitare di andarlo a cercare nel codice
+		placeholder: "Write here what to buy",
+		defaultPlaceholderText: "Write here what to buy",
 		copyList: {
 			text: "List copied to clipboard",
 			visible: false,
@@ -93,8 +93,8 @@ const app = new Vue({
 		const langIta = window.localStorage.getItem("langIta");
 		this.langIta = langIta === "true";
 		if (this.langIta) {
-			this.placeholder = "Scrivi cosa comprare";
-			this.defaultPlaceholderText = "Scrivi cosa comprare";
+			this.placeholder = "Scrivi qui cosa comprare";
+			this.defaultPlaceholderText = "Scrivi qui cosa comprare";
 			this.categories = this.itaCategories;
 			this.copyList.text = "Lista copiata negli appunti";
 			this.share.text = "Link copiato negli appunti, incollalo con chi vuoi.";
@@ -458,8 +458,8 @@ const app = new Vue({
 		},
 		setItaliano() {
 			this.langIta = true;
-			this.placeholder = "Scrivi cosa comprare";
-			this.defaultPlaceholderText = "Scrivi cosa comprare";
+			this.placeholder = "Scrivi qui cosa comprare";
+			this.defaultPlaceholderText = "Scrivi qui cosa comprare";
 			this.categories = this.itaCategories;
 			this.copyList.text = "Lista copiata negli appunti";
 			this.share.text = "Link copiato negli appunti, incollalo con chi vuoi.";

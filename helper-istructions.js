@@ -42,24 +42,19 @@ helperIstructionsITA = `
       esistente.
     </li>
     <li>
-      <span style="color: red">NEW: </span> Puoi trascinare gli elementi e spostarli dove
-      vuoi, basta
-      cliccare su
-      <button class="btn custom-show-listbtn">
+      Cliccando su <button class="btn custom-show-listbtn">
         <img src="./img/drag-and-drop.webp" alt="move" />
-      </button>
-      per attivare questa modalità.
+      </button> potrai trascinare gli elementi e spostarli dove
+      vuoi.
     </li>
     <li>
-      <span style="color: red">NEW: </span> - Cliccando sull'icona del carrello
-      (<i class="fas fa-cart-arrow-down"></i>) puoi selezionare più elementi da eliminare,
+      Se clicchi su <i class="fas fa-cart-arrow-down"></i> puoi selezionare più elementi da eliminare,
       nel caso volessi
-      eliminarne più di uno ma non tutti. Ti apparirà in basso a sinistra questo cestino =>
+      eliminarne più di uno ma non tutti. Ti apparirà, in basso a sinistra della lista, questo cestino =>
       <button class="text-danger border-danger rounded">
         <i class="fas fa-trash-alt"></i>
       </button>
-      ed eliminerai solamente gli elementi selezionati che avranno il carrello rosso
-      (<i class="fas fa-cart-arrow-down selected-for-delete"></i>).
+      ed eliminerai solamente gli elementi selezionati che avranno il carrello rosso => <i class="fas fa-cart-arrow-down selected-for-delete"></i>.
     </li>
     <li>
       <i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la
@@ -119,23 +114,19 @@ helperIstructionsENG = `
       <span class="category" :class="{'retro-category' : retroTheme === true}"> green box </span>.
     </li>
     <li>
-      <span style="color: red">NEW: </span> You can drag the elements and move them where you want,
-      just click on
+      By clicking on 
       <button class="btn custom-show-listbtn">
         <img src="./img/drag-and-drop.webp" alt="move" />
-      </button>
-      to activate this mode.
+      </button> you can drag the elements and move them wherever you want.
     </li>
     <li>
-      <span style="color: red">NEW: </span> - By clicking on the cart icon
-      (<i class="fas fa-cart-arrow-down"></i>) you can select multiple
-      items to delete, in case you want to delete more than one but not all. This trash can will appear at
-      the bottom left =>
+      If you click on <i class="fas fa-cart-arrow-down"></i> you can select multiple items to delete,
+      in case you want
+      delete more than one but not all. This basket will appear at the bottom left of the list => 
       <button class="text-danger border-danger rounded">
         <i class="fas fa-trash-alt"></i>
       </button>
-      and you will only delete the elements selected that will have the red cart
-      (<i class="fas fa-cart-arrow-down selected-for-delete"></i>).
+      and you will only delete the selected items that will have the red cart => <i class="fas fa-cart-arrow-down selected-for-delete"></i>.
     </li>
     <li>
       <i class="far fa-copy btn btn-outline-success helper-icon"> </i>
