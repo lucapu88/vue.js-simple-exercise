@@ -23,7 +23,7 @@ helperIstructionsITA = `
       eliminerai roba dalla lista.
     </li>
     <li>
-      <span style="border: none;" class="custom-show-listbtn helper-icon">+</span> serve per
+      <span style="border: none;" class="custom-show-listbtn helper-icon pl-2 pr-2">+</span> serve per
       visualizzare
       l'indice delle
       categorie selezionabili.
@@ -42,7 +42,7 @@ helperIstructionsITA = `
       esistente.
     </li>
     <li>
-      Cliccando su <button class="btn custom-show-listbtn">
+      Cliccando su <button class="btn custom-show-listbtn helper-icon">
         <img src="./img/drag-and-drop.webp" alt="move" />
       </button> potrai trascinare gli elementi e spostarli dove
       vuoi.
@@ -99,7 +99,7 @@ helperIstructionsENG = `
       you will remove stuff from the list.
     </li>
     <li>
-      <span style="border: none;" class="custom-show-listbtn helper-icon"> + </span> is used to display the
+      <span style="border: none;" class="custom-show-listbtn helper-icon pl-2 pr-2"> + </span> is used to display the
       index of
       selectable categories.
     </li>
@@ -115,7 +115,7 @@ helperIstructionsENG = `
     </li>
     <li>
       By clicking on 
-      <button class="btn custom-show-listbtn">
+      <button class="btn custom-show-listbtn helper-icon">
         <img src="./img/drag-and-drop.webp" alt="move" />
       </button> you can drag the elements and move them wherever you want.
     </li>
