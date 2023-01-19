@@ -629,6 +629,18 @@ li {
 .drag-n-drop-text {
   text-align: center;
 }
+.draggable-children {
+  border: 2px solid rgb(106, 161, 3) !important;
+  background-color: rgba(162, 162, 162, 0.36) !important;
+  border-radius: 10px !important;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+}
+.draggable-children-category {
+  background-color: rgba(109, 168, 0, 0.36) !important;
+}
 
 .pushbutton-container {
   display: flex;

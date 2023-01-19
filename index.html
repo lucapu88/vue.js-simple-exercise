@@ -111,13 +111,11 @@
               </button>
             </div>
             <div class="drag-n-drop-text">
-              <small v-if="langIta && isDraggable">Tieni premuto su un elemento
-                della lista e
-                trascinalo dove vuoi
+              <small v-if="langIta && isDraggable">
+                Trascina gli elementi della lista dove vuoi
               </small>
-              <small v-if="!langIta && isDraggable">Press and hold an item in
-                the list and
-                drag it where you want
+              <small v-if="!langIta && isDraggable">
+                Drag the elements of the list where you want
               </small>
             </div>
 
@@ -283,6 +281,8 @@
                     'category': todo.class, 
                     'category-retro': todo.class && retroTheme,
                     'category-minimal': todo.class && minimalTheme,
+                    'draggable-children': isDraggable,
+                    'draggable-children-category': isDraggable && todo.class,
                   }">
                 <div v-if="todo.class && minimalTheme" class="category-emoji-minimal">&#x2022;</div>
                 <div v-if="todo.class && !minimalTheme" class="category-emoji"
