@@ -352,7 +352,7 @@ const app = new Vue({
 			});
 			document.execCommand("copy"); //riprovo/ricopio negli appunti anche qui per sistemare su android (per essere sicuri)
 			this.copyList.visible = true;
-			setTimeout(() => (this.copyList.visible = false), 3500); //cambio il testo del pulsante copia
+			setTimeout(() => (this.copyList.visible = false), 3000); //cambio il testo del pulsante copia
 			navigator.vibrate(400);
 		},
 		shareLink() {
