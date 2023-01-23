@@ -240,12 +240,55 @@
               </ul>
               <br />
               <span>{{emailReportText}}: <a href="mailto:lucarhcp88@hotmail.it">lucarhcp88@hotmail.it</a></span>
-              <p class="privacy-policy">
-                <a href="https://www.iubenda.com/privacy-policy/67363214"
-                  class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe" title="Privacy Policy ">
-                  Privacy Policy
-                </a>
-              </p>
+              <br>
+              <button id="privacy-policy-btn" class="privacy-policy-btn" @click="togglePrivacyPolicy()">
+                <small>Privacy policy</small>
+              </button>
+            </div>
+            <!-- ------------------------------------------PRIVACY POLICY MODAL------------------------------------ -->
+            <div v-if="privacyPolicy" id="privacy-policy-modal" class="modal">
+              <div class="privacy-modal-content">
+                <span class="close" @click="togglePrivacyPolicy()">&times;</span>
+                <div class="privacy-modal-header">
+                  <h2 class="text-center">Privacy Policy of Shopping List</h2>
+                  <small>Application collects some Personal Data from its
+                    Users.</small>
+                </div>
+                <div class="privacy-modal-main">
+                  <strong>
+                    Personal Data processed for the following purposes and using
+                    the following services:
+                  </strong>
+                  <hr>
+                  <p class="text-center">
+                    <strong>Displaying content from external platforms</strong>
+                  </p>
+                  <strong>Font Awesome and Google Fonts</strong>
+                  <p>Personal Data: Trackers; Usage Data</p>
+                  <hr>
+                  <p class="text-center">
+                    <strong>Hosting and backend infrastructure</strong>
+                  </p>
+                  <strong>GitHub Pages</strong>
+                  <p>
+                    Personal Data: various types of Data as specified in the privacy policy of the
+                    service
+                  </p>
+                  <hr>
+                  <p class="text-center">
+                    <strong>Contact information</strong>
+                  </p>
+                  <p>Owner: Luca Caputo</p>
+                  <p>Contact email: lucarhcp88@hotmail.it</p>
+                </div>
+                <div class="privacy-modal-footer">
+                  <p>Latest update: 23 January 2023</p>
+                  <a href="https://www.privacypolicygenerator.info/live.php?token=XdQQ3qcxNezVaYoGNfhFaO3myEgLXuNt"
+                    rel="noopener noreferrer">
+                    Show the complete Privacy Policy
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 

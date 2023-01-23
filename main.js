@@ -81,6 +81,7 @@ const app = new Vue({
 		needDragNDropBtn: false,
 		openVideoTutorial: false,
 		openNewFeaturesVideo: false,
+		privacyPolicy: false,
 	},
 	created() {
 		this.categories = this.engCategories; //setto le categorie di default
@@ -604,6 +605,9 @@ const app = new Vue({
 			intVersion <= 11
 				? (this.needDragNDropBtn = true)
 				: (this.isDraggable = true);
+		},
+		togglePrivacyPolicy() {
+			this.privacyPolicy = !this.privacyPolicy;
 		},
 	},
 });
