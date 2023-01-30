@@ -370,6 +370,7 @@ const app = new Vue({
 			setTimeout(() => (this.share.visible = false), 5000);
 		},
 		showCategoryList() {
+			this.removeSelectedCategoryToAddItem();
 			this.categoryList = !this.categoryList;
 			this.isDraggable = false;
 		},
