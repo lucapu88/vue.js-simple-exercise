@@ -247,6 +247,7 @@ const app = new Vue({
 		},
 		selectCategoryName(categoryName) {
 			this.newTodo = categoryName;
+			this.addTodo();
 		},
 		addTodo() {
 			if (!this.newTodo) {
