@@ -326,6 +326,7 @@
                     'category-minimal': todo.class && minimalTheme,
                     'draggable-children': isDraggable,
                     'draggable-children-category': isDraggable && todo.class,
+                    'todo-added': todo.todoAdded,
                   }">
                 <div v-if="todo.class && minimalTheme" class="category-emoji-minimal">&#x2022;</div>
                 <div v-if="todo.class && !minimalTheme" class="category-emoji"
@@ -381,6 +382,7 @@
                   'category': todo.class, 
                   'category-retro': todo.class && retroTheme,
                   'category-minimal': todo.class && minimalTheme,
+                  'todo-added': todo.todoAdded,
                 }">
               <div v-if="todo.class && minimalTheme" class="category-emoji-minimal">&#x2022;</div>
               <div v-if="todo.class && !minimalTheme" class="category-emoji"

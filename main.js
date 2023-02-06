@@ -214,11 +214,13 @@ const app = new Vue({
 		if (!this.addTodoInCategory.condition) {
 			this.todos.map((t) => (t.isSelected = false));
 		}
+		this.changeTotoAdded(this.todos);
 	},
 	updated() {
 		this.toggleButtonBackToTop();
 		this.toggleButtonDeleteSelectedTodo();
 	},
+
 	methods: {
 		merryChristmasTheme() {
 			//solo per tutto il mese di natale ci saranno immagini natalizie
@@ -233,10 +235,10 @@ const app = new Vue({
 		myFilter(n) {
 			if (!this.todos[n].class) {
 				//al click setta la proprietà del singolo todo isActive (evidenzia rosso l'elemento cliccato)
-				if (!this.todos[n].multipleDelete) {
-					this.todos[n].isActive = !this.todos[n].isActive; //la proprietà è di default false, quindi al click, il todo passa da isActive =false a =true e viceversa
-					this.todos[n].isDisabled = !this.todos[n].isDisabled; //disabilito i pulsanti
-				}
+				this.todos[n].multipleDelete = false;
+				this.todos[n].isActive = !this.todos[n].isActive;
+				this.todos[n].isDisabled = !this.todos[n].isDisabled; //disabilito i pulsanti
+
 				this.saveTodos();
 			}
 		}, //PS.: questa funzione è ripetuta uguale qui sotto, potevo farne una che passasse le proprietà "isActive" e "isHidden" come parametri insieme ad "n", ma la differenza sta nel fatto che con "myFilter" voglio salvare il tutto così che al refresh della pagina non si azzera niente, mentre con "toggleHidden" non voglio salvare nulla, anzi deve azzerarsi al refresh.
@@ -271,11 +273,19 @@ const app = new Vue({
 				class: this.categoryClass,
 				emojy: this.categoryEmoji,
 				multipleDelete: false,
+				todoAdded: true,
 			};
 
 			!this.addTodoInCategory.condition
 				? this.todos.push(todoObject)
 				: this.todos.splice(this.addTodoInCategory.id + 1, 0, todoObject);
+
+			this.scrollToBottom();
+
+			setTimeout(() => {
+				//faccio questo per crearmi un'animazione visibile per un lasso di tempo appena si aggiunge un todo
+				this.changeTotoAdded(this.todos);
+			}, 1500);
 
 			this.newTodo = "";
 			this.categoryClass = false;
@@ -307,6 +317,13 @@ const app = new Vue({
 
 			navigator.vibrate(220);
 		},
+		changeTotoAdded(arr) {
+			arr.forEach(function (item) {
+				if (item.todoAdded === true) {
+					item.todoAdded = false;
+				}
+			});
+		},
 		toggleButtonBackToTop() {
 			//mostro o nascondo, in base alla lunghezza del display, il pulsante che porta in cima alla lista
 			const list = document.getElementById("todo-list");
@@ -318,6 +335,16 @@ const app = new Vue({
 		},
 		scrollTop() {
 			document.getElementById("container-list").scrollTo(0, 0);
+		},
+		scrollToBottom() {
+			/*se è visibile il pulsante che scrolla verso l'alto e se non è stata selezionata nessuna categoria, 
+				si suppone che l'elemento aggiunto sia in fondo alla lista e quindi scrollo direttamente verso il fondo per farlo notare*/
+			const todoSelected = this.todos.find((t) => t.isSelected === true);
+			if (this.buttonBackToTop && !todoSelected) {
+				document
+					.getElementById("container-list")
+					.scrollTo(0, document.body.scrollHeight);
+			}
 		},
 		modifyTodo(x, y, todo) {
 			this.todos.splice(x, 1);
@@ -388,11 +415,11 @@ const app = new Vue({
 			}
 		},
 		selectTodoForDelete(index) {
-			if (!this.todos[index].isActive) {
-				this.todos[index].multipleDelete = !this.todos[index].multipleDelete;
-				this.toggleButtonDeleteSelectedTodo();
-				this.saveTodos();
-			}
+			this.todos[index].isActive = false;
+			this.todos[index].isDisabled = false;
+			this.todos[index].multipleDelete = !this.todos[index].multipleDelete;
+			this.toggleButtonDeleteSelectedTodo();
+			this.saveTodos();
 		},
 		toggleButtonDeleteSelectedTodo() {
 			this.todos.some((el) => el.multipleDelete)
