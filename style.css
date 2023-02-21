@@ -19,7 +19,7 @@ body {
   padding-bottom: 10%;
 }
 
-/* HEADER */
+/* ----------------------------------------------HEADER--------------------------------------- */
 .christmas-theme {
   width: 100%;
   position: absolute;
@@ -130,7 +130,7 @@ body {
   max-width: 250px;
 }
 
-/* HELPER */
+/* --------------------------------------------HELPER------------------------------------ */
 .helper {
   position: absolute;
   top: 0;
@@ -404,7 +404,7 @@ body {
   cursor: pointer;
 }
 
-/* CATEGORY */
+/* -----------------------------------------------CATEGORY------------------------------------- */
 .category-list-container {
   width: 365px;
   text-align: center;
@@ -522,7 +522,7 @@ body {
   width: 20px;
 }
 
-/* TODO LIST */
+/* -------------------------------------------------TODO LIST-------------------------------------- */
 .todo {
   text-transform: uppercase;
   font-size: 20px;
@@ -623,7 +623,7 @@ body {
   width: 20px;
 }
 
-/* VARIE */
+/* -------------------------------------VARIE--------------------------------------- */
 li {
   display: inline-block;
 }
@@ -698,7 +698,8 @@ li {
   border: 1px solid transparent !important;
 }
 
-/* TEMI */
+/* ----------------------------------------TEMI------------------------------------ */
+/* DARK */
 .dark-theme-title {
   background: -webkit-radial-gradient(circle, #ffffff 0%, #ffffff 95%);
   -webkit-background-clip: text;
@@ -729,6 +730,7 @@ li {
   background-color: #ffffff;
 }
 
+/* MINIMAL */
 .minimal-theme-title {
   background: -webkit-radial-gradient(circle, #243a73 0%, #243a73 95%);
   -webkit-background-clip: text;
@@ -788,6 +790,7 @@ li {
   font-weight: bold;
 }
 
+/* DOS */
 .retro-theme-title {
   background: -webkit-radial-gradient(circle, #35c50d 0%, #35c50d 95%);
   -webkit-background-clip: text;
@@ -805,6 +808,13 @@ li {
   color: #35c50d;
   border: 1px solid #35c50d;
   min-width: 45px;
+}
+.retro-teme-btns {
+  background-color: #35c50d;
+  color: #000000;
+  font-weight: bold;
+  border: 1px solid #35c50d;
+  border-radius: 0;
 }
 .retro-theme-helper {
   background-image: none;
@@ -840,11 +850,21 @@ li {
   border-radius: 0 !important;
   margin: 5px 5px;
 }
-.retro-theme-confirm > button {
-  background-color: #c0c0c0;
+.retro-theme-confirm-delete {
+  /* border-top: 1px solid #35c50d;
+  border-bottom: 1px solid #35c50d;
+  border-left: 1px dashed #35c50d;
+  border-right: 1px dashed #35c50d; */
+  border: 1px dashed #ffffff; 
+  background-color: #042457;
+  color: #ffffff;
   background-image: none;
-  color: #000000;
-  border: 3px #ffffff outset;
+  border-radius: 0 !important;
+}
+.retro-theme-confirm-delete > button {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background-color:#042457;
   border-radius: 0 !important;
 }
 .retro-theme-back-top {
@@ -871,11 +891,13 @@ li {
   color: #35c50d;
 }
 
+/* SUMMER */
 .summer-theme {
   background-color: #12a1df !important;
   color: #efcb8f;
 }
 
+/* WINTER */
 .winter-theme {
   background-color: #d5effa !important;
   color: #6d3001;
@@ -883,9 +905,12 @@ li {
 .winter-theme-back-top {
   background-color: #ffffff;
 }
+.winter-shadow {
+  filter: drop-shadow(black 2px 4px 6px);
+}
 
 
-/* PRIVACY POLICY MODALE */
+/* --------------------------------------------------PRIVACY POLICY MODALE-------------------------- */
 
 .modal {
   display: block;

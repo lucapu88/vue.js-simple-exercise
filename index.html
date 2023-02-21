@@ -95,17 +95,21 @@
                 'btn-selected': isDraggable, 
                 'minimal-btn': minimalTheme, 
                 'minimal-selected-btn': minimalTheme && isDraggable,
+                'retro-teme-btns': retroTheme,
               }" @click="toggleDragDrop()">
                 <img src="./img/drag-and-drop.webp" alt="move" />
               </button>
               <!--PULSANTE COPIA LISTA-->
-              <button class="btn btn-outline-success" :class="{'minimal-btn': minimalTheme, 'retro-btn': retroTheme}"
-                @click="copy()"><i class="far fa-copy"></i><br /></button>
+              <button class="btn btn-outline-success"
+                :class="{'minimal-btn': minimalTheme, 'retro-teme-btns': retroTheme,}" @click="copy()"><i
+                  class="far fa-copy"></i><br /></button>
               <!--PULSANTE MOSTRA CATEGORIE -->
               <button class="btn custom-show-listbtn" :class="{
                 'btn-selected': categoryList, 
                 'minimal-btn': minimalTheme, 
-                'minimal-selected-btn': minimalTheme && categoryList,}" @click="showCategoryList()">
+                'minimal-selected-btn': minimalTheme && categoryList,
+                'retro-teme-btns': retroTheme,
+              }" @click="showCategoryList()">
                 <span v-if="!categoryList">+</span>
                 <span v-else>-</span>
               </button>
@@ -317,7 +321,7 @@
           <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
 
           <!-- TODO LIST DRAGGABILE-->
-          <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme}">
+          <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme, 'winter-shadow': winterTheme}">
             <draggable v-if="isDraggable" class="drag-n-drop" id="draggable" v-model="todos"
               @start="drag=true; removeSelectedCategoryToAddItem()" @end="drag=false; saveTodos()">
               <div v-for="(todo, n) in todos" id="draggable-children" class="todo-n" :class="{
@@ -438,15 +442,15 @@
                 'christmas': christmasTheme,
                 'dark-theme-confirm': darkTheme,
                 'minimal-theme-confirm': minimalTheme,
-                'retro-theme-confirm': retroTheme,
+                'retro-theme-confirm-delete': retroTheme,
               }" v-if="!visible">
             <p v-if="langIta">
-              <i class="fas fa-trash-alt text-danger"></i>
-              Sei sicuro di voler eliminare tutta la lista?
+              <i class="fas fa-trash-alt" :class="{'text-danger': !retroTheme, 'text-warning': retroTheme}"></i>
+              Sei sicuro di voler eliminare <br> tutta la lista?
             </p>
             <p v-else>
               <i class="fas fa-trash-alt text-danger"></i>
-              Are you sure you want to delete the whole list?
+              Are you sure you want <br> delete the whole list?
             </p>
             <button class="btn btn-primary" v-on:click="visible = true" @click="removeAllTodo()">
               <span v-if="langIta">SI</span>
