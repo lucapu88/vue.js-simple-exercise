@@ -196,22 +196,9 @@
                 </li>
                 <video v-if="openVideoTutorial" :class="{'video': !retroTheme}" width="98%" height="500"
                   poster="./img/favicon.png" controls>
-                  <source src="./video/tutorial-ITA.mp4" type="video/mp4" />
+                  <source src="./video/ITA.mp4" type="video/mp4" />
                   Il tuo device non supporta i video tag. Guardalo su youtube
                   <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>
-                </video>
-                <li v-if="!openNewFeaturesVideo">
-                  Qui c'è un altro video tutorial per le nuove funzionalità =>
-                  <span class="show-video" @click="openNewFeaturesVideo = true">clicca qui per vederle.</span>
-                </li>
-                <li class="hide-video" v-if="openNewFeaturesVideo" @click="openNewFeaturesVideo = false">
-                  Nascondi video.
-                </li>
-                <video v-if="openNewFeaturesVideo" :class="{'video': !retroTheme}" width="98%" height="500"
-                  poster="./img/favicon.png" controls>
-                  <source src="./video/new-features.mp4" type="video/mp4" />
-                  Il tuo device non supporta i video tag. Guardalo su youtube
-                  <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">cliccando qui</a>
                 </video>
               </ul>
               <ul class="helper-list" v-else>
@@ -225,23 +212,10 @@
                 </li>
                 <video v-if="openVideoTutorial" :class="{'video': !retroTheme}" width="98%" height="500"
                   poster="./img/favicon.png" controls>
-                  <source src="./video/tutorial-ENG.mp4" type="video/mp4" />
+                  <source src="./video/ENG.mp4" type="video/mp4" />
                   Your device does not support the video tag. Watch on youtube
                   <a href="https://www.youtube.com/watch?v=H1E9ynY9f9w" target="_blank">by clicking
                     here</a>
-                </video>
-                <li v-if="!openNewFeaturesVideo">
-                  Here is another video tutorial for the new features =>
-                  <span class="show-video" @click="openNewFeaturesVideo = true">click here to see it.</span>
-                </li>
-                <li class="hide-video" v-if="openNewFeaturesVideo" @click="openNewFeaturesVideo = false">
-                  Hide video.
-                </li>
-                <video v-if="openNewFeaturesVideo" :class="{'video': !retroTheme}" width="98%" height="500"
-                  poster="./img/favicon.png" controls>
-                  <source src="./video/new-features.mp4" type="video/mp4" />
-                  Your device does not support the video tag. Watch on youtube
-                  <a href="https://www.youtube.com/watch?v=sv-cseryIMk" target="_blank">by clicking here</a>
                 </video>
               </ul>
               <br />

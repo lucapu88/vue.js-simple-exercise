@@ -80,7 +80,6 @@ const app = new Vue({
 		isDraggable: false,
 		needDragNDropBtn: false,
 		openVideoTutorial: false,
-		openNewFeaturesVideo: false,
 		privacyPolicy: false,
 	},
 	created() {
@@ -411,7 +410,6 @@ const app = new Vue({
 				document.getElementById("helper-description").scrollTo(0, 0);
 				document.documentElement.style.overflow = "auto";
 				this.openVideoTutorial = false;
-				this.openNewFeaturesVideo = false;
 			}
 		},
 		selectTodoForDelete(index) {
