@@ -250,6 +250,19 @@ const app = new Vue({
 			this.newTodo = categoryName;
 			this.addTodo();
 		},
+		insertAllCategories() {
+			if (this.langIta) {
+				this.itaCategories.forEach((category) => {
+					this.newTodo = category.name;
+					this.addTodo();
+				});
+			} else {
+				this.engCategories.forEach((category) => {
+					this.newTodo = category.name;
+					this.addTodo();
+				});
+			}
+		},
 		addTodo() {
 			if (!this.newTodo) {
 				//solo se scrivo qualcosa lo aggiunge

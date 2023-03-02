@@ -277,22 +277,35 @@
             'retro-theme-confirm': retroTheme,
             'light-theme-confirm': lightTheme,
           }">
-            <p v-if="langIta" class="category-list-description" :class="{
+            <div class="categories">
+              <p v-if="langIta" class="category-list-description" :class="{
                   'blue-text': !retroTheme && !minimalTheme,
                   'retro-helper-settings-title': retroTheme
                 }">
-              Scegli una categoria tra queste:
-            </p>
-            <p v-if="!langIta" class="category-list-description" :class="{
+                Scegli una categoria tra queste:
+              </p>
+              <p v-if="!langIta" class="category-list-description" :class="{
                   'blue-text': !retroTheme && !minimalTheme,
                   'retro-helper-settings-title': retroTheme
                 }">
-              Choose a category among these:
-            </p>
-            <p class="category-list" :class="{'animation-no-retro': !retroTheme}" v-for="(category, i) in categories"
-              :key="i">
-              <span @click="selectCategoryName(category.name)">{{category.name}},&nbsp; </span>
-            </p>
+                Choose a category among these:
+              </p>
+              <p class="category-list" :class="{'animation-no-retro': !retroTheme}" v-for="(category, i) in categories"
+                :key="i">
+                <span @click="selectCategoryName(category.name)">{{category.name}},&nbsp; </span>
+              </p>
+            </div>
+
+            <button class="insert-all-btn" :class="{ 
+                'light-btn': lightTheme,
+                'dark-btn': darkTheme,
+                'summer-btn': summerTheme,
+                'winter-btn': winterTheme,
+                'minimal-btn': minimalTheme,
+              }" @click="insertAllCategories()">
+              <span v-if="langIta">Inserisci tutte</span>
+              <span v-else>Insert all</span>
+            </button>
           </div>
           <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
 
