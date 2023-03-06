@@ -5,6 +5,7 @@ const app = new Vue({
 	data: {
 		todos: [], //conterrà gli elementi che noi digitiamo
 		newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
+		copiedTodo: null,
 		visible: true, //serve per la visibilità del contenitore dell'alert
 		categoryList: false,
 		helper: null,
@@ -206,6 +207,7 @@ const app = new Vue({
 			//se si deve prendere un oggetto da salvare in locale
 			try {
 				this.todos = JSON.parse(window.localStorage.getItem("todos")); //prova a trasformare l'array in un oggetto javascript
+				this.resetModify(); //lo faccio qui perchè altrimenti non funzionerebbe il tasto del modifica todo per gli utenti con elementi vecchi inseriti nella lista
 			} catch (e) {
 				window.localStorage.removeItem("todos"); //se viene trovato un errore, rimuovi l'oggetto (o meglio, non salvare niente)
 			}
@@ -240,11 +242,6 @@ const app = new Vue({
 
 				this.saveTodos();
 			}
-		}, //PS.: questa funzione è ripetuta uguale qui sotto, potevo farne una che passasse le proprietà "isActive" e "isHidden" come parametri insieme ad "n", ma la differenza sta nel fatto che con "myFilter" voglio salvare il tutto così che al refresh della pagina non si azzera niente, mentre con "toggleHidden" non voglio salvare nulla, anzi deve azzerarsi al refresh.
-		toggleHidden(n) {
-			//al click rende visibile o invisibile un elemento (il riquadro del cancella)
-			this.todos[n].isHidden = !this.todos[n].isHidden;
-			this.removeSelectedCategoryToAddItem();
 		},
 		selectCategoryName(categoryName) {
 			this.newTodo = categoryName;
@@ -279,12 +276,12 @@ const app = new Vue({
 
 			const todoObject = {
 				name: this.newTodo.trim(),
-				isHidden: true,
 				isActive: false,
 				isSelected: false,
 				class: this.categoryClass,
 				emojy: this.categoryEmoji,
 				multipleDelete: false,
+				modify: false,
 				todoAdded: true,
 			};
 
@@ -307,6 +304,7 @@ const app = new Vue({
 			this.saveTodos();
 			this.toggleButtonBackToTop();
 			this.toggleButtonDeleteSelectedTodo();
+			this.resetModify();
 		},
 		removeTodo(x, todo) {
 			this.removeSelectedCategoryToAddItem();
@@ -358,10 +356,30 @@ const app = new Vue({
 					.scrollTo(0, document.body.scrollHeight);
 			}
 		},
-		modifyTodo(x, y, todo) {
+		modifyTodo(n) {
+			this.resetModify(this.copiedTodo);
+			this.todos[n].modify = !this.todos[n].modify;
+			this.copiedTodo = Object.assign({}, this.todos[n]);
+			this.removeSelectedCategoryToAddItem();
+		},
+		undoChanges(n) {
+			this.todos[n].name = this.copiedTodo.name;
+			this.todos[n].modify = false;
+		},
+		resetModify(copiedTodo) {
+			const todoEmpty = this.todos.find((todo) => todo.modify);
+			if (copiedTodo && todoEmpty) {
+				/*se ho ricevuto una copia di un todo vuol dire che sto abbandonando il vecchio todo senza salvare, 
+				quindi il vecchio todo riprende il nome che aveva, ovvero quello della copia e poi dopo setto tutti i todo in modifica a false*/
+				todoEmpty.name = copiedTodo.name;
+			}
+			this.todos.forEach((todo) => (todo.modify = false));
+		},
+		saveModifiedTodo(x, y, todo) {
 			this.todos.splice(x, 1);
 			this.todos.splice(x, 0, y);
 			this.saveTodos();
+			this.todos[x].modify = false;
 		},
 		saveTodos() {
 			const parsedTodos = JSON.stringify(this.todos);
@@ -426,6 +444,9 @@ const app = new Vue({
 			}
 		},
 		selectTodoForDelete(index) {
+			if (this.todos[index].modify) {
+				return;
+			}
 			this.todos[index].isActive = false;
 			this.todos[index].isDisabled = false;
 			this.todos[index].multipleDelete = !this.todos[index].multipleDelete;
@@ -634,6 +655,7 @@ const app = new Vue({
 		toggleDragDrop() {
 			this.isDraggable = !this.isDraggable;
 			this.categoryList = false;
+			this.resetModify();
 			this.removeSelectedCategoryToAddItem();
 		},
 		getAndroidVersion(ua) {

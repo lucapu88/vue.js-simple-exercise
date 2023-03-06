@@ -326,45 +326,49 @@
                   :class="{'category-emoji-selected': todo.isSelected}">
                   {{todo.emojy}}
                 </div>
-                <i v-else class="fas fa-cart-arrow-down mr-3 ml-1" :class="{
-                      'hide-minimal-icon': minimalTheme,
-                      'selected-for-delete': todo.multipleDelete
-                    }" @click="selectTodoForDelete(n)"></i>
-                <span v-if="minimalTheme && !todo.class" class="mr-4 ml-1" @click="selectTodoForDelete(n)"> - </span>
-                <li class="todo" id="todo" @click="myFilter(n); 
-                      selectCategoryToAddItem(n, todo)" :class="{
-                      'active': todo.isActive, 
-                      'selected': todo.isSelected,
-                      'line-through': todo.multipleDelete && !retroTheme
-                    }">
+                <i v-if="!todo.class && !minimalTheme && !todo.modify" class="fas fa-cart-arrow-down mr-3 ml-1" :class="{
+                    'hide-minimal-icon': minimalTheme,
+                    'selected-for-delete': todo.multipleDelete
+                  }" @click="selectTodoForDelete(n)"></i>
+                <span v-if="minimalTheme && !todo.class && !todo.modify" class="mr-4 ml-1"
+                  @click="selectTodoForDelete(n)"> - </span>
+                <li v-if="!todo.modify" class="todo" id="todo" @click="myFilter(n); 
+                    selectCategoryToAddItem(n, todo)" :class="{
+                    'active': todo.isActive, 
+                    'selected': todo.isSelected,
+                    'line-through': todo.multipleDelete && !retroTheme
+                  }">
                   {{ todo.name }}
                 </li>
                 <!--CONTENITORE PULSANTI (edit, delete, modify)-->
                 <li class="button-container bg-light" :class="{
-                      'minimal-btn': minimalTheme,
-                      'retro-btn': retroTheme, 
-                      'categoryActive' : todo.class
-                    }">
-                  <!-- MODIFICA-->
-                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="toggleHidden(n)"
-                    v-if="todo.isHidden == true && !todo.class" :class="todo.isDisabled ? 'disabled' : '' "
-                    :disabled="!!todo.isDisabled">
+                    'minimal-btn': minimalTheme,
+                    'retro-btn': retroTheme, 
+                    'categoryActive': todo.class,
+                    'modify': todo.modify,
+                  }">
+                  <!-- PULSANTE MODIFICA-->
+                  <button class="btn btn-primary rounded-circle btn-sm" @click="modifyTodo(n)"
+                    v-if="!todo.modify && !todo.class" :class="todo.isDisabled ? 'disabled' : '' "
+                    :disabled="!!todo.isDisabled || todo.multipleDelete">
                     <i class="fas fa-pencil-alt"></i>
                   </button>
-                  <!--ELIMINA -->
-                  <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="todo.isHidden == true"
-                    @click="removeTodo(n, todo)" :class="todo.isDisabled ? 'disabled' : '' "
-                    :disabled="!!todo.isDisabled">
+                  <!--PULSANTE ELIMINA -->
+                  <button class="btn btn-primary rounded-circle btn-sm" v-if="!todo.modify" @click="removeTodo(n, todo)"
+                    :class="todo.isDisabled ? 'disabled' : '' " :disabled="!!todo.isDisabled">
                     <i class="fas fa-trash-alt"></i>
                   </button>
                   <!-- INPUT MODIFICA -->
-                  <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
-                  <input class="modify-input ml-2 border border-primary rounded" v-if="todo.isHidden == false"
+                  <input class="modify-input border border-primary rounded" v-if="todo.modify"
                     v-model.trim="todo.name" />
-                  <!-- SALVA MODIFICHE -->
-                  <button class="ml-1 btn btn-success rounded-circle btn-sm" :disabled="todo.name.length === 0"
-                    @click="toggleHidden(n)" v-if="todo.isHidden ==false" v-on:click="modifyTodo(n, todo, todo.name)">
+                  <!--PULSANTE SALVA MODIFICHE -->
+                  <button class="btn btn-success rounded-circle btn-sm" v-if="todo.modify"
+                    :disabled="todo.name.length === 0" @click="saveModifiedTodo(n, todo, todo.name)">
                     <i class="far fa-save"></i>
+                  </button>
+                  <!--PULSANTE ANNULLA MODIFICHE -->
+                  <button class="btn btn-danger rounded-circle btn-sm" v-if="todo.modify" @click="undoChanges(n)">
+                    X
                   </button>
                 </li>
               </div>
@@ -382,12 +386,13 @@
                 :class="{'category-emoji-selected': todo.isSelected}">
                 {{todo.emojy}}
               </div>
-              <i v-else class="fas fa-cart-arrow-down mr-3 ml-1" :class="{
+              <i v-if="!todo.class && !minimalTheme && !todo.modify" class="fas fa-cart-arrow-down mr-3 ml-1" :class="{
                     'hide-minimal-icon': minimalTheme,
                     'selected-for-delete': todo.multipleDelete
                   }" @click="selectTodoForDelete(n)"></i>
-              <span v-if="minimalTheme && !todo.class" class="mr-4 ml-1" @click="selectTodoForDelete(n)"> - </span>
-              <li class="todo" id="todo" @click="myFilter(n); 
+              <span v-if="minimalTheme && !todo.class && !todo.modify" class="mr-4 ml-1"
+                @click="selectTodoForDelete(n)"> - </span>
+              <li v-if="!todo.modify" class="todo" id="todo" @click="myFilter(n); 
                     selectCategoryToAddItem(n, todo)" :class="{
                     'active': todo.isActive, 
                     'selected': todo.isSelected,
@@ -399,28 +404,30 @@
               <li class="button-container bg-light" :class="{
                     'minimal-btn': minimalTheme,
                     'retro-btn': retroTheme, 
-                    'categoryActive' : todo.class
+                    'categoryActive': todo.class,
+                    'modify': todo.modify,
                   }">
-                <!-- MODIFICA-->
-                <button class="ml-1 btn btn-primary rounded-circle btn-sm" @click="toggleHidden(n)"
-                  v-if="todo.isHidden == true && !todo.class" :class="todo.isDisabled ? 'disabled' : '' "
-                  :disabled="!!todo.isDisabled">
+                <!-- PULSANTE MODIFICA-->
+                <button class="btn btn-primary rounded-circle btn-sm" @click="modifyTodo(n)"
+                  v-if="!todo.modify && !todo.class" :class="todo.isDisabled ? 'disabled' : '' "
+                  :disabled="!!todo.isDisabled || todo.multipleDelete">
                   <i class="fas fa-pencil-alt"></i>
                 </button>
-                <!--ELIMINA -->
-                <button class="ml-1 btn btn-primary rounded-circle btn-sm" v-if="todo.isHidden == true"
-                  @click="removeTodo(n, todo)" :class="todo.isDisabled ? 'disabled' : '' "
-                  :disabled="!!todo.isDisabled">
+                <!--PULSANTE ELIMINA -->
+                <button class="btn btn-primary rounded-circle btn-sm" v-if="!todo.modify" @click="removeTodo(n, todo)"
+                  :class="todo.isDisabled ? 'disabled' : '' " :disabled="!!todo.isDisabled">
                   <i class="fas fa-trash-alt"></i>
                 </button>
                 <!-- INPUT MODIFICA -->
-                <i class="fas fa-shopping-cart ml-2 text-info" v-if="todo.isHidden == false"></i>
-                <input class="modify-input ml-2 border border-primary rounded" v-if="todo.isHidden == false"
-                  v-model.trim="todo.name" />
-                <!-- SALVA MODIFICHE -->
-                <button class="ml-1 btn btn-success rounded-circle btn-sm" :disabled="todo.name.length === 0"
-                  @click="toggleHidden(n)" v-if="todo.isHidden ==false" v-on:click="modifyTodo(n, todo, todo.name)">
+                <input class="modify-input border border-primary rounded" v-if="todo.modify" v-model.trim="todo.name" />
+                <!--PULSANTE SALVA MODIFICHE -->
+                <button class="btn btn-success rounded-circle btn-sm" v-if="todo.modify"
+                  :disabled="todo.name.length === 0" @click="saveModifiedTodo(n, todo, todo.name)">
                   <i class="far fa-save"></i>
+                </button>
+                <!--PULSANTE ANNULLA MODIFICHE -->
+                <button class="btn btn-danger rounded-circle btn-sm" v-if="todo.modify" @click="undoChanges(n)">
+                  X
                 </button>
               </li>
             </div>
