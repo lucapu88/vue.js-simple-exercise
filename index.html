@@ -10,6 +10,7 @@
   <!-- preload immagini -->
   <link rel="preload" as="image" href="img/foglio.webp" />
   <link rel="preload" as="image" href="img/foglio_righe.webp" />
+  <link rel="preload" as="image" href="img/close.webp" />
   <link rel="preload" as="image" href="img/inverno.webp" />
   <link rel="preload" as="image" href="img/mare.webp" />
   <link rel="preload" as="image" href="img/montagne.webp" />
@@ -427,7 +428,7 @@
                 </button>
                 <!--PULSANTE ANNULLA MODIFICHE -->
                 <button class="btn btn-danger rounded-circle btn-sm" v-if="todo.modify" @click="undoChanges(n)">
-                  X
+                  <img class="undo" src="img/close.webp" alt="close">
                 </button>
               </li>
             </div>
