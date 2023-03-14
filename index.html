@@ -291,9 +291,9 @@
                 }">
                 Choose a category among these:
               </p>
-              <p class="category-list" :class="{'animation-no-retro': !retroTheme}" v-for="(category, i) in categories"
-                :key="i">
-                <span @click="selectCategoryName(category.name)">{{category.name}},&nbsp; </span>
+              <p class="category-list" :class="{'animation-no-retro': !retroTheme, 'retro-category-list': retroTheme}"
+                v-for="(category, i) in categories" :key="i">
+                <span @click="selectCategoryName(category.name)">{{category.name}}</span>
               </p>
             </div>
 
