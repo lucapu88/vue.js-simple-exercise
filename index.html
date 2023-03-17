@@ -291,18 +291,22 @@
                 }">
                 Choose a category among these:
               </p>
-              <p class="category-list" :class="{'animation-no-retro': !retroTheme, 'retro-category-list': retroTheme}"
-                v-for="(category, i) in categories" :key="i">
-                <span @click="selectCategoryName(category.name)">{{category.name}}</span>
+              <p class="category-list" :class="{'retro-category-list': retroTheme}" v-for="(category, i) in categories"
+                :key="i">
+                <span :class="{'animation-no-retro': !retroTheme, 'winter-category-list': winterTheme}"
+                  @click="selectCategoryName(category.name)">
+                  {{(minimalTheme || retroTheme) ? category.name : category.emojy + " " + category.name}}
+                </span>
               </p>
             </div>
 
             <button class="insert-all-btn" :class="{ 
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
+                'minimal-btn': minimalTheme,
+                'retro-insert-all-btn': retroTheme,
                 'summer-btn': summerTheme,
                 'winter-btn': winterTheme,
-                'minimal-btn': minimalTheme,
               }" @click="insertAllCategories()">
               <span v-if="langIta">Inserisci tutte</span>
               <span v-else>Insert all</span>
