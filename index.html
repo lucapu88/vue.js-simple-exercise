@@ -10,6 +10,7 @@
   <!-- preload immagini -->
   <link rel="preload" as="image" href="img/foglio.webp" />
   <link rel="preload" as="image" href="img/foglio_righe.webp" />
+  <link rel="preload" as="image" href="img/cancella.webp" />
   <link rel="preload" as="image" href="img/close.webp" />
   <link rel="preload" as="image" href="img/inverno.webp" />
   <link rel="preload" as="image" href="img/mare.webp" />
@@ -341,9 +342,12 @@
                     selectCategoryToAddItem(n, todo)" :class="{
                     'active': todo.isActive, 
                     'selected': todo.isSelected,
-                    'line-through': todo.multipleDelete && !retroTheme
+                    'line-through': todo.multipleDelete && !retroTheme && !lightTheme,
+                    'retro-multiple-delete': todo.multipleDelete && retroTheme
                   }">
                   {{ todo.name }}
+                  <img v-if="todo.multipleDelete && lightTheme" class="scrawl" src="img/cancella.webp"
+                    alt="line-through">
                 </li>
                 <!--CONTENITORE PULSANTI (edit, delete, modify)-->
                 <li class="button-container bg-light" :class="{
@@ -401,9 +405,11 @@
                     selectCategoryToAddItem(n, todo)" :class="{
                     'active': todo.isActive, 
                     'selected': todo.isSelected,
-                    'line-through': todo.multipleDelete && !retroTheme
+                    'line-through': todo.multipleDelete && !retroTheme && !lightTheme,
+                    'retro-multiple-delete': todo.multipleDelete && retroTheme
                   }">
                 {{ todo.name }}
+                <img v-if="todo.multipleDelete && lightTheme" class="scrawl" src="img/cancella.webp" alt="line-through">
               </li>
               <!--CONTENITORE PULSANTI (edit, delete, modify)-->
               <li class="button-container bg-light" :class="{
