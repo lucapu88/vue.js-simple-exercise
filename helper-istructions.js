@@ -63,7 +63,7 @@ helperIstructionsITA = `
                 'summer-btn': summerTheme,
                 'winter-btn': winterTheme,
               }">
-              <span v-if="langIta">Rimuovi le vuote</span>
+              <span v-if="langIta">Rimuovi vuote</span>
               <span v-else>Remove only empty</span>
             </button>
     </li>
