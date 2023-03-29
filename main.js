@@ -260,6 +260,23 @@ const app = new Vue({
 				});
 			}
 		},
+		removeOnlyEmpty() {
+			const last = this.todos[this.todos.length - 1];
+			//se l'ultimo della lista è una classe (allora al suo interno sarà vuoto) aggiungo una proprietà per rimuoverlo
+			if (last?.class) {
+				last.classToBedeleted = true;
+			}
+			this.todos.forEach((todo, index) => {
+				const next = this.todos[index + 1];
+				//se l'elemento è una categoria ed il suo successivo/precedente pure, vuol dire che sono categorie vuote
+				if (todo?.class && next?.class) {
+					todo.classToBedeleted = true;
+				}
+			});
+			this.todos = this.todos.filter((todo) => !todo.classToBedeleted);
+			this.saveTodos();
+			this.categoryList = false;
+		},
 		addTodo() {
 			if (!this.newTodo) {
 				//solo se scrivo qualcosa lo aggiunge
@@ -662,7 +679,7 @@ const app = new Vue({
 			//questo metodo è inutilizzato ma lo tengo poichè potrebbe servirmi in futuro se risolvono il problema con la libreria "draggabble".
 			//Ho aperto una segnalazione qui: https://github.com/SortableJS/Vue.Draggable/issues/1178
 			ua = (ua || navigator.userAgent).toLowerCase();
-			var match = ua.match(/android\s([0-9\.]*)/i);
+			const match = ua.match(/android\s([0-9\.]*)/i);
 			const intVersion = match ? parseInt(match[1]) : 12;
 			intVersion <= 11
 				? (this.needDragNDropBtn = true)
