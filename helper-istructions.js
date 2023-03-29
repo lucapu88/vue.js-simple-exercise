@@ -42,6 +42,32 @@ helperIstructionsITA = `
       esistente.
     </li>
     <li>
+      Puoi aggiungere tutte le categorie cliccando su <button class="insert-all-btn" :class="{ 
+                'light-btn': lightTheme,
+                'dark-btn': darkTheme,
+                'minimal-btn': minimalTheme,
+                'retro-insert-all-btn': retroTheme,
+                'summer-btn': summerTheme,
+                'winter-btn': winterTheme,
+              }">
+              <span v-if="langIta">Inserisci tutte</span>
+              <span v-else>Insert all</span>
+            </button>
+    </li>
+    <li>
+       Puoi eliminare solo le categorie rimaste vuote cliccando su: <button class="insert-all-btn" :class="{ 
+                'light-btn': lightTheme,
+                'dark-btn': darkTheme,
+                'minimal-btn': minimalTheme,
+                'retro-insert-all-btn': retroTheme,
+                'summer-btn': summerTheme,
+                'winter-btn': winterTheme,
+              }">
+              <span v-if="langIta">Rimuovi le vuote</span>
+              <span v-else>Remove only empty</span>
+            </button>
+    </li>
+    <li>
       Cliccando su <button class="btn custom-show-listbtn helper-icon">
         <img src="./img/drag-and-drop.webp" alt="move" />
       </button> potrai trascinare gli elementi e spostarli dove
@@ -112,6 +138,32 @@ helperIstructionsENG = `
       <span class="selected"> will be highlighted as well </span>, underneath you will add stuff you write.
       To cancel the operation just click on any category in the existing
       <span class="category" :class="{'retro-category' : retroTheme === true}"> green box </span>.
+    </li>
+    <li>
+      You can add all the categories by clicking on <button class="insert-all-btn" :class="{ 
+                'light-btn': lightTheme,
+                'dark-btn': darkTheme,
+                'minimal-btn': minimalTheme,
+                'retro-insert-all-btn': retroTheme,
+                'summer-btn': summerTheme,
+                'winter-btn': winterTheme,
+              }">
+              <span v-if="langIta">Inserisci tutte</span>
+              <span v-else>Insert all</span>
+            </button>
+    </li>
+    <li>
+       You can delete only the categories left empty by clicking su: <button class="insert-all-btn" :class="{ 
+                'light-btn': lightTheme,
+                'dark-btn': darkTheme,
+                'minimal-btn': minimalTheme,
+                'retro-insert-all-btn': retroTheme,
+                'summer-btn': summerTheme,
+                'winter-btn': winterTheme,
+              }">
+              <span v-if="langIta">Rimuovi le vuote</span>
+              <span v-else>Remove only empty</span>
+            </button>
     </li>
     <li>
       By clicking on 
