@@ -7,7 +7,8 @@ const app = new Vue({
 		newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
 		copiedTodo: null,
 		visible: true, //serve per la visibilità del contenitore dell'alert
-		categoryList: false,
+		categoryList: null,
+		categoryListChildren: null,
 		helper: null,
 		christmasTheme: false,
 		placeholder: "Write here what to buy",
@@ -448,6 +449,13 @@ const app = new Vue({
 			this.removeSelectedCategoryToAddItem();
 			this.categoryList = !this.categoryList;
 			this.isDraggable = false;
+			if (this.categoryList) {
+				setTimeout(() => {
+					this.categoryListChildren = true;
+				}, 400);
+			} else {
+				this.categoryListChildren = false;
+			}
 		},
 		showHelper() {
 			this.helper = !this.helper;
