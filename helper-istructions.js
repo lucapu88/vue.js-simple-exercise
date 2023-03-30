@@ -14,16 +14,20 @@ helperIstructionsITA = `
       serve per aggiungere alla lista roba da comprare.
     </li>
     <li>
-      Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i>
+      Con <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"
+       :class="{'minimal-helper-btn':minimalTheme, 'retro-btn-button': retroTheme}"></i>
       potrai modificare un nome e salvare le modifiche cliccando
-      <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.
+      <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"
+       :class="{'minimal-helper-btn':minimalTheme, 'retro-btn-button': retroTheme}"></i>.
     </li>
     <li>
-      Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"></i>
+      Con <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"
+       :class="{'minimal-helper-btn':minimalTheme, 'retro-btn-button': retroTheme}"></i>
       eliminerai roba dalla lista.
     </li>
     <li>
-      <span style="border: none;" class="custom-show-listbtn helper-icon pl-2 pr-2">+</span> serve per
+      <span style="border: none;" class="custom-show-listbtn helper-icon pl-2 pr-2"
+       :class="{'minimal-helper-btn':minimalTheme, 'retro-teme-btns': retroTheme}">+</span> serve per
       visualizzare
       l'indice delle
       categorie selezionabili.
@@ -31,21 +35,20 @@ helperIstructionsITA = `
     <li>
       Per scegliere una categoria basta scriverla (o cliccarci sopra) e cliccare
       <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà
-      <span class="category" :class="{'retro-category' : retroTheme === true}">evidenziata</span>
+      <span class="category p-1" :class="{'category-retro' : retroTheme, 'category-minimal': minimalTheme}">evidenziata</span>
       nella lista. <br />Una volta creata la categoria, basterà cliccare sul nome di essa, e
       verrà
       evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che
       scriverai. Per
       annullare l'operazione basta cliccare su qualsiasi categoria nel
-      <span class="category" :class="{'retro-category' : retroTheme === true}">riquadro
-        verde</span> già
+      <span class="category p-1" :class="{'category-retro' : retroTheme, 'category-minimal': minimalTheme}">riquadro evidenziato</span> già
       esistente.
     </li>
     <li>
       Puoi aggiungere tutte le categorie cliccando su <button class="insert-all-btn" :class="{ 
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
-                'minimal-btn': minimalTheme,
+                'minimal-helper-btn': minimalTheme,
                 'retro-insert-all-btn': retroTheme,
                 'summer-btn': summerTheme,
                 'winter-btn': winterTheme,
@@ -58,7 +61,7 @@ helperIstructionsITA = `
        Puoi eliminare solo le categorie rimaste vuote cliccando su: <button class="insert-all-btn" :class="{ 
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
-                'minimal-btn': minimalTheme,
+                'minimal-helper-btn': minimalTheme,
                 'retro-insert-all-btn': retroTheme,
                 'summer-btn': summerTheme,
                 'winter-btn': winterTheme,
@@ -68,7 +71,10 @@ helperIstructionsITA = `
             </button>
     </li>
     <li>
-      Cliccando su <button class="btn custom-show-listbtn helper-icon">
+      Cliccando su <button class="btn custom-show-listbtn" :class="{
+                'minimal-helper-btn': minimalTheme, 
+                'retro-teme-btns': retroTheme,
+              }" >
         <img src="./img/drag-and-drop.webp" alt="move" />
       </button> potrai trascinare gli elementi e spostarli dove
       vuoi.
@@ -116,34 +122,38 @@ helperIstructionsENG = `
       <i class="far fa-paper-plane btn btn-info helper-icon"> </i> is used to add stuff to buy list.
     </li>
     <li>
-      With <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon"></i>
+      With <i class="fas fa-pencil-alt btn-primary rounded-circle btn-sm helper-icon" 
+      :class="{'minimal-helper-btn':minimalTheme, 'retro-btn-button': retroTheme}"></i>
       you can change a name and save the changes by clicking
-      <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon"></i>.
+      <i class="far fa-save btn btn-success rounded-circle btn-sm helper-icon" 
+      :class="{'minimal-helper-btn':minimalTheme, 'retro-btn-button': retroTheme}"></i>.
     </li>
     <li>
-      With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon"> </i>
+      With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon" 
+      :class="{'minimal-helper-btn':minimalTheme, 'retro-btn-button': retroTheme}"> </i>
       you will remove stuff from the list.
     </li>
     <li>
-      <span style="border: none;" class="custom-show-listbtn helper-icon pl-2 pr-2"> + </span> is used to display the
+      <span style="border: none;" class="custom-show-listbtn helper-icon pl-2 pr-2" 
+      :class="{'minimal-helper-btn':minimalTheme, 'retro-teme-btns': retroTheme}"> + </span>  is used to display the
       index of
       selectable categories.
     </li>
     <li>
       To choose a category just write it (or click on it) and click
       <i class="far fa-paper-plane btn btn-info helper-icon"> </i>. You will see
-      <span class="category" :class="{'retro-category' : retroTheme === true}"> highlighted </span>
+      <span class="category p-1" :class="{'category-retro' : retroTheme, 'category-minimal': minimalTheme}"> highlighted </span>
       in the list. <br />
       Once the category has been created, just click on its name, and
       <span class="selected"> will be highlighted as well </span>, underneath you will add stuff you write.
       To cancel the operation just click on any category in the existing
-      <span class="category" :class="{'retro-category' : retroTheme === true}"> green box </span>.
+      <span class="category p-1" :class="{'category-retro' : retroTheme, 'category-minimal': minimalTheme}"> box highlighted </span>.
     </li>
     <li>
       You can add all the categories by clicking on <button class="insert-all-btn" :class="{ 
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
-                'minimal-btn': minimalTheme,
+                'minimal-helper-btn': minimalTheme,
                 'retro-insert-all-btn': retroTheme,
                 'summer-btn': summerTheme,
                 'winter-btn': winterTheme,
@@ -156,7 +166,7 @@ helperIstructionsENG = `
        You can delete only the categories left empty by clicking su: <button class="insert-all-btn" :class="{ 
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
-                'minimal-btn': minimalTheme,
+                'minimal-helper-btn': minimalTheme,
                 'retro-insert-all-btn': retroTheme,
                 'summer-btn': summerTheme,
                 'winter-btn': winterTheme,
@@ -167,7 +177,10 @@ helperIstructionsENG = `
     </li>
     <li>
       By clicking on 
-      <button class="btn custom-show-listbtn helper-icon">
+      <button class="btn custom-show-listbtn" :class="{
+                'minimal-helper-btn': minimalTheme, 
+                'retro-teme-btns': retroTheme,
+              }" >
         <img src="./img/drag-and-drop.webp" alt="move" />
       </button> you can drag the elements and move them wherever you want.
     </li>
