@@ -45,7 +45,7 @@ helperIstructionsITA = `
       esistente.
     </li>
     <li>
-      Puoi aggiungere tutte le categorie cliccando su <button class="insert-all-btn" :class="{ 
+      Puoi aggiungere tutte le categorie cliccando su <button :class="{ 
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
                 'minimal-helper-btn': minimalTheme,
@@ -58,7 +58,7 @@ helperIstructionsITA = `
             </button>
     </li>
     <li>
-       Puoi eliminare solo le categorie rimaste vuote cliccando su: <button class="insert-all-btn" :class="{ 
+       Puoi eliminare solo le categorie rimaste vuote cliccando su: <button :class="{ 
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
                 'minimal-helper-btn': minimalTheme,
@@ -150,7 +150,7 @@ helperIstructionsENG = `
       <span class="category p-1" :class="{'category-retro' : retroTheme, 'category-minimal': minimalTheme}"> box highlighted </span>.
     </li>
     <li>
-      You can add all the categories by clicking on <button class="insert-all-btn" :class="{ 
+      You can add all the categories by clicking on <button :class="{ 
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
                 'minimal-helper-btn': minimalTheme,
@@ -163,7 +163,7 @@ helperIstructionsENG = `
             </button>
     </li>
     <li>
-       You can delete only the categories left empty by clicking su: <button class="insert-all-btn" :class="{ 
+       You can delete only the categories left empty by clicking su: <button :class="{ 
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
                 'minimal-helper-btn': minimalTheme,
