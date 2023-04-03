@@ -26,23 +26,9 @@ helperIstructionsITA = `
       eliminerai roba dalla lista.
     </li>
     <li>
-      <span style="border: none;" class="custom-show-listbtn helper-icon pl-2 pr-2"
-       :class="{'minimal-helper-btn':minimalTheme, 'retro-teme-btns': retroTheme}">+</span> serve per
-      visualizzare
-      l'indice delle
-      categorie selezionabili.
-    </li>
-    <li>
-      Per scegliere una categoria basta scriverla (o cliccarci sopra) e cliccare
-      <i class="far fa-paper-plane btn btn-info helper-icon"></i>. Ti apparirà
-      <span class="category p-1" :class="{'category-retro' : retroTheme, 'category-minimal': minimalTheme}">evidenziata</span>
-      nella lista. <br />Una volta creata la categoria, basterà cliccare sul nome di essa, e
-      verrà
-      evidenziata <span class="selected">così </span>, li sotto aggiungerai roba che
-      scriverai. Per
-      annullare l'operazione basta cliccare su qualsiasi categoria nel
-      <span class="category p-1" :class="{'category-retro' : retroTheme, 'category-minimal': minimalTheme}">riquadro evidenziato</span> già
-      esistente.
+      Per aggiungere una categoria basta scriverla e cliccare su <i class="far fa-paper-plane btn btn-info helper-icon"></i> oppure sceglierla nel riquadro cliccando <span style="border: none;" class="custom-show-listbtn helper-icon pl-2 pr-2"
+       :class="{'minimal-helper-btn':minimalTheme, 'retro-teme-btns': retroTheme}">+</span>. 
+       Ti apparirà <span class="category p-1" :class="{'category-retro' : retroTheme, 'category-minimal': minimalTheme}"> Così </span> e cliccando sul nome si <span class="selected">evidenzierà</span>, così potrai aggiungerci roba al suo interno. Una volta finito basta ricliccare sul nome o su qualsiasi altro nome di altre categorie.
     </li>
     <li>
       Puoi aggiungere tutte le categorie cliccando su <button :class="{ 
@@ -55,10 +41,10 @@ helperIstructionsITA = `
               }">
               <span v-if="langIta">Inserisci tutte</span>
               <span v-else>Insert all</span>
-            </button>
+            </button>.
     </li>
     <li>
-       Puoi eliminare solo le categorie rimaste vuote cliccando su: <button :class="{ 
+       Puoi eliminare solo le categorie rimaste vuote cliccando su <button :class="{ 
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
                 'minimal-helper-btn': minimalTheme,
@@ -68,7 +54,7 @@ helperIstructionsITA = `
               }">
               <span v-if="langIta">Rimuovi vuote</span>
               <span v-else>Remove only empty</span>
-            </button>
+            </button>.
     </li>
     <li>
       Cliccando su <button class="btn custom-show-listbtn" :class="{
@@ -80,13 +66,9 @@ helperIstructionsITA = `
       vuoi.
     </li>
     <li>
-      Se clicchi su <i class="fas fa-cart-arrow-down"></i> puoi selezionare più elementi da eliminare,
-      nel caso volessi
-      eliminarne più di uno ma non tutti. Ti apparirà, in basso a sinistra della lista, questo cestino =>
-      <button class="text-danger border-danger rounded">
-        <i class="fas fa-trash-alt"></i>
-      </button>
-      ed eliminerai solamente gli elementi selezionati che avranno il carrello rosso => <i class="fas fa-cart-arrow-down selected-for-delete"></i>.
+      Puoi eliminare più prodotti insieme cliccando su <i class="fas fa-cart-arrow-down"></i>. Così li smarchi e poi a fine spesa cliccado sul <button class="text-danger border-danger rounded">
+          <i class="fas fa-trash-alt"></i>
+        </button> in basso verranno eliminati solo quelli che hai smarcato.
     </li>
     <li>
       <i class="far fa-copy btn btn-outline-success helper-icon"></i> serve per copiare la
@@ -94,11 +76,7 @@ helperIstructionsITA = `
       incollarla dove vuoi.
     </li>
     <li>
-      Puoi "bloccare" un prodotto cliccandoci sopra, e ti verrà evidenziato
-      <span class="active">così</span>.
-      Non potrà essere eliminato. Potrebbe tornarti utile, ad esempio, quando non lo trovi
-      al supermercato e
-      non vuoi eliminarlo dalla lista.
+      Puoi rendere "importante" un prodotto cliccando sul nome e verrà <span class="active">evidenziato</span>, così non potrà essere eliminato o modificato.
     </li>
     <li>
       Se clicchi su <span class="delete-all-description">
@@ -134,20 +112,8 @@ helperIstructionsENG = `
       you will remove stuff from the list.
     </li>
     <li>
-      <span style="border: none;" class="custom-show-listbtn helper-icon pl-2 pr-2" 
-      :class="{'minimal-helper-btn':minimalTheme, 'retro-teme-btns': retroTheme}"> + </span>  is used to display the
-      index of
-      selectable categories.
-    </li>
-    <li>
-      To choose a category just write it (or click on it) and click
-      <i class="far fa-paper-plane btn btn-info helper-icon"> </i>. You will see
-      <span class="category p-1" :class="{'category-retro' : retroTheme, 'category-minimal': minimalTheme}"> highlighted </span>
-      in the list. <br />
-      Once the category has been created, just click on its name, and
-      <span class="selected"> will be highlighted as well </span>, underneath you will add stuff you write.
-      To cancel the operation just click on any category in the existing
-      <span class="category p-1" :class="{'category-retro' : retroTheme, 'category-minimal': minimalTheme}"> box highlighted </span>.
+      To add a category just type it in and click <i class="far fa-paper-plane btn btn-info helper-icon"> </i> or choose it in the box by clicking <span style="border: none;" class="custom-show-listbtn helper-icon pl-2 pr-2" 
+      :class="{'minimal-helper-btn':minimalTheme, 'retro-teme-btns': retroTheme}"> + </span>. It will appear <span class="category p-1" :class="{'category-retro' : retroTheme, 'category-minimal': minimalTheme}"> to you like </span> and clicking on the name will <span class="selected">highlight it</span>. So you can add stuff into it. When you are done just click back on the name or any other category names.
     </li>
     <li>
       You can add all the categories by clicking on <button :class="{ 
@@ -160,10 +126,10 @@ helperIstructionsENG = `
               }">
               <span v-if="langIta">Inserisci tutte</span>
               <span v-else>Insert all</span>
-            </button>
+            </button>.
     </li>
     <li>
-       You can delete only the categories left empty by clicking su: <button :class="{ 
+       You can delete only the categories left empty by clicking on <button :class="{ 
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
                 'minimal-helper-btn': minimalTheme,
@@ -173,7 +139,7 @@ helperIstructionsENG = `
               }">
               <span v-if="langIta">Rimuovi le vuote</span>
               <span v-else>Remove only empty</span>
-            </button>
+            </button>.
     </li>
     <li>
       By clicking on 
@@ -185,23 +151,16 @@ helperIstructionsENG = `
       </button> you can drag the elements and move them wherever you want.
     </li>
     <li>
-      If you click on <i class="fas fa-cart-arrow-down"></i> you can select multiple items to delete,
-      in case you want
-      delete more than one but not all. This basket will appear at the bottom left of the list => 
-      <button class="text-danger border-danger rounded">
+      You can delete multiple products together by clicking on <i class="fas fa-cart-arrow-down"></i>. So you mark them and then at the end of shopping by clicking on <button class="text-danger border-danger rounded">
         <i class="fas fa-trash-alt"></i>
-      </button>
-      and you will only delete the selected items that will have the red cart => <i class="fas fa-cart-arrow-down selected-for-delete"></i>.
+      </button> at the bottom only the ones you marked will be deleted.
     </li>
     <li>
       <i class="far fa-copy btn btn-outline-success helper-icon"> </i>
       is used to copy the list and paste it wherever you want.
     </li>
     <li>
-      You can "block" a product by clicking on it, and
-      <span class="active"> will be highlighted as well </span>. It cannot be eliminated.
-      It might come in handy, for example,
-      when you can't find it at the supermarket and don't want to remove it from the list.
+      You can make a product "important" by clicking on the name and it will be <span class="active">highlighted</span>, so it cannot be deleted or edited.
     </li>
     <li>
       If you click on

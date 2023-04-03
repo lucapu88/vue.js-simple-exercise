@@ -358,9 +358,7 @@ const app = new Vue({
       const list = document.getElementById('todo-list');
       const container = document.getElementById('container-list');
 
-      list.offsetHeight > container.offsetHeight
-        ? (this.buttonBackToTop = true)
-        : (this.buttonBackToTop = false);
+      this.buttonBackToTop = list.offsetHeight > container.offsetHeight - 150;
     },
     scrollTop() {
       document.getElementById('container-list').scrollTo(0, 0);

@@ -224,14 +224,16 @@
               <span>{{emailReportText}}: <a href="mailto:lucarhcp88@hotmail.it">lucarhcp88@hotmail.it</a></span>
               <br>
               <p style="margin-top: 15px;" v-if="langIta">
-                <span style="color: red;">IMPORTANTE:</span> Questa è una web app convertita in app per android, ed è
-                sempre manutenuta ma non dovrai aggiornarla poichè ciò avverrà in automatico. Quindi non fare caso alla
+                <span style="color: red;">IMPORTANTE:</span> Questa è una web app convertita in app per smartphone, ed è
+                sempre manutenuta ma non dovrai aggiornarla poichè ciò avverrà in automatico <small>(Per essere sicuro
+                  di avere i nuovi aggiornamenti ogni tanto riavvia l'app)</small>. Quindi non fare caso alla
                 data dell'ultimo aggiornamento che appare nello store. Quello è solo il giorno in cui l'ho pubblicata.
                 La data reale dell'ultimo aggiornamento è: {{dateLastUpdate}}
               </p>
               <p style="margin-top: 15px;" v-if="!langIta">
                 <span style="color: red;">IMPORTANT:</span> This is a web app converted to an android app, and is always
-                maintained but you will not have to update it as this will be done automatically. So don't pay attention
+                maintained but you will not have to update it as this will be done automatically <small>(To make sure
+                  you have the new updates every now and then restart the app)</small>. So don't pay attention
                 to the date of the last update that appears in the store. That is just the day I published it.
                 The actual date of the last update is: {{dateLastUpdate}}
               </p>
