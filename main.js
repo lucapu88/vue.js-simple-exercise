@@ -3,7 +3,7 @@ const app = new Vue({
     Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
   el: '#app',
   data: {
-    dateLastUpdate: '31/03/2023',
+    dateLastUpdate: '03/04/2023',
     todos: [], //conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     copiedTodo: null,
@@ -22,7 +22,12 @@ const app = new Vue({
       text: 'Link copied to clipboard, paste it with whoever you want.',
       visible: false,
     },
+    deleteSelected: false,
+    confirmRemove: false,
+    confirmDeleteModal: false,
     confirmText: 'Are you sure you want to delete:',
+    completeConfirmText: '',
+    index: null,
     selectedTodosConfirmText:
       'Are you sure you want to delete the selected items',
     canDeleteText: 'OFF',
@@ -327,12 +332,13 @@ const app = new Vue({
     },
     removeTodo(x, todo) {
       this.removeSelectedCategoryToAddItem();
-      //se ho impostato la conferma all'eliminazione apro un alert prima di eliminare altrimenti elimino direttamente
+      //se ho impostato la conferma all'eliminazione apro una modale prima di eliminare altrimenti elimino direttamente
       if (this.canDelete) {
-        const text = `${this.confirmText} ${todo.name.toUpperCase()}?`;
-        if (confirm(text)) {
-          this.confirmedRemoveTodo(x, todo);
-        }
+        this.completeConfirmText = `${this.confirmText} ${todo.name.toUpperCase()}?`;
+        this.confirmDeleteModal = true;
+        this.confirmRemove = true;
+        this.deleteSelected = false;
+        this.index = x;
       } else {
         this.confirmedRemoveTodo(x, todo);
       }
@@ -343,7 +349,7 @@ const app = new Vue({
     confirmedRemoveTodo(x, todo) {
       this.todos.splice(x, 1);
       this.saveTodos();
-
+      this.confirmDeleteModal = false;
       navigator.vibrate(220);
     },
     changeTotoAdded(arr) {
@@ -365,7 +371,7 @@ const app = new Vue({
     },
     scrollToBottom() {
       /*se è visibile il pulsante che scrolla verso l'alto e se non è stata selezionata nessuna categoria, 
-				si suppone che l'elemento aggiunto sia in fondo alla lista e quindi scrollo direttamente verso il fondo per farlo notare*/
+        si suppone che l'elemento aggiunto sia in fondo alla lista e quindi scrollo direttamente verso il fondo per farlo notare*/
       const todoSelected = this.todos.find((t) => t.isSelected === true);
       if (this.buttonBackToTop && !todoSelected) {
         document
@@ -387,7 +393,7 @@ const app = new Vue({
       const todoEmpty = this.todos.find((todo) => todo.modify);
       if (copiedTodo && todoEmpty) {
         /*se ho ricevuto una copia di un todo vuol dire che sto abbandonando il vecchio todo senza salvare, 
-				quindi il vecchio todo riprende il nome che aveva, ovvero quello della copia e poi dopo setto tutti i todo in modifica a false*/
+        quindi il vecchio todo riprende il nome che aveva, ovvero quello della copia e poi dopo setto tutti i todo in modifica a false*/
         todoEmpty.name = copiedTodo.name;
       }
       this.todos.forEach((todo) => (todo.modify = false));
@@ -412,6 +418,7 @@ const app = new Vue({
       this.placeholder = this.defaultPlaceholderText;
       navigator.vibrate(1000);
       this.buttonBackToTop = false;
+      location.reload();
     },
     copy() {
       const myList = this.todos.map((todo) =>
@@ -482,13 +489,17 @@ const app = new Vue({
         ? (this.canDeleteMultipleTodo = true)
         : (this.canDeleteMultipleTodo = false);
     },
+    openModalFordeleteSelectedTodos() {
+      this.confirmDeleteModal = true;
+      this.confirmRemove = false;
+      this.deleteSelected = true;
+      this.completeConfirmText = `${this.selectedTodosConfirmText}?`;
+    },
     deleteSelectedTodos() {
-      const confirmText = `${this.selectedTodosConfirmText}?`;
-      if (confirm(confirmText)) {
-        this.todos = this.todos.filter((todo) => !todo.multipleDelete);
-        this.isDraggable = false;
-        this.saveTodos();
-      }
+      this.todos = this.todos.filter((todo) => !todo.multipleDelete);
+      this.isDraggable = false;
+      this.saveTodos();
+      this.confirmDeleteModal = false;
     },
     selectCategoryToAddItem(index, todo) {
       //solo se è nella lista categorie faccio tutto

@@ -344,6 +344,31 @@
           </div>
           <p class="list-copied" v-if="copyList.visible === true">{{copyList.text}}</p>
 
+          <!-- MODALE DI CONFERMA ELIMINAZIONE -->
+          <div v-if="confirmDeleteModal" class="modal">
+            <div class="confirm-delete-modal-content" :class="{
+              'delete-selected': deleteSelected,
+              'confirm-light': lightTheme,
+              'confirm-dark': darkTheme,
+              'confirm-minimal': minimalTheme,
+              'confirm-retro': retroTheme,
+              'confirm-summer': summerTheme,
+              'confirm-winter': winterTheme
+            }">
+              <p class="mt-5">{{completeConfirmText}}</p>
+              <span style="display: none;">{{index}} {{todo}}</span>
+              <button v-if="confirmRemove" @click="confirmedRemoveTodo(index, '')">
+                <span v-if="langIta">SI</span>
+                <span v-else>YES</span>
+              </button>
+              <button v-if="deleteSelected" @click="deleteSelectedTodos()">
+                <span v-if="langIta">SI</span>
+                <span v-else>YES</span>
+              </button>
+              <button @click="confirmDeleteModal = false">NO</button>
+            </div>
+          </div>
+
           <!-- TODO LIST DRAGGABILE-->
           <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme, 'winter-shadow': winterTheme}">
             <draggable v-if="isDraggable" class="drag-n-drop" id="draggable" v-model="todos"
@@ -500,8 +525,8 @@
           <!-- FOOTER -->
           <div class="footer-btns-container pb-3">
             <!-- PULSANTE ELIMINA SOLO I SELEZIONATI -->
-            <button v-if="canDeleteMultipleTodo" class="text-danger border-danger rounded"
-              :class="{'christmas': christmasTheme}" @click="deleteSelectedTodos()">
+            <button v-if="canDeleteMultipleTodo" class="text-danger border-danger rounded multiple-delete p-2"
+              :class="{'christmas': christmasTheme}" @click="openModalFordeleteSelectedTodos()">
               <i class="fas fa-trash-alt"> </i>
             </button>
             <!-- PULSANTE ELIMINA TUTTO-->
