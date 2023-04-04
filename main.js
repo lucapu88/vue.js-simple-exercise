@@ -3,7 +3,7 @@ const app = new Vue({
     Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
   el: '#app',
   data: {
-    dateLastUpdate: '03/04/2023',
+    dateLastUpdate: '07/04/2023',
     todos: [], //conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     copiedTodo: null,
@@ -28,15 +28,13 @@ const app = new Vue({
     confirmText: 'Are you sure you want to delete:',
     completeConfirmText: '',
     index: null,
-    selectedTodosConfirmText:
-      'Are you sure you want to delete the selected items',
+    selectedTodosConfirmText: 'Are you sure you want to delete the selected items',
     canDeleteText: 'OFF',
     themeName: 'light',
     settingsTextTitle: 'Settings',
     safeModeText: {
       title: 'Safe delete mode',
-      description:
-        'it will ask you to confirm the deletion for each single product on the list',
+      description: 'it will ask you to confirm the deletion for each single product on the list',
       function: 'Click to activate/deactivate',
     },
     chosenThemeText: 'Chosen theme',
@@ -122,8 +120,7 @@ const app = new Vue({
       this.emailReportText = 'Per qualsiasi segnalazione puoi contattarmi';
     } else {
       this.categories = this.engCategories;
-      document.getElementById('helper-istructions').innerHTML =
-        window.helperIstructionsENG;
+      document.getElementById('helper-istructions').innerHTML = window.helperIstructionsENG;
     }
 
     this.merryChristmasTheme(); //se è natale metto gli addobbi e buon natale!
@@ -131,9 +128,7 @@ const app = new Vue({
     //imposto il tema in base a quello scelto dall'utente
     const lightThemeSelected = window.localStorage.getItem('lightTheme');
     this.lightTheme = lightThemeSelected === 'true';
-    if (this.lightTheme) {
-      this.changeThemeStyle('Light', "url('img/foglio_righe.webp')");
-    }
+    if (this.lightTheme) { this.changeThemeStyle('Light', "url('img/foglio_righe.webp')"); }
 
     const darkThemeSelected = window.localStorage.getItem('darkTheme');
     this.darkTheme = darkThemeSelected === 'true';
@@ -172,14 +167,10 @@ const app = new Vue({
     if (this.summerTheme) {
       this.changeThemeStyle('Summer', "url('img/mare.webp')", '#EFCB8F');
       document.body.style.backgroundRepeat = 'no-repeat';
-      document.getElementById('helper-description').style.backgroundImage =
-        'none';
-      document.getElementById('helper-description-container').style.background =
-        'rgb(188,242,221)';
-      document.getElementById('helper-description-container').style.background =
-        'linear-gradient(168deg, rgba(188,242,221,1) 0%, rgba(129,215,235,1) 47%, rgba(46,152,242,1) 100%)';
-      document.getElementById('helper-description').style.filter =
-        'drop-shadow(2px 4px 6px black)';
+      document.getElementById('helper-description').style.backgroundImage = 'none';
+      document.getElementById('helper-description-container').style.background = 'rgb(188,242,221)';
+      document.getElementById('helper-description-container').style.background = 'linear-gradient(168deg, rgba(188,242,221,1) 0%, rgba(129,215,235,1) 47%, rgba(46,152,242,1) 100%)';
+      document.getElementById('helper-description').style.filter = 'drop-shadow(2px 4px 6px black)';
       document.querySelector('.confirm').style.backgroundImage = 'none';
     }
 
@@ -194,19 +185,12 @@ const app = new Vue({
         '#232F34',
         '#FFFFFF'
       );
-      document.getElementById(
-        'helper-description-container'
-      ).style.backgroundImage = "url('img/inverno.webp')";
-      document.getElementById(
-        'helper-description-container'
-      ).style.backgroundSize = 'cover';
-      document.getElementById('todo').style.filter =
-        'drop-shadow(2px 4px 6px black)';
-      document.getElementById('helper-description').style.filter =
-        'drop-shadow(2px 4px 6px black)';
+      document.getElementById('helper-description-container').style.backgroundImage = "url('img/inverno.webp')";
+      document.getElementById('helper-description-container').style.backgroundSize = 'cover';
+      document.getElementById('todo').style.filter = 'drop-shadow(2px 4px 6px black)';
+      document.getElementById('helper-description').style.filter = 'drop-shadow(2px 4px 6px black)';
       document.querySelector('.confirm').style.backgroundImage = 'none';
-      document.querySelector('.confirm').style.filter =
-        'drop-shadow(2px 4px 6px black)';
+      document.querySelector('.confirm').style.filter = 'drop-shadow(2px 4px 6px black)';
     }
   },
   mounted() {
@@ -219,9 +203,7 @@ const app = new Vue({
         window.localStorage.removeItem('todos'); //se viene trovato un errore, rimuovi l'oggetto (o meglio, non salvare niente)
       }
     }
-    if (!this.addTodoInCategory.condition) {
-      this.todos.map((t) => (t.isSelected = false));
-    }
+    if (!this.addTodoInCategory.condition) { this.todos.map((t) => (t.isSelected = false)); }
     this.changeTotoAdded(this.todos);
   },
   updated() {
@@ -235,9 +217,7 @@ const app = new Vue({
       const today = new Date();
       const currentMonth = today.getMonth() + 1;
       const currentDay = today.getDate();
-      if (currentDay <= 31 && currentMonth === 12) {
-        this.christmasTheme = true;
-      }
+      if (currentDay <= 31 && currentMonth === 12) { this.christmasTheme = true; }
     },
 
     myFilter(n) {
@@ -247,6 +227,7 @@ const app = new Vue({
         this.todos[n].isActive = !this.todos[n].isActive;
         this.todos[n].isDisabled = !this.todos[n].isDisabled; //disabilito i pulsanti
 
+        this.removeSelectedCategoryToAddItem();
         this.saveTodos();
       }
     },
@@ -270,25 +251,19 @@ const app = new Vue({
     removeOnlyEmpty() {
       const last = this.todos[this.todos.length - 1];
       //se l'ultimo della lista è una classe (allora al suo interno sarà vuoto) aggiungo una proprietà per rimuoverlo
-      if (last?.class) {
-        last.classToBedeleted = true;
-      }
+      if (last?.class) { last.classToBedeleted = true; }
+
       this.todos.forEach((todo, index) => {
         const next = this.todos[index + 1];
         //se l'elemento è una categoria ed il suo successivo/precedente pure, vuol dire che sono categorie vuote
-        if (todo?.class && next?.class) {
-          todo.classToBedeleted = true;
-        }
+        if (todo?.class && next?.class) { todo.classToBedeleted = true; }
       });
       this.todos = this.todos.filter((todo) => !todo.classToBedeleted);
       this.saveTodos();
       this.categoryList = false;
     },
     addTodo() {
-      if (!this.newTodo) {
-        //solo se scrivo qualcosa lo aggiunge
-        return;
-      }
+      if (!this.newTodo) { return; } //solo se scrivo qualcosa lo aggiunge
 
       this.categories.forEach((category) => {
         //se scrivo un nome che è presente nella lista di categorie, creo una categoria evidenziata
@@ -354,9 +329,7 @@ const app = new Vue({
     },
     changeTotoAdded(arr) {
       arr.forEach(function (item) {
-        if (item.todoAdded === true) {
-          item.todoAdded = false;
-        }
+        if (item.todoAdded === true) { item.todoAdded = false; }
       });
     },
     toggleButtonBackToTop() {
@@ -367,7 +340,7 @@ const app = new Vue({
       this.buttonBackToTop = list.offsetHeight > container.offsetHeight - 150;
     },
     scrollTop() {
-      document.getElementById('container-list').scrollTo(0, 0);
+      document.getElementById('container-list').scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     },
     scrollToBottom() {
       /*se è visibile il pulsante che scrolla verso l'alto e se non è stata selezionata nessuna categoria, 
@@ -421,9 +394,7 @@ const app = new Vue({
       location.reload();
     },
     copy() {
-      const myList = this.todos.map((todo) =>
-        todo.class ? `${todo.name.toUpperCase()}:\n` : `-${todo.name}\n`
-      );
+      const myList = this.todos.map((todo) => todo.class ? `${todo.name.toUpperCase()}:\n` : `-${todo.name}\n`);
       const arrayNoCommas = myList.join(' ');
 
       this.categoryList = false;
@@ -435,12 +406,12 @@ const app = new Vue({
       });
       document.execCommand('copy'); //riprovo/ricopio negli appunti anche qui per sistemare su android (per essere sicuri)
       this.copyList.visible = true;
+      this.removeSelectedCategoryToAddItem();
       setTimeout(() => (this.copyList.visible = false), 3000); //cambio il testo del pulsante copia
       navigator.vibrate(400);
     },
     shareLink() {
-      const playStoreUrl =
-        'https://play.google.com/store/apps/details?id=io.kodular.caputoluca88.Shopping_List';
+      const playStoreUrl = 'https://play.google.com/store/apps/details?id=io.kodular.caputoluca88.Shopping_List';
       navigator.clipboard.writeText(playStoreUrl);
       document.addEventListener('copy', function (e) {
         //copio negli appunti anche qui per sistemare su android (quello di sopra non funziona)
@@ -475,19 +446,16 @@ const app = new Vue({
       }
     },
     selectTodoForDelete(index) {
-      if (this.todos[index].modify) {
-        return;
-      }
+      if (this.todos[index].modify) { return; }
       this.todos[index].isActive = false;
       this.todos[index].isDisabled = false;
       this.todos[index].multipleDelete = !this.todos[index].multipleDelete;
       this.toggleButtonDeleteSelectedTodo();
+      this.removeSelectedCategoryToAddItem();
       this.saveTodos();
     },
     toggleButtonDeleteSelectedTodo() {
-      this.todos.some((el) => el.multipleDelete)
-        ? (this.canDeleteMultipleTodo = true)
-        : (this.canDeleteMultipleTodo = false);
+      this.canDeleteMultipleTodo = this.todos.some((el) => el.multipleDelete);
     },
     openModalFordeleteSelectedTodos() {
       this.confirmDeleteModal = true;
@@ -510,8 +478,7 @@ const app = new Vue({
         allCategories.forEach((category) => {
           if (todo.name.toLowerCase() === category.name) {
             //se il nome è uguale alla categoria, permetto il toggle per la classe e salvo l'index
-            this.addTodoInCategory.condition =
-              !this.addTodoInCategory.condition;
+            this.addTodoInCategory.condition = !this.addTodoInCategory.condition;
             this.addTodoInCategory.id = index;
 
             if (this.addTodoInCategory.condition) {
@@ -520,18 +487,12 @@ const app = new Vue({
                 this.$refs.myInput.focus();
               });
               //do indicazioni nel placeholder
-              this.placeholder =
-                (this.langIta ? 'Aggiungi in ' : 'Add in ') +
-                todo.emojy +
-                todo.name.toUpperCase();
+              this.placeholder = (this.langIta ? 'Aggiungi in ' : 'Add in ') + todo.emojy + todo.name.toUpperCase();
             } else {
               this.placeholder = this.defaultPlaceholderText;
             }
           }
-
-          this.addTodoInCategory.condition
-            ? (todo.isSelected = true)
-            : (todo.isSelected = false);
+          todo.isSelected = this.addTodoInCategory.condition;
         });
         this.saveTodos();
       }
@@ -548,8 +509,7 @@ const app = new Vue({
       this.defaultPlaceholderText = 'Write what to buy';
       this.categories = this.engCategories;
       this.copyList.text = 'List copied to clipboard';
-      this.share.text =
-        'Link copied to clipboard, paste it with whoever you want.';
+      this.share.text = 'Link copied to clipboard, paste it with whoever you want.';
       window.localStorage.setItem('langIta', false);
       location.reload(); //lo faccio solo perchè mi obbligano ad inserire librerie del c---- per la privacy policy che mi buggano il codice.
     },
@@ -615,40 +575,26 @@ const app = new Vue({
       }
     },
     loadingTheme(theme) {
-      document.getElementById('helper-description-container').style.display =
-        'none';
-      document.getElementById('loading-themes-container').style.display =
-        'block';
+      document.getElementById('helper-description-container').style.display = 'none';
+      document.getElementById('loading-themes-container').style.display = 'block';
       switch (theme) {
         case 'light':
-          document.getElementById(
-            'loading-themes-container'
-          ).style.backgroundColor = 'white';
+          document.getElementById('loading-themes-container').style.backgroundColor = 'white';
           break;
         case 'dark':
-          document.getElementById(
-            'loading-themes-container'
-          ).style.backgroundColor = '#333333';
+          document.getElementById('loading-themes-container').style.backgroundColor = '#333333';
           break;
         case 'minimal':
-          document.getElementById(
-            'loading-themes-container'
-          ).style.backgroundColor = '#a5becc';
+          document.getElementById('loading-themes-container').style.backgroundColor = '#a5becc';
           break;
         case 'retro':
-          document.getElementById(
-            'loading-themes-container'
-          ).style.backgroundColor = 'black';
+          document.getElementById('loading-themes-container').style.backgroundColor = 'black';
           break;
         case 'summer':
-          document.getElementById(
-            'loading-themes-container'
-          ).style.backgroundColor = '#12a1df';
+          document.getElementById('loading-themes-container').style.backgroundColor = '#12a1df';
           break;
         case 'winter':
-          document.getElementById(
-            'loading-themes-container'
-          ).style.backgroundColor = '#1A3159';
+          document.getElementById('loading-themes-container').style.backgroundColor = '#1A3159';
           break;
       }
 
@@ -680,12 +626,8 @@ const app = new Vue({
       this.themeName = themeName;
       document.body.style.backgroundImage = backgroundImage;
       document.body.style.backgroundColor = backgroundColor;
-      if (color) {
-        document.body.style.color = color;
-      }
-      if (fontFamily) {
-        document.body.style.fontFamily = fontFamily;
-      }
+      if (color) { document.body.style.color = color; }
+      if (fontFamily) { document.body.style.fontFamily = fontFamily; }
     },
     toggleDragDrop() {
       this.isDraggable = !this.isDraggable;

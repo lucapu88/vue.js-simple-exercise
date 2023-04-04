@@ -383,7 +383,7 @@
                   }">
                 <div v-if="todo.class && minimalTheme" class="category-emoji-minimal">&#x2022;</div>
                 <div v-if="todo.class && !minimalTheme" class="category-emoji"
-                  :class="{'category-emoji-selected': todo.isSelected}">
+                  :class="{'category-emoji-selected': todo.isSelected}" @click="selectCategoryToAddItem(n, todo)">
                   {{todo.emojy}}
                 </div>
                 <i v-if="!todo.class && !minimalTheme && !todo.modify" class="fas fa-cart-arrow-down mr-3 ml-1" :class="{
@@ -446,7 +446,7 @@
                 }">
               <div v-if="todo.class && minimalTheme" class="category-emoji-minimal">&#x2022;</div>
               <div v-if="todo.class && !minimalTheme" class="category-emoji"
-                :class="{'category-emoji-selected': todo.isSelected}">
+                :class="{'category-emoji-selected': todo.isSelected}" @click="selectCategoryToAddItem(n, todo)">
                 {{todo.emojy}}
               </div>
               <i v-if="!todo.class && !minimalTheme && !todo.modify" class="fas fa-cart-arrow-down mr-3 ml-1" :class="{
