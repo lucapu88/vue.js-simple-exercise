@@ -531,7 +531,7 @@
             </button>
             <!-- PULSANTE ELIMINA TUTTO-->
             <button class="delete-all btn btn-dark" :class="{'christmas': christmasTheme}"
-              v-on:click="visible = !visible">
+              @click="openDeleteAllModal()">
               <span v-if="langIta">Cancella tutto </span>
               <span v-else>Delete ALL </span>
               <i class="fas fa-skull-crossbones"></i>

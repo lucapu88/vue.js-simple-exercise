@@ -3,7 +3,7 @@ const app = new Vue({
     Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
   el: '#app',
   data: {
-    dateLastUpdate: '07/04/2023',
+    dateLastUpdate: '02/05/2023',
     todos: [], //conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     copiedTodo: null,
@@ -502,6 +502,16 @@ const app = new Vue({
       this.todos.map((t) => (t.isSelected = false));
       this.placeholder = this.defaultPlaceholderText;
       this.addTodoInCategory.condition = false;
+    },
+    openDeleteAllModal() {
+      this.visible = !this.visible;
+      setTimeout(() => {
+        /*Aggiunto il set timeout poichè senza non avviene nulla, 
+        mentre così aspetta che appare il div per poi avere la reale grandezza e scrollare.
+        Non funziona con un if(this.visible). DA APPROFONDIRE */
+        const containerList = document.getElementById('container-list');
+        containerList.scrollTo({ top: containerList.scrollHeight, behavior: 'smooth' });
+      }, 200);
     },
     setEnglish() {
       this.langIta = false;
