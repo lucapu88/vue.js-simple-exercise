@@ -41,6 +41,7 @@ const app = new Vue({
     changeThemeText: 'Change theme',
     emailReportText: 'For any report you can contact me',
     shareText: 'Share',
+    updateText: 'If the button is green, click to update the app',
     categoryClass: false,
     categoryEmoji: '',
     categories: [],
@@ -87,6 +88,7 @@ const app = new Vue({
     needDragNDropBtn: false,
     openVideoTutorial: false,
     privacyPolicy: false,
+    disableUpdateButton: false,
   },
   created() {
     this.categories = this.engCategories; //setto le categorie di default
@@ -115,6 +117,7 @@ const app = new Vue({
       this.chosenThemeText = 'Tema impostato';
       this.changeThemeText = 'Cambia tema';
       this.shareText = 'Condividi';
+      this.updateText = "Se il pulsante è verde, clicca per aggiornare l'app";
       document.getElementById('helper-istructions').innerHTML =
         window.helperIstructionsITA; //questa è cacca, vue scrive direttamente il dom quindi normalmente ci sarebbe stato un componente apposito ma io devo usare github pages e schiantare tutto in un file. Normalmente su vue, lo so, non si fa!
       this.emailReportText = 'Per qualsiasi segnalazione puoi contattarmi';
@@ -123,6 +126,7 @@ const app = new Vue({
       document.getElementById('helper-istructions').innerHTML = window.helperIstructionsENG;
     }
 
+    this.checkingUpdates(); //controllo "aggiornamenti"
     this.merryChristmasTheme(); //se è natale metto gli addobbi e buon natale!
 
     //imposto il tema in base a quello scelto dall'utente
@@ -410,6 +414,32 @@ const app = new Vue({
       setTimeout(() => (this.copyList.visible = false), 3000); //cambio il testo del pulsante copia
       navigator.vibrate(400);
     },
+    checkingUpdates() {
+      const d = new Date();
+      const monthNow = d.getMonth();
+      const yearNow = d.getFullYear();
+      const lastMonth = window.localStorage.getItem('lastMonth');
+      const lastYear = window.localStorage.getItem('lastYear');
+      const month = this.langIta
+        ? ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"]
+        : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+      if ((lastMonth !== null && lastYear !== null) && monthNow == lastMonth && yearNow == lastYear) {
+        this.disableUpdateButton = true;
+        this.dateLastUpdate = `${month[lastMonth]}/${lastYear}`;
+      }
+    },
+    updateApp() {
+      const d = new Date();
+      const month = d.getMonth();
+      const year = d.getFullYear();
+      window.localStorage.setItem('lastMonth', month);
+      window.localStorage.setItem('lastYear', year);
+      document.getElementById('helper-description-container').style.display = 'none';
+      document.getElementById('updating-container').style.display = 'block';
+      // const range = Math.random() * (1500 - 3500) + 1500;
+      setTimeout(() => { location.reload(); }, 2800);
+    },
     shareLink() {
       const playStoreUrl = 'https://play.google.com/store/apps/details?id=io.kodular.caputoluca88.Shopping_List';
       navigator.clipboard.writeText(playStoreUrl);
@@ -427,9 +457,7 @@ const app = new Vue({
       this.categoryList = !this.categoryList;
       this.isDraggable = false;
       if (this.categoryList) {
-        setTimeout(() => {
-          this.categoryListChildren = true;
-        }, 400);
+        setTimeout(() => { this.categoryListChildren = true; }, 400);
       } else {
         this.categoryListChildren = false;
       }
@@ -607,10 +635,7 @@ const app = new Vue({
           document.getElementById('loading-themes-container').style.backgroundColor = '#1A3159';
           break;
       }
-
-      setTimeout(() => {
-        location.reload();
-      }, 700);
+      setTimeout(() => { location.reload(); }, 700);
     },
     resetAllThemes() {
       this.lightTheme = false;

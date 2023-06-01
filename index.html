@@ -136,6 +136,10 @@
             <img src="./img/favicon.png" alt="loading">
           </div>
 
+          <div id="updating-container">
+            <img src="./img/update-img.webp" alt="loading">
+          </div>
+
           <!-- ----------HELPER CONTAINER (Questa parte fa più schifo delle altre, e non so perchè l'ho fatta così di merda, ignorala!!!)---->
           <div id="helper-description-container" class="helper-description" :class="{
                 'slideUp' : helper === true, 
@@ -180,12 +184,20 @@
                 <button type="button" class="btn winter-theme p-0" @click="changeTheme('winter')">Winter</button>
               </div>
               <br />
-              <div class="share">
+              <div class="share-update">
                 &#x2699; {{shareText}}:
-                <button class="btn btn-light border-dark share-btn" @click="shareLink()">
+                <button class="btn btn-light border-dark share-update-btn" @click="shareLink()">
                   <img src="img/share.webp" alt="share" />
                 </button>
                 <p class="link-copied" v-if="share.visible === true">{{share.text}}</p>
+              </div>
+              <div class="share-update">
+                <span>&#x2699; {{updateText}}:</span>
+                <button :disabled="disableUpdateButton" :class="{'ready-for-update': !disableUpdateButton}"
+                  class="btn btn-light border-dark ml-1 share-update-btn" @click="updateApp()">
+                  <img src="img/update.webp" alt="update" />
+                </button>
+                <small> (Beta Version)</small>
               </div>
               <div id="helper-istructions">
                 <!-- QUI C'È TUTTA LA DESCRIZIONE IN BASE ALLA LINGUA. È NEL FILE "helper-istructions.js" -->
@@ -228,17 +240,15 @@
               <br>
               <p style="margin-top: 15px;" v-if="langIta">
                 <span style="color: red;">IMPORTANTE:</span> Questa è una web app convertita in app per smartphone, ed è
-                sempre manutenuta ma non dovrai aggiornarla poichè ciò avverrà in automatico <small>(Per essere sicuro
-                  di avere i nuovi aggiornamenti ogni tanto riavvia l'app)</small>. Quindi non fare caso alla
-                data dell'ultimo aggiornamento che appare nello store. Quello è solo il giorno in cui l'ho pubblicata.
-                La data reale dell'ultimo aggiornamento è: {{dateLastUpdate}}
+                sempre manutenuta, quindi non fare caso alla data dell'ultimo aggiornamento che appare nello store.
+                Quello è solo il giorno in cui l'ho pubblicata.
+                La data reale dell'ultimo aggiornamento è: <span style="color: green;">{{dateLastUpdate}}</span>
               </p>
               <p style="margin-top: 15px;" v-if="!langIta">
                 <span style="color: red;">IMPORTANT:</span> This is a web app converted to an android app, and is always
-                maintained but you will not have to update it as this will be done automatically <small>(To make sure
-                  you have the new updates every now and then restart the app)</small>. So don't pay attention
-                to the date of the last update that appears in the store. That is just the day I published it.
-                The actual date of the last update is: {{dateLastUpdate}}
+                maintained, so don't pay attention to the date of the last update that appears in the store. That is
+                just the day I published it.
+                The actual date of the last update is: <span style="color: green;">{{dateLastUpdate}}</span>
               </p>
               <button id="privacy-policy-btn" class="privacy-policy-btn" @click="togglePrivacyPolicy()">
                 <small>Privacy policy</small>
