@@ -3,7 +3,7 @@ const app = new Vue({
     Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
   el: '#app',
   data: {
-    dateLastUpdate: '02/05/2023',
+    dateLastUpdate: '07/06/2023',
     todos: [], //conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     copiedTodo: null,
@@ -41,7 +41,12 @@ const app = new Vue({
     changeThemeText: 'Change theme',
     emailReportText: 'For any report you can contact me',
     shareText: 'Share',
-    updateText: 'If the button is green, click to update the app',
+    updateText: {
+      description: 'If the button is green, click to update the app',
+      available: 'Updates available',
+      unavailable: 'There are no updates',
+      readyForUpdate: false,
+    },
     categoryClass: false,
     categoryEmoji: '',
     categories: [],
@@ -88,7 +93,6 @@ const app = new Vue({
     needDragNDropBtn: false,
     openVideoTutorial: false,
     privacyPolicy: false,
-    disableUpdateButton: false,
   },
   created() {
     this.categories = this.engCategories; //setto le categorie di default
@@ -117,7 +121,9 @@ const app = new Vue({
       this.chosenThemeText = 'Tema impostato';
       this.changeThemeText = 'Cambia tema';
       this.shareText = 'Condividi';
-      this.updateText = "Se il pulsante è verde, clicca per aggiornare l'app";
+      this.updateText.description = "Se il pulsante è verde, clicca per aggiornare";
+      this.updateText.available = 'Aggiornamento disponibile';
+      this.updateText.unavailable = 'Non ci sono aggiornamenti';
       document.getElementById('helper-istructions').innerHTML =
         window.helperIstructionsITA; //questa è cacca, vue scrive direttamente il dom quindi normalmente ci sarebbe stato un componente apposito ma io devo usare github pages e schiantare tutto in un file. Normalmente su vue, lo so, non si fa!
       this.emailReportText = 'Per qualsiasi segnalazione puoi contattarmi';
@@ -425,11 +431,13 @@ const app = new Vue({
         : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
       if ((lastMonth !== null && lastYear !== null) && monthNow == lastMonth && yearNow == lastYear) {
-        this.disableUpdateButton = true;
+        this.updateText.readyForUpdate = true;
         this.dateLastUpdate = `${month[lastMonth]}/${lastYear}`;
       }
     },
     updateApp() {
+      //dato che per aggiornare l'app basta riavviare la pagina, essendo un app la rendo più carina, 
+      //e faccio si che ogni mese l'utente può farlo, in modo da avere sempre l'app aggiornata.
       const d = new Date();
       const month = d.getMonth();
       const year = d.getFullYear();
@@ -438,7 +446,7 @@ const app = new Vue({
       document.getElementById('helper-description-container').style.display = 'none';
       document.getElementById('updating-container').style.display = 'block';
       // const range = Math.random() * (1500 - 3500) + 1500;
-      setTimeout(() => { location.reload(); }, 2800);
+      setTimeout(() => { location.reload(); }, 3700);
     },
     shareLink() {
       const playStoreUrl = 'https://play.google.com/store/apps/details?id=io.kodular.caputoluca88.Shopping_List';

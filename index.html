@@ -11,6 +11,7 @@
   <link rel="preload" as="image" href="img/foglio.webp" />
   <link rel="preload" as="image" href="img/foglio_righe.webp" />
   <link rel="preload" as="image" href="img/cancella.webp" />
+  <link rel="preload" as="image" href="img/settings.webp" />
   <link rel="preload" as="image" href="img/close.webp" />
   <link rel="preload" as="image" href="img/postit.webp" />
   <link rel="preload" as="image" href="img/inverno.webp" />
@@ -83,7 +84,7 @@
                   'helper-deselected': !this.helper,
                   'helper-btn-dark': this.darkTheme
                 }" @click="showHelper()">
-              <span class="settings">&#x2699;</span>
+              <img class="settings" src="./img/settings.webp" alt="settings">
             </span>
             <div class="input-btns-container">
               <!--INPUT AGGIUNGI-->
@@ -138,6 +139,8 @@
 
           <div id="updating-container">
             <img src="./img/update-img.webp" alt="loading">
+            <!-- classe per l'animazione zoom -->
+            <h2 class="category-emoji-selected updating-text">..DOWNLOAD..</h2>
           </div>
 
           <!-- ----------HELPER CONTAINER (Questa parte fa più schifo delle altre, e non so perchè l'ho fatta così di merda, ignorala!!!)---->
@@ -165,7 +168,7 @@
             <div id="helper-description">
               &#x2699; {{safeModeText.title}} <br />
               <li class="ml-4">({{safeModeText.description}}):</li><br />
-              <li class="toggle-delete-confirm-container ml-4" @click="toggleDeleteConfirm()">
+              <li class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
                 <u>{{safeModeText.function}}</u>
                 <div class="toggle-delete-confirm">&#x1F449;</div>
                 <span class="text-primary">{{canDeleteText}}</span>
@@ -174,7 +177,7 @@
               &#x2699; {{chosenThemeText}}:
               <span class="text-primary">{{themeName}}</span><br />
               <li class="ml-4">{{changeThemeText}}:</li><br />
-              <div class="btn-group ml-4" role="group" aria-label="Basic mixed styles example">
+              <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                 <button type="button" class="btn btn-light p-1 border border-dark"
                   @click="changeTheme('light')">Light</button>
                 <button type="button" class="btn btn-dark p-1" @click="changeTheme('dark')">Dark</button>
@@ -192,12 +195,13 @@
                 <p class="link-copied" v-if="share.visible === true">{{share.text}}</p>
               </div>
               <div class="share-update">
-                <span>&#x2699; {{updateText}}:</span>
-                <button :disabled="disableUpdateButton" :class="{'ready-for-update': !disableUpdateButton}"
+                <span>&#x2699; {{updateText.description}}:</span>
+                <button :disabled="updateText.readyForUpdate" :class="{'ready-for-update': !updateText.readyForUpdate}"
                   class="btn btn-light border-dark ml-1 share-update-btn" @click="updateApp()">
                   <img src="img/update.webp" alt="update" />
                 </button>
-                <small> (Beta Version)</small>
+                <small v-if="!updateText.readyForUpdate">{{updateText.available}}</small>
+                <small v-if="updateText.readyForUpdate">{{updateText.unavailable}}</small>
               </div>
               <div id="helper-istructions">
                 <!-- QUI C'È TUTTA LA DESCRIZIONE IN BASE ALLA LINGUA. È NEL FILE "helper-istructions.js" -->
