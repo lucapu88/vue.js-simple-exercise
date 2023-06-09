@@ -169,3 +169,17 @@ helperIstructionsENG = `
       <u> ALL </u> the list.
     </li>
 `;
+
+helperAlertITA = `
+  <span style="color: red;">IMPORTANTE:</span> Questa è una web app convertita in app per smartphone, ed è
+  sempre manutenuta, quindi non fare caso alla data dell'ultimo aggiornamento che appare nello store.
+  Quello è solo il giorno in cui l'ho pubblicata.
+  La data reale dell'ultimo aggiornamento è: <span style="color: green;">{{dateLastUpdate}}</span>
+`;
+
+helperAlertENG = `
+  <span style="color: red;">IMPORTANT:</span> This is a web app converted to an android app, and is always
+  maintained, so don't pay attention to the date of the last update that appears in the store. That is
+  just the day I published it.
+  The actual date of the last update is: <span style="color: green;">{{dateLastUpdate}}</span>
+`;

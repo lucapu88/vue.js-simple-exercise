@@ -3,7 +3,7 @@ const app = new Vue({
     Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
   el: '#app',
   data: {
-    dateLastUpdate: '08/06/2023',
+    dateLastUpdate: '09/06/2023',
     todos: [], //conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     copiedTodo: null,
@@ -101,107 +101,12 @@ const app = new Vue({
     this.canDelete = canDelete === 'true';
     this.canDelete ? (this.canDeleteText = 'ON') : this.canDeleteText;
 
-    //setto la lingua in base a quella scelta dall'utente nel suo locale
-    const langIta = window.localStorage.getItem('langIta');
-    this.langIta = langIta === 'true';
-    if (this.langIta) {
-      this.placeholder = 'Scrivi qui cosa comprare';
-      this.defaultPlaceholderText = 'Scrivi qui cosa comprare';
-      this.categories = this.itaCategories;
-      this.copyList.text = 'Lista copiata negli appunti';
-      this.share.text = 'Link copiato negli appunti, incollalo con chi vuoi.';
-      this.confirmText = 'Sei sicuro di voler eliminare:';
-      this.selectedTodosConfirmText =
-        'Sei sicuro di voler eliminare gli elementi selezionati';
-      this.settingsTextTitle = 'Impostazioni';
-      this.safeModeText.title = 'Modalità eliminazione sicura';
-      this.safeModeText.description =
-        'ti chiederà conferma di eliminazione per ogni singolo prodotto della lista';
-      this.safeModeText.function = 'Clicca per attivare/disattivare';
-      this.chosenThemeText = 'Tema impostato';
-      this.changeThemeText = 'Cambia tema';
-      this.shareText = 'Condividi';
-      this.updateText.description = "Se il pulsante è verde, clicca per aggiornare";
-      this.updateText.available = 'Aggiornamento disponibile';
-      this.updateText.unavailable = 'Non ci sono aggiornamenti';
-      document.getElementById('helper-istructions').innerHTML =
-        window.helperIstructionsITA; //questa è cacca, vue scrive direttamente il dom quindi normalmente ci sarebbe stato un componente apposito ma io devo usare github pages e schiantare tutto in un file. Normalmente su vue, lo so, non si fa!
-      this.emailReportText = 'Per qualsiasi segnalazione puoi contattarmi';
-    } else {
-      this.categories = this.engCategories;
-      document.getElementById('helper-istructions').innerHTML = window.helperIstructionsENG;
-    }
+    this.checkAndSetLanguage(); //setto la lingua in base a quella scelta dall'utente nel suo locale
 
     this.checkingUpdates(); //controllo "aggiornamenti"
     this.merryChristmasTheme(); //se è natale metto gli addobbi e buon natale!
 
-    //imposto il tema in base a quello scelto dall'utente
-    const lightThemeSelected = window.localStorage.getItem('lightTheme');
-    this.lightTheme = lightThemeSelected === 'true';
-    if (this.lightTheme) { this.changeThemeStyle('Light', "url('img/foglio_righe.webp')"); }
-
-    const darkThemeSelected = window.localStorage.getItem('darkTheme');
-    this.darkTheme = darkThemeSelected === 'true';
-    if (this.darkTheme) {
-      this.changeThemeStyle('Dark', 'none', '#333333', '#FFFFFF');
-      document.body.style.height = '100vh';
-      document.body.style.border = '10px solid #d17e47';
-    }
-
-    const minimalThemeSelected = window.localStorage.getItem('minimalTheme');
-    this.minimalTheme = minimalThemeSelected === 'true';
-    if (this.minimalTheme) {
-      this.changeThemeStyle(
-        'Minimal',
-        'none',
-        '#A5BECC',
-        '#7C3E66',
-        '"Cabin", sans-serif'
-      );
-    }
-
-    const retroThemeSelected = window.localStorage.getItem('retroTheme');
-    this.retroTheme = retroThemeSelected === 'true';
-    if (this.retroTheme) {
-      this.changeThemeStyle(
-        'Dos',
-        'none',
-        '#090A0C',
-        '#FFFFFF',
-        '"DotGothic16", sans-serif'
-      );
-    }
-
-    const summerThemeSelected = window.localStorage.getItem('summerTheme');
-    this.summerTheme = summerThemeSelected === 'true';
-    if (this.summerTheme) {
-      this.changeThemeStyle('Summer', "url('img/mare.webp')", '#EFCB8F');
-      document.body.style.backgroundRepeat = 'no-repeat';
-      document.getElementById('helper-description').style.backgroundImage = 'none';
-      document.getElementById('helper-description-container').style.background = 'rgb(188,242,221)';
-      document.getElementById('helper-description-container').style.background = 'linear-gradient(168deg, rgba(188,242,221,1) 0%, rgba(129,215,235,1) 47%, rgba(46,152,242,1) 100%)';
-      document.getElementById('helper-description').style.filter = 'drop-shadow(2px 4px 6px black)';
-      document.querySelector('.confirm').style.backgroundImage = 'none';
-    }
-
-    const winterThemeSelected = window.localStorage.getItem('winterTheme');
-    this.winterTheme = winterThemeSelected === 'true';
-    if (this.winterTheme) {
-      document.body.style.backgroundRepeat = 'no-repeat';
-      document.body.style.backgroundSize = 'cover';
-      this.changeThemeStyle(
-        'Winter',
-        "url('img/montagne.webp')",
-        '#232F34',
-        '#FFFFFF'
-      );
-      document.getElementById('helper-description-container').style.backgroundImage = "url('img/inverno.webp')";
-      document.getElementById('helper-description-container').style.backgroundSize = 'cover';
-      document.getElementById('todo').style.filter = 'drop-shadow(2px 4px 6px black)';
-      document.getElementById('helper-description').style.filter = 'drop-shadow(2px 4px 6px black)';
-      document.querySelector('.confirm').style.backgroundImage = 'none';
-      document.querySelector('.confirm').style.filter = 'drop-shadow(2px 4px 6px black)';
-    }
+    this.setThemeOnLoad(); //imposto il tema in base a quello scelto dall'utente
   },
   mounted() {
     if (window.localStorage.getItem('todos')) {
@@ -214,7 +119,7 @@ const app = new Vue({
       }
     }
     if (!this.addTodoInCategory.condition) { this.todos.map((t) => (t.isSelected = false)); }
-    this.changeTotoAdded(this.todos);
+    this.changeTodoAdded(this.todos);
   },
   updated() {
     this.toggleButtonBackToTop();
@@ -302,7 +207,7 @@ const app = new Vue({
 
       setTimeout(() => {
         //faccio questo per crearmi un'animazione visibile per un lasso di tempo appena si aggiunge un todo
-        this.changeTotoAdded(this.todos);
+        this.changeTodoAdded(this.todos);
       }, 1500);
 
       this.newTodo = '';
@@ -337,7 +242,7 @@ const app = new Vue({
       this.confirmDeleteModal = false;
       navigator.vibrate(220);
     },
-    changeTotoAdded(arr) {
+    changeTodoAdded(arr) {
       arr.forEach(function (item) {
         if (item.todoAdded === true) { item.todoAdded = false; }
       });
@@ -549,7 +454,41 @@ const app = new Vue({
         containerList.scrollTo({ top: containerList.scrollHeight, behavior: 'smooth' });
       }, 200);
     },
-    setEnglish() {
+    checkAndSetLanguage() {
+      const langIta = window.localStorage.getItem('langIta');
+      this.langIta = langIta === 'true';
+      if (this.langIta) {
+        this.placeholder = 'Scrivi qui cosa comprare';
+        this.defaultPlaceholderText = 'Scrivi qui cosa comprare';
+        this.categories = this.itaCategories;
+        this.copyList.text = 'Lista copiata negli appunti';
+        this.share.text = 'Link copiato negli appunti, incollalo con chi vuoi.';
+        this.confirmText = 'Sei sicuro di voler eliminare:';
+        this.selectedTodosConfirmText =
+          'Sei sicuro di voler eliminare gli elementi selezionati';
+        this.settingsTextTitle = 'Impostazioni';
+        this.safeModeText.title = 'Modalità eliminazione sicura';
+        this.safeModeText.description =
+          'ti chiederà conferma di eliminazione per ogni singolo prodotto della lista';
+        this.safeModeText.function = 'Clicca per attivare/disattivare';
+        this.chosenThemeText = 'Tema impostato';
+        this.changeThemeText = 'Cambia tema';
+        this.shareText = 'Condividi';
+        this.updateText.description = "Se il pulsante è verde, clicca per aggiornare";
+        this.updateText.available = 'Aggiornamento disponibile';
+        this.updateText.unavailable = 'Non ci sono aggiornamenti';
+        //questa è cacca, vue scrive direttamente il dom quindi normalmente ci sarebbe stato un componente apposito ma io devo usare github pages e schiantare tutto in un file. Normalmente su vue, lo so, non si fa!
+        document.getElementById('helper-istructions').innerHTML = window.helperIstructionsITA;
+        document.getElementById('helper-important-alert').innerHTML = window.helperAlertITA;
+
+        this.emailReportText = 'Per qualsiasi segnalazione puoi contattarmi';
+      } else {
+        this.categories = this.engCategories;
+        document.getElementById('helper-istructions').innerHTML = window.helperIstructionsENG;
+        document.getElementById('helper-important-alert').innerHTML = window.helperAlertENG;
+      }
+    },
+    setEnglishLanguage() {
       this.langIta = false;
       this.placeholder = 'Write what to buy';
       this.defaultPlaceholderText = 'Write what to buy';
@@ -559,7 +498,7 @@ const app = new Vue({
       window.localStorage.setItem('langIta', false);
       location.reload(); //lo faccio solo perchè mi obbligano ad inserire librerie del c---- per la privacy policy che mi buggano il codice.
     },
-    setItaliano() {
+    setItalianoLanguage() {
       this.langIta = true;
       this.placeholder = 'Scrivi qui cosa comprare';
       this.defaultPlaceholderText = 'Scrivi qui cosa comprare';
@@ -577,6 +516,58 @@ const app = new Vue({
       } else {
         this.canDeleteText = 'OFF';
         window.localStorage.setItem('canDelete', false);
+      }
+    },
+    setThemeOnLoad() {
+      const lightThemeSelected = window.localStorage.getItem('lightTheme');
+      this.lightTheme = lightThemeSelected === 'true';
+      if (this.lightTheme) { this.changeThemeStyle('Light', "url('img/foglio_righe.webp')"); }
+
+      const darkThemeSelected = window.localStorage.getItem('darkTheme');
+      this.darkTheme = darkThemeSelected === 'true';
+      if (this.darkTheme) {
+        this.changeThemeStyle('Dark', 'none', '#333333', '#FFFFFF');
+        document.body.style.height = '100vh';
+        document.body.style.border = '10px solid #d17e47';
+      }
+
+      const minimalThemeSelected = window.localStorage.getItem('minimalTheme');
+      this.minimalTheme = minimalThemeSelected === 'true';
+      if (this.minimalTheme) {
+        this.changeThemeStyle('Minimal', 'none', '#A5BECC', '#7C3E66', '"Cabin", sans-serif');
+      }
+
+      const retroThemeSelected = window.localStorage.getItem('retroTheme');
+      this.retroTheme = retroThemeSelected === 'true';
+      if (this.retroTheme) {
+        this.changeThemeStyle('Dos', 'none', '#090A0C', '#FFFFFF', '"DotGothic16", sans-serif');
+      }
+
+      const summerThemeSelected = window.localStorage.getItem('summerTheme');
+      this.summerTheme = summerThemeSelected === 'true';
+      if (this.summerTheme) {
+        this.changeThemeStyle('Summer', "url('img/mare.webp')", '#EFCB8F');
+        document.body.style.backgroundRepeat = 'no-repeat';
+        document.getElementById('helper-description').style.backgroundImage = 'none';
+        document.getElementById('helper-description-container').style.background = 'rgb(188,242,221)';
+        document.getElementById('helper-description-container').style.background = 'linear-gradient(168deg, rgba(188,242,221,1) 0%, rgba(129,215,235,1) 47%, rgba(46,152,242,1) 100%)';
+        document.getElementById('helper-description').style.filter = 'drop-shadow(2px 4px 6px black)';
+        document.querySelector('.confirm').style.backgroundImage = 'none';
+      }
+
+      const winterThemeSelected = window.localStorage.getItem('winterTheme');
+      this.winterTheme = winterThemeSelected === 'true';
+      if (this.winterTheme) {
+        document.body.style.backgroundRepeat = 'no-repeat';
+        document.body.style.backgroundSize = 'cover';
+        this.changeThemeStyle('Winter', "url('img/montagne.webp')", '#232F34', '#FFFFFF');
+
+        document.getElementById('helper-description-container').style.backgroundImage = "url('img/inverno.webp')";
+        document.getElementById('helper-description-container').style.backgroundSize = 'cover';
+        document.getElementById('todo').style.filter = 'drop-shadow(2px 4px 6px black)';
+        document.getElementById('helper-description').style.filter = 'drop-shadow(2px 4px 6px black)';
+        document.querySelector('.confirm').style.backgroundImage = 'none';
+        document.querySelector('.confirm').style.filter = 'drop-shadow(2px 4px 6px black)';
       }
     },
     changeTheme(theme) {
@@ -659,13 +650,7 @@ const app = new Vue({
       this.winterTheme = false;
       window.localStorage.setItem('winterTheme', false);
     },
-    changeThemeStyle(
-      themeName,
-      backgroundImage,
-      backgroundColor,
-      color,
-      fontFamily
-    ) {
+    changeThemeStyle(themeName, backgroundImage, backgroundColor, color, fontFamily) {
       this.themeName = themeName;
       document.body.style.backgroundImage = backgroundImage;
       document.body.style.backgroundColor = backgroundColor;
@@ -677,16 +662,6 @@ const app = new Vue({
       this.categoryList = false;
       this.resetModify();
       this.removeSelectedCategoryToAddItem();
-    },
-    getAndroidVersion(ua) {
-      //questo metodo è inutilizzato ma lo tengo poichè potrebbe servirmi in futuro se risolvono il problema con la libreria "draggabble".
-      //Ho aperto una segnalazione qui: https://github.com/SortableJS/Vue.Draggable/issues/1178
-      ua = (ua || navigator.userAgent).toLowerCase();
-      const match = ua.match(/android\s([0-9\.]*)/i);
-      const intVersion = match ? parseInt(match[1]) : 12;
-      intVersion <= 11
-        ? (this.needDragNDropBtn = true)
-        : (this.isDraggable = true);
     },
     togglePrivacyPolicy() {
       this.privacyPolicy = !this.privacyPolicy;

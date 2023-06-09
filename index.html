@@ -242,17 +242,8 @@
               <br />
               <span>{{emailReportText}}: <a href="mailto:lucarhcp88@hotmail.it">lucarhcp88@hotmail.it</a></span>
               <br>
-              <p style="margin-top: 15px;" v-if="langIta">
-                <span style="color: red;">IMPORTANTE:</span> Questa è una web app convertita in app per smartphone, ed è
-                sempre manutenuta, quindi non fare caso alla data dell'ultimo aggiornamento che appare nello store.
-                Quello è solo il giorno in cui l'ho pubblicata.
-                La data reale dell'ultimo aggiornamento è: <span style="color: green;">{{dateLastUpdate}}</span>
-              </p>
-              <p style="margin-top: 15px;" v-if="!langIta">
-                <span style="color: red;">IMPORTANT:</span> This is a web app converted to an android app, and is always
-                maintained, so don't pay attention to the date of the last update that appears in the store. That is
-                just the day I published it.
-                The actual date of the last update is: <span style="color: green;">{{dateLastUpdate}}</span>
+              <p style="margin-top: 15px;" id="helper-important-alert">
+                <!-- AVVISO DELLA DATA DI AGGIORNAMENTO IN BASE ALLA LINGUA. È NEL FILE "helper-istructions.js-->
               </p>
               <button id="privacy-policy-btn" class="privacy-policy-btn" @click="togglePrivacyPolicy()">
                 <small>Privacy policy</small>
@@ -569,8 +560,10 @@
                 'minimal-btn': minimalTheme, 
                 'retro-btn': retroTheme
               }">
-              <button class="btn-lang-left" :class="{'language-selected': !langIta}" @click="setEnglish()">Eng</button>
-              <button class="btn-lang-right" :class="{'language-selected': langIta}" @click="setItaliano()">Ita</button>
+              <button class="btn-lang-left" :class="{'language-selected': !langIta}"
+                @click="setEnglishLanguage()">Eng</button>
+              <button class="btn-lang-right" :class="{'language-selected': langIta}"
+                @click="setItalianoLanguage()">Ita</button>
             </div>
           </div>
           <img v-if="christmasTheme" class="christas-footer" src="./img/christmas.webp" alt="" />
