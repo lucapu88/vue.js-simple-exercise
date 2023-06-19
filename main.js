@@ -3,7 +3,7 @@ const app = new Vue({
     Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
   el: '#app',
   data: {
-    dateLastUpdate: '09/06/2023',
+    dateLastUpdate: '20/06/2023',
     todos: [], //conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     copiedTodo: null,
@@ -39,7 +39,6 @@ const app = new Vue({
     },
     chosenThemeText: 'Chosen theme',
     changeThemeText: 'Change theme',
-    emailReportText: 'For any report you can contact me',
     shareText: 'Share',
     updateText: {
       description: 'If the button is green, click to update the app',
@@ -91,7 +90,14 @@ const app = new Vue({
     canDeleteMultipleTodo: false,
     isDraggable: false,
     needDragNDropBtn: false,
-    openVideoTutorial: false,
+    addEditDelete: false,
+    categoriesInfo: false,
+    dragNdrop: false,
+    selectAndDelete: false,
+    copyHighlights: false,
+    deleteAllInfo: false,
+    tutorial: false,
+    support: false,
     privacyPolicy: false,
   },
   created() {
@@ -215,6 +221,7 @@ const app = new Vue({
       this.categoryEmoji = '';
       this.categoryList = false;
       this.isDraggable = false;
+      this.resetListIstructions();
       this.saveTodos();
       this.toggleButtonBackToTop();
       this.toggleButtonDeleteSelectedTodo();
@@ -232,7 +239,7 @@ const app = new Vue({
       } else {
         this.confirmedRemoveTodo(x, todo);
       }
-
+      this.resetListIstructions();
       this.toggleButtonBackToTop();
       this.toggleButtonDeleteSelectedTodo();
     },
@@ -383,8 +390,45 @@ const app = new Vue({
       } else {
         document.getElementById('helper-description').scrollTo(0, 0);
         document.documentElement.style.overflow = 'auto';
-        this.openVideoTutorial = false;
       }
+    },
+    showListIstructions(section) {
+      switch (section) {
+        case 'addEditDelete':
+          this.addEditDelete = !this.addEditDelete;
+          break;
+        case 'categoriesInfo':
+          this.categoriesInfo = !this.categoriesInfo;
+          break;
+        case 'dragNdrop':
+          this.dragNdrop = !this.dragNdrop;
+          break;
+        case 'selectAndDelete':
+          this.selectAndDelete = !this.selectAndDelete;
+          break;
+        case 'copyHighlights':
+          this.copyHighlights = !this.copyHighlights;
+          break;
+        case 'deleteAllInfo':
+          this.deleteAllInfo = !this.deleteAllInfo;
+          break;
+        case 'tutorial':
+          this.tutorial = !this.tutorial;
+          break;
+        case 'support':
+          this.support = !this.support;
+          break;
+      }
+    },
+    resetListIstructions() {
+      this.addEditDelete = false;
+      this.categoriesInfo = false;
+      this.dragNdrop = false;
+      this.selectAndDelete = false;
+      this.copyHighlights = false;
+      this.deleteAllInfo = false;
+      this.tutorial = false;
+      this.support = false;
     },
     selectTodoForDelete(index) {
       if (this.todos[index].modify) { return; }
@@ -480,8 +524,6 @@ const app = new Vue({
         //questa è cacca, vue scrive direttamente il dom quindi normalmente ci sarebbe stato un componente apposito ma io devo usare github pages e schiantare tutto in un file. Normalmente su vue, lo so, non si fa!
         document.getElementById('helper-istructions').innerHTML = window.helperIstructionsITA;
         document.getElementById('helper-important-alert').innerHTML = window.helperAlertITA;
-
-        this.emailReportText = 'Per qualsiasi segnalazione puoi contattarmi';
       } else {
         this.categories = this.engCategories;
         document.getElementById('helper-istructions').innerHTML = window.helperIstructionsENG;

@@ -206,43 +206,8 @@
               <div id="helper-istructions">
                 <!-- QUI C'È TUTTA LA DESCRIZIONE IN BASE ALLA LINGUA. È NEL FILE "helper-istructions.js" -->
               </div>
-              <ul class="helper-list" v-if="langIta">
-                <li v-if="!openVideoTutorial">
-                  Se non hai capito un &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; di tutto ciò, non preoccuparti,
-                  c'è un video tutorial
-                  <span class="show-video" @click="openVideoTutorial = true">cliccando qui.</span>
-                </li>
-                <li class="hide-video" v-if="openVideoTutorial" @click="openVideoTutorial = false">
-                  Nascondi video.
-                </li>
-                <video v-if="openVideoTutorial" :class="{'video': !retroTheme}" width="98%" height="500"
-                  poster="./img/favicon.png" controls>
-                  <source src="./video/ITA.mp4" type="video/mp4" />
-                  Il tuo device non supporta i video tag. Guardalo su youtube
-                  <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>
-                </video>
-              </ul>
-              <ul class="helper-list" v-else>
-                <li v-if="!openVideoTutorial">
-                  If you don't understand a &#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e;&#x1f51e; of all this, don't worry,
-                  there is a video tutorial
-                  <span class="show-video" @click="openVideoTutorial = true">by clicking here.</span>
-                </li>
-                <li class="hide-video" v-if="openVideoTutorial" @click="openVideoTutorial = false">
-                  Hide video.
-                </li>
-                <video v-if="openVideoTutorial" :class="{'video': !retroTheme}" width="98%" height="500"
-                  poster="./img/favicon.png" controls>
-                  <source src="./video/ENG.mp4" type="video/mp4" />
-                  Your device does not support the video tag. Watch on youtube
-                  <a href="https://www.youtube.com/watch?v=H1E9ynY9f9w" target="_blank">by clicking
-                    here</a>
-                </video>
-              </ul>
-              <br />
-              <span>{{emailReportText}}: <a href="mailto:lucarhcp88@hotmail.it">lucarhcp88@hotmail.it</a></span>
               <br>
-              <p style="margin-top: 15px;" id="helper-important-alert">
+              <p id="helper-important-alert" class="update-alert">
                 <!-- AVVISO DELLA DATA DI AGGIORNAMENTO IN BASE ALLA LINGUA. È NEL FILE "helper-istructions.js-->
               </p>
               <button id="privacy-policy-btn" class="privacy-policy-btn" @click="togglePrivacyPolicy()">
