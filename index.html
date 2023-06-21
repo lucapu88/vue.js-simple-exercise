@@ -216,14 +216,15 @@
             </div>
             <!-- ------------------------------------------PRIVACY POLICY MODAL------------------------------------ -->
             <div v-if="privacyPolicy" id="privacy-policy-modal" class="modal">
-              <div class="privacy-modal-content">
+              <div class="privacy-modal-content" id="privacy-modal-content">
                 <span class="close" @click="togglePrivacyPolicy()">&times;</span>
-                <div class="privacy-modal-header">
+                <div id="pp" style="color: black;"></div>
+                <div class="privacy-modal-header" v-if="pp">
                   <h2 class="text-center">Privacy Policy of Shopping List</h2>
                   <small>Application collects some Personal Data from its
                     Users.</small>
                 </div>
-                <div class="privacy-modal-main">
+                <div class="privacy-modal-main" v-if="pp">
                   <strong>
                     Personal Data processed for the following purposes and using
                     the following services:
@@ -250,12 +251,12 @@
                   <p>Owner: Luca Caputo</p>
                   <p>Contact email: lucarhcp88@hotmail.it</p>
                 </div>
-                <div class="privacy-modal-footer">
+                <div class="privacy-modal-footer" v-if="pp">
                   <p>Latest update: 23 January 2023</p>
-                  <a href="https://www.privacypolicygenerator.info/live.php?token=XdQQ3qcxNezVaYoGNfhFaO3myEgLXuNt"
-                    rel="noopener noreferrer">
+                  <p style="color: #12a1df;  text-decoration-line: underline; cursor: pointer;"
+                    @click="showCompletePrivacyPolicy()">
                     Show the complete Privacy Policy
-                  </a>
+                  </p>
                 </div>
               </div>
             </div>

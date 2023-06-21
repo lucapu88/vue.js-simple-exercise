@@ -3,7 +3,7 @@ const app = new Vue({
     Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
   el: '#app',
   data: {
-    dateLastUpdate: '20/06/2023',
+    dateLastUpdate: '21/06/2023',
     todos: [], //conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     copiedTodo: null,
@@ -99,6 +99,7 @@ const app = new Vue({
     tutorial: false,
     support: false,
     privacyPolicy: false,
+    pp: true,
   },
   created() {
     this.categories = this.engCategories; //setto le categorie di default
@@ -707,6 +708,12 @@ const app = new Vue({
     },
     togglePrivacyPolicy() {
       this.privacyPolicy = !this.privacyPolicy;
+      this.pp = true;
     },
+    showCompletePrivacyPolicy() {
+      document.getElementById('privacy-modal-content').scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      this.pp = false;
+      if (!this.pp) { document.getElementById('pp').innerHTML = window.privacyPolicyComplete; }
+    }
   },
 });
