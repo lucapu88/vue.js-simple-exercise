@@ -166,7 +166,8 @@
               alt="E felice anno nuovo!" />
 
             <div id="helper-description">
-              &#x2699; {{safeModeText.title}} <br />
+              <span @click="highlightsForTutorial(1)">&#x2699;</span>
+              <span :class="{'tutorial-highlights': highlits === 1}">{{safeModeText.title}}</span> <br />
               <li class="ml-4">({{safeModeText.description}}):</li><br />
               <li class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
                 <u>{{safeModeText.function}}</u>
@@ -174,7 +175,8 @@
                 <span class="text-primary">{{canDeleteText}}</span>
               </li>
               <br /><br />
-              &#x2699; {{chosenThemeText}}:
+              <span @click="highlightsForTutorial(2)">&#x2699;</span>
+              <span :class="{'tutorial-highlights': highlits === 2}">{{chosenThemeText}}: </span>
               <span class="text-primary">{{themeName}}</span><br />
               <li class="ml-4">{{changeThemeText}}:</li><br />
               <div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -186,16 +188,31 @@
                 <button type="button" class="btn summer-theme p-1" @click="changeTheme('summer')">Summer</button>
                 <button type="button" class="btn winter-theme p-0" @click="changeTheme('winter')">Winter</button>
               </div>
-              <br />
+              <br /><br />
+              <div class="add-list-copied-container">
+                <span @click="highlightsForTutorial(3)">&#x2699;</span>
+                <span :class="{'tutorial-highlights': highlits === 3}">{{pasteListText.title}}</span>
+                <li class="ml-4">({{pasteListText.subtitle}}):</li>
+                <div class="add-list-copied">
+                  <textarea :class="{'add-list-textarea': !retroTheme}" rows="1" cols="20" v-model=" listPasted">
+                  </textarea>
+                  <button class="btn btn-light border-dark share-update-btn" @click="addListCopied()">
+                    <small v-if="!langIta">Import</small>
+                    <small v-else>Importa</small>
+                  </button>
+                </div>
+              </div>
               <div class="share-update">
-                &#x2699; {{shareText}}:
+                <span @click="highlightsForTutorial(4)">&#x2699;</span>
+                <span :class="{'tutorial-highlights': highlits === 4}">{{shareText}}: </span>
                 <button class="btn btn-light border-dark share-update-btn" @click="shareLink()">
                   <img src="img/share.webp" alt="share" />
                 </button>
                 <p class="link-copied" v-if="share.visible === true">{{share.text}}</p>
               </div>
               <div class="share-update">
-                <span>&#x2699; {{updateText.description}}:</span>
+                <span @click="highlightsForTutorial(5)">&#x2699;</span>
+                <span :class="{'tutorial-highlights': highlits === 5}">{{updateText.description}}:</span>
                 <button :disabled="updateText.readyForUpdate" :class="{'ready-for-update': !updateText.readyForUpdate}"
                   class="btn btn-light border-dark ml-1 share-update-btn" @click="updateApp()">
                   <img src="img/update.webp" alt="update" />

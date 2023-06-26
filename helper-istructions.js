@@ -1,13 +1,13 @@
 helperIstructionsITA = `
-  <p class="helper-title">Risoluzione Problemi:</p>
-  <small>
+  <p class="helper-title" @click="highlightsForTutorial(6)">Risoluzione Problemi:</p>
+  <small :class="{'tutorial-highlights': highlits === 6}">
     Nel caso riscontrassi lentezza o blocchi nel caricamento di immagini, controlla la tua
     connessione, se è ok prova a riavviare l'app.
     Se il problema persiste segnalalo all'email nella sezione contatti.
   </small>
   <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Istruzioni:</p>
   <ul class="helper-list">
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('addEditDelete')">
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('addEditDelete')">
       Aggiungere, Modificare, Eliminare. 
       <img class="arrow" :class="{
                   'arrow-selected': this.addEditDelete,
@@ -29,7 +29,7 @@ helperIstructionsITA = `
        :class="{'minimal-helper-btn':minimalTheme, 'retro-btn-button': retroTheme}"></i>
       eliminerai roba dalla lista.
     </li>
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('categoriesInfo')">
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('categoriesInfo')">
       Categorie. 
       <img class="arrow" :class="{
                   'arrow-selected': this.categoriesInfo,
@@ -66,7 +66,7 @@ helperIstructionsITA = `
               <span v-else>Remove only empty</span>
             </button>.
     </li>
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('dragNdrop')">
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('dragNdrop')">
       Trascina e sposta elementi. 
       <img class="arrow" :class="{
                   'arrow-selected': this.dragNdrop,
@@ -80,7 +80,7 @@ helperIstructionsITA = `
         <img src="./img/drag-and-drop.webp" alt="move" />
       </button> potrai trascinare gli elementi e spostarli dove vuoi.
     </li>
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('selectAndDelete')">
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('selectAndDelete')">
       Seleziona ed elimina più elementi. 
       <img class="arrow" :class="{
                   'arrow-selected': this.selectAndDelete,
@@ -91,7 +91,7 @@ helperIstructionsITA = `
           <i class="fas fa-trash-alt"></i>
         </button> in basso verranno eliminati solo quelli che hai smarcato.
     </li>
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('copyHighlights')">
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('copyHighlights')">
       Copia lista, Evidenzia elementi. 
       <img class="arrow" :class="{
                   'arrow-selected': this.copyHighlights,
@@ -105,7 +105,7 @@ helperIstructionsITA = `
     <li v-if="copyHighlights">
       Puoi rendere "importante" un prodotto cliccando sul nome e verrà <span class="active">evidenziato</span>, così non potrà essere eliminato o modificato.
     </li>
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('deleteAllInfo')">
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('deleteAllInfo')">
       Elimina tutto. 
       <img class="arrow" :class="{
                   'arrow-selected': this.deleteAllInfo,
@@ -117,7 +117,7 @@ helperIstructionsITA = `
       ti apparirà un riquadro di conferma per l'eliminazione di
       <u>TUTTA</u> la lista.
     </li>
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('tutorial')">
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('tutorial')">
       Video tutorial.
       <img class="arrow" :class="{
       'arrow-selected': this.tutorial,
@@ -129,7 +129,7 @@ helperIstructionsITA = `
         Il tuo device non supporta i video tag. Guardalo su youtube
         <a href="https://www.youtube.com/watch?v=VSO1k1CUrBY" target="_blank">cliccando qui</a>
     </video>
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" 
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" 
       @click="showListIstructions('support')">
       Contatti.
       <img class="arrow" :class="{
@@ -144,15 +144,15 @@ helperIstructionsITA = `
 `;
 
 helperIstructionsENG = `
-  <p class="helper-title">Troubleshooting:</p>
-  <small>
+  <p class="helper-title" @click="highlightsForTutorial(6)">Troubleshooting:</p>
+  <small :class="{'tutorial-highlights': highlits === 6}">
     If you experience slowness or blocks in loading images, check your connection, if it's ok try restarting
     the app. 
     If the problem persists, report it to the e-mail in the support section.
   </small>
   <p class="helper-title" :class="christmasTheme ? 'christmas-red' : ''">Instructions:</p>
   <ul class="helper-list">
-   <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('addEditDelete')">
+   <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('addEditDelete')">
       Add, Edit, Delete. 
       <img class="arrow" :class="{
                   'arrow-selected': this.addEditDelete,
@@ -173,7 +173,7 @@ helperIstructionsENG = `
       :class="{'minimal-helper-btn':minimalTheme, 'retro-btn-button': retroTheme}"> </i>
       you will remove stuff from the list.
     </li>
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('categoriesInfo')">
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('categoriesInfo')">
       Categories. 
       <img class="arrow" :class="{
                   'arrow-selected': this.categoriesInfo,
@@ -209,7 +209,7 @@ helperIstructionsENG = `
               <span v-else>Remove only empty</span>
             </button>.
     </li>
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('dragNdrop')">
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('dragNdrop')">
       Drag and Drop. 
       <img class="arrow" :class="{
                   'arrow-selected': this.dragNdrop,
@@ -224,7 +224,7 @@ helperIstructionsENG = `
         <img src="./img/drag-and-drop.webp" alt="move" />
       </button> you can drag the elements and move them wherever you want.
     </li>
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('selectAndDelete')">
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('selectAndDelete')">
       Select and delete multiple items. 
       <img class="arrow" :class="{
                   'arrow-selected': this.selectAndDelete,
@@ -235,7 +235,7 @@ helperIstructionsENG = `
         <i class="fas fa-trash-alt"></i>
       </button> at the bottom only the ones you marked will be deleted.
     </li>
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('copyHighlights')">
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('copyHighlights')">
       Copy list, Highlight items. 
       <img class="arrow" :class="{
                   'arrow-selected': this.copyHighlights,
@@ -248,7 +248,7 @@ helperIstructionsENG = `
     <li v-if="copyHighlights">
       You can make a product "important" by clicking on the name and it will be <span class="active">highlighted</span>, so it cannot be deleted or edited.
     </li>
-    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('deleteAllInfo')">
+    <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('deleteAllInfo')">
       Delete all. 
       <img class="arrow" :class="{
                   'arrow-selected': this.deleteAllInfo,
@@ -260,7 +260,7 @@ helperIstructionsENG = `
       you will see a confirmation box for the 'delete
       <u> ALL </u> the list.
     </li>
-     <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" @click="showListIstructions('tutorial')">
+     <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('tutorial')">
         Video tutorial.
         <img class="arrow" :class="{
         'arrow-selected': this.tutorial,
@@ -272,7 +272,7 @@ helperIstructionsENG = `
           Your device does not support the video tag. Watch on youtube
           <a href="https://www.youtube.com/watch?v=H1E9ynY9f9w" target="_blank">by clicking here</a>
       </video>
-      <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme}" 
+      <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" 
         @click="showListIstructions('support')">
         Support.
         <img class="arrow" :class="{
@@ -287,17 +287,21 @@ helperIstructionsENG = `
 `;
 
 helperAlertITA = `
-  <span style="color: red;">IMPORTANTE:</span> Questa è una web app convertita in app per smartphone, ed è
+  <span style="color: red;" @click="highlightsForTutorial(7)">IMPORTANTE:</span> 
+  <span :class="{'tutorial-highlights': highlits === 7}">Questa è una web app convertita in app per smartphone, ed è
   sempre manutenuta, quindi non fare caso alla data dell'ultimo aggiornamento che appare nello store.
   Quello è solo il giorno in cui l'ho pubblicata.
   La data reale dell'ultimo aggiornamento è: <span style="color: green;">{{dateLastUpdate}}</span>
+  </span>
 `;
 
 helperAlertENG = `
-  <span style="color: red;">IMPORTANT:</span> This is a web app converted to an android app, and is always
+  <span style="color: red;" @click="highlightsForTutorial(7)">IMPORTANT:</span> 
+  <span :class="{'tutorial-highlights': highlits === 7}">This is a web app converted to an android app, and is always
   maintained, so don't pay attention to the date of the last update that appears in the store. That is
   just the day I published it.
   The actual date of the last update is: <span style="color: green;">{{dateLastUpdate}}</span>
+  </span>
 `;
 
 privacyPolicyComplete = `

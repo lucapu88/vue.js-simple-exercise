@@ -3,7 +3,7 @@ const app = new Vue({
     Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
   el: '#app',
   data: {
-    dateLastUpdate: '21/06/2023',
+    dateLastUpdate: '26/06/2023',
     todos: [], //conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     copiedTodo: null,
@@ -12,6 +12,7 @@ const app = new Vue({
     categoryListChildren: null,
     helper: null,
     christmasTheme: false,
+    highlits: null,
     placeholder: 'Write here what to buy',
     defaultPlaceholderText: 'Write here what to buy',
     copyList: {
@@ -39,6 +40,10 @@ const app = new Vue({
     },
     chosenThemeText: 'Chosen theme',
     changeThemeText: 'Change theme',
+    pasteListText: {
+      title: 'Export a list from another app or notes',
+      subtitle: 'Just copy and paste it into the box and click import',
+    },
     shareText: 'Share',
     updateText: {
       description: 'If the button is green, click to update the app',
@@ -100,6 +105,7 @@ const app = new Vue({
     support: false,
     privacyPolicy: false,
     pp: true,
+    listPasted: null
   },
   created() {
     this.categories = this.engCategories; //setto le categorie di default
@@ -141,7 +147,13 @@ const app = new Vue({
       const currentDay = today.getDate();
       if (currentDay <= 31 && currentMonth === 12) { this.christmasTheme = true; }
     },
+    highlightsForTutorial(num) {
+      //mi serve solo quando creo i video tutorial. In pratica evidenzia il testo per il quale sto mostrando la funzionalità.
+      //this.highlits = num;
 
+      //RICORDATI CHE PER IL TUTORIAL DEVI AVERE IL PULSANTA AGGIORNAMENTI ATTIVO, QUINDI COPIA E INCOLLA QUESTO CODICE NEL CREATE/MOUNTED:
+      /*     window.localStorage.removeItem('lastMonth'); window.localStorage.removeItem('lastYear');     */
+    },
     myFilter(n) {
       if (!this.todos[n].class) {
         //al click setta la proprietà del singolo todo isActive (evidenzia rosso l'elemento cliccato)
@@ -361,6 +373,15 @@ const app = new Vue({
       // const range = Math.random() * (1500 - 3500) + 1500;
       setTimeout(() => { location.reload(); }, 3700);
     },
+    addListCopied() {
+      if (!this.listPasted) { return; }
+      const listPastedToArray = this.listPasted.split("\n").filter(el => el !== "").map(todo => todo.replace(/[^a-zA-Z0-9\s]/g, '').trim());
+      listPastedToArray.forEach(td => {
+        this.newTodo = td;
+        this.addTodo();
+      });
+      location.reload();
+    },
     shareLink() {
       const playStoreUrl = 'https://play.google.com/store/apps/details?id=io.kodular.caputoluca88.Shopping_List';
       navigator.clipboard.writeText(playStoreUrl);
@@ -394,6 +415,7 @@ const app = new Vue({
       }
     },
     showListIstructions(section) {
+      this.highlits = null;
       switch (section) {
         case 'addEditDelete':
           this.addEditDelete = !this.addEditDelete;
@@ -518,6 +540,8 @@ const app = new Vue({
         this.safeModeText.function = 'Clicca per attivare/disattivare';
         this.chosenThemeText = 'Tema impostato';
         this.changeThemeText = 'Cambia tema';
+        this.pasteListText.title = "Esporta una lista da un'altra app o dalle note";
+        this.pasteListText.subtitle = 'Basterà copiarla e incollarla nel riquadro e cliccare su importa';
         this.shareText = 'Condividi';
         this.updateText.description = "Se il pulsante è verde, clicca per aggiornare";
         this.updateText.available = 'Aggiornamento disponibile';
