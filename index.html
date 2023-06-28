@@ -194,9 +194,21 @@
                 <span :class="{'tutorial-highlights': highlits === 3}">{{pasteListText.title}}</span>
                 <li class="ml-4">({{pasteListText.subtitle}}):</li>
                 <div class="add-list-copied">
-                  <textarea :class="{'add-list-textarea': !retroTheme}" rows="1" cols="20" v-model=" listPasted">
+                  <div class="increase-decrease-container">
+                    <button :class="{'rounded': !retroTheme}" @mousedown="startDecreasing()" @mouseup="stopDecreasing()"
+                      @touchstart="startDecreasing()" @touchend="stopDecreasing()" touch-action="none">
+                      <img class="increase-decrease" src="img/decrease.webp" alt="decrease">
+                    </button>
+                    <button :class="{'rounded': !retroTheme}" @mousedown="startIncreasing()" @mouseup="stopIncreasing()"
+                      @touchstart="startIncreasing()" @touchend="stopIncreasing()" touch-action="none">
+                      <img class="increase-decrease" src="img/increase.webp" alt="increase">
+                    </button>
+                  </div>
+                  <textarea v-if="isTextareaVisible" id="text-area" :class="{'add-list-textarea': !retroTheme}" rows="2"
+                    v-model=" listPasted">
                   </textarea>
-                  <button class="btn btn-light border-dark share-update-btn" @click="addListCopied()">
+                  <button class="btn btn-light border-dark share-update-btn add-list-copied-btn"
+                    @click="addListCopied()">
                     <small v-if="!langIta">Import</small>
                     <small v-else>Importa</small>
                   </button>

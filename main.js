@@ -3,7 +3,7 @@ const app = new Vue({
     Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
   el: '#app',
   data: {
-    dateLastUpdate: '26/06/2023',
+    dateLastUpdate: '04/07/2023',
     todos: [], //conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     copiedTodo: null,
@@ -41,7 +41,7 @@ const app = new Vue({
     chosenThemeText: 'Chosen theme',
     changeThemeText: 'Change theme',
     pasteListText: {
-      title: 'Export a list from another app or notes',
+      title: 'Export a list from other apps',
       subtitle: 'Just copy and paste it into the box and click import',
     },
     shareText: 'Share',
@@ -105,7 +105,10 @@ const app = new Vue({
     support: false,
     privacyPolicy: false,
     pp: true,
-    listPasted: null
+    listPasted: null,
+    isTextareaVisible: false,
+    count: 55,
+    intervalId: null,
   },
   created() {
     this.categories = this.engCategories; //setto le categorie di default
@@ -382,6 +385,35 @@ const app = new Vue({
       });
       location.reload();
     },
+    startIncreasing() {
+      this.intervalId = setInterval(() => {
+        if (this.count <= 405) {
+          this.count += 10;
+          this.adjustTextareaHeight();
+        }
+      }, 100);
+    },
+    startDecreasing() {
+      this.intervalId = setInterval(() => {
+        if (this.count >= 55) {
+          this.count -= 10;
+          this.adjustTextareaHeight();
+        }
+      }, 100);
+    },
+    stopIncreasing() {
+      clearInterval(this.intervalId);
+    },
+    stopDecreasing() {
+      clearInterval(this.intervalId);
+    },
+    adjustTextareaHeight() {
+      document.getElementById('text-area').style.height = `${this.count}px`;
+    },
+    resetTextareaStyle() {
+      clearInterval(this.intervalId);
+      this.count = 55;
+    },
     shareLink() {
       const playStoreUrl = 'https://play.google.com/store/apps/details?id=io.kodular.caputoluca88.Shopping_List';
       navigator.clipboard.writeText(playStoreUrl);
@@ -406,6 +438,7 @@ const app = new Vue({
     },
     showHelper() {
       this.helper = !this.helper;
+      this.isTextareaVisible = this.helper;
       if (this.helper) {
         window.scrollTo(0, 0);
         document.documentElement.style.overflow = 'hidden';
@@ -413,6 +446,9 @@ const app = new Vue({
         document.getElementById('helper-description').scrollTo(0, 0);
         document.documentElement.style.overflow = 'auto';
       }
+      this.checkingUpdates();
+      this.resetTextareaStyle();
+      this.merryChristmasTheme();
     },
     showListIstructions(section) {
       this.highlits = null;
@@ -540,7 +576,7 @@ const app = new Vue({
         this.safeModeText.function = 'Clicca per attivare/disattivare';
         this.chosenThemeText = 'Tema impostato';
         this.changeThemeText = 'Cambia tema';
-        this.pasteListText.title = "Esporta una lista da un'altra app o dalle note";
+        this.pasteListText.title = "Esporta una lista da altre app";
         this.pasteListText.subtitle = 'Basterà copiarla e incollarla nel riquadro e cliccare su importa';
         this.shareText = 'Condividi';
         this.updateText.description = "Se il pulsante è verde, clicca per aggiornare";
