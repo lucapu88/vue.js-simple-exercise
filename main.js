@@ -3,7 +3,7 @@ const app = new Vue({
     Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
   el: '#app',
   data: {
-    dateLastUpdate: '04/07/2023',
+    dateLastUpdate: '06/07/2023',
     todos: [], //conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     copiedTodo: null,
@@ -106,8 +106,7 @@ const app = new Vue({
     privacyPolicy: false,
     pp: true,
     listPasted: null,
-    isTextareaVisible: false,
-    count: 55,
+    textAreaHeight: 55,
     intervalId: null,
   },
   created() {
@@ -118,13 +117,10 @@ const app = new Vue({
     this.canDelete ? (this.canDeleteText = 'ON') : this.canDeleteText;
 
     this.checkAndSetLanguage(); //setto la lingua in base a quella scelta dall'utente nel suo locale
-
     this.checkingUpdates(); //controllo "aggiornamenti"
     this.merryChristmasTheme(); //se è natale metto gli addobbi e buon natale!
-
     this.setThemeOnLoad(); //imposto il tema in base a quello scelto dall'utente
-  },
-  mounted() {
+
     if (window.localStorage.getItem('todos')) {
       //se si deve prendere un oggetto da salvare in locale
       try {
@@ -137,11 +133,14 @@ const app = new Vue({
     if (!this.addTodoInCategory.condition) { this.todos.map((t) => (t.isSelected = false)); }
     this.changeTodoAdded(this.todos);
   },
+  mounted() {
+    this.toggleButtonBackToTop();
+    this.toggleButtonDeleteSelectedTodo();
+  },
   updated() {
     this.toggleButtonBackToTop();
     this.toggleButtonDeleteSelectedTodo();
   },
-
   methods: {
     merryChristmasTheme() {
       //solo per tutto il mese di natale ci saranno immagini natalizie
@@ -151,11 +150,10 @@ const app = new Vue({
       if (currentDay <= 31 && currentMonth === 12) { this.christmasTheme = true; }
     },
     highlightsForTutorial(num) {
-      //mi serve solo quando creo i video tutorial. In pratica evidenzia il testo per il quale sto mostrando la funzionalità.
-      //this.highlits = num;
-
-      //RICORDATI CHE PER IL TUTORIAL DEVI AVERE IL PULSANTA AGGIORNAMENTI ATTIVO, QUINDI COPIA E INCOLLA QUESTO CODICE NEL CREATE/MOUNTED:
-      /*     window.localStorage.removeItem('lastMonth'); window.localStorage.removeItem('lastYear');     */
+      /*Mi serve solo quando creo i video tutorial. In pratica evidenzia il testo per il quale sto mostrando la funzionalità.
+        RICORDATI CHE PER IL TUTORIAL DEVI AVERE IL PULSANTA AGGIORNAMENTI ATTIVO, QUINDI COPIA E INCOLLA QUESTO CODICE NEL CREATE/MOUNTED:*/
+      // window.localStorage.removeItem('lastMonth'); window.localStorage.removeItem('lastYear');     
+      // this.highlits = num;
     },
     myFilter(n) {
       if (!this.todos[n].class) {
@@ -265,10 +263,9 @@ const app = new Vue({
       this.confirmDeleteModal = false;
       navigator.vibrate(220);
     },
-    changeTodoAdded(arr) {
-      arr.forEach(function (item) {
-        if (item.todoAdded === true) { item.todoAdded = false; }
-      });
+    changeTodoAdded(array) {
+      //mi serve solo per "evidenziare" il bordo con il boxshadow (per n secondi) quando si aggiunge un nuovo todo
+      array.forEach(item => item.todoAdded = false);
     },
     toggleButtonBackToTop() {
       //mostro o nascondo, in base alla lunghezza del display, il pulsante che porta in cima alla lista
@@ -285,9 +282,7 @@ const app = new Vue({
         si suppone che l'elemento aggiunto sia in fondo alla lista e quindi scrollo direttamente verso il fondo per farlo notare*/
       const todoSelected = this.todos.find((t) => t.isSelected === true);
       if (this.buttonBackToTop && !todoSelected) {
-        document
-          .getElementById('container-list')
-          .scrollTo(0, document.body.scrollHeight);
+        document.getElementById('container-list').scrollTo(0, document.body.scrollHeight);
       }
     },
     modifyTodo(n) {
@@ -386,33 +381,25 @@ const app = new Vue({
       location.reload();
     },
     startIncreasing() {
-      this.intervalId = setInterval(() => {
-        if (this.count <= 405) {
-          this.count += 10;
-          this.adjustTextareaHeight();
-        }
-      }, 100);
+      if (this.textAreaHeight <= 405) {
+        this.textAreaHeight += 50;
+        this.adjustTextareaHeight();
+      }
     },
     startDecreasing() {
-      this.intervalId = setInterval(() => {
-        if (this.count >= 55) {
-          this.count -= 10;
-          this.adjustTextareaHeight();
-        }
-      }, 100);
-    },
-    stopIncreasing() {
-      clearInterval(this.intervalId);
-    },
-    stopDecreasing() {
-      clearInterval(this.intervalId);
+      if (this.textAreaHeight >= 56) {
+        this.textAreaHeight -= 50;
+        this.adjustTextareaHeight();
+      }
     },
     adjustTextareaHeight() {
-      document.getElementById('text-area').style.height = `${this.count}px`;
+      document.getElementById('text-area').style.height = `${this.textAreaHeight}px`;
     },
-    resetTextareaStyle() {
-      clearInterval(this.intervalId);
-      this.count = 55;
+    resetTextarea() {
+      if (!document.getElementById('text-area').value) {
+        this.textAreaHeight = 55;
+        this.adjustTextareaHeight();
+      }
     },
     shareLink() {
       const playStoreUrl = 'https://play.google.com/store/apps/details?id=io.kodular.caputoluca88.Shopping_List';
@@ -430,15 +417,10 @@ const app = new Vue({
       this.removeSelectedCategoryToAddItem();
       this.categoryList = !this.categoryList;
       this.isDraggable = false;
-      if (this.categoryList) {
-        setTimeout(() => { this.categoryListChildren = true; }, 400);
-      } else {
-        this.categoryListChildren = false;
-      }
+      this.categoryList ? setTimeout(() => { this.categoryListChildren = true; }, 400) : this.categoryListChildren = false;
     },
     showHelper() {
       this.helper = !this.helper;
-      this.isTextareaVisible = this.helper;
       if (this.helper) {
         window.scrollTo(0, 0);
         document.documentElement.style.overflow = 'hidden';
@@ -447,7 +429,7 @@ const app = new Vue({
         document.documentElement.style.overflow = 'auto';
       }
       this.checkingUpdates();
-      this.resetTextareaStyle();
+      this.resetTextarea();
       this.merryChristmasTheme();
     },
     showListIstructions(section) {

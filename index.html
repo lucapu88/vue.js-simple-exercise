@@ -4,7 +4,7 @@
 <head>
   <!-- NON PRENDETE ESEMPIO DA TUTTA QUESTA MERDA! IL CODICE È TOTALMENTE DA RIFARE, INIZIALMENTE ERA SOLO UN ESERCIZIO MA APPENA HO UN PÒ DI TEMPO FACCIO UN BEL REFACTORING COME SI DEVE, PER IL MOMENTO GODETEVI QUESTO SCHIFO.-->
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <link rel="shortcut icon" href="img/favicon.png" />
   <title>Lista Spesa</title>
   <!-- preload immagini -->
@@ -195,17 +195,14 @@
                 <li class="ml-4">({{pasteListText.subtitle}}):</li>
                 <div class="add-list-copied">
                   <div class="increase-decrease-container">
-                    <button :class="{'rounded': !retroTheme}" @mousedown="startDecreasing()" @mouseup="stopDecreasing()"
-                      @touchstart="startDecreasing()" @touchend="stopDecreasing()" touch-action="none">
+                    <button :class="{'rounded': !retroTheme}" @click="startDecreasing()" touch-action="none">
                       <img class="increase-decrease" src="img/decrease.webp" alt="decrease">
                     </button>
-                    <button :class="{'rounded': !retroTheme}" @mousedown="startIncreasing()" @mouseup="stopIncreasing()"
-                      @touchstart="startIncreasing()" @touchend="stopIncreasing()" touch-action="none">
+                    <button :class="{'rounded': !retroTheme}" @click="startIncreasing()" touch-action="none">
                       <img class="increase-decrease" src="img/increase.webp" alt="increase">
                     </button>
                   </div>
-                  <textarea v-if="isTextareaVisible" id="text-area" :class="{'add-list-textarea': !retroTheme}" rows="2"
-                    v-model=" listPasted">
+                  <textarea id="text-area" :class="{'add-list-textarea': !retroTheme}" rows="2" v-model=" listPasted">
                   </textarea>
                   <button class="btn btn-light border-dark share-update-btn add-list-copied-btn"
                     @click="addListCopied()">
