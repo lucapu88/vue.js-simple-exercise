@@ -3,7 +3,7 @@ const app = new Vue({
     Mi scuso in anticipo ma sono stato obbligato ad inserire tutto in un file per poterlo far funzionare con github pages.*/
   el: '#app',
   data: {
-    dateLastUpdate: '06/07/2023',
+    dateLastUpdate: '--/--/----',
     todos: [], //conterrà gli elementi che noi digitiamo
     newTodo: null, //elemento che scriviamo noi e andrà a riempire l'array
     copiedTodo: null,
@@ -33,6 +33,7 @@ const app = new Vue({
     canDeleteText: 'OFF',
     themeName: 'light',
     settingsTextTitle: 'Settings',
+    safeModeInfo: false,
     safeModeText: {
       title: 'Safe delete mode',
       description: 'it will ask you to confirm the deletion for each single product on the list',
@@ -40,9 +41,10 @@ const app = new Vue({
     },
     chosenThemeText: 'Chosen theme',
     changeThemeText: 'Change theme',
+    pasteListInfo: false,
     pasteListText: {
       title: 'Export a list from other apps',
-      subtitle: 'Just copy and paste it into the box and click import',
+      subtitle: 'Just copy and paste it into the box and click import. N.B.: Separates list items by sending them to a head',
     },
     shareText: 'Share',
     updateText: {
@@ -427,6 +429,8 @@ const app = new Vue({
       } else {
         document.getElementById('helper-description').scrollTo(0, 0);
         document.documentElement.style.overflow = 'auto';
+        this.safeModeInfo = false;
+        this.pasteListInfo = false;
       }
       this.checkingUpdates();
       this.resetTextarea();
@@ -559,7 +563,7 @@ const app = new Vue({
         this.chosenThemeText = 'Tema impostato';
         this.changeThemeText = 'Cambia tema';
         this.pasteListText.title = "Esporta una lista da altre app";
-        this.pasteListText.subtitle = 'Basterà copiarla e incollarla nel riquadro e cliccare su importa';
+        this.pasteListText.subtitle = 'Basterà copiarla e incollarla nel riquadro e cliccare su importa. NB: separa gli elementi della lista mandandoli a capo';
         this.shareText = 'Condividi';
         this.updateText.description = "Se il pulsante è verde, clicca per aggiornare";
         this.updateText.available = 'Aggiornamento disponibile';

@@ -167,8 +167,9 @@
 
             <div id="helper-description">
               <span @click="highlightsForTutorial(1)">&#x2699;</span>
-              <span :class="{'tutorial-highlights': highlits === 1}">{{safeModeText.title}}</span> <br />
-              <li class="ml-4">({{safeModeText.description}}):</li><br />
+              <span :class="{'tutorial-highlights': highlits === 1}">{{safeModeText.title}}</span>
+              <span class="info-icon" @click="safeModeInfo = !safeModeInfo">i</span><br />
+              <li class="ml-4" v-if="safeModeInfo">({{safeModeText.description}})</li>
               <li class="toggle-delete-confirm-container" @click="toggleDeleteConfirm()">
                 <u>{{safeModeText.function}}</u>
                 <div class="toggle-delete-confirm">&#x1F449;</div>
@@ -178,7 +179,7 @@
               <span @click="highlightsForTutorial(2)">&#x2699;</span>
               <span :class="{'tutorial-highlights': highlits === 2}">{{chosenThemeText}}: </span>
               <span class="text-primary">{{themeName}}</span><br />
-              <li class="ml-4">{{changeThemeText}}:</li><br />
+              <li class="ml-4">{{changeThemeText}}</li><br />
               <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                 <button type="button" class="btn btn-light p-1 border border-dark"
                   @click="changeTheme('light')">Light</button>
@@ -192,7 +193,8 @@
               <div class="add-list-copied-container">
                 <span @click="highlightsForTutorial(3)">&#x2699;</span>
                 <span :class="{'tutorial-highlights': highlits === 3}">{{pasteListText.title}}</span>
-                <li class="ml-4">({{pasteListText.subtitle}}):</li>
+                <span class="info-icon" @click="pasteListInfo = !pasteListInfo">i</span><br />
+                <li class="ml-4" v-if="pasteListInfo">({{pasteListText.subtitle}})</li>
                 <div class="add-list-copied">
                   <div class="increase-decrease-container">
                     <button :class="{'rounded': !retroTheme}" @click="startDecreasing()" touch-action="none">
@@ -217,7 +219,7 @@
                 <button class="btn btn-light border-dark share-update-btn" @click="shareLink()">
                   <img src="img/share.webp" alt="share" />
                 </button>
-                <p class="link-copied" v-if="share.visible === true">{{share.text}}</p>
+                <p class="link-copied" v-if="share.visible">{{share.text}}</p>
               </div>
               <div class="share-update">
                 <span @click="highlightsForTutorial(5)">&#x2699;</span>
