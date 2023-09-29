@@ -146,7 +146,6 @@ const app = new Vue({
     this.toggleButtonDeleteSelectedTodo();
   },
   updated() {
-    this.toggleButtonBackToTop();
     this.toggleButtonDeleteSelectedTodo();
   },
   methods: {
@@ -190,6 +189,7 @@ const app = new Vue({
           this.addTodo();
         });
       }
+      this.toggleButtonBackToTop();
     },
     removeOnlyEmpty() {
       const last = this.todos[this.todos.length - 1];
@@ -204,6 +204,7 @@ const app = new Vue({
       this.todos = this.todos.filter((todo) => !todo.classToBedeleted);
       this.saveTodos();
       this.categoryList = false;
+      this.toggleButtonBackToTop();
     },
     addTodo() {
       if (!this.newTodo) { return; } //solo se scrivo qualcosa lo aggiunge
@@ -269,6 +270,7 @@ const app = new Vue({
       this.todos.splice(x, 1);
       this.saveTodos();
       this.confirmDeleteModal = false;
+      this.toggleButtonBackToTop();
       navigator.vibrate(220);
     },
     changeTodoAdded(array) {
@@ -280,7 +282,7 @@ const app = new Vue({
       const list = document.getElementById('todo-list');
       const container = document.getElementById('container-list');
 
-      this.buttonBackToTop = list.offsetHeight > container.offsetHeight - 150;
+      this.buttonBackToTop = list.offsetHeight > container.offsetHeight - 130;
     },
     scrollTop() {
       document.getElementById('container-list').scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -298,6 +300,7 @@ const app = new Vue({
       this.todos[n].modify = !this.todos[n].modify;
       this.copiedTodo = Object.assign({}, this.todos[n]);
       this.removeSelectedCategoryToAddItem();
+      this.toggleButtonBackToTop();
     },
     undoChanges(n) {
       this.todos[n].name = this.copiedTodo.name;
@@ -332,6 +335,7 @@ const app = new Vue({
       this.placeholder = this.defaultPlaceholderText;
       navigator.vibrate(1000);
       this.buttonBackToTop = false;
+      this.toggleButtonBackToTop();
       location.reload();
     },
     copy() {
@@ -503,6 +507,7 @@ const app = new Vue({
       this.todos = this.todos.filter((todo) => !todo.multipleDelete);
       this.isDraggable = false;
       this.saveTodos();
+      this.toggleButtonBackToTop();
       this.confirmDeleteModal = false;
     },
     selectCategoryToAddItem(index, todo) {
