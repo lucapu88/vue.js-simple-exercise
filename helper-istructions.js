@@ -29,6 +29,17 @@ helperIstructionsITA = `
        :class="{'minimal-helper-btn':minimalTheme, 'retro-btn-button': retroTheme}"></i>
       eliminerai roba dalla lista.
     </li>
+    <li v-if="addEditDelete">
+      Con <button class="btn btn-outline-info p-0" style="rotate: 270deg;" :class="{
+                  'minimal-theme-back-top': minimalTheme,
+                  'dark-theme-back-top': darkTheme,
+                  'retro-theme-back-top': retroTheme,
+                  'summer-theme-back-top': summerTheme,
+                  'winter-theme-back-top': winterTheme,
+                }">
+              <span> >> </span>
+            </button> torni in cima alla lista. Funziona quando è molto lunga.
+    </li>
     <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('categoriesInfo')">
       Categorie. 
       <img class="arrow" :class="{
@@ -172,6 +183,17 @@ helperIstructionsENG = `
       With <i class="fas fa-trash-alt btn-primary rounded-circle btn-sm helper-icon" 
       :class="{'minimal-helper-btn':minimalTheme, 'retro-btn-button': retroTheme}"> </i>
       you will remove stuff from the list.
+    </li>
+    <li v-if="addEditDelete">
+      With <button class="btn btn-outline-info p-0" style="rotate: 270deg;" :class="{
+                  'minimal-theme-back-top': minimalTheme,
+                  'dark-theme-back-top': darkTheme,
+                  'retro-theme-back-top': retroTheme,
+                  'summer-theme-back-top': summerTheme,
+                  'winter-theme-back-top': winterTheme,
+                }">
+              <span> >> </span>
+            </button> you returns at the top of the list. It works when it is very long.
     </li>
     <div class="list-title" :class="{'list-title-color': lightTheme || winterTheme, 'list-title-summer': summerTheme, 'list-title-retro': retroTheme}" @click="showListIstructions('categoriesInfo')">
       Categories. 

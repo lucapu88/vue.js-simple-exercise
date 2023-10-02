@@ -539,13 +539,15 @@
               <i class="fas fa-skull-crossbones"></i>
             </button>
             <!-- PULSANTE TORNA IN CIMA -->
-            <button v-if="buttonBackToTop" class="btn btn-outline-info p-1" :class="{
+            <button class="btn btn-outline-info btn-back-to-top" :class="{
                   'christmas': christmasTheme,
+                  'minimal-theme-back-top': minimalTheme,
                   'dark-theme-back-top': darkTheme,
                   'retro-theme-back-top': retroTheme,
+                  'summer-theme-back-top': summerTheme,
                   'winter-theme-back-top': winterTheme,
                 }" @click="scrollTop()">
-              <img class="back-up" src="./img/chevron-up.webp" alt="up" />
+              <span> >> </span>
             </button>
 
             <!-- CAMBIO LINGUA -->

@@ -93,7 +93,6 @@ const app = new Vue({
     addTodoInCategory: { condition: false, id: null },
     langIta: null, //se è false è impostato su inglese
     canDelete: false,
-    buttonBackToTop: false,
     lightTheme: true,
     darkTheme: false,
     minimalTheme: false,
@@ -142,7 +141,6 @@ const app = new Vue({
     this.changeTodoAdded(this.todos);
   },
   mounted() {
-    this.toggleButtonBackToTop();
     this.toggleButtonDeleteSelectedTodo();
   },
   updated() {
@@ -189,7 +187,6 @@ const app = new Vue({
           this.addTodo();
         });
       }
-      this.toggleButtonBackToTop();
     },
     removeOnlyEmpty() {
       const last = this.todos[this.todos.length - 1];
@@ -204,7 +201,6 @@ const app = new Vue({
       this.todos = this.todos.filter((todo) => !todo.classToBedeleted);
       this.saveTodos();
       this.categoryList = false;
-      this.toggleButtonBackToTop();
     },
     addTodo() {
       if (!this.newTodo) { return; } //solo se scrivo qualcosa lo aggiunge
@@ -246,7 +242,6 @@ const app = new Vue({
       this.isDraggable = false;
       this.resetListIstructions();
       this.saveTodos();
-      this.toggleButtonBackToTop();
       this.toggleButtonDeleteSelectedTodo();
       this.resetModify();
     },
@@ -263,35 +258,29 @@ const app = new Vue({
         this.confirmedRemoveTodo(x, todo);
       }
       this.resetListIstructions();
-      this.toggleButtonBackToTop();
       this.toggleButtonDeleteSelectedTodo();
     },
     confirmedRemoveTodo(x, todo) {
       this.todos.splice(x, 1);
       this.saveTodos();
       this.confirmDeleteModal = false;
-      this.toggleButtonBackToTop();
       navigator.vibrate(220);
     },
     changeTodoAdded(array) {
       //mi serve solo per "evidenziare" il bordo con il boxshadow (per n secondi) quando si aggiunge un nuovo todo
       array.forEach(item => item.todoAdded = false);
     },
-    toggleButtonBackToTop() {
-      //mostro o nascondo, in base alla lunghezza del display, il pulsante che porta in cima alla lista
-      const list = document.getElementById('todo-list');
-      const container = document.getElementById('container-list');
-
-      this.buttonBackToTop = list.offsetHeight > container.offsetHeight - 130;
-    },
     scrollTop() {
       document.getElementById('container-list').scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     },
     scrollToBottom() {
-      /*se è visibile il pulsante che scrolla verso l'alto e se non è stata selezionata nessuna categoria, 
+      const list = document.getElementById('todo-list');
+      const container = document.getElementById('container-list');
+      const listIsLong = list.offsetHeight > container.offsetHeight - 130;
+      /*se la lista è lunga al punto che diventa scrollabile e se non è stata selezionata nessuna categoria,
         si suppone che l'elemento aggiunto sia in fondo alla lista e quindi scrollo direttamente verso il fondo per farlo notare*/
       const todoSelected = this.todos.find((t) => t.isSelected === true);
-      if (this.buttonBackToTop && !todoSelected) {
+      if (listIsLong && !todoSelected) {
         document.getElementById('container-list').scrollTo(0, document.body.scrollHeight);
       }
     },
@@ -300,7 +289,6 @@ const app = new Vue({
       this.todos[n].modify = !this.todos[n].modify;
       this.copiedTodo = Object.assign({}, this.todos[n]);
       this.removeSelectedCategoryToAddItem();
-      this.toggleButtonBackToTop();
     },
     undoChanges(n) {
       this.todos[n].name = this.copiedTodo.name;
@@ -334,8 +322,6 @@ const app = new Vue({
       this.categoryList = false;
       this.placeholder = this.defaultPlaceholderText;
       navigator.vibrate(1000);
-      this.buttonBackToTop = false;
-      this.toggleButtonBackToTop();
       location.reload();
     },
     copy() {
@@ -507,7 +493,6 @@ const app = new Vue({
       this.todos = this.todos.filter((todo) => !todo.multipleDelete);
       this.isDraggable = false;
       this.saveTodos();
-      this.toggleButtonBackToTop();
       this.confirmDeleteModal = false;
     },
     selectCategoryToAddItem(index, todo) {
