@@ -212,10 +212,10 @@
                 <li class="ml-4" v-if="pasteListInfo">({{pasteListText.subtitle}})</li>
                 <div class="add-list-copied">
                   <div class="increase-decrease-container">
-                    <button :class="{'rounded': !retroTheme}" @click="startDecreasing()" touch-action="none">
+                    <button :class="{'no-rounded': retroTheme}" @click="startDecreasing()" touch-action="none">
                       <img class="increase-decrease" src="img/decrease.webp" alt="decrease">
                     </button>
-                    <button :class="{'rounded': !retroTheme}" @click="startIncreasing()" touch-action="none">
+                    <button :class="{'no-rounded': retroTheme}" @click="startIncreasing()" touch-action="none">
                       <img class="increase-decrease" src="img/increase.webp" alt="increase">
                     </button>
                   </div>
