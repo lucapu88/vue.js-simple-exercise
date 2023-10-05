@@ -176,6 +176,7 @@
                 <span class="text-primary">{{canDeleteText}}</span>
               </li>
               <br /><br />
+
               <span @click="highlightsForTutorial(2)">&#x2699;</span>
               <span :class="{'tutorial-highlights': highlits === 2}">{{chosenThemeText}}: </span>
               <span class="text-primary">{{themeName}}</span><br />
@@ -190,9 +191,23 @@
                 <button type="button" class="btn winter-theme p-0" @click="changeTheme('winter')">Winter</button>
               </div>
               <br /><br />
+
+              <span @click="highlightsForTutorial(3)">&#x2699;</span>
+              <span :class="{'tutorial-highlights': highlits === 3}">{{autoDeleteEmptyCategoriesText.title}}: </span>
+              <span class="info-icon"
+                @click="autoDeleteEmptyCategoriesInfo = !autoDeleteEmptyCategoriesInfo">i</span><br />
+              <li class="ml-4" v-if="autoDeleteEmptyCategoriesInfo">({{autoDeleteEmptyCategoriesText.description}})
+              </li>
+              <li class="toggle-delete-confirm-container" @click="toggleAutomaticDeleteEmptyCategories()">
+                <u>{{autoDeleteEmptyCategoriesText.function}}</u>
+                <div class="toggle-delete-confirm">&#x1F449;</div>
+                <span class="text-primary">{{canDeleteEmptyCategoriesText}}</span>
+              </li>
+              <br /><br />
+
               <div class="add-list-copied-container">
-                <span @click="highlightsForTutorial(3)">&#x2699;</span>
-                <span :class="{'tutorial-highlights': highlits === 3}">{{pasteListText.title}}</span>
+                <span @click="highlightsForTutorial(4)">&#x2699;</span>
+                <span :class="{'tutorial-highlights': highlits === 4}">{{pasteListText.title}}</span>
                 <span class="info-icon" @click="pasteListInfo = !pasteListInfo">i</span><br />
                 <li class="ml-4" v-if="pasteListInfo">({{pasteListText.subtitle}})</li>
                 <div class="add-list-copied">
@@ -214,16 +229,16 @@
                 </div>
               </div>
               <div class="share-update">
-                <span @click="highlightsForTutorial(4)">&#x2699;</span>
-                <span :class="{'tutorial-highlights': highlits === 4}">{{shareText}}: </span>
+                <span @click="highlightsForTutorial(5)">&#x2699;</span>
+                <span :class="{'tutorial-highlights': highlits === 5}">{{shareText}}: </span>
                 <button class="btn btn-light border-dark share-update-btn" @click="shareLink()">
                   <img src="img/share.webp" alt="share" />
                 </button>
                 <p class="link-copied" v-if="share.visible">{{share.text}}</p>
               </div>
               <div class="share-update">
-                <span @click="highlightsForTutorial(5)">&#x2699;</span>
-                <span :class="{'tutorial-highlights': highlits === 5}">{{updateText.description}}:</span>
+                <span @click="highlightsForTutorial(6)">&#x2699;</span>
+                <span :class="{'tutorial-highlights': highlits === 6}">{{updateText.description}}:</span>
                 <button :disabled="updateText.readyForUpdate" :class="{'ready-for-update': !updateText.readyForUpdate}"
                   class="btn btn-light border-dark ml-1 share-update-btn" @click="updateApp()">
                   <img src="img/update.webp" alt="update" />

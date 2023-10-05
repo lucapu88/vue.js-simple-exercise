@@ -30,7 +30,6 @@ const app = new Vue({
     completeConfirmText: '',
     index: null,
     selectedTodosConfirmText: 'Are you sure you want to delete the selected items',
-    canDeleteText: 'OFF',
     themeName: 'light',
     settingsTextTitle: 'Settings',
     safeModeInfo: false,
@@ -41,6 +40,12 @@ const app = new Vue({
     },
     chosenThemeText: 'Chosen theme',
     changeThemeText: 'Change theme',
+    autoDeleteEmptyCategoriesInfo: false,
+    autoDeleteEmptyCategoriesText: {
+      title: 'Auto delete of empty categories',
+      description: 'Choose whether to delete the categories left empty manually, or have them deleted automatically.',
+      function: 'Click to activate/deactivate',
+    },
     pasteListInfo: false,
     pasteListText: {
       title: 'Export a list from other apps',
@@ -93,6 +98,9 @@ const app = new Vue({
     addTodoInCategory: { condition: false, id: null },
     langIta: null, //se è false è impostato su inglese
     canDelete: false,
+    canDeleteText: 'OFF',
+    canDeleteEmptyCategories: false,
+    canDeleteEmptyCategoriesText: 'OFF',
     lightTheme: true,
     darkTheme: false,
     minimalTheme: false,
@@ -122,6 +130,10 @@ const app = new Vue({
     const canDelete = window.localStorage.getItem('canDelete');
     this.canDelete = canDelete === 'true';
     this.canDelete ? (this.canDeleteText = 'ON') : this.canDeleteText;
+    //setto le impostazioni scelte dall'utente sulla cancellazione automatica categorie
+    const canDeleteAutoCategoriesStorage = window.localStorage.getItem('canDeleteEmptyCategories');
+    this.canDeleteEmptyCategories = canDeleteAutoCategoriesStorage === 'true';
+    this.canDeleteEmptyCategories ? (this.canDeleteEmptyCategoriesText = 'ON') : this.canDeleteEmptyCategoriesText;
 
     this.checkAndSetLanguage(); //setto la lingua in base a quella scelta dall'utente nel suo locale
     this.checkingUpdates(); //controllo "aggiornamenti"
@@ -254,6 +266,8 @@ const app = new Vue({
         this.confirmRemove = true;
         this.deleteSelected = false;
         this.index = x;
+        // se ho impostato l'eliminazione automatica categorie vuote
+        if (this.canDeleteEmptyCategories) { this.removeOnlyEmpty(); }
       } else {
         this.confirmedRemoveTodo(x, todo);
       }
@@ -264,6 +278,8 @@ const app = new Vue({
       this.todos.splice(x, 1);
       this.saveTodos();
       this.confirmDeleteModal = false;
+      // se ho impostato l'eliminazione automatica categorie vuote
+      if (this.canDeleteEmptyCategories) { this.removeOnlyEmpty(); }
       navigator.vibrate(220);
     },
     changeTodoAdded(array) {
@@ -426,6 +442,7 @@ const app = new Vue({
         document.getElementById('helper-description').scrollTo(0, 0);
         document.documentElement.style.overflow = 'auto';
         this.safeModeInfo = false;
+        this.autoDeleteEmptyCategoriesInfo = false;
         this.pasteListInfo = false;
       }
       this.checkingUpdates();
@@ -558,6 +575,9 @@ const app = new Vue({
         this.safeModeText.function = 'Clicca per attivare/disattivare';
         this.chosenThemeText = 'Tema impostato';
         this.changeThemeText = 'Cambia tema';
+        this.autoDeleteEmptyCategoriesText.title = 'Auto eliminazione categorie vuote';
+        this.autoDeleteEmptyCategoriesText.description = 'Scegli se eliminare manualmente le categorie rimaste vuote, oppure che vengano eliminate automaticamente.';
+        this.autoDeleteEmptyCategoriesText.function = 'Clicca per attivare/disattivare';
         this.pasteListText.title = "Esporta una lista da altre app";
         this.pasteListText.subtitle = 'Basterà copiarla e incollarla nel riquadro e cliccare su importa. NB: separa gli elementi della lista mandandoli a capo';
         this.shareText = 'Condividi';
@@ -601,6 +621,16 @@ const app = new Vue({
       } else {
         this.canDeleteText = 'OFF';
         window.localStorage.setItem('canDelete', false);
+      }
+    },
+    toggleAutomaticDeleteEmptyCategories() {
+      this.canDeleteEmptyCategories = !this.canDeleteEmptyCategories;
+      if (this.canDeleteEmptyCategories) {
+        this.canDeleteEmptyCategoriesText = 'ON';
+        window.localStorage.setItem('canDeleteEmptyCategories', true);
+      } else {
+        this.canDeleteEmptyCategoriesText = 'OFF';
+        window.localStorage.setItem('canDeleteEmptyCategories', false);
       }
     },
     setThemeOnLoad() {
