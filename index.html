@@ -212,17 +212,17 @@
                 <li class="ml-4" v-if="pasteListInfo">({{pasteListText.subtitle}})</li>
                 <div class="add-list-copied">
                   <div class="increase-decrease-container">
-                    <button :class="{'no-rounded': retroTheme}" @click="startDecreasing()" touch-action="none">
+                    <button :class="{'retro-btn-border': retroTheme}" @click="startDecreasing()" touch-action="none">
                       <img class="increase-decrease" src="img/decrease.webp" alt="decrease">
                     </button>
-                    <button :class="{'no-rounded': retroTheme}" @click="startIncreasing()" touch-action="none">
+                    <button :class="{'retro-btn-border': retroTheme}" @click="startIncreasing()" touch-action="none">
                       <img class="increase-decrease" src="img/increase.webp" alt="increase">
                     </button>
                   </div>
                   <textarea id="text-area" :class="{'add-list-textarea': !retroTheme}" rows="2" v-model=" listPasted">
                   </textarea>
-                  <button class="btn btn-light border-dark share-update-btn add-list-copied-btn"
-                    @click="addListCopied()">
+                  <button class="btn btn-light share-update-btn add-list-copied-btn"
+                    :class="{'retro-btn-border': retroTheme, 'border-dark': !retroTheme}" @click="addListCopied()">
                     <small v-if="!langIta">Import</small>
                     <small v-else>Importa</small>
                   </button>
@@ -339,7 +339,7 @@
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
                 'minimal-btn': minimalTheme,
-                'retro-insert-all-btn': retroTheme,
+                'retro-btn-border': retroTheme,
                 'summer-btn': summerTheme,
                 'winter-btn': winterTheme,
               }" @click="insertAllCategories()">
@@ -350,7 +350,7 @@
                 'light-btn': lightTheme,
                 'dark-btn': darkTheme,
                 'minimal-btn': minimalTheme,
-                'retro-insert-all-btn': retroTheme,
+                'retro-btn-border': retroTheme,
                 'summer-btn': summerTheme,
                 'winter-btn': winterTheme,
               }" @click="removeOnlyEmpty()">
