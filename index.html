@@ -386,8 +386,8 @@
             </div>
           </div>
 
-          <!-- TODO LIST DRAGGABILE-->
           <ul id="todo-list" class="col-12" :class="{'christmas': christmasTheme, 'winter-shadow': winterTheme}">
+            <!-- TODO LIST DRAGGABILE-->
             <draggable v-if="isDraggable" class="drag-n-drop" id="draggable" v-model="todos"
               @start="drag=true; removeSelectedCategoryToAddItem()" @end="drag=false; saveTodos()">
               <div v-for="(todo, n) in todos" id="draggable-children" class="todo-n" :class="{
@@ -577,7 +577,7 @@
                 @click="setItalianoLanguage()">Ita</button>
             </div>
           </div>
-          <img v-if="christmasTheme" class="christas-footer" src="./img/christmas.webp" alt="" />
+          <img v-if="christmasTheme" class="christmas-footer" src="./img/christmas.webp" alt="" />
           <!-- <small v-if="!christmasTheme" class="created-by-luca-caputo">By Luca Caputo</small> -->
           <small v-if="christmasTheme" class="created-by-luca-caputo">By Luca Caputo</small>
         </div>
