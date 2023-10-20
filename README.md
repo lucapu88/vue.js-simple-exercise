@@ -1,6 +1,6 @@
-# SHOPPING LIST
+# SHOPPING LIST OLD
 
-<p align="center"><img src="img/README-IMG.png" alt="preview" /></p>
+<!-- <p align="center"><img src="img/README-IMG.png" alt="preview" /></p> -->
 
 <a href="https://play.google.com/store/apps/details?id=io.kodular.caputoluca88.Shopping_List" target="_blank">DOWNLOAD FOR ANDROID.</a><br>
 
